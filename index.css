@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.a_header_container {
+    padding: 0px 12% !important;
+  }
+  @media (max-width: 1024px) {
+    .a_header_container {
+      padding: 0px 5% !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .a_header_container {
+      padding: 0px 5% !important;
+    }
+  }
+ 
+ 
