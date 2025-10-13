@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to cart</title>
+    <link rel="stylesheet" href="./css/rushita.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+    <section class="relative bg-cover bg-center py-16 md:py-24"
+        style="background-image: url('./images/checkout.webp');">
+
+
+        <div class="relative z-10 container mx-auto px-4 text-center">
+            <p class="text-teal-600 text-lg font-medium mb-2 italic ">Explore</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Cart</h1>
+
+            <div class="flex items-center justify-center text-gray-700 text-sm space-x-2">
+                <a href="#" class="flex items-center hover:text-teal-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4 mr-1">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75V21h15V9.75" />
+                    </svg>
+                    Home
+                </a>
+                <span>›</span>
+                <span class="text-gray-900 font-semibold">Cart</span>
+            </div>
+        </div>
+    </section>
+      <section class="a_header_container mx-auto  py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 py-10">
+          
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-sm overflow-x-auto">
+                   
+                    <div class="min-w-[600px]">
+                        
+                        <div class="grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b text-sm font-semibold text-gray-700">
+                            <div class="col-span-1"></div>
+                            <div class="col-span-4">Products</div>
+                            <div class="col-span-2 text-center">Price</div>
+                            <div class="col-span-3 text-center">Quantity</div>
+                            <div class="col-span-2 text-right">Subtotal</div>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center">
+                            <div class="col-span-1">
+                                <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer"></i>
+                            </div>
+                            <div class="col-span-4 flex items-center space-x-4">
+                                <img src="https://images.unsplash.com/photo-1599669454699-248893623440?w=100" alt="Gaming Headphone" class="w-16 h-16 object-cover rounded">
+                                <span class="text-sm font-medium text-gray-800">Gaming Headphone</span>
+                            </div>
+                            <div class="col-span-2 text-center">
+                                <span class="text-gray-400 line-through text-sm">$10.00</span>
+                                <span class="text-gray-800 font-semibold ml-2">$85.00</span>
+                            </div>
+                            <div class="col-span-3 flex justify-center">
+                                <div class="flex items-center border border-gray-300 rounded">
+                                    <button class="px-3 py-1 text-gray-600 hover:bg-gray-100">−</button>
+                                    <input type="text" value="1" class="w-12 text-center border-x border-gray-300 py-1 focus:outline-none">
+                                    <button class="px-3 py-1 text-gray-600 hover:bg-gray-100">+</button>
+                                </div>
+                            </div>
+                            <div class="col-span-2 text-right font-semibold text-gray-800">$85.00</div>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-4 px-6 py-6 items-center">
+                            <div class="col-span-1">
+                                <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer"></i>
+                            </div>
+                            <div class="col-span-4 flex items-center space-x-4">
+                                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100" alt="Samsung S21 Ultra" class="w-16 h-16 object-cover rounded">
+                                <span class="text-sm font-medium text-gray-800">Samsung S21 Ultra</span>
+                            </div>
+                            <div class="col-span-2 text-center">
+                                <span class="text-gray-800 font-semibold">$15.00</span>
+                            </div>
+                            <div class="col-span-3 flex justify-center">
+                                <div class="flex items-center border border-gray-300 rounded">
+                                    <button class="px-3 py-1 text-gray-600 hover:bg-gray-100">−</button>
+                                    <input type="text" value="1" class="w-12 text-center border-x border-gray-300 py-1 focus:outline-none">
+                                    <button class="px-3 py-1 text-gray-600 hover:bg-gray-100">+</button>
+                                </div>
+                            </div>
+                            <div class="col-span-2 text-right font-semibold text-gray-800">$15.00</div>
+                        </div>
+
+                        <div class="items-center px-6 py-4 bg-gray-50">
+                            <div class="flex items-center space-x-4">
+                                <input type="text" placeholder="Coupon Code" class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600">
+                                <button class="px-6 py-2 text-white font-medium rounded hover:opacity-90 transition" style="background-color: #02b290;">
+                                    Apply Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <h2 class="text-2xl font-bold text-gray-900 px-6 py-6 border-b">Cart totals</h2>
+                
+                    <div class="flex justify-between items-center px-6 py-5 bg-gray-50 border-b">
+                        <span class="text-gray-900 font-semibold uppercase text-sm">SUBTOTAL</span>
+                        <span class="text-gray-900 font-medium">$70.00</span>
+                    </div>
+
+                    <div class="px-6 py-5 bg-white border-b">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-gray-900 font-semibold uppercase text-sm">SHIPPING</span>
+                            <div class="text-right">
+                                <p class="text-gray-900 font-medium mb-1">Flat rate:<span class="font-bold">$22.00</span></p>
+                                <p class="text-gray-600 text-sm mb-2">Shipping to <span class="font-semibold">CA</span></p>
+                                <a href="#" class="text-gray-900 text-sm underline inline-flex items-center hover:text-green-700">
+                                    Change address
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center px-6 py-5 bg-gray-50">
+                        <span class="text-gray-900 font-bold uppercase text-base">TOTAL</span>
+                        <span class="text-gray-900 font-bold text-lg">$92.00</span>
+                    </div>
+
+                    <div class="px-6 py-6">
+                        <button class="w-full py-4 text-white font-semibold rounded hover:opacity-90 transition" style="background-color: #02b290;">
+                            Proceed to checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>  
+    <div id="footer_add"></div>
+    <script src="./js/rushita.js"></script>
+</body>
+
+</html>
