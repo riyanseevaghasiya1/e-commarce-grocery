@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Grocery Product Details — Tailwind</title>
+	<link rel="stylesheet" href="./css/h_style.css">
+	<link rel="stylesheet" href="./index.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap"
+		rel="stylesheet">
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="inter-font">
+	<div id="header-placeholder"></div>
+
+	<div class="a_header_container">
+		<div class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
+			<!-- Product Section -->
+			<div class="grid md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-6">
+				<!-- Gallery -->
+				<div>
+					<img id="mainImg"
+						src="https://newindiansupermarket.com/cdn/shop/products/APPLE-RED.jpg?v=1739257722&width=1214"
+						alt="Grocery Item" class="w-full h-96 object-cover rounded-xl mb-4" />
+					<div class="flex gap-3 justify-center">
+						<img onclick="swapImage(this)"
+							src="https://img.freepik.com/premium-photo/red-apple-with-water-drops-isolated_55883-7965.jpg?semt=ais_hybrid&w=740&q=80"
+							alt="Thumb 1"
+							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
+						<img onclick="swapImage(this)"
+							src="https://assets.clevelandclinic.org/transform/LargeFeatureImage/cd71f4bd-81d4-45d8-a450-74df78e4477a/Apples-184940975-770x533-1_jpg"
+							alt="Thumb 2"
+							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
+						<img onclick="swapImage(this)"
+							src="https://newindiansupermarket.com/cdn/shop/products/APPLE-RED.jpg?v=1739257722&width=1214"
+							alt="Thumb 3"
+							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
+					</div>
+				</div>
+
+				<!-- Details -->
+				<div class="flex flex-col justify-center">
+					<h1 class="text-2xl font-semibold mb-2">Fresh Organic Apples</h1>
+					<div class="text-[#02b290] text-xl font-bold mb-2">$12.00
+						<span class="line-through text-gray-400 text-lg ml-2">$15.00</span>
+					</div>
+					<p class="text-gray-600 mb-4">Get farm-fresh organic apples directly sourced from certified
+						orchards.
+						Perfectly crisp, juicy, and full of natural flavor — a healthy snack for everyone!</p>
+
+					<div class="flex items-center gap-4 mb-6">
+						<button onclick="decreaseQty()"
+							class="bg-[#02b290] text-white w-8 h-8 rounded-md text-[22px]">-</button>
+						<input id="qty" type="number" value="1" min="1"
+							class="w-16 text-center border border-gray-300 rounded-md py-1" />
+						<button onclick="increaseQty()"
+							class="bg-[#02b290] text-white w-8 h-8 rounded-md text-[22px]">+</button>
+					</div>
+
+					<div class="flex items-center gap-4 mb-6">
+						<h4>Weight :</h4>
+						<div onclick="selectWeight(this)"
+							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option">
+							500g
+						</div>
+						<div onclick="selectWeight(this)"
+							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option bg-[#02b290] text-white">
+							1 Kg
+						</div>
+						<div onclick="selectWeight(this)"
+							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option">
+							2 Kg
+						</div>
+						<div onclick="selectWeight(this)"
+							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option">
+							5 Kg
+						</div>
+					</div>
+
+					<button
+						class="bg-[#02b290] hover:bg-[#028f7a] text-white py-2 text-[18px] rounded-lg font-medium transition mb-3">Add
+						to Cart</button>
+					<button
+						class=" hover:bg-[#02b290] border border-[#02b290] text-[#02b290] hover:text-white py-2 text-[18px] rounded-lg font-medium transition mb-3">Buy
+						Now</button>
+				</div>
+			</div>
+
+			<!-- Product Info -->
+			<div class="mt-10 bg-white rounded-xl shadow-md p-6">
+				<h3 class="text-xl font-semibold text-[#02b290] mb-2">Product Details</h3>
+				<p class="text-gray-700 mb-4">These apples are 100% organic, handpicked, and pesticide-free. Each pack
+					contains approximately 5–6 medium-sized apples. Store in a cool, dry place or refrigerate for
+					freshness.</p>
+
+				<h4 class="text-lg font-semibold text-gray-800 mt-4 mb-2">Nutrition Information (per 100g)</h4>
+				<table class="w-full text-left border border-gray-200 rounded-md">
+					<thead class="bg-gray-100 text-gray-600">
+						<tr>
+							<th class="py-2 px-4 border-b">Nutrient</th>
+							<th class="py-2 px-4 border-b">Value</th>
+						</tr>
+					</thead>
+					<tbody class="text-gray-700">
+						<tr>
+							<td class="py-2 px-4 border-b">Calories</td>
+							<td class="py-2 px-4 border-b">52 kcal</td>
+						</tr>
+						<tr>
+							<td class="py-2 px-4 border-b">Carbohydrates</td>
+							<td class="py-2 px-4 border-b">14g</td>
+						</tr>
+						<tr>
+							<td class="py-2 px-4 border-b">Fiber</td>
+							<td class="py-2 px-4 border-b">2.4g</td>
+						</tr>
+						<tr>
+							<td class="py-2 px-4 border-b">Vitamin C</td>
+							<td class="py-2 px-4 border-b">7%</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- Delivery & Returns -->
+			<div class="mt-10 bg-white rounded-xl shadow-md p-6">
+				<h3 class="text-xl font-semibold text-[#02b290] mb-3">Delivery & Return Policy</h3>
+				<ul class="text-gray-700 list-disc list-inside space-y-2">
+					<li>Orders placed before 2 PM are delivered on the same day.</li>
+					<li>We deliver across major cities in India within 1–2 business days.</li>
+					<li>Returns are accepted within 24 hours of delivery for damaged items.</li>
+					<li>Refunds are processed instantly once the product is verified.</li>
+				</ul>
+			</div>
+
+			<!-- Customer Reviews -->
+			<div class="mt-10 bg-white rounded-xl shadow-md p-6">
+				<h3 class="text-xl font-semibold text-[#02b290] mb-3">Customer Reviews (3)</h3>
+				<div class="space-y-4">
+					<div class="border-b pb-3">
+						<div class="flex justify-between items-center">
+							<h4 class="font-semibold">Neha Patel</h4>
+							<div class="text-yellow-400">★★★★★</div>
+						</div>
+						<p class="text-gray-600">Apples were super fresh and juicy! Definitely ordering again.</p>
+					</div>
+					<div class="border-b pb-3">
+						<div class="flex justify-between items-center">
+							<h4 class="font-semibold">Rohan Mehta</h4>
+							<div class="text-yellow-400">★★★★☆</div>
+						</div>
+						<p class="text-gray-600">Good quality but a bit expensive. Still worth it for organic produce.
+						</p>
+					</div>
+					<div>
+						<div class="flex justify-between items-center">
+							<h4 class="font-semibold">Priya Sharma</h4>
+							<div class="text-yellow-400">★★★★★</div>
+						</div>
+						<p class="text-gray-600">Loved the packaging and the taste. Best organic apples online!</p>
+					</div>
+				</div>
+
+				<!-- Write Review Button -->
+				<button onclick="toggleReviewForm()"
+					class="mt-5 border border-[#02b290] text-[#02b290] hover:bg-[#028f7a] hover:text-white py-2 px-5 rounded-lg font-semibold transition">Write
+					a Review</button>
+
+				<!-- Hidden Review Form -->
+				<div id="reviewForm" class="hidden mt-6 border-t pt-4">
+					<h4 class="text-lg font-semibold text-gray-800 mb-3">Write Your Review</h4>
+					<form class="space-y-4">
+						<div>
+							<label class="block text-sm font-medium mb-1">Name</label>
+							<input type="text" placeholder="Enter your name"
+								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02b290]">
+						</div>
+						<div>
+							<label class="block text-sm font-medium mb-1">Rating</label>
+							<select
+								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02b290]">
+								<option value="">Select Rating</option>
+								<option>★★★★★</option>
+								<option>★★★★☆</option>
+								<option>★★★☆☆</option>
+								<option>★★☆☆☆</option>
+								<option>★☆☆☆☆</option>
+							</select>
+						</div>
+						<div>
+							<label class="block text-sm font-medium mb-1">Your Review</label>
+							<textarea rows="4" placeholder="Write your feedback here..."
+								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02b290]"></textarea>
+						</div>
+						<button type="submit"
+							class="bg-[#02b290] text-white py-2 px-5 rounded-md font-semibold hover:bg-[#028f7a] transition">Submit
+							Review</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer_add"></div>
+
+	<script src="./js/rushita.js"></script>
+
+	<!-- JS -->
+	<script>
+		function selectWeight(el) {
+			// Remove active state from all weight options
+			document.querySelectorAll('.weight-option').forEach(opt => {
+				opt.classList.remove('bg-[#02b290]', 'text-white');
+			});
+
+			// Add active state to clicked one
+			el.classList.add('bg-[#02b290]', 'text-white');
+		}
+
+		// Add "weight-option" class to all divs programmatically
+		document.querySelectorAll('div[onclick="selectWeight(this)"]').forEach(opt => {
+			opt.classList.add('weight-option');
+		});
+	</script>
+	<script>
+		function swapImage(el) {
+			document.getElementById('mainImg').src = el.src;
+		}
+		function increaseQty() {
+			const qty = document.getElementById('qty');
+			qty.value = parseInt(qty.value) + 1;
+		}
+		function decreaseQty() {
+			const qty = document.getElementById('qty');
+			if (qty.value > 1) qty.value = parseInt(qty.value) - 1;
+		}
+
+		function toggleReviewForm() {
+			const form = document.getElementById('reviewForm');
+			form.classList.toggle('hidden');
+			form.classList.add('transition-all', 'duration-300');
+		}
+	</script>
+</body>
+
+</html>
