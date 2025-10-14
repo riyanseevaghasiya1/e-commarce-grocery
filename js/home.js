@@ -1,251 +1,268 @@
-// Initialize all Owl Carousels when document is ready
-$(document).ready(function() {
+// Category Slider Navigation
+function scrollCategories(direction) {
+    const slider = document.getElementById('categorySlider');
+    const scrollAmount = 220;
+    slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+
+// Products Slider Navigation
+function scrollProducts(sliderId, direction) {
+    const slider = document.getElementById(sliderId);
+    const scrollAmount = 270;
+    slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+
+// Quick View Modal Functions
+function openQuickView(button) {
+    const productCard = button.closest('.product-card');
+    const productImage = productCard.querySelector('.product-image').src;
+    const productName = productCard.querySelector('.product-name').textContent;
+    const productPrice = productCard.querySelector('.current-price').textContent;
+
+    document.getElementById('modalProductImage').src = productImage;
+    document.getElementById('modalProductName').textContent = productName;
+    document.getElementById('modalProductPrice').textContent = productPrice;
+    document.getElementById('quantityInput').value = 1;
+
+    document.getElementById('quickViewModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeQuickView() {
+    document.getElementById('quickViewModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Quantity Controls
+function increaseQuantity() {
+    const input = document.getElementById('quantityInput');
+    input.value = parseInt(input.value) + 1;
+}
+
+function decreaseQuantity() {
+    const input = document.getElementById('quantityInput');
+    if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+    }
+}
+
+// Add to Cart Function
+function addToCartFromModal() {
+    const productName = document.getElementById('modalProductName').textContent;
+    const quantity = document.getElementById('quantityInput').value;
+    alert(`Added ${quantity}x "${productName}" to cart!`);
+    closeQuickView();
+}
+
+// Close modal on outside click
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('quickViewModal');
     
-    // Best Sellers Carousel
-    $('.bestsellers-carousel').owlCarousel({
-        loop: true,
-        margin: 20,
-        nav: true,
-        dots: false,
-        navText: ['<span>‹</span>', '<span>›</span>'],
-        responsive: {
-            0: {
-                items: 1,
-                margin: 10
-            },
-            480: {
-                items: 2,
-                margin: 15
-            },
-            768: {
-                items: 3,
-                margin: 20
-            },
-            1024: {
-                items: 4,
-                margin: 20
-            },
-            1280: {
-                items: 5,
-                margin: 20
-            }
-        },
-        autoplay: true,
-        autoplayTimeout: 3000,
-        autoplayHoverPause: true,
-        smartSpeed: 800
-    });
-
-    // Fresh Vegetables Carousel
-    $('.vegetables-carousel').owlCarousel({
-        loop: true,
-        margin: 20,
-        nav: true,
-        dots: false,
-        navText: ['<span>‹</span>', '<span>›</span>'],
-        responsive: {
-            0: {
-                items: 1,
-                margin: 10
-            },
-            480: {
-                items: 2,
-                margin: 15
-            },
-            768: {
-                items: 3,
-                margin: 20
-            },
-            1024: {
-                items: 4,
-                margin: 20
-            },
-            1280: {
-                items: 5,
-                margin: 20
-            }
-        },
-        autoplay: true,
-        autoplayTimeout: 3500,
-        autoplayHoverPause: true,
-        smartSpeed: 800
-    });
-
-    // Chips Collection Carousel
-    $('.chips-carousel').owlCarousel({
-        loop: true,
-        margin: 20,
-        nav: true,
-        dots: false,
-        navText: ['<span>‹</span>', '<span>›</span>'],
-        responsive: {
-            0: {
-                items: 1,
-                margin: 10
-            },
-            480: {
-                items: 2,
-                margin: 15
-            },
-            768: {
-                items: 3,
-                margin: 20
-            },
-            1024: {
-                items: 4,
-                margin: 20
-            },
-            1280: {
-                items: 5,
-                margin: 20
-            }
-        },
-        autoplay: true,
-        autoplayTimeout: 4000,
-        autoplayHoverPause: true,
-        smartSpeed: 800
-    });
-
-    // Cookies & Cakes Carousel
-    $('.cookies-carousel').owlCarousel({
-        loop: true,
-        margin: 20,
-        nav: true,
-        dots: false,
-        navText: ['<span>‹</span>', '<span>›</span>'],
-        responsive: {
-            0: {
-                items: 1,
-                margin: 10
-            },
-            480: {
-                items: 2,
-                margin: 15
-            },
-            768: {
-                items: 3,
-                margin: 20
-            },
-            1024: {
-                items: 4,
-                margin: 20
-            },
-            1280: {
-                items: 5,
-                margin: 20
-            }
-        },
-        autoplay: true,
-        autoplayTimeout: 4500,
-        autoplayHoverPause: true,
-        smartSpeed: 800
-    });
-
-    // Popcorn & Jerky Carousel
-    $('.popcorn-carousel').owlCarousel({
-        loop: true,
-        margin: 20,
-        nav: true,
-        dots: false,
-        navText: ['<span>‹</span>', '<span>›</span>'],
-        responsive: {
-            0: {
-                items: 1,
-                margin: 10
-            },
-            480: {
-                items: 2,
-                margin: 15
-            },
-            768: {
-                items: 3,
-                margin: 20
-            },
-            1024: {
-                items: 4,
-                margin: 20
-            },
-            1280: {
-                items: 5,
-                margin: 20
-            }
-        },
-        autoplay: true,
-        autoplayTimeout: 5000,
-        autoplayHoverPause: true,
-        smartSpeed: 800
-    });
-
-    // Add to Cart Button Click Event
-    $('button.bg-emerald-500').on('click', function(e) {
-        e.preventDefault();
-        
-        // Get product details from the card
-        const productCard = $(this).closest('.bg-white');
-        const productName = productCard.find('.text-sm.text-gray-600').text();
-        const productPrice = productCard.find('.font-bold.text-gray-900').first().text();
-        
-        // Add visual feedback
-        $(this).html('<span class="text-xl">✓</span>');
-        $(this).addClass('!bg-green-600');
-        
-        // Show notification (you can customize this)
-        showNotification('Added to cart: ' + productName + ' - ' + productPrice);
-        
-        // Reset button after 1.5 seconds
-        setTimeout(() => {
-            $(this).html('<span class="text-2xl leading-none">+</span>');
-            $(this).removeClass('!bg-green-600');
-        }, 1500);
-    });
-
-    // Feature Card Click Events
-    $('.bg-amber-50, .bg-blue-50, .bg-emerald-50, .bg-pink-50').on('click', function() {
-        const featureTitle = $(this).find('h3').text();
-        showNotification('Feature clicked: ' + featureTitle);
-    });
-
-    // Collection Card Click Events
-    $('.relative.rounded-2xl.overflow-hidden.group').on('click', function() {
-        const collectionTitle = $(this).find('h3').text();
-        showNotification('Collection selected: ' + collectionTitle);
-    });
-
-    // Smooth Scroll for Internal Links
-    $('a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        const target = $(this.getAttribute('href'));
-        if (target.length) {
-            $('html, body').stop().animate({
-                scrollTop: target.offset().top - 100
-            }, 1000);
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeQuickView();
         }
     });
 
-    // Lazy Loading Images
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('loading');
-                    imageObserver.unobserve(img);
-                }
-            });
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeQuickView();
+        }
+    });
+
+    // Smooth scroll behavior for all sliders
+    const sliders = document.querySelectorAll('.category-slider, .products-slider');
+    
+    sliders.forEach(slider => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
         });
 
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
         });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    });
+
+    // Add to cart functionality for product cards
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const productCard = this.closest('.product-card');
+            const productName = productCard.querySelector('.product-name').textContent;
+            const productPrice = productCard.querySelector('.current-price').textContent;
+            
+            // Add animation effect
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+            
+            // Show notification
+            showNotification(`Added "${productName}" to cart!`);
+        });
+    });
+
+    // Wishlist functionality
+    const wishlistButtons = document.querySelectorAll('.product-actions .action-btn:nth-child(2)');
+    
+    wishlistButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const icon = this.querySelector('i');
+            
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                this.style.color = '#FF6B6B';
+                showNotification('Added to wishlist!');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                this.style.color = '';
+                showNotification('Removed from wishlist!');
+            }
+        });
+    });
+
+    // Category hover effect
+    const categoryItems = document.querySelectorAll('.category-item');
+    
+    categoryItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const categoryName = this.querySelector('.category-name').textContent;
+            showNotification(`Browsing ${categoryName}...`);
+        });
+    });
+
+    // Collection cards click
+    const collectionCards = document.querySelectorAll('.collection-card');
+    
+    collectionCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const title = this.querySelector('.collection-title').textContent;
+            showNotification(`Exploring ${title}...`);
+        });
+    });
+
+    // Feature cards click
+    const featureCards = document.querySelectorAll('.feature-card');
+    
+    featureCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'A') {
+                const link = this.querySelector('.feature-link');
+                if (link) {
+                    link.click();
+                }
+            }
+        });
+    });
+});
+
+// Notification function
+function showNotification(message) {
+    // Remove existing notification if any
+    const existingNotification = document.querySelector('.custom-notification');
+    if (existingNotification) {
+        existingNotification.remove();
     }
 
-    // Add animation on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'custom-notification';
+    notification.textContent = message;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #00B207;
+        color: white;
+        padding: 16px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+        font-weight: 500;
+        font-size: 14px;
+    `;
+    
+    // Add animation styles
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    `;
+    
+    if (!document.querySelector('style[data-notification-styles]')) {
+        style.setAttribute('data-notification-styles', '');
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
 
+// Scroll reveal animation (excluding images)
+function revealOnScroll() {
+    const elements = document.querySelectorAll('.collection-card, .feature-card');
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -253,93 +270,50 @@ $(document).ready(function() {
                 entry.target.style.transform = 'translateY(0)';
             }
         });
-    }, observerOptions);
-
-    document.querySelectorAll('section').forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        observer.observe(section);
+    }, {
+        threshold: 0.1
     });
-
-});
-
-// Notification Function
-function showNotification(message) {
-    // Remove existing notification
-    $('.notification').remove();
     
-    // Create notification element
-    const notification = $('<div>')
-        .addClass('notification')
-        .css({
-            'position': 'fixed',
-            'top': '20px',
-            'right': '20px',
-            'background': '#10b981',
-            'color': 'white',
-            'padding': '16px 24px',
-            'border-radius': '12px',
-            'box-shadow': '0 10px 25px rgba(0, 0, 0, 0.2)',
-            'z-index': '9999',
-            'animation': 'slideInRight 0.3s ease-out',
-            'font-weight': '500',
-            'max-width': '300px'
-        })
-        .text(message);
-    
-    // Add animation
-    $('body').append(notification);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        notification.css('animation', 'slideOutRight 0.3s ease-out');
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 3000);
+    elements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(element);
+    });
 }
 
-// Add CSS animations dynamically
-$('head').append(`
-    <style>
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
+// Initialize scroll reveal
+document.addEventListener('DOMContentLoaded', revealOnScroll);
+
+// Prevent default behavior for demo links
+document.addEventListener('DOMContentLoaded', function() {
+    const quantityInput = document.getElementById('quantityInput');
+    
+    if (quantityInput) {
+        quantityInput.addEventListener('input', function() {
+            if (this.value < 1) {
+                this.value = 1;
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+            if (this.value > 99) {
+                this.value = 99;
             }
-        }
+        });
         
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
+        quantityInput.addEventListener('blur', function() {
+            if (this.value === '' || isNaN(this.value)) {
+                this.value = 1;
             }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    </style>
-`);
-
-// Handle window resize
-let resizeTimer;
-$(window).on('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-        // Refresh carousels on resize
-        $('.owl-carousel').trigger('refresh.owl.carousel');
-    }, 250);
+        });
+    }
 });
 
-// Prevent drag on images
-$('img').on('dragstart', function(e) {
-    e.preventDefault();
+// Prevent default behavior for demo links
+document.addEventListener('DOMContentLoaded', function() {
+    const demoLinks = document.querySelectorAll('a[href="#"]');
+    
+    demoLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+        });
+    });
 });
-
-console.log('🛒 Grocery Store initialized successfully!');

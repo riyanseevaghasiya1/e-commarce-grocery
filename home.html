@@ -3,560 +3,819 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organic Grocery Store</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    
-    <!-- Custom CSS -->
+    <title>Grocery Store - Free Delivery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/home.css">
 </head>
-<body class="bg-gray-50">
-    
-    <!-- Hero Section -->
-    <section class="container mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Grocery Store Banner -->
-            <div class="relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-8 md:p-12 overflow-hidden">
-                <div class="relative z-10">
-                    <p class="text-xs md:text-sm text-gray-600 uppercase tracking-wide mb-2">GROCERY STORE</p>
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">Free Delivery<br>from your area</h1>
-                    <p class="text-gray-600 mb-6 text-sm md:text-base">Get ready for spring as soon as<br>today with $0 delivery fees.</p>
-                    <button class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium transition">Explore More</button>
-                </div>
-                <div class="absolute right-0 bottom-0 w-2/3 h-full">
-                    <img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=500" alt="Vegetables" class="absolute right-0 bottom-0 w-full h-full object-contain">
+<body>
+    <div class="a_header_container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-card" style="background-image: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800');">
+                <div class="hero-content">
+                    <p class="hero-label">GROCERY STORE</p>
+                    <h1 class="hero-title">Free Delivery from your area</h1>
+                    <p class="hero-description">Get ready for spring as soon as today with $0 delivery fees.</p>
+                    <button class="hero-btn">Explore More</button>
                 </div>
             </div>
-
-            <!-- Breakfast Food Banner -->
-            <div class="relative bg-gradient-to-br from-pink-50 to-pink-100 rounded-3xl p-8 md:p-12 overflow-hidden">
-                <div class="relative z-10">
-                    <p class="text-xs md:text-sm text-gray-600 uppercase tracking-wide mb-2">BREAKFAST FOOD</p>
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">Fresh Healthy<br>breakfast food</h1>
-                    <p class="text-gray-600 mb-6 text-sm md:text-base">Get ready for spring as soon as<br>today with $0 delivery fees.</p>
-                    <button class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium transition">Explore More</button>
+            <div class="hero-card" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800');">
+                <div class="hero-content">
+                    <p class="hero-label">BREAKFAST FOOD</p>
+                    <h1 class="hero-title">Fresh Healthy breakfast food</h1>
+                    <p class="hero-description">Get ready for spring as soon as today with $0 delivery fees.</p>
+                    <button class="hero-btn">Explore More</button>
                 </div>
-                <div class="absolute right-0 top-0 w-2/3 h-full">
-                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500" alt="Breakfast" class="absolute right-0 top-0 w-full h-full object-contain">
+            </div>
+        </section>
+
+        <!-- Feature Cards -->
+        <section class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3 class="feature-title">Refer friends & get 10% Discount on all item.</h3>
+                <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3 class="feature-title">Fastest delivery system that we ever built.</h3>
+                <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3 class="feature-title">Join inner cycle to help us improve our system.</h3>
+                <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3 class="feature-title">Share your thoughts with us and get prize.</h3>
+                <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <!-- Category Slider -->
+        <section class="category-slider-container">
+            <div class="section-header">
+                <h2 class="section-title">Shop by Categories</h2>
+            </div>
+            <button class="slider-nav prev" onclick="scrollCategories(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="category-slider" id="categorySlider">
+                <div class="category-item">
+                    <div class="category-icon">🥬</div>
+                    <h4 class="category-name">Fresh Vegetables</h4>
+                    <p class="category-count">165 Products</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🍎</div>
+                    <h4 class="category-name">Fresh Fruits</h4>
+                    <p class="category-count">137 Products</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🥩</div>
+                    <h4 class="category-name">Meat & Fish</h4>
+                    <p class="category-count">34 Products</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🍪</div>
+                    <h4 class="category-name">Snacks</h4>
+                    <p class="category-count">155 Products</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🥤</div>
+                    <h4 class="category-name">Beverages</h4>
+                    <p class="category-count">48 Products</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🍞</div>
+                    <h4 class="category-name">Bakery</h4>
+                    <p class="category-count">92 Products</p>
+                </div>
+            </div>
+            <button class="slider-nav next" onclick="scrollCategories(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </section>
+
+        <!-- Best Sellers -->
+        <section class="products-slider-container">
+            <div class="section-header">
+                <h2 class="section-title">Best Sellers in Your Area</h2>
+            </div>
+            <button class="slider-nav prev" onclick="scrollProducts('bestSellers', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="products-slider" id="bestSellers">
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Product" class="product-image" loading="eager">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Farm Fresh White Lettuce</h4>
+                        <div class="product-price">
+                            <span class="current-price">$3.50</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge sale">Sale 50%</span>
+                        <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Organic Spring Mix</h4>
+                        <div class="product-price">
+                            <span class="current-price">$35.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Organic Green Cabbage</h4>
+                        <div class="product-price">
+                            <span class="current-price">$3.50</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge">On Sale</span>
+                        <img src="https://images.unsplash.com/photo-1622205313162-be1d5712a43f?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Fresh Green Leaf Lettuce</h4>
+                        <div class="product-price">
+                            <span class="current-price">$2.25</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Leafy Romaine Mixed Lettuce</h4>
+                        <div class="product-price">
+                            <span class="current-price">$3.10</span>
+                            <span class="old-price">$7.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-nav next" onclick="scrollProducts('bestSellers', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </section>
+
+        <!-- Fresh Vegetables -->
+        <section class="products-slider-container">
+            <div class="section-header">
+                <h2 class="section-title">Fresh Vegetables</h2>
+            </div>
+            <button class="slider-nav prev" onclick="scrollProducts('freshVeg', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="products-slider" id="freshVeg">
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Packed Green Beans</h4>
+                        <div class="product-price">
+                            <span class="current-price">$11.50</span>
+                            <span class="old-price">$18.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Organic Green Cabbage</h4>
+                        <div class="product-price">
+                            <span class="current-price">$3.50</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge">On Sale</span>
+                        <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Gourmet Garden Lightly Dried Cilantro</h4>
+                        <div class="product-price">
+                            <span class="current-price">$2.80</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Fresh Cilantro</h4>
+                        <div class="product-price">
+                            <span class="current-price">$3.50</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1608628812044-d7a5aac18211?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Organic Broccoli</h4>
+                        <div class="product-price">
+                            <span class="current-price">$7.50</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-nav next" onclick="scrollProducts('freshVeg', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </section>
+
+        <!-- Chips Collection -->
+        <section class="products-slider-container">
+            <div class="section-header">
+                <h2 class="section-title">Chips Collection</h2>
+            </div>
+            <button class="slider-nav prev" onclick="scrollProducts('chips', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="products-slider" id="chips">
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge">On Sale</span>
+                        <img src="https://images.unsplash.com/photo-1600952841320-db92ec4047ca?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Terra Bake Shop Cookies</h4>
+                        <div class="product-price">
+                            <span class="current-price">$15.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge">Best 5%</span>
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Oreo Chocolate Sandwich Biscuits</h4>
+                        <div class="product-price">
+                            <span class="current-price">$32.00</span>
+                            <span class="old-price">$52.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge">Best 5%</span>
+                        <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Frito Peps Sold Mix Family Size</h4>
+                        <div class="product-price">
+                            <span class="current-price">$55.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge sale">Best 15%</span>
+                        <img src="https://images.unsplash.com/photo-1600490036275-81eb9c91d3e6?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Party Size Cheddar & Sour Cream Chips</h4>
+                        <div class="product-price">
+                            <span class="current-price">$32.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1613919113640-25732ec5e61f?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Peps Kettle cooked Potato Chips</h4>
+                        <div class="product-price">
+                            <span class="current-price">$6.00</span>
+                            <span class="old-price">$12.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-nav next" onclick="scrollProducts('chips', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </section>
+
+        <!-- Curated Collections -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Curated Collections</h2>
+            </div>
+            <div class="collections-grid">
+                <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1546171753-97d7676e4602?w=500');">
+                    <div class="collection-overlay">
+                        <h3 class="collection-title">Feel the thirsty in Summer anytime</h3>
+                        <p class="collection-description">Your body's way of telling you unapologetically</p>
+                    </div>
+                </div>
+                <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500');">
+                    <div class="collection-overlay">
+                        <h3 class="collection-title">Most popular item for Fast food</h3>
+                        <p class="collection-description">Tasty and spicy fast food with different flavors.</p>
+                    </div>
+                </div>
+                <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=500');">
+                    <div class="collection-overlay">
+                        <h3 class="collection-title">Authentic Japanese food in real taste</h3>
+                        <p class="collection-description">Your body's way of telling you that it's snack o'clock</p>
+                    </div>
+                </div>
+                <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500');">
+                    <div class="collection-overlay">
+                        <h3 class="collection-title">Explore our Family of Freshpet® Foods</h3>
+                        <p class="collection-description">Your best way of tasting you that it's make use.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cookies & Cakes -->
+        <section class="products-slider-container">
+            <div class="section-header">
+                <h2 class="section-title">Cookies & Cakes</h2>
+            </div>
+            <button class="slider-nav prev" onclick="scrollProducts('cookies', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="products-slider" id="cookies">
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Just Desserts Special Chocolate Cake</h4>
+                        <div class="product-price">
+                            <span class="current-price">$4.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge">Save 4.0</span>
+                        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Chocolate Chip Cookie</h4>
+                        <div class="product-price">
+                            <span class="current-price">$2.50</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Patna Baked Shop Almond Cookies</h4>
+                        <div class="product-price">
+                            <span class="current-price">$18.00</span>
+                            <span class="old-price">$26.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Chobaini Greek Cookies & Cream</h4>
+                        <div class="product-price">
+                            <span class="current-price">$15.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <span class="product-badge">Save 30%</span>
+                        <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=300" alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Pepperige Chocolate Sponge Cake</h4>
+                        <div class="product-price">
+                            <span class="current-price">$12.00</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-nav next" onclick="scrollProducts('cookies', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </section>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal" id="quickViewModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeQuickView()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <div class="modal-image-section">
+                    <img id="modalProductImage" src="" alt="Product" class="modal-product-image">
+                </div>
+                <div class="modal-info-section">
+                    <h2 id="modalProductName">Product Name</h2>
+                    <div class="modal-price" id="modalProductPrice">$0.00</div>
+                    <div class="product-rating" style="margin-bottom: 20px;">
+                        <span class="stars">★★★★★</span>
+                        <span style="margin-left: 8px; color: var(--gray-text);">(524 Reviews)</span>
+                    </div>
+                    <p class="modal-description">
+                        Fresh and organic product delivered right to your doorstep. 
+                        Our products are carefully selected to ensure the highest quality 
+                        and freshness. Perfect for healthy meals and snacks.
+                    </p>
+                    <div class="quantity-selector">
+                        <span style="font-weight: 600;">Quantity:</span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                            <input type="number" class="quantity-input" id="quantityInput" value="1" min="1">
+                            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        </div>
+                    </div>
+                    <button class="modal-add-to-cart" onclick="addToCartFromModal()">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </button>
+                    <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+                        <p style="font-size: 14px; color: var(--gray-text); margin-bottom: 8px;">
+                            <strong>Category:</strong> Fresh Vegetables
+                        </p>
+                        <p style="font-size: 14px; color: var(--gray-text);">
+                            <strong>SKU:</strong> FV-001234
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Features Section -->
-    <section class="container mx-auto px-4 py-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Feature 1 -->
-            <div class="bg-amber-50 rounded-2xl p-6 flex items-center gap-4">
-                <div class="bg-white rounded-full p-3 flex-shrink-0">
-                    <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-bold text-gray-900 text-sm md:text-base">Refer friends & get 10%</h3>
-                    <p class="text-xs text-gray-600">Discount on all item.</p>
-                    <a href="#" class="text-xs text-emerald-600 font-medium hover:underline">LEARN MORE →</a>
-                </div>
-            </div>
-
-            <!-- Feature 2 -->
-            <div class="bg-blue-50 rounded-2xl p-6 flex items-center gap-4">
-                <div class="bg-white rounded-full p-3 flex-shrink-0">
-                    <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-bold text-gray-900 text-sm md:text-base">Fastest delivery system</h3>
-                    <p class="text-xs text-gray-600">that we ever built.</p>
-                    <a href="#" class="text-xs text-emerald-600 font-medium hover:underline">LEARN MORE →</a>
-                </div>
-            </div>
-
-            <!-- Feature 3 -->
-            <div class="bg-emerald-50 rounded-2xl p-6 flex items-center gap-4">
-                <div class="bg-white rounded-full p-3 flex-shrink-0">
-                    <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-bold text-gray-900 text-sm md:text-base">Join inner cycle to help</h3>
-                    <p class="text-xs text-gray-600">us improve our system.</p>
-                    <a href="#" class="text-xs text-emerald-600 font-medium hover:underline">LEARN MORE →</a>
-                </div>
-            </div>
-
-            <!-- Feature 4 -->
-            <div class="bg-pink-50 rounded-2xl p-6 flex items-center gap-4">
-                <div class="bg-white rounded-full p-3 flex-shrink-0">
-                    <svg class="w-8 h-8 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-bold text-gray-900 text-sm md:text-base">Share your thoughts with us</h3>
-                    <p class="text-xs text-gray-600">and get prize.</p>
-                    <a href="#" class="text-xs text-emerald-600 font-medium hover:underline">LEARN MORE →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Best Sellers Section -->
-    <section class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Best Sellers in Your Area</h2>
-        <div class="owl-carousel owl-theme bestsellers-carousel">
-            <!-- Product 1 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1622127384422-33d0e87dca1e?w=300" alt="Lettuce" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$3.50</p>
-                    <p class="text-sm text-gray-600">Farm Fresh White Lettuce</p>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1590165482129-1b8b27698780?w=300" alt="Spring Mix" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$35.00</p>
-                    <p class="text-sm text-gray-600">Organic Spring Mix</p>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1594282539496-d31c4d0bdc1e?w=300" alt="Cabbage" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$3.50</p>
-                    <p class="text-sm text-gray-600">Organic Green Cabbage</p>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">Best Sale</span>
-                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Lettuce" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$2.25</p>
-                    <p class="text-sm text-gray-600">Fresh Green Leaf Lettuce</p>
-                </div>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">On Sale</span>
-                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Romaine" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$3.10 - $7.00</p>
-                    <p class="text-sm text-gray-600">Leafy Romaine Mixed Lettuce</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Fresh Vegetables Section -->
-    <section class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Fresh Vegetables</h2>
-        <div class="owl-carousel owl-theme vegetables-carousel">
-            <!-- Vegetable 1 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1628773822503-930a7eaab0d7?w=300" alt="Green Beans" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$11.50 - $18.00</p>
-                    <p class="text-sm text-gray-600">Packed Green Beans</p>
-                </div>
-            </div>
-
-            <!-- Vegetable 2 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1594282539496-d31c4d0bdc1e?w=300" alt="Cabbage" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$3.50</p>
-                    <p class="text-sm text-gray-600">Organic Green Cabbage</p>
-                </div>
-            </div>
-
-            <!-- Vegetable 3 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">On Sale</span>
-                        <img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=300" alt="Cilantro" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$2.80</p>
-                    <p class="text-sm text-gray-600">Gourmet Garden Lightly Dried Cilantro</p>
-                </div>
-            </div>
-
-            <!-- Vegetable 4 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Cilantro" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$3.50</p>
-                    <p class="text-sm text-gray-600">Fresh Cilantro</p>
-                </div>
-            </div>
-
-            <!-- Vegetable 5 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Broccoli" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$7.50</p>
-                    <p class="text-sm text-gray-600">Organic Broccoli</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Chips Collection Section -->
-    <section class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Chips Collection</h2>
-        <div class="owl-carousel owl-theme chips-carousel">
-            <!-- Chip 1 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">On Sale</span>
-                        <img src="https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300" alt="Cookies" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$15.00</p>
-                    <p class="text-sm text-gray-600">Terra Bake Shop Cookies</p>
-                </div>
-            </div>
-
-            <!-- Chip 2 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">Save 10%</span>
-                        <img src="https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=300" alt="Biscuits" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$32.00 - $52.00</p>
-                    <p class="text-sm text-gray-600">Corin Chocolate Sandwich Biscuits</p>
-                </div>
-            </div>
-
-            <!-- Chip 3 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">Save 15%</span>
-                        <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=300" alt="Family Size" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-gray-500 text-sm line-through">$69.99</p>
-                    <p class="text-lg font-bold text-gray-900">$55.00</p>
-                    <p class="text-sm text-gray-600">Frito Lays Bold Mix Family Size</p>
-                </div>
-            </div>
-
-            <!-- Chip 4 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">Save 20%</span>
-                        <img src="https://images.unsplash.com/photo-1600952841320-db92ec4047ca?w=300" alt="Chips" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-gray-500 text-sm line-through">$40.00</p>
-                    <p class="text-lg font-bold text-gray-900">$32.00</p>
-                    <p class="text-sm text-gray-600">Party Size Cheddar & Sour Cream Chips</p>
-                </div>
-            </div>
-
-            <!-- Chip 5 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1600952841320-db92ec4047ca?w=300" alt="Potato Chips" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$6.00 - $12.00</p>
-                    <p class="text-sm text-gray-600">Poys Kettle cooked Potato Chips</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Curated Collections Section -->
-    <section class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Curated Collections</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Collection 1 -->
-            <div class="relative rounded-2xl overflow-hidden group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1546548970-71785318a17b?w=500" alt="Summer Drinks" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 class="text-xl font-bold mb-2">Feel the thirsty in Summer anytime</h3>
-                    <p class="text-sm opacity-90">Your body's way of telling you it needs water.</p>
-                </div>
-            </div>
-
-            <!-- Collection 2 -->
-            <div class="relative rounded-2xl overflow-hidden group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=500" alt="Fast Food" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 class="text-xl font-bold mb-2">Most popular item for Fast food</h3>
-                    <p class="text-sm opacity-90">Tasty and spicy fast food with different flavors.</p>
-                </div>
-            </div>
-
-            <!-- Collection 3 -->
-            <div class="relative rounded-2xl overflow-hidden group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=500" alt="Japanese Food" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 class="text-xl font-bold mb-2">Authentic Japanese food in real taste</h3>
-                    <p class="text-sm opacity-90">Your body's way of telling you that it's made simply.</p>
-                </div>
-            </div>
-
-            <!-- Collection 4 -->
-            <div class="relative rounded-2xl overflow-hidden group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500" alt="Breakfast Foods" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 class="text-xl font-bold mb-2">Explore our Family of Freshest Foods</h3>
-                    <p class="text-sm opacity-90">Now you're way of taking your meal it's made simple.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cookies & Cakes Section -->
-    <section class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Cookies & Cakes</h2>
-        <div class="owl-carousel owl-theme cookies-carousel">
-            <!-- Cookie 1 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300" alt="Chocolate Cake" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$4.00</p>
-                    <p class="text-sm text-gray-600">Just Desserts Special Chocolate Cake</p>
-                </div>
-            </div>
-
-            <!-- Cookie 2 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">Save 64%</span>
-                        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300" alt="Cookies" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-gray-500 text-sm line-through">$6.99</p>
-                    <p class="text-lg font-bold text-gray-900">$2.50</p>
-                    <p class="text-sm text-gray-600">Chocolate Chip Cookie</p>
-                </div>
-            </div>
-
-            <!-- Cookie 3 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300" alt="Almond Cookies" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$18.00 - $26.00</p>
-                    <p class="text-sm text-gray-600">Patas Baked Shop Almond Cookies</p>
-                </div>
-            </div>
-
-            <!-- Cookie 4 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300" alt="Greek Cookies" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$15.00</p>
-                    <p class="text-sm text-gray-600">Chobani Greek Cookies & Cream</p>
-                </div>
-            </div>
-
-            <!-- Cookie 5 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">Save 20%</span>
-                        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=300" alt="Sponge Cake" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-gray-500 text-sm line-through">$15.00</p>
-                    <p class="text-lg font-bold text-gray-900">$12.00</p>
-                    <p class="text-sm text-gray-600">Pepperidge Chocolate Sponge Cake</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Popcorn & Jerky Section -->
-    <section class="container mx-auto px-4 py-8 mb-12">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Popcorn & Jerky</h2>
-        <div class="owl-carousel owl-theme popcorn-carousel">
-            <!-- Popcorn 1 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=300" alt="Butter Popcorn" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$40.00</p>
-                    <p class="text-sm text-gray-600">Organics Butter Popcorn Family Size</p>
-                </div>
-            </div>
-
-            <!-- Popcorn 2 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?w=300" alt="Yellow Kernels" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$25.00</p>
-                    <p class="text-sm text-gray-600">Signature Select Yellow Kernels Family Size</p>
-                </div>
-            </div>
-
-            <!-- Popcorn 3 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=300" alt="Sour Popcorn" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$8.00</p>
-                    <p class="text-sm text-gray-600">Popped Sour Popcorn</p>
-                </div>
-            </div>
-
-            <!-- Popcorn 4 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">Save 15%</span>
-                        <img src="https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=300" alt="Sweet Butter Corn" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-gray-500 text-sm line-through">$47.00</p>
-                    <p class="text-lg font-bold text-gray-900">$40.00</p>
-                    <p class="text-sm text-gray-600">Orville Sweet Butter Corn Family Size</p>
-                </div>
-            </div>
-
-            <!-- Popcorn 5 -->
-            <div class="item">
-                <div class="bg-white rounded-2xl p-6 hover:shadow-lg transition">
-                    <div class="relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=300" alt="Theater Popcorn" class="w-full h-40 object-contain">
-                        <button class="absolute bottom-2 right-2 bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
-                            <span class="text-2xl leading-none">+</span>
-                        </button>
-                    </div>
-                    <p class="text-lg font-bold text-gray-900">$60.00</p>
-                    <p class="text-sm text-gray-600">Pop Theater Butter Popcorn Family Size</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    <!-- Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    
-    <!-- Custom JS -->
     <script src="./js/home.js"></script>
 </body>
 </html>
