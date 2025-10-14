@@ -1,183 +1,472 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BoroBazar - Login System</title>
-    <link rel="stylesheet" href="./css/login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <div class="auth-container">
-        <!-- Left Section with Image -->
-        <div class="left-section">
-            <img src="../images/loginimage.png" alt="Fresh vegetables and meat">
-        </div>
-
-        <!-- Right Section with Forms -->
-        <div class="right-section">
-            <div class="form-container">
-                <!-- Logo -->
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-shopping-bag"></i>
-                    </div>
-                    <span class="logo-text">BoroBazar</span>
+<<'PATCH'
+*** Begin Patch
+*** Update File: d:\Riyansee\e-commarce-grocery\home.html
+@@
+-    <!-- REUSABLE SLIDER SECTION (Best Sellers) -->
++    <!-- REUSABLE SLIDER SECTION (Best Sellers) -->
+     <section class="mb-8">
+       <div class="flex items-center justify-between mb-4">
+         <h3 class="text-lg font-semibold">Best Sellers In Your Area</h3>
+         <div class="flex items-center gap-2">
+           <button data-prev="best" class="slider-btn prev inline-flex items-center justify-center w-9 h-9 rounded-full border">‹</button>
+           <button data-next="best" class="slider-btn next inline-flex items-center justify-center w-9 h-9 rounded-full border">›</button>
+         </div>
+       </div>
+@@
+       </div>
+     </section>
++
++    <!-- Fresh Vegetables Slider -->
++    <section class="mb-8">
++      <div class="flex items-center justify-between mb-4">
++        <h3 class="text-lg font-semibold">Fresh Vegetables</h3>
++        <div class="flex items-center gap-2">
++          <button data-prev="veg" class="slider-btn prev inline-flex items-center justify-center w-9 h-9 rounded-full border">‹</button>
++          <button data-next="veg" class="slider-btn next inline-flex items-center justify-center w-9 h-9 rounded-full border">›</button>
++        </div>
++      </div>
++
++      <div class="slider" data-slider="veg">
++        <div class="slider-track">
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&w=600&q=60" alt="Spring Mix" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Organic Spring Mix","price":"$35.00","image":"https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Organic Spring Mix</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$35.00</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=600&q=60" alt="Lettuce" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Fresh Green Leaf Lettuce","price":"$2.25","image":"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Fresh Green Leaf Lettuce</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$2.25</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1547516508-4b762b3b64f3?auto=format&fit=crop&w=600&q=60" alt="Lettuce" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Firm Fresh White Lettuce","price":"$3.50","image":"https://images.unsplash.com/photo-1547516508-4b762b3b64f3?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Firm Fresh White Lettuce</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$3.50</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++        </div>
++      </div>
++    </section>
++
++    <!-- Chips Collection Slider -->
++    <section class="mb-8">
++      <div class="flex items-center justify-between mb-4">
++        <h3 class="text-lg font-semibold">Chips Collection</h3>
++        <div class="flex items-center gap-2">
++          <button data-prev="chips" class="slider-btn prev inline-flex items-center justify-center w-9 h-9 rounded-full border">‹</button>
++          <button data-next="chips" class="slider-btn next inline-flex items-center justify-center w-9 h-9 rounded-full border">›</button>
++        </div>
++      </div>
++
++      <div class="slider" data-slider="chips">
++        <div class="slider-track">
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1585238342028-4bbc1f04a8d7?auto=format&fit=crop&w=600&q=60" alt="Chips 1" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Tasty Bake Shop Cookies","price":"$15.00","image":"https://images.unsplash.com/photo-1585238342028-4bbc1f04a8d7?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Tasty Bake Shop Cookies</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$15.00</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1590080875509-733fd24d92a9?auto=format&fit=crop&w=600&q=60" alt="Chips 2" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Cheddar & Sour Cream Chips","price":"$32.00","image":"https://images.unsplash.com/photo-1590080875509-733fd24d92a9?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Cheddar & Sour Cream Chips</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$32.00</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1604908554009-9e8f8c2fb176?auto=format&fit=crop&w=600&q=60" alt="Chips 3" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Bold Mix Family Size","price":"$55.00","image":"https://images.unsplash.com/photo-1604908554009-9e8f8c2fb176?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Bold Mix Family Size</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$55.00</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++        </div>
++      </div>
++    </section>
+@@
+     </section>
++
++    <!-- Cookies & Cakes Slider -->
++    <section class="mb-8">
++      <div class="flex items-center justify-between mb-4">
++        <h3 class="text-lg font-semibold">Cookies & Cakes</h3>
++        <div class="flex items-center gap-2">
++          <button data-prev="cookies" class="slider-btn prev inline-flex items-center justify-center w-9 h-9 rounded-full border">‹</button>
++          <button data-next="cookies" class="slider-btn next inline-flex items-center justify-center w-9 h-9 rounded-full border">›</button>
++        </div>
++      </div>
++      <div class="slider" data-slider="cookies">
++        <div class="slider-track">
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1541782814453-5bf75f06d8a0?auto=format&fit=crop&w=600&q=60" alt="Chocolate Cake" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Chocolate Cake","price":"$4.00","image":"https://images.unsplash.com/photo-1541782814453-5bf75f06d8a0?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Just Desserts Special Chocolate Cake</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$4.00</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1509043759401-136742328bb3?auto=format&fit=crop&w=600&q=60" alt="Cookies" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Chocolate Chip Cookie","price":"$2.50","image":"https://images.unsplash.com/photo-1509043759401-136742328bb3?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Chocolate Chip Cookie</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$2.50</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++        </div>
++      </div>
++    </section>
++
++    <!-- Popcorn & Jerky Slider -->
++    <section class="mb-10">
++      <div class="flex items-center justify-between mb-4">
++        <h3 class="text-lg font-semibold">Popcorn & Jerky</h3>
++        <div class="flex items-center gap-2">
++          <button data-prev="popcorn" class="slider-btn prev inline-flex items-center justify-center w-9 h-9 rounded-full border">‹</button>
++          <button data-next="popcorn" class="slider-btn next inline-flex items-center justify-center w-9 h-9 rounded-full border">›</button>
++        </div>
++      </div>
++      <div class="slider" data-slider="popcorn">
++        <div class="slider-track">
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=60" alt="Popcorn" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Butter Popcorn Family Size","price":"$40.00","image":"https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Butter Popcorn Family Size</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$40.00</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++
++          <article class="product-card">
++            <div class="card-inner">
++              <div class="thumb relative">
++                <img src="https://images.unsplash.com/photo-1598514983691-3353adfc99a5?auto=format&fit=crop&w=600&q=60" alt="Popcorn 2" class="w-full h-36 object-contain" />
++                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Yellow Kernels","price":"$25.00","image":"https://images.unsplash.com/photo-1598514983691-3353adfc99a5?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
++                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
++                </button>
++              </div>
++              <div class="p-3">
++                <h4 class="text-sm font-medium">Yellow Kernels</h4>
++                <div class="mt-2 flex items-center justify-between">
++                  <span class="text-sm font-semibold">$25.00</span>
++                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
++                </div>
++              </div>
++            </div>
++          </article>
++        </div>
++      </div>
++    </section>
+*** End Patch
+PATCH43 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+              <div class="p-3">
+                <h4 class="text-sm font-medium">Tasty Bake Shop Cookies</h4>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="text-sm font-semibold">$15.00</span>
+                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
                 </div>
-
-                <!-- Login Page -->
-                <div id="loginPage" class="page active">
-                    <h1 class="page-title">Welcome Back, Get Login</h1>
-                    <p class="page-subtitle">Join us anytime. Don't have an account? <a href="#" onclick="showPage('registerPage')">Create account</a></p>
-
-                    <div class="success-message" id="loginSuccessMsg"></div>
-
-                    <form id="loginForm" onsubmit="handleLogin(event)">
-                        <div class="form-group">
-                            <label class="form-label">Username or email address <span class="required">*</span></label>
-                            <input type="text" class="form-input" id="loginEmail" placeholder="riyanseev123@gmail.com">
-                            <div class="error-message" id="loginEmailError"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Password <span class="required">*</span></label>
-                            <div class="input-wrapper">
-                                <input type="password" class="form-input" id="loginPassword">
-                                <i class="fas fa-eye password-toggle" onclick="togglePassword('loginPassword', this)"></i>
-                            </div>
-                            <div class="error-message" id="loginPasswordError"></div>
-                        </div>
-
-                        <div class="checkbox-wrapper">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="rememberMe">
-                                <span>Remember me</span>
-                            </label>
-                            <a href="#" class="forgot-link" onclick="showPage('forgotPage')">Lost your password?</a>
-                        </div>
-
-                        <button type="submit" class="btn-primary">Log in</button>
-                    </form>
-
-                    <!-- <div class="divider">Or</div>
-
-                    <button class="btn-secondary">
-                        <i class="fas fa-phone"></i>
-                        Continue with Phone
-                    </button> -->
-                </div>
-
-                <!-- Register Page -->
-                <div id="registerPage" class="page">
-                    <h1 class="page-title">Create Your Account</h1>
-                    <p class="page-subtitle">Join us today. Already have an account? <a href="#" onclick="showPage('loginPage')">Login here</a></p>
-
-                    <div class="success-message" id="registerSuccessMsg"></div>
-
-                    <form id="registerForm" onsubmit="handleRegister(event)">
-                        <div class="form-group">
-                            <label class="form-label">Full Name <span class="required">*</span></label>
-                            <input type="text" class="form-input" id="registerName" placeholder="Enter your full name">
-                            <div class="error-message" id="registerNameError"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Email address <span class="required">*</span></label>
-                            <input type="email" class="form-input" id="registerEmail" placeholder="your@email.com">
-                            <div class="error-message" id="registerEmailError"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Password <span class="required">*</span></label>
-                            <div class="input-wrapper">
-                                <input type="password" class="form-input" id="registerPassword" placeholder="Minimum 8 characters">
-                                <i class="fas fa-eye password-toggle" onclick="togglePassword('registerPassword', this)"></i>
-                            </div>
-                            <div class="error-message" id="registerPasswordError"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Confirm Password <span class="required">*</span></label>
-                            <div class="input-wrapper">
-                                <input type="password" class="form-input" id="registerConfirmPassword" placeholder="Re-enter password">
-                                <i class="fas fa-eye password-toggle" onclick="togglePassword('registerConfirmPassword', this)"></i>
-                            </div>
-                            <div class="error-message" id="registerConfirmPasswordError"></div>
-                        </div>
-
-                        <div class="checkbox-wrapper" style="justify-content: flex-start; margin-bottom: 0.5rem;">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="agreeTerms">
-                                <span>I agree to the Terms & Conditions</span>
-                            </label>
-                        </div>
-                        <div class="error-message" id="termsError" style="margin-bottom: 1.5rem;"></div>
-
-                        <button type="submit" class="btn-primary">Create Account</button>
-                    </form>
-
-                    <!-- <div class="divider">Or</div>
-
-                    <button class="btn-secondary">
-                        <i class="fas fa-phone"></i>
-                        Continue with Phone
-                    </button> -->
-                </div>
-
-                <!-- Forgot Password Page -->
-                <div id="forgotPage" class="page">
-                    <h1 class="page-title">Forgot Password?</h1>
-                    <p class="page-subtitle">Enter your email to receive reset instructions. <a href="#" onclick="showPage('loginPage')">Back to login</a></p>
-
-                    <div class="success-message" id="forgotSuccessMsg"></div>
-
-                    <form id="forgotForm" onsubmit="handleForgotPassword(event)">
-                        <div class="form-group">
-                            <label class="form-label">Email address <span class="required">*</span></label>
-                            <input type="email" class="form-input" id="forgotEmail" placeholder="your@email.com">
-                            <div class="error-message" id="forgotEmailError"></div>
-                        </div>
-
-                        <button type="submit" class="btn-primary">Send Reset Link</button>
-                    </form>
-
-                    <div class="divider">Or</div>
-
-                    <button class="btn-secondary" onclick="showPage('loginPage')">
-                        <i class="fas fa-arrow-left"></i>
-                        Back to Login
-                    </button>
-                </div>
-
-                <!-- OTP Verification Page -->
-                <div id="otpPage" class="page">
-                    <h1 class="page-title">Verify Your Email</h1>
-                    <p class="page-subtitle">Enter the 6-digit code sent to <span id="otpEmail" style="font-weight: 600;"></span></p>
-
-                    <div class="success-message" id="otpSuccessMsg"></div>
-
-                    <form id="otpForm" onsubmit="handleOTPVerify(event)">
-                        <div class="otp-inputs">
-                            <input type="text" class="otp-input" maxlength="1" id="otp1" oninput="handleOTPInput(event, 'otp1')" onkeydown="handleOTPKeydown(event, 'otp1')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp2" oninput="handleOTPInput(event, 'otp2')" onkeydown="handleOTPKeydown(event, 'otp2')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp3" oninput="handleOTPInput(event, 'otp3')" onkeydown="handleOTPKeydown(event, 'otp3')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp4" oninput="handleOTPInput(event, 'otp4')" onkeydown="handleOTPKeydown(event, 'otp4')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp5" oninput="handleOTPInput(event, 'otp5')" onkeydown="handleOTPKeydown(event, 'otp5')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp6" oninput="handleOTPInput(event, 'otp6')" onkeydown="handleOTPKeydown(event, 'otp6')">
-                        </div>
-                        <div class="error-message" id="otpError" style="text-align: center;"></div>
-
-                        <button type="submit" class="btn-primary">Verify Code</button>
-                    </form>
-
-                    <div class="resend-text">
-                        Didn't receive code? <span class="resend-link" onclick="resendOTP()">Resend</span>
-                    </div>
-                </div>
+              </div>
             </div>
-        </div>
-    </div>
+          </article>
 
-    <script src="./js/login.js"></script>
+          <article class="product-card">
+            <div class="card-inner">
+              <div class="thumb relative">
+                <img src="https://images.unsplash.com/photo-1590080875509-733fd24d92a9?auto=format&fit=crop&w=600&q=60" alt="Chips 2" class="w-full h-36 object-contain" />
+                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Cheddar & Sour Cream Chips","price":"$32.00","image":"https://images.unsplash.com/photo-1590080875509-733fd24d92a9?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+              <div class="p-3">
+                <h4 class="text-sm font-medium">Cheddar & Sour Cream Chips</h4>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="text-sm font-semibold">$32.00</span>
+                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="card-inner">
+              <div class="thumb relative">
+                <img src="https://images.unsplash.com/photo-1604908554009-9e8f8c2fb176?auto=format&fit=crop&w=600&q=60" alt="Chips 3" class="w-full h-36 object-contain" />
+                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Bold Mix Family Size","price":"$55.00","image":"https://images.unsplash.com/photo-1604908554009-9e8f8c2fb176?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+              <div class="p-3">
+                <h4 class="text-sm font-medium">Bold Mix Family Size</h4>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="text-sm font-semibold">$55.00</span>
+                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curated Collections (fullwidth images row) -->
+    <section class="mb-8">
+      <h3 class="text-lg font-semibold mb-3">Curated Collections</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="rounded overflow-hidden shadow-sm">
+          <img src="https://images.unsplash.com/photo-1523986371872-9d3ba2e2f642?auto=format&fit=crop&w=1200&q=60" alt="" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-semibold">Feel the thirsty in Summer anytime</h4>
+            <p class="text-xs text-slate-600 mt-1">Your body’s way of telling you that it's thirsting.</p>
+          </div>
+        </div>
+        <div class="rounded overflow-hidden shadow-sm">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=60" alt="" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-semibold">Most popular item for Fast food</h4>
+            <p class="text-xs text-slate-600 mt-1">Tasty and spicy fast food with flavors.</p>
+          </div>
+        </div>
+        <div class="rounded overflow-hidden shadow-sm">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=60" alt="" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-semibold">Authentic Japanese food</h4>
+            <p class="text-xs text-slate-600 mt-1">Your body's way of telling you that it's made taste.</p>
+          </div>
+        </div>
+        <div class="rounded overflow-hidden shadow-sm">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=60" alt="" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-semibold">Explore our Family of Freshpet Foods</h4>
+            <p class="text-xs text-slate-600 mt-1">Your pet's way of telling you it loves flavor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cookies & Cakes Slider -->
+    <section class="mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-semibold">Cookies & Cakes</h3>
+        <div class="flex items-center gap-2">
+          <button data-prev="cookies" class="slider-btn prev inline-flex items-center justify-center w-9 h-9 rounded-full border">‹</button>
+          <button data-next="cookies" class="slider-btn next inline-flex items-center justify-center w-9 h-9 rounded-full border">›</button>
+        </div>
+      </div>
+      <div class="slider" data-slider="cookies">
+        <div class="slider-track">
+          <article class="product-card">
+            <div class="card-inner">
+              <div class="thumb relative">
+                <img src="https://images.unsplash.com/photo-1541782814453-5bf75f06d8a0?auto=format&fit=crop&w=600&q=60" alt="Chocolate Cake" class="w-full h-36 object-contain" />
+                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Chocolate Cake","price":"$4.00","image":"https://images.unsplash.com/photo-1541782814453-5bf75f06d8a0?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+              <div class="p-3">
+                <h4 class="text-sm font-medium">Just Desserts Special Chocolate Cake</h4>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="text-sm font-semibold">$4.00</span>
+                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="card-inner">
+              <div class="thumb relative">
+                <img src="https://images.unsplash.com/photo-1509043759401-136742328bb3?auto=format&fit=crop&w=600&q=60" alt="Cookies" class="w-full h-36 object-contain" />
+                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Chocolate Chip Cookie","price":"$2.50","image":"https://images.unsplash.com/photo-1509043759401-136742328bb3?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+              <div class="p-3">
+                <h4 class="text-sm font-medium">Chocolate Chip Cookie</h4>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="text-sm font-semibold">$2.50</span>
+                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popcorn & Jerky Slider -->
+    <section class="mb-10">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-semibold">Popcorn & Jerky</h3>
+        <div class="flex items-center gap-2">
+          <button data-prev="popcorn" class="slider-btn prev inline-flex items-center justify-center w-9 h-9 rounded-full border">‹</button>
+          <button data-next="popcorn" class="slider-btn next inline-flex items-center justify-center w-9 h-9 rounded-full border">›</button>
+        </div>
+      </div>
+      <div class="slider" data-slider="popcorn">
+        <div class="slider-track">
+          <article class="product-card">
+            <div class="card-inner">
+              <div class="thumb relative">
+                <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=60" alt="Popcorn" class="w-full h-36 object-contain" />
+                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Butter Popcorn Family Size","price":"$40.00","image":"https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+              <div class="p-3">
+                <h4 class="text-sm font-medium">Butter Popcorn Family Size</h4>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="text-sm font-semibold">$40.00</span>
+                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="card-inner">
+              <div class="thumb relative">
+                <img src="https://images.unsplash.com/photo-1598514983691-3353adfc99a5?auto=format&fit=crop&w=600&q=60" alt="Popcorn 2" class="w-full h-36 object-contain" />
+                <button class="eye absolute right-2 top-2 bg-white rounded-full p-2 shadow" data-product='{"title":"Yellow Kernels","price":"$25.00","image":"https://images.unsplash.com/photo-1598514983691-3353adfc99a5?auto=format&fit=crop&w=600&q=60"}' aria-label="quick view">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+              <div class="p-3">
+                <h4 class="text-sm font-medium">Yellow Kernels</h4>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="text-sm font-semibold">$25.00</span>
+                  <button class="add w-8 h-8 flex items-center justify-center rounded-full border">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </div> <!-- end a_header_container -->
+
+  <!-- QUICK-VIEW MODAL -->
+  <div id="quickView" class="fixed inset-0 hidden items-center justify-center z-50">
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="bg-white rounded-lg shadow-lg z-10 w-11/12 md:w-8/12 lg:w-5/12 overflow-hidden">
+      <div class="p-4 flex justify-between items-center border-b">
+        <h4 id="qvTitle" class="font-semibold">Product title</h4>
+        <button id="qvClose" class="text-slate-500">✕</button>
+      </div>
+      <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="qvImage" class="flex items-center justify-center">
+          <img src="" alt="" class="max-h-48 object-contain" />
+        </div>
+        <div>
+          <p id="qvPrice" class="text-lg font-semibold mb-2">$0.00</p>
+          <p id="qvDesc" class="text-sm text-slate-600">Quick product description goes here.</p>
+          <div class="mt-4">
+            <button class="px-4 py-2 bg-emerald-500 text-white rounded">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="./js/home.js"></script>
 </body>
 </html>
