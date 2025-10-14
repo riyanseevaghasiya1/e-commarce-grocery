@@ -77,6 +77,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Inject 'View All' button into category section header
+    const catHeader = document.querySelector('.category-slider-container .section-header');
+    if (catHeader && !catHeader.querySelector('.category-actions')) {
+        const actions = document.createElement('div');
+        actions.className = 'category-actions';
+
+        const viewBtn = document.createElement('button');
+        viewBtn.className = 'view-all-btn';
+        viewBtn.textContent = 'View All';
+        viewBtn.addEventListener('click', () => showNotification('Viewing all categories'));
+
+        const prev = document.createElement('button');
+        prev.className = 'ghost-icon-btn';
+        prev.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prev.addEventListener('click', () => scrollCategories(-1));
+
+        const next = document.createElement('button');
+        next.className = 'ghost-icon-btn';
+        next.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        next.addEventListener('click', () => scrollCategories(1));
+
+        actions.appendChild(viewBtn);
+        actions.appendChild(prev);
+        actions.appendChild(next);
+        catHeader.appendChild(actions);
+    }
+
     // Smooth scroll behavior for all sliders
     const sliders = document.querySelectorAll('.category-slider, .products-slider');
     
@@ -110,6 +137,50 @@ document.addEventListener('DOMContentLoaded', function() {
             slider.scrollLeft = scrollLeft - walk;
         });
     });
+
+    // Auto scroll for category slider
+    const categorySlider = document.getElementById('categorySlider');
+    if (categorySlider) {
+        let autoScrollTimer;
+        let direction = 1;
+        const step = 2; // pixels per tick
+        const tickMs = 16; // ~60fps
+
+        function startAutoScroll() {
+            stopAutoScroll();
+            autoScrollTimer = setInterval(() => {
+                // bounce at edges
+                if (categorySlider.scrollLeft + categorySlider.clientWidth >= categorySlider.scrollWidth - 2) {
+                    direction = -1;
+                } else if (categorySlider.scrollLeft <= 0) {
+                    direction = 1;
+                }
+                categorySlider.scrollLeft += step * direction;
+            }, tickMs);
+        }
+
+        function stopAutoScroll() {
+            if (autoScrollTimer) clearInterval(autoScrollTimer);
+        }
+
+        // pause on hover or when user interacts
+        categorySlider.addEventListener('mouseenter', stopAutoScroll);
+        categorySlider.addEventListener('mouseleave', startAutoScroll);
+        categorySlider.addEventListener('mousedown', stopAutoScroll);
+        categorySlider.addEventListener('touchstart', stopAutoScroll, { passive: true });
+
+        // also pause when hovering over arrows
+        const prevBtn = document.querySelector('.category-slider-container .slider-nav.prev');
+        const nextBtn = document.querySelector('.category-slider-container .slider-nav.next');
+        [prevBtn, nextBtn].forEach(btn => {
+            if (btn) {
+                btn.addEventListener('mouseenter', stopAutoScroll);
+                btn.addEventListener('mouseleave', startAutoScroll);
+            }
+        });
+
+        startAutoScroll();
+    }
 
     // Add to cart functionality for product cards
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
