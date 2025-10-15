@@ -1,5 +1,5 @@
 // ============================
-//  rushita.js (FINAL WORKING)
+//  rushita.js (FINAL FIXED FOR CART)
 // ============================
 
 // Load header dynamically
@@ -9,7 +9,7 @@ fetch('./header.html')
     document.getElementById('header-placeholder').innerHTML = data;
 
     // ==============================
-    // Select Elements After Loading
+    // Header Elements
     // ==============================
     const menuToggle = document.getElementById('menuToggle');
     const closeMenu = document.getElementById('closeMenu');
@@ -36,7 +36,6 @@ fetch('./header.html')
       }, 300);
     }
 
-    // ✅ Safe Event Bindings (with null check)
     if (menuToggle) menuToggle.addEventListener('click', openOffcanvas);
     if (closeMenu) closeMenu.addEventListener('click', closeOffcanvas);
     if (backdrop) backdrop.addEventListener('click', closeOffcanvas);
@@ -95,12 +94,100 @@ fetch('./header.html')
         }
       });
     });
+
+    // ==============================
+    // ✅ CART OFFCANVAS (Moved inside header load)
+    // ==============================
+    const cartButton = document.getElementById('cartButton');
+    const closeCart = document.getElementById('closeCart');
+    const overlay = document.getElementById('overlay');
+    const cartOffcanvas = document.getElementById('cartOffcanvas');
+    const quantityElement = document.getElementById('quantity');
+    const itemTotalElement = document.getElementById('itemTotal');
+    const subtotalElement = document.getElementById('subtotal');
+    const cartCount = document.getElementById('cartCount');
+
+    if (cartButton && closeCart && overlay && cartOffcanvas) {
+      let quantity = 2;
+      const unitPrice = 35.00;
+
+      function openCart() {
+        overlay.classList.remove('hidden');
+        cartOffcanvas.classList.remove('translate-x-full');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeCartFunc() {
+        overlay.classList.add('hidden');
+        cartOffcanvas.classList.add('translate-x-full');
+        document.body.style.overflow = 'auto';
+      }
+
+      function updateTotals() {
+        const total = quantity * unitPrice;
+        quantityElement.textContent = quantity;
+        itemTotalElement.textContent = `$${total.toFixed(2)}`;
+        subtotalElement.textContent = `$${total.toFixed(2)}`;
+        cartCount.textContent = quantity;
+      }
+
+      function increaseQuantity() {
+        quantity++;
+        updateTotals();
+      }
+
+      function decreaseQuantity() {
+        if (quantity > 1) {
+          quantity--;
+          updateTotals();
+        }
+      }
+
+      cartButton.addEventListener('click', openCart);
+      closeCart.addEventListener('click', closeCartFunc);
+      overlay.addEventListener('click', closeCartFunc);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeCartFunc();
+      });
+
+      updateTotals();
+    }
   })
   .catch(error => console.error('Error loading header:', error));
-// footer
-  fetch('./Footer.html')
+
+
+// ============================
+// FOOTER
+// ============================
+fetch('./Footer.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('footer_add').innerHTML = data;
   })
   .catch(error => console.error('Error loading footer:', error));
+
+
+// ============================
+// PAYMENT METHOD LOGIC
+// ============================
+const netBankingOption = document.getElementById("netbankingOption");
+const upiOption = document.getElementById("upiOption");
+const bankList = document.getElementById("bankList");
+const upiField = document.getElementById("upiField");
+const paymentRadios = document.querySelectorAll('input[name="payment"]');
+
+paymentRadios.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    if (netBankingOption.checked) {
+      bankList.classList.remove("hidden");
+    } else {
+      bankList.classList.add("hidden");
+    }
+
+    if (upiOption.checked) {
+      upiField.classList.remove("hidden");
+    } else {
+      upiField.classList.add("hidden");
+    }
+  });
+});

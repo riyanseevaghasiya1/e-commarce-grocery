@@ -3,6 +3,6 @@ select option:checked {
   color: white;
 }
   select option:hover {
-    background-color: #14b8a6; /* Tailwind's teal-500 */
+    background-color: #14b8a6; 
     color: white;
   }
