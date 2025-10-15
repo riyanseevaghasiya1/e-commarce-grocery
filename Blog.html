@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Diet Blogs | Grocery Go</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="./css/h_style.css">
+	<link rel="stylesheet" href="./index.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap"
+		rel="stylesheet">
+</head>
+
+<body class="inter-font">
+	<div id="header-placeholder"></div>
+
+	<!-- Banner Section -->
+	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center py-16 sm:py-24"
+		style="background-image: url('images/pages-hero-bg.webp');">
+		<div class="relative text-center text-black z-10">
+			<span class="block text-2xl font-bold mb-2 uppercase text-[#02b290] caveat-font">Explore</span>
+			<h1 class="text-2xl md:text-4xl font-semibold mb-4">Blog</h1>
+			<div class="flex items-center justify-center text-sm md:text-base text-black mt-2">
+				<a href="./home.html" class="text-black/60">Home</a>
+				<span class="mx-2"><i class="fas fa-angle-right"></i></span>
+				<span class="font-semibold">Blog</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main Content -->
+	<section class="a_header_container">
+		<main class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
+			<div class=" grid grid-cols-1 lg:grid-cols-3 gap-8">
+				<!-- Blog List -->
+				<section id="blog-list" class="lg:col-span-2 space-y-10">
+					<!-- Dynamic Blogs -->
+				</section>
+
+				<!-- Blog Details -->
+				<section id="blog-detail" class="lg:col-span-2 hidden">
+					<img id="detail-img" class="w-full rounded-lg mb-5 max-h-[400px] object-cover" />
+					<h2 id="detail-title" class="text-3xl font-semibold mb-2"></h2>
+					<p id="detail-meta" class="text-sm text-gray-500 mb-5"></p>
+					<p id="detail-content" class="text-gray-700 leading-relaxed mb-8"></p>
+					<button onclick="showBlogList()"
+						class="bg-[#02b290] text-white px-5 py-2 rounded-lg hover:bg-[#028f7a] transition duration-150">
+						<i class="fa-solid fa-arrow-left-long"></i> Back to Blogs
+					</button>
+				</section>
+
+				<!-- Sidebar -->
+				<aside class="lg:col-span-1 space-y-12">
+					<!-- featured -->
+					<img src="./images/blog-featured.png" alt="">
+
+					<!-- Search -->
+					<div class="search-bar">
+						<h3 class="font-semibold text-lg mb-3 border-b pb-2">Search</h3>
+						<input type="text" placeholder="Search..."
+							class="w-full border border-gray-300 rounded-lg px-3 py-2 hover:border hover:border-[#02b290] focus:ring-1 focus:ring-[#02b290] outline-none" />
+					</div>
+
+					<!-- Categories -->
+					<div class="categories-card">
+						<h3 class="font-semibold text-lg mb-3 border-b pb-2">Categories</h3>
+						<ul class="space-y-2 text-gray-600 text-sm">
+							<li class="flex justify-between items-center"><a href="#"
+									class="hover:text-[#02b290]">Diet</a>
+								<p>(7)</p>
+							</li>
+							<li class="flex justify-between items-center"><a href="#"
+									class="hover:text-[#02b290]">Food</a>
+								<p>(3)</p>
+							</li>
+							<li class="flex justify-between items-center"><a href="#"
+									class="hover:text-[#02b290]">Health</a>
+								<p>(6)</p>
+							</li>
+							<li class="flex justify-between items-center"><a href="#"
+									class="hover:text-[#02b290]">Photography</a>
+								<p>(5)</p>
+							</li>
+							<li class="flex justify-between items-center"><a href="#"
+									class="hover:text-[#02b290]">Vegan</a>
+								<p>(3)</p>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Tag Cloud -->
+					<div class="tag-cloud">
+						<h3 class="font-semibold text-lg mb-3 border-b pb-2">Tag Cloud</h3>
+						<div class="flex flex-wrap gap-2 text-sm">
+							<span
+								class="px-4 py-2 border border-gray-300 text-black text-[15px] rounded-lg cursor-pointer hover:bg-green-200">Cake</span>
+							<span
+								class="px-4 py-2 border border-gray-300 text-black text-[15px] rounded-lg cursor-pointer hover:bg-green-200">Classic</span>
+							<span
+								class="px-4 py-2 border border-gray-300 text-black text-[15px] rounded-lg cursor-pointer hover:bg-green-200">Diet</span>
+							<span
+								class="px-4 py-2 border border-gray-300 text-black text-[15px] rounded-lg cursor-pointer hover:bg-green-200">Food</span>
+							<span
+								class="px-4 py-2 border border-gray-300 text-black text-[15px] rounded-lg cursor-pointer hover:bg-green-200">Poetry</span>
+							<span
+								class="px-4 py-2 border border-gray-300 text-black text-[15px] rounded-lg cursor-pointer hover:bg-green-200">Sticky</span>
+						</div>
+					</div>
+
+					<!-- Calendar -->
+					<div class="calendar max-w-sm mx-auto">
+						<h3 class="font-semibold text-lg mb-3 border-b pb-2">Calendar</h3>
+						<div class="bg-white border rounded">
+							<p class="text-black text-[16px] text-center py-4">October 2025</p>
+
+							<!-- Weekday Headers -->
+							<div
+								class="grid grid-cols-7 gap-8 text-center text-sm font-semibold text-black bg-gray-200 p-5">
+								<span>S</span>
+								<span>M</span>
+								<span>T</span>
+								<span>W</span>
+								<span>T</span>
+								<span>F</span>
+								<span>S</span>
+							</div>
+
+							<!-- Days -->
+							<div class="grid grid-cols-7 gap-8 text-center text-gray-600 text-sm mt-0 p-5">
+								<!-- Empty spaces before the 1st (Wednesday start) -->
+								<span></span>
+								<span></span>
+								<span></span>
+								<span>1</span>
+								<span>2</span>
+								<span>3</span>
+								<span>4</span>
+
+								<span>5</span>
+								<span>6</span>
+								<span>7</span>
+								<span>8</span>
+								<span>9</span>
+								<span>10</span>
+								<span>11</span>
+
+								<span>12</span>
+								<span>13</span>
+								<span class="text-[16px] font-semibold text-black">14</span>
+								<span>15</span>
+								<span>16</span>
+								<span>17</span>
+								<span>18</span>
+
+								<span>19</span>
+								<span>20</span>
+								<span>21</span>
+								<span>22</span>
+								<span>23</span>
+								<span>24</span>
+								<span>25</span>
+
+								<span>26</span>
+								<span>27</span>
+								<span>28</span>
+								<span>29</span>
+								<span>30</span>
+								<span>31</span>
+								<span></span>
+							</div>
+						</div>
+					</div>
+
+				</aside>
+			</div>
+		</main>
+	</section>
+
+	<div id="footer_add"></div>
+
+	<script src="./js/rushita.js"></script>
+	<script>
+		const blogs = [
+			{
+				id: 1,
+				title: "Feeling of Love is not lost in old friends in home",
+				category: "Photography",
+				date: "October 27, 2021",
+				img: "./images/blog-1.webp",
+				shortDesc: "The belief within the impossibility of a position of grasping the planet in its totality seems to be a logical consequence of minimalist philosophy...",
+				fullDesc: `The belief within the impossibility of a position of grasping the planet in its totality seems to be a logical consequence of minimalist philosophy. 
+				The religious traditions alongside idealistic philosophy, unconditioned one’s world renounces all nonmaterial and purely spiritual, allowing the planet in its totality to be seen from an external, transcendent position.
+				
+				<br><br>Old friendships can bring warmth, laughter, and nostalgia to our homes. Cherish those moments and celebrate love that doesn’t fade with time.`
+			},
+			{
+				id: 2,
+				title: "Summer breakfast for the healthy mornings",
+				category: "Health",
+				date: "October 27, 2021",
+				img: "./images/blog-2.webp",
+				shortDesc: "Start your morning fresh and healthy with a breakfast that boosts your energy...",
+				fullDesc: `Eating a balanced breakfast helps jumpstart your metabolism and gives your body the nutrients needed to start your day strong. 
+      			<br><br>Try including fruits, yogurt, and oats for a nutritious start! A smoothie bowl with fresh berries, chia seeds, and almonds can also give you the right mix of fiber and energy.`
+			},
+			{
+				id: 3,
+				title: "Simple 15-Min Fruity Cake to Cherish dishes",
+				category: "Food",
+				date: "October 27, 2021",
+				img: "./images/blog-3.jpg",
+				shortDesc: "This fruity cake is a whole flavor infusion within few minutes, ideal for busy people...",
+				fullDesc: `A quick dessert option for sweet lovers! This 15-minute fruity cake can be made easily with seasonal fruits, whipped cream, and a soft sponge cake base. 
+      			<br><br>Perfect for family get-togethers or surprise guests. You can customize it with mangoes, strawberries, or mixed fruits for extra flavor!`
+			},
+			{
+				id: 4,
+				title: "Exotic tender chia bread with Lime & Honey homemade recipe",
+				category: "Food",
+				date: "October 23, 2021",
+				img: "./images/blog-4.webp",
+				shortDesc: "This homemade chia bread recipe with lime and honey offers a refreshing taste...",
+				fullDesc: `This recipe brings a fusion of lime’s tanginess and honey’s sweetness, perfectly balanced in a soft chia bread. 
+      			<br><br>It’s rich in fiber and omega-3, making it a great breakfast or snack option. Serve with herbal tea for a delightful healthy treat.`
+			}
+		];
+
+		const blogList = document.getElementById("blog-list");
+		const blogDetail = document.getElementById("blog-detail");
+
+		// Render blog list
+		blogs.forEach(blog => {
+			const card = document.createElement("div");
+			card.className = "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition";
+			card.innerHTML = `
+				<img src="${blog.img}" class="w-full h-72 object-cover" alt="${blog.title}">
+				<div class="p-5">
+					<h3 class="text-xl font-semibold mb-2">${blog.title}</h3>
+					<p class="text-sm text-gray-500 mb-3">${blog.category} • ${blog.date}</p>
+					<p class="text-gray-600 mb-4">${blog.shortDesc}</p>
+					<button onclick="showBlogDetail(${blog.id})" class="text-[#02b290] font-medium hover:underline transition duration-150">Read More <i class="fa-solid fa-arrow-right-long"></i></button>
+				</div>
+				`;
+			blogList.appendChild(card);
+		});
+
+		// Show blog detail view
+		function showBlogDetail(id) {
+			const blog = blogs.find(b => b.id === id);
+
+			if (!blog) return;
+
+			document.getElementById("detail-img").src = blog.img;
+			document.getElementById("detail-title").textContent = blog.title;
+			document.getElementById("detail-meta").textContent = `${blog.category} • ${blog.date}`;
+			document.getElementById("detail-content").innerHTML = blog.fullDesc; // use innerHTML to show formatted content
+
+			blogList.classList.add("hidden");
+			blogDetail.classList.remove("hidden");
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+
+		// Back to blog list
+		function showBlogList() {
+			blogList.classList.remove("hidden");
+			blogDetail.classList.add("hidden");
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+	</script>
+
+</body>
+
+</html>

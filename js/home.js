@@ -267,7 +267,7 @@ function showNotification(message) {
     if (existingNotification) {
         existingNotification.remove();
     }
-
+    
     // Create notification element
     const notification = document.createElement('div');
     notification.className = 'custom-notification';
