@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store - Free Delivery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/home.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
-    <div class="a_header_container">
+    <!-- header -->
+    <div id="header-placeholder"></div>
+    <div class="a_header_container mt-10">
         <!-- Hero Section -->
         <section class="hero-section">
-            <div class="hero-card" style="background-image: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800');">
+            <div class="hero-card" style="background-image: url('./images/Banner-1.webp');">
                 <div class="hero-content">
                     <p class="hero-label">GROCERY STORE</p>
                     <h1 class="hero-title">Free Delivery from your area</h1>
@@ -19,7 +24,7 @@
                     <button class="hero-btn">Explore More</button>
                 </div>
             </div>
-            <div class="hero-card" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800');">
+            <div class="hero-card" style="background-image: url('./images/Banner-2.webp');">
                 <div class="hero-content">
                     <p class="hero-label">BREAKFAST FOOD</p>
                     <h1 class="hero-title">Fresh Healthy breakfast food</h1>
@@ -35,29 +40,37 @@
                 <div class="feature-icon">
                     <i class="fas fa-user-plus"></i>
                 </div>
-                <h3 class="feature-title">Refer friends & get 10% Discount on all item.</h3>
-                <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                <div>
+                    <h3 class="feature-title">Refer friends & get 10% Discount on all item.</h3>
+                    <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-shipping-fast"></i>
                 </div>
-                <h3 class="feature-title">Fastest delivery system that we ever built.</h3>
-                <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                <div>
+                    <h3 class="feature-title">Fastest delivery system that we ever built.</h3>
+                    <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-hand-holding-heart"></i>
                 </div>
-                <h3 class="feature-title">Join inner cycle to help us improve our system.</h3>
-                <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                <div>
+                    <h3 class="feature-title">Join inner cycle to help us improve our system.</h3>
+                    <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-star"></i>
                 </div>
-                <h3 class="feature-title">Share your thoughts with us and get prize.</h3>
-                <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                <div>
+                    <h3 class="feature-title">Share your thoughts with us and get prize.</h3>
+                    <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
         </section>
 
@@ -117,7 +130,8 @@
             <div class="products-slider" id="bestSellers">
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Product" class="product-image" loading="eager">
+                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Product"
+                            class="product-image" loading="eager">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -146,7 +160,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge sale">Sale 50%</span>
-                        <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -174,7 +189,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -203,7 +219,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge">On Sale</span>
-                        <img src="https://images.unsplash.com/photo-1622205313162-be1d5712a43f?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1622205313162-be1d5712a43f?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -231,7 +248,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -240,7 +258,7 @@
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
-                    </div>
+                    </div>  
                     <div class="product-info">
                         <h4 class="product-name">Leafy Romaine Mixed Lettuce</h4>
                         <div class="product-price">
@@ -274,7 +292,8 @@
             <div class="products-slider" id="freshVeg">
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -303,7 +322,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -332,7 +352,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge">On Sale</span>
-                        <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -360,7 +381,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -388,7 +410,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1608628812044-d7a5aac18211?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1608628812044-d7a5aac18211?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -431,7 +454,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge">On Sale</span>
-                        <img src="https://images.unsplash.com/photo-1600952841320-db92ec4047ca?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1600952841320-db92ec4047ca?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -460,7 +484,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge">Best 5%</span>
-                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -490,7 +515,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge">Best 5%</span>
-                        <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -519,7 +545,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge sale">Best 15%</span>
-                        <img src="https://images.unsplash.com/photo-1600490036275-81eb9c91d3e6?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1600490036275-81eb9c91d3e6?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -547,7 +574,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1613919113640-25732ec5e61f?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1613919113640-25732ec5e61f?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -585,25 +613,29 @@
                 <h2 class="section-title">Curated Collections</h2>
             </div>
             <div class="collections-grid">
-                <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1546171753-97d7676e4602?w=500');">
+                <div class="collection-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1546171753-97d7676e4602?w=500');">
                     <div class="collection-overlay">
                         <h3 class="collection-title">Feel the thirsty in Summer anytime</h3>
                         <p class="collection-description">Your body's way of telling you unapologetically</p>
                     </div>
                 </div>
-                <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500');">
+                <div class="collection-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500');">
                     <div class="collection-overlay">
                         <h3 class="collection-title">Most popular item for Fast food</h3>
                         <p class="collection-description">Tasty and spicy fast food with different flavors.</p>
                     </div>
                 </div>
-                <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=500');">
+                <div class="collection-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=500');">
                     <div class="collection-overlay">
                         <h3 class="collection-title">Authentic Japanese food in real taste</h3>
                         <p class="collection-description">Your body's way of telling you that it's snack o'clock</p>
                     </div>
                 </div>
-                <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500');">
+                <div class="collection-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500');">
                     <div class="collection-overlay">
                         <h3 class="collection-title">Explore our Family of Freshpet® Foods</h3>
                         <p class="collection-description">Your best way of tasting you that it's make use.</p>
@@ -623,7 +655,8 @@
             <div class="products-slider" id="cookies">
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -652,7 +685,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge">Save 4.0</span>
-                        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -680,7 +714,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -709,7 +744,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -738,7 +774,8 @@
                 <div class="product-card">
                     <div class="a_image_container">
                         <span class="product-badge">Save 30%</span>
-                        <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=300" alt="Product" class="product-image">
+                        <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=300" alt="Product"
+                            class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -788,8 +825,8 @@
                         <span style="margin-left: 8px; color: var(--gray-text);">(524 Reviews)</span>
                     </div>
                     <p class="modal-description">
-                        Fresh and organic product delivered right to your doorstep. 
-                        Our products are carefully selected to ensure the highest quality 
+                        Fresh and organic product delivered right to your doorstep.
+                        Our products are carefully selected to ensure the highest quality
                         and freshness. Perfect for healthy meals and snacks.
                     </p>
                     <div class="quantity-selector">
@@ -817,5 +854,8 @@
     </div>
 
     <script src="./js/home.js"></script>
+    <div id="footer_add"></div>
+    <script src="./js/rushita.js"></script>
 </body>
+
 </html>
