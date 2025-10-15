@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Checkout</title>
     <link rel="stylesheet" href="./css/rushita.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -28,6 +28,7 @@
                     </svg>
                     Home
                 </a>
+
                 <span>›</span>
                 <span class="text-gray-900 font-semibold">Checkout</span>
             </div>
@@ -66,25 +67,40 @@
                             <input type="text"
                                 class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">
-                                Country / Region <span class="text-red-500">*</span>
-                            </label>
-                            <select
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white text-gray-700 cursor-pointer">
-                                <option value="">Select a country</option>
-                                <option>United States (US)</option>
-                                <option>India (IN)</option>
-                                <option>United Kingdom (UK)</option>
-                                <option>Canada (CA)</option>
-                                <option>Australia (AU)</option>
-                                <option>Germany (DE)</option>
-                                <option>France (FR)</option>
-                                <option>Japan (JP)</option>
-                                <option>China (CN)</option>
-                                <option>Singapore (SG)</option>
-                            </select>
 
+                        <div class="relative">
+                            <button id="countryBtn"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md text-left flex justify-between items-center">
+                                <span id="selectedCountry">Select a country</span>
+                                <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            <ul id="countryMenu"
+                                class="absolute z-10 mt-1 w-full border bg-white rounded-md shadow-md hidden">
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">India (IN)</li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">United States
+                                    (US)</li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">United Kingdom
+                                    (UK)</li>
+                                <option class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Canada (CA)
+                                </option>
+                                <option class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Australia
+                                    (AU)</option>
+                                <option class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Germany
+                                    (DE)</option>
+                                <option class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">France (FR)
+                                </option>
+                                <option class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Japan (JP)
+                                </option>
+                                <option class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">China (CN)
+                                </option>
+                                <option class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Singapore
+                                    (SG)</option>
+                            </ul>
                         </div>
 
                         <div>
@@ -105,16 +121,43 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
                         </div>
 
-                        <div>
+
+                        <div class="relative">
                             <label class="block text-sm font-medium mb-2">
                                 State <span class="text-red-500">*</span>
                             </label>
-                            <select
-                                class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
-                                <option>California</option>
-                            </select>
-                        </div>
+                            <button id="countryBtn1"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md text-left flex justify-between items-center">
+                                <span id="selectedCountry1">Select a State</span>
+                                <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
 
+                            <ul id="countryMenu1"
+                                class="absolute z-10 mt-1 w-full border bg-white rounded-md shadow-md hidden">
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">India (IN)</li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">United States
+                                    (US)</li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">United Kingdom
+                                    (UK)</li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Canada (CA)
+                                </li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Australia (AU)
+                                </li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Germany (DE)
+                                </li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">France (FR)
+                                </li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Japan (JP)</li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">China (CN)</li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Singapore (SG)
+                                </li>
+                            </ul>
+
+                        </div>
                         <div>
                             <label class="block text-sm font-medium mb-2">
                                 ZIP Code <span class="text-red-500">*</span>
@@ -164,7 +207,7 @@
                     <h2 class="text-2xl font-semibold mb-6">Your order</h2>
 
                     <div class="bg-gray-50 p-6 rounded">
-                      
+
                         <div class="flex justify-between pb-3 border-b border-gray-300 mb-4">
                             <span class="font-semibold text-sm">PRODUCT</span>
                             <span class="font-semibold text-sm">SUBTOTAL</span>
@@ -191,14 +234,10 @@
                             <span class="font-semibold text-lg">TOTAL</span>
                             <span class="font-semibold text-lg">$82.00</span>
                         </div>
-
                         <div class="space-y-4 mb-6">
+                            <!-- Direct Bank Transfer -->
                             <label class="flex items-start cursor-pointer">
-
-                                <input type="radio" name="payment" class="mt-2 mr-3 accent-green-600" checked />
-
-
-
+                                <input type="radio" name="payment" value="bank" class="mt-2 mr-3 accent-green-600" />
                                 <div>
                                     <span class="font-medium text-sm">Direct bank transfer</span>
                                     <p class="text-xs text-gray-600 mt-2">
@@ -209,12 +248,64 @@
                                 </div>
                             </label>
 
+                            <!-- Net Banking -->
+                            <div>
+                                <label class="flex items-start cursor-pointer">
+                                    <input type="radio" name="payment" value="netbanking" id="netbankingOption"
+                                        class="mt-2 mr-3 accent-green-600" />
+                                    <div>
+                                        <span class="font-medium text-sm">Net Banking</span>
+                                        <p class="text-xs text-gray-600 mt-2">
+                                            Pay securely through your preferred bank using Internet Banking.
+                                        </p>
+                                    </div>
+                                </label>
+
+                                <!-- Bank List (hidden until selected) -->
+                                <div id="bankList" class="ml-7 mt-3 space-y-2 hidden">
+                                    <select
+                                        class="w-full border border-gray-300 rounded-md text-sm p-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                        <option value="">Select your bank</option>
+                                        <option value="sbi">State Bank of India (SBI)</option>
+                                        <option value="hdfc">HDFC Bank</option>
+                                        <option value="icici">ICICI Bank</option>
+                                        <option value="axis">Axis Bank</option>
+                                        <option value="kotak">Kotak Mahindra Bank</option>
+                                        <option value="pnb">Punjab National Bank</option>
+                                        <option value="bob">Bank of Baroda</option>
+                                        <option value="yes">Yes Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- UPI Payment -->
+                            <div>
+                                <label class="flex items-start cursor-pointer">
+                                    <input type="radio" name="payment" value="upi" id="upiOption"
+                                        class="mt-2 mr-3 accent-green-600" />
+                                    <div>
+                                        <span class="font-medium text-sm">UPI Payment</span>
+                                        <p class="text-xs text-gray-600 mt-2">
+                                            Use any UPI app such as Google Pay, PhonePe, or Paytm to complete your
+                                            payment quickly.
+                                        </p>
+                                    </div>
+                                </label>
+
+                                <!-- UPI ID Field -->
+                                <div id="upiField" class="ml-7 mt-3 hidden">
+                                    <label class="block text-xs text-gray-700 mb-1">Enter your UPI ID</label>
+                                    <input type="text" placeholder="example@upi"
+                                        class="w-full border border-gray-300 rounded-md text-sm p-2 focus:ring-2 focus:ring-green-500 focus:outline-none" />
+                                </div>
+                            </div>
+
+                            <!-- Cash on Delivery -->
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="payment" class=" mr-3 accent-green-600" checked />
+                                <input type="radio" name="payment" value="cod" class="mr-3 accent-green-600" />
                                 <span class="font-medium text-sm">Cash on delivery</span>
                             </label>
                         </div>
-
                         <p class="text-xs text-gray-600 mb-6">
                             Your personal data will be used to process your order, support your experience throughout
                             this website, and for other purposes described in our
@@ -230,6 +321,40 @@
             </div>
         </div>
     </section>
+
+
+    <script>
+        const btn = document.getElementById("countryBtn");
+       
+        const menu = document.getElementById("countryMenu");
+      
+        const selected = document.getElementById("selectedCountry");
+       
+
+        btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+        menu.querySelectorAll("li").forEach((item) => {
+            item.addEventListener("click", () => {
+                selected.textContent = item.textContent;
+                menu.classList.add("hidden");
+            });
+        });
+    </script>
+    
+    <script>
+        const btn1 = document.getElementById("countryBtn1");
+        const menu1 = document.getElementById("countryMenu1");
+        const selected1 = document.getElementById("selectedCountry1");
+        btn1.addEventListener("click", () => menu1.classList.toggle("hidden"));
+
+        menu1.querySelectorAll("li").forEach((item) => {
+            item.addEventListener("click", () => {
+                selected.textContent = item.textContent;
+                menu1.classList.add("hidden");
+            });
+        });
+    </script>
+
     <div id="footer_add"></div>
     <script src="./js/rushita.js"></script>
 

@@ -190,6 +190,9 @@ body {
   gap: 4px;
 }
 
+.feature-link i { transition: transform 0.2s ease; }
+.feature-card:hover .feature-link i { transform: translateX(2px); }
+
 /* Section Header */
 .section-header {
   margin-bottom: 30px;
@@ -203,18 +206,24 @@ body {
 
 /* Category Slider */
 .category-slider-container {
-  position: relative;
-  margin-bottom: 50px;
+    position: relative;
+    margin-bottom: 50px;
+    padding: 0 56px; /* keep items between arrows */
 }
 
+/* remove section highlight background */
+.category-slider-container::before { display: none; }
+
 .category-slider {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 10px 0;
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px 0;
+    position: relative;
+    z-index: 1; /* above highlight */
 }
 
 .category-slider::-webkit-scrollbar {
@@ -222,44 +231,104 @@ body {
 }
 
 .category-item {
-  min-width: 180px;
-  background: white;
-  border: 2px solid var(--border-color);
-  border-radius: 12px;
-  padding: 30px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s;
+    min-width: 120px;
+    background: transparent;
+    border: 0;
+    border-radius: 16px;
+    padding: 10px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .category-item:hover {
-  border-color: var(--primary-color);
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 178, 7, 0.15);
+    transform: translateY(-4px);
 }
 
 .category-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 16px;
-  background: var(--light-bg);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 8px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06) inset, 0 8px 18px rgba(0,0,0,0.05);
+    border: 1px solid #E5E7EB;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+}
+
+/* If you place an <img> inside .category-icon, it will fill the circle */
+.category-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
 }
 
 .category-name {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #6B7280;
 }
 
-.category-count {
-  font-size: 13px;
-  color: var(--gray-text);
+.category-count { display: none; }
+
+.category-item:hover .category-icon {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.14);
 }
+
+/* View All pill button on right */
+.category-slider-container .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.view-all-btn {
+    background: #E9F8EB;
+    color: #2C742F;
+    border: 0;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.view-all-btn:hover { filter: brightness(0.98); }
+
+/* header action group similar to the reference */
+.category-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ghost-icon-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: #F3F4F6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #6B7280;
+    border: 1px solid #E5E7EB;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.ghost-icon-btn:hover { filter: brightness(0.98); }
+
+/* remove any per-card gradient backgrounds */
+.category-slider .category-item { background: transparent !important; }
 
 .slider-nav {
   position: absolute;
@@ -285,11 +354,11 @@ body {
 }
 
 .slider-nav.prev {
-  left: -20px;
+    left: 8px; /* bring inside container */
 }
 
 .slider-nav.next {
-  right: -20px;
+    right: 8px; /* bring inside container */
 }
 
 /* Product Grid */
@@ -717,9 +786,13 @@ body {
     min-width: 150px;
   }
 
-  .slider-nav {
-    display: none;
-  }
+    .category-slider-container {
+        padding: 0 16px; /* reduce when arrows hidden */
+    }
+
+    .slider-nav {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
