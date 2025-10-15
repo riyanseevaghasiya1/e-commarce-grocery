@@ -1,6 +1,22 @@
 .caveat-font {
-	font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
 }
+
 .inter-font {
-	font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
+}
+@media (min-width: 480px) {
+  .product-grids {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (min-width: 768px) {
+  .product-grids {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+@media (min-width: 1280px) {
+  .product-grids {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
 }

@@ -2,13 +2,15 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Shop Page</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Shop Page - Quick View Fix</title>
 	<link rel="stylesheet" href="./css/h_style.css">
+	<link rel="stylesheet" href="./index.css">
+	<link rel="stylesheet" href="./css/home.css">
 	<!-- Tailwind CSS -->
 	<script src="https://cdn.tailwindcss.com"></script>
-	<!-- Google Fonts -->
+	<!-- Google Fonts & Font Awesome -->
 	<link
 		href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap"
 		rel="stylesheet">
@@ -16,9 +18,12 @@
 
 </head>
 
-<body class="inter-font bg-gray-50">
+<body class="inter-font bg-gray-50 text-gray-800">
+
+	<!-- Header Placeholder -->
 	<div id="header-placeholder"></div>
-	<!-- Banner Section -->
+
+	<!-- Banner -->
 	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center py-16 sm:py-24"
 		style="background-image: url('images/pages-hero-bg.webp');">
 		<div class="relative text-center text-black z-10">
@@ -32,88 +37,464 @@
 		</div>
 	</div>
 
-	<!-- Shop Section -->
+	<!-- Filter Button (Mobile Only) -->
+	<div class="container mx-auto px-4 py-4 lg:hidden flex justify-end">
+		<button onclick="openFilter()" class="bg-[#02b290] text-white px-4 py-2 rounded-md flex items-center gap-2">
+			<i class="fa-solid fa-filter"></i> Filters
+		</button>
+	</div>
+
+	<!-- Main Shop Section -->
 	<div class="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-6">
-
-		<!-- Filter Sidebar -->
-		<div class="w-full lg:w-1/4 bg-white p-4 rounded-lg shadow">
+		<!-- Sidebar (Visible on Desktop) -->
+		<div id="desktopFilter" class="hidden lg:block w-full lg:w-1/5 bg-white p-4 rounded-lg shadow">
 			<h2 class="font-semibold text-lg mb-4">Filters</h2>
-
-			<!-- Category Filter -->
-			<div class="mb-6">
-				<h3 class="font-medium mb-2">Category</h3>
-				<ul class="space-y-2">
-					<li><label><input type="checkbox" class="mr-2"> Chicken</label></li>
-					<li><label><input type="checkbox" class="mr-2"> Lamb</label></li>
-					<li><label><input type="checkbox" class="mr-2"> Desserts</label></li>
-				</ul>
+			<!-- Search -->
+			<div class="mb-4">
+				<input id="searchDesktop" type="text" placeholder="Search products..."
+					class="w-full border rounded px-3 py-2" />
 			</div>
-
-			<!-- Price Filter -->
-			<div class="mb-6">
-				<h3 class="font-medium mb-2">Price</h3>
-				<input type="range" min="0" max="100" value="50" class="w-full">
+			<!-- Category -->
+			<div class="border-t pt-4">
+				<h3 class="font-medium mb-2">Category</h3>
+				<ul id="catListDesktop" class="space-y-2"></ul>
+			</div>
+			<!-- Price -->
+			<div class="border-t pt-4 mt-6">
+				<h3 class="font-medium mb-2">Max Price: <span id="priceValueDesktop"></span></h3>
+				<input id="priceRangeDesktop" type="range" min="0" max="500" value="500"
+					class="w-full accent-[#02b290]">
 				<div class="flex justify-between text-sm mt-1">
 					<span>$0</span>
-					<span>$100</span>
+					<span id="priceMaxDesktop">$500</span>
 				</div>
 			</div>
-
-			<!-- Other Filters -->
-			<div>
-				<h3 class="font-medium mb-2">Other Filters</h3>
-				<ul class="space-y-2">
-					<li><label><input type="checkbox" class="mr-2"> Organic</label></li>
-					<li><label><input type="checkbox" class="mr-2"> Fresh</label></li>
-				</ul>
+			<!-- Rating -->
+			<div class="border-t pt-4 mt-6">
+				<h3 class="font-medium mb-2">Minimum Rating</h3>
+				<select id="ratingDesktop" class="w-full border rounded px-3 py-2">
+					<option value="0">Any</option>
+					<option value="3">3+ stars</option>
+					<option value="4">4+ stars</option>
+					<option value="5">5 stars</option>
+				</select>
+			</div>
+			<!-- Badges -->
+			<div class="border-t pt-4 mt-6">
+				<h3 class="font-medium mb-2">Badges</h3>
+				<ul id="badgeListDesktop" class="space-y-2"></ul>
+			</div>
+			<!-- Actions -->
+			<div class="border-t pt-4 mt-6 flex gap-2">
+				<button id="applyDesktop" class="bg-[#02b290] text-white px-4 py-2 rounded">Apply</button>
+				<button id="resetDesktop" class="border px-4 py-2 rounded">Reset</button>
 			</div>
 		</div>
 
-		<!-- Products Section -->
-		<div class="w-full lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-
-			<!-- Product Card Example -->
-			<div class="bg-white p-4 rounded-lg shadow flex flex-col">
-				<img src="images/chicken-pieces.jpg" alt="Boneless Chicken Pieces"
-					class="w-full h-48 object-cover mb-4 rounded">
-				<div class="flex justify-between items-center mb-2">
-					<span class="text-lg font-semibold">$3.50</span>
-					<div class="flex items-center border rounded">
-						<button class="px-2 text-gray-500">-</button>
-						<span class="px-2">1</span>
-						<button class="px-2 text-green-600 font-bold">+</button>
-					</div>
-				</div>
-				<h3 class="text-sm font-medium">Boneless Chicken Pieces 1lbs</h3>
+		<!-- Product Area: grid + pagination stacked -->
+		<div id="productArea" class="w-full lg:w-4/5 flex flex-col">
+			<div id="productGrid" class="grid product-grids gap-6">
+				<!-- Products will be dynamically loaded here -->
 			</div>
-
-			<div class="bg-white p-4 rounded-lg shadow flex flex-col">
-				<img src="images/chicken-breast.jpg" alt="Chicken Breast" class="w-full h-48 object-cover mb-4 rounded">
-				<div class="flex justify-between items-center mb-2">
-					<span class="text-lg font-semibold">$3.00</span>
-					<button class="px-3 py-1 bg-green-600 text-white rounded-full font-bold">+</button>
-				</div>
-				<h3 class="text-sm font-medium">Chicken Breast Boneless 1lbs</h3>
-			</div>
-
-			<div class="bg-white p-4 rounded-lg shadow flex flex-col">
-				<img src="images/chocolate-cake.jpg" alt="Chocolate Cake" class="w-full h-48 object-cover mb-4 rounded">
-				<div class="flex justify-between items-center mb-2">
-					<span class="text-lg font-semibold">$4.00</span>
-					<button class="px-3 py-1 bg-green-600 text-white rounded-full font-bold">+</button>
-				</div>
-				<h3 class="text-sm font-medium">Just Desserts Special Chocolate Cake</h3>
-			</div>
-
-			<!-- Repeat more product cards as needed -->
 		</div>
-
 	</div>
-	<div id="footer_add"></div>
 
+	<!-- Offcanvas Filter (Mobile) -->
+	<div id="filterOverlay" class="fixed inset-0 bg-black/40 z-[140] hidden" onclick="closeFilter()"></div>
+	<div id="mobileFilter" class="p-6 overflow-y-auto fixed left-0 top-0 h-full bg-white w-72 z-[150] "
+		style="transform: translateX(-100%); transition: transform 300ms;">
+		<div class="flex justify-between items-center mb-4">
+			<h2 class="text-lg font-semibold">Filters</h2>
+			<button onclick="closeFilter()" class="text-gray-600 text-xl">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+		<!-- Search -->
+		<div class="mb-4">
+			<input id="searchMobile" type="text" placeholder="Search products..."
+				class="w-full border rounded px-3 py-2" />
+		</div>
+		<!-- Category -->
+		<div class="border-t pt-4">
+			<h3 class="font-medium mb-2">Category</h3>
+			<ul id="catListMobile" class="space-y-2"></ul>
+		</div>
+		<!-- Price -->
+		<div class="mt-6 border-t pt-4">
+			<h3 class="font-medium mb-2">Max Price: <span id="priceValueMobile"></span></h3>
+			<input id="priceRangeMobile" type="range" min="0" max="500" value="500" class="w-full accent-[#02b290]">
+			<div class="flex justify-between text-sm mt-1">
+				<span>$0</span>
+				<span id="priceMaxMobile">$500</span>
+			</div>
+		</div>
+		<!-- Rating -->
+		<div class="mt-6 border-t pt-4">
+			<h3 class="font-medium mb-2">Minimum Rating</h3>
+			<select id="ratingMobile" class="w-full border rounded px-3 py-2">
+				<option value="0">Any</option>
+				<option value="3">3+ stars</option>
+				<option value="4">4+ stars</option>
+				<option value="5">5 stars</option>
+			</select>
+		</div>
+		<!-- Badges -->
+		<div class="mt-6 border-t pt-4">
+			<h3 class="font-medium mb-2">Badges</h3>
+			<ul id="badgeListMobile" class="space-y-2"></ul>
+		</div>
+		<!-- Actions -->
+		<div class="border-t pt-4 mt-6 flex gap-2">
+			<button id="applyMobile" class="bg-[#02b290] text-white px-4 py-2 rounded"
+				onclick="closeFilter()">Apply</button>
+			<button id="resetMobile" class="border px-4 py-2 rounded">Reset</button>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div id="footer_add" class="mt-12"></div>
+
+	<!-- Quick View Modal -->
+	<div class="modal" id="quickViewModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeQuickView()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <div class="modal-image-section">
+                    <img id="modalProductImage" src="" alt="Product" class="modal-product-image">
+                </div>
+                <div class="modal-info-section">
+                    <h2 id="modalProductName">Product Name</h2>
+                    <div class="modal-price" id="modalProductPrice">$0.00</div>
+                    <div class="product-rating" style="margin-bottom: 20px;">
+                        <span class="stars">★★★★★</span>
+                        <span style="margin-left: 8px; color: var(--gray-text);">(524 Reviews)</span>
+                    </div>
+                    <p class="modal-description">
+                        Fresh and organic product delivered right to your doorstep. 
+                        Our products are carefully selected to ensure the highest quality 
+                        and freshness. Perfect for healthy meals and snacks.
+                    </p>
+                    <div class="quantity-selector">
+                        <span style="font-weight: 600;">Quantity:</span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                            <input type="number" class="quantity-input" id="quantityInput" value="1" min="1">
+                            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        </div>
+                    </div>
+                    <button class="modal-add-to-cart" onclick="addToCartFromModal()">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </button>
+                    <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+                        <p style="font-size: 14px; color: var(--gray-text); margin-bottom: 8px;">
+                            <strong>Category:</strong> Fresh Vegetables
+                        </p>
+                        <p style="font-size: 14px; color: var(--gray-text);">
+                            <strong>SKU:</strong> FV-001234
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 	<script src="./js/rushita.js"></script>
+	<script src="./js/home.js"></script>
 
+	<script>
+		// Offcanvas filter controls (keep behavior)
+		function openFilter() {
+			const mf = document.getElementById('mobileFilter');
+			mf.style.transform = 'translateX(0)';
+			document.getElementById('filterOverlay').classList.remove('hidden');
+			document.body.classList.add('overflow-hidden');
+		}
 
+		function closeFilter() {
+			const mf = document.getElementById('mobileFilter');
+			mf.style.transform = 'translateX(-100%)';
+			document.getElementById('filterOverlay').classList.add('hidden');
+			document.body.classList.remove('overflow-hidden');
+		}
+		// Product Data (your original list)
+		const products = [
+			{ name: "Organic Spring Mix", price: "$35.00", oldPrice: "", rating: "★★★★☆", img: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=800", badge: "Sale 50%", category: "Greens", sku: "OSM-001" },
+			{ name: "Pepperige Chocolate Sponge Cake", price: "$12.00", oldPrice: "", rating: "★★★★★", img: "https://images.immediate.co.uk/production/volatile/sites/2/2015/05/6522.jpg?resize=600%2C314", badge: "Save 30%", category: "Bakery", sku: "PCSC-002" },
+			{ name: "Patna Baked Shop Almond Cookies", price: "$18.00", oldPrice: "$26.00", rating: "★★★★★", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800", badge: "", category: "Bakery", sku: "PBC-003" },
+			{ name: "Fresh Organic Apple", price: "$10.00", oldPrice: "$15.00", rating: "★★★★☆", img: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=800", badge: "New", category: "Fruits", sku: "FA-004" },
+			{ name: "Green Broccoli Bunch", price: "$8.50", oldPrice: "", rating: "★★★★★", img: "https://t4.ftcdn.net/jpg/14/42/26/37/360_F_1442263733_76JmOGACga2UsSUyumrVLhUArpTSUBzP.jpg", badge: "", category: "Vegetables", sku: "GB-005" },
+			{ name: "Farm Fresh Milk", price: "$5.00", oldPrice: "$6.50", rating: "★★★★☆", img: "https://i.pinimg.com/736x/7f/c1/c5/7fc1c5db95a9a9285dad77699f8eae7b.jpg", badge: "Sale", category: "Dairy", sku: "FFM-006" },
+			{ name: "Fresh Cheese (500g)", price: "$7.00", oldPrice: "$8.50", rating: "★★★★★", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG-d5ddXQF5GIsEk0h2wzNQ9S3YnIT5PnmnTpWz3yhxRSsc1MqvKWFouJS3E7wL4lEPQI&usqp=CAU", badge: "Hot", category: "Dairy", sku: "OBE-007" },
+			{ name: "Premium Basmati Rice (5kg)", price: "$25.00", oldPrice: "$30.00", rating: "★★★★★", img: "https://jaishreeexports.com/wp-content/uploads/2020/04/20200302_130617-1-1024x554.jpg", badge: "Save 20%", category: "Grains", sku: "PBR-008" },
+			{ name: "Whole Wheat Bread", price: "$3.00", oldPrice: "$4.00", rating: "★★★★☆", img: "https://i.pinimg.com/736x/9f/69/54/9f69540b19c0052b6fb8c5eeb9af5f5d.jpg", badge: "Fresh", category: "Bakery", sku: "WWB-009" },
+			{ name: "Natural Peanut Butter", price: "$9.00", oldPrice: "$12.00", rating: "★★★★★", img: "https://i.pinimg.com/736x/48/92/cb/4892cb41f0344af0a8966aacdca23196.jpg", badge: "", category: "Pantry", sku: "NPB-010" },
+			{ name: "Organic Carrots (1kg)", price: "$6.00", oldPrice: "$7.50", rating: "★★★★☆", img: "https://i.pinimg.com/736x/03/78/b2/0378b2f99b9e2eb84900b58c51a9f6dc.jpg", badge: "", category: "Vegetables", sku: "OC-011" },
+			{ name: "Fresh Bananas (Dozen)", price: "$4.50", oldPrice: "$5.00", rating: "★★★★★", img: "https://i.pinimg.com/1200x/d0/bf/38/d0bf380e33dd4f4482073028f86e2c6a.jpg", badge: "New", category: "Fruits", sku: "FB-012" },
+			{ name: "Organic Honey Jar (500ml)", price: "$15.00", oldPrice: "$18.00", rating: "★★★★★", img: "https://i.pinimg.com/736x/7f/4d/50/7f4d503f0ddf73a895a18e51e8e538ed.jpg", badge: "Hot", category: "Pantry", sku: "OHJ-013" },
+			{ name: "Almond Milk (1L)", price: "$6.50", oldPrice: "", rating: "★★★★☆", img: "https://i.pinimg.com/736x/48/c7/cf/48c7cf1e0337ddf5c4ba8450f6c26456.jpg", badge: "Vegan", category: "Dairy Alternatives", sku: "AM-014" },
+			{ name: "Fresh Tomatoes (1kg)", price: "$5.00", oldPrice: "", rating: "★★★★☆", img: "https://i.pinimg.com/736x/ca/5f/89/ca5f89e67adf90b462dc4989268c5e32.jpg", badge: "", category: "Vegetables", sku: "FT-015" },
+			{ name: "Olive Oil Extra Virgin (1L)", price: "$20.00", oldPrice: "$25.00", rating: "★★★★★", img: "https://i.pinimg.com/736x/5f/20/54/5f2054d87e1730e1e49adf27d4071ee7.jpg", badge: "Save 15%", category: "Pantry", sku: "OO-016" },
+			{ name: "Potato Chips (Salted)", price: "$3.50", oldPrice: "$4.00", rating: "★★★★☆", img: "https://www.shutterstock.com/image-photo/spicy-potato-chips-seasoning-600nw-2059162091.jpg", badge: "", category: "Snacks", sku: "PC-017" },
+			{ name: "Fresh Spinach (Bundle)", price: "$4.00", oldPrice: "", rating: "★★★★★", img: "https://cdn.britannica.com/30/82530-050-79911DD4/Spinach-leaves-vitamins-source-person.jpg", badge: "Fresh", category: "Greens", sku: "FS-018" },
+			{ name: "Organic Brown Sugar (1kg)", price: "$9.00", oldPrice: "$11.00", rating: "★★★★☆", img: "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2023/15/turbinado-sugar-on-table.jpg.rend.hgtvcom.1280.1280.85.suffix/1708115391075.webp", badge: "", category: "Pantry", sku: "OBS-019" },
+			{ name: "Cold Pressed Coconut Oil (500ml)", price: "$14.00", oldPrice: "$16.50", rating: "★★★★★", img: "https://i.pinimg.com/736x/4d/ae/9d/4dae9de3f44d4ca5d0aefd8f6ee845ab.jpg", badge: "New", category: "Pantry", sku: "CPCO-020" },
+		];
+
+		const productGrid = document.getElementById("productGrid");
+		const productArea = document.getElementById('productArea');
+		const paginationEl = document.createElement('div');
+		paginationEl.id = 'pagination';
+		paginationEl.className = 'mt-6 flex flex-wrap items-center gap-2 justify-center';
+		productArea.appendChild(paginationEl);
+
+		// Helpers
+		const parsePrice = (p) => Number(p.replace('$', '')) || 0;
+		const ratingToNum = (r) => (r.match(/★/g) || []).length;
+		const normalizeBadge = (b) => {
+			if (!b) return '';
+			const x = b.toLowerCase();
+			if (x.includes('save') || x.includes('sale')) return 'Sale';
+			if (x.includes('new')) return 'New';
+			if (x.includes('hot')) return 'Hot';
+			if (x.includes('fresh')) return 'Fresh';
+			if (x.includes('vegan')) return 'Vegan';
+			return b;
+		};
+
+		// Build dynamic filter options
+		const categories = Array.from(new Set(products.map(p => p.category))).sort();
+		const badges = Array.from(new Set(products.map(p => normalizeBadge(p.badge)).filter(Boolean)));
+		const priceMax = Math.ceil(Math.max(...products.map(p => parsePrice(p.price))) || 500);
+
+		function renderCheckboxList(containerId, items, group) {
+			const container = document.getElementById(containerId);
+			container.innerHTML = items.map(v => `
+				<li><label class="flex items-center gap-2"><input type="checkbox" data-group="${group}" value="${v}" class="mr-2"> <span>${v}</span></label></li>
+			`).join('');
+		}
+
+		// Initialize desktop/mobile lists
+		renderCheckboxList('catListDesktop', categories, 'category');
+		renderCheckboxList('catListMobile', categories, 'category');
+		renderCheckboxList('badgeListDesktop', badges, 'badge');
+		renderCheckboxList('badgeListMobile', badges, 'badge');
+
+		// Set price ranges
+		const priceRangeDesktop = document.getElementById('priceRangeDesktop');
+		const priceRangeMobile = document.getElementById('priceRangeMobile');
+		const priceValueDesktop = document.getElementById('priceValueDesktop');
+		const priceValueMobile = document.getElementById('priceValueMobile');
+		document.getElementById('priceMaxDesktop').textContent = `$${priceMax}`;
+		document.getElementById('priceMaxMobile').textContent = `$${priceMax}`;
+		priceRangeDesktop.max = String(priceMax);
+		priceRangeMobile.max = String(priceMax);
+		priceRangeDesktop.value = String(priceMax);
+		priceRangeMobile.value = String(priceMax);
+		priceValueDesktop.textContent = `$${priceRangeDesktop.value}`;
+		priceValueMobile.textContent = `$${priceRangeMobile.value}`;
+
+		// Filter state
+		const state = {
+			search: '',
+			categories: new Set(),
+			badges: new Set(),
+			maxPrice: priceMax,
+			minRating: 0,
+			currentPage: 1,
+			perPage: 8,
+		};
+
+		// Sync helpers
+		function syncCheckboxes(group, values) {
+			const inputs = document.querySelectorAll(`input[type="checkbox"][data-group="${group}"]`);
+			inputs.forEach(i => { i.checked = values.has(i.value); });
+		}
+		function syncPrice(val) {
+			priceRangeDesktop.value = String(val);
+			priceRangeMobile.value = String(val);
+			priceValueDesktop.textContent = `$${val}`;
+			priceValueMobile.textContent = `$${val}`;
+		}
+		function syncRating(val) {
+			document.getElementById('ratingDesktop').value = String(val);
+			document.getElementById('ratingMobile').value = String(val);
+		}
+		function syncSearch(val) {
+			document.getElementById('searchDesktop').value = val;
+			document.getElementById('searchMobile').value = val;
+		}
+
+		// Filtering logic
+		function getFilteredProducts() {
+			return products.filter(p => {
+				const nameMatch = p.name.toLowerCase().includes(state.search);
+				const categoryMatch = state.categories.size ? state.categories.has(p.category) : true;
+				const badgeNorm = normalizeBadge(p.badge);
+				const badgeMatch = state.badges.size ? (badgeNorm && state.badges.has(badgeNorm)) : true;
+				const priceMatch = parsePrice(p.price) <= state.maxPrice;
+				const ratingMatch = ratingToNum(p.rating) >= state.minRating;
+				return nameMatch && categoryMatch && badgeMatch && priceMatch && ratingMatch;
+			});
+		}
+
+		function renderProducts() {
+			const filtered = getFilteredProducts();
+			const total = filtered.length;
+			const totalPages = Math.max(1, Math.ceil(total / state.perPage));
+			if (state.currentPage > totalPages) state.currentPage = 1;
+			const start = (state.currentPage - 1) * state.perPage;
+			const pageItems = filtered.slice(start, start + state.perPage);
+
+			productGrid.innerHTML = pageItems.map((p, idx) => {
+				const globalIndex = products.indexOf(p);
+				return `
+				<div class=\"product-card bg-white rounded-lg shadow relative\">
+					<div class=\"a_image_container rounded-md overflow-hidden relative\">
+						${p.badge ? `<span class=\"absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded product-badge\">${p.badge}</span>` : ""}
+						<img src=\"${p.img}\" alt=\"${p.name}\" class=\"product-image w-full h-48 object-cover\">
+						<div class=\"product-actions absolute top-2 right-2 flex flex-col gap-2\">
+							<button class=\"action-btn bg-white p-2 rounded-full shadow\" data-index=\"${globalIndex}\" onclick=\"openQuickView(this)\">
+							<i class=\"far fa-eye\"></i>
+							</button>
+							<button class=\"action-btn bg-white p-2 rounded-full shadow\">
+							<i class=\"far fa-heart\"></i>
+							</button>
+						</div>
+					</div>
+					<div class=\"product-info mt-3\">
+						<h4 class=\"product-name text-sm font-medium\">${p.name}</h4>
+						<div class=\"product-price mt-1\">
+							<span class=\"current-price font-semibold\">${p.price}</span>
+							${p.oldPrice ? `<span class=\"old-price text-sm line-through ml-2 text-gray-400\">${p.oldPrice}</span>` : ""}
+						</div>
+						<div class=\"flex items-center justify-between mt-3\">
+							<div class=\"product-rating text-yellow-500\">${p.rating}</div>
+							<button class=\"add-to-cart bg-[#02b290] text-white px-3 py-1 rounded-md\" onclick=\"quickAddToCart(${globalIndex})\">
+							<i class=\"fas fa-shopping-bag\"></i>
+							</button>
+						</div>
+					</div>
+				</div>`;
+			}).join("");
+
+			renderPagination(totalPages);
+		}
+
+		function renderPagination(totalPages) {
+			let html = '';
+			const current = state.currentPage;
+
+			// Prev button
+			html += `<button class="px-3 py-1 border rounded ${current === 1 ? 'opacity-50 cursor-not-allowed' : ''}" 
+			${current === 1 ? 'disabled' : ''} data-page="prev">Prev</button>`;
+
+			// Show page numbers with ellipsis
+			if (totalPages <= 3) {
+				// Show all if only 3 or fewer pages
+				for (let i = 1; i <= totalPages; i++) {
+					html += `<button class="px-3 py-1 border rounded ${i === current ? 'bg-[#02b290] text-white' : ''}" data-page="${i}">${i}</button>`;
+				}
+			} else {
+				// Always show first page
+				html += `<button class="px-3 py-1 border rounded ${current === 1 ? 'bg-[#02b290] text-white' : ''}" data-page="1">1</button>`;
+
+				if (current > 2) html += `<span class="px-2">...</span>`;
+
+				// Middle page (current)
+				if (current > 1 && current < totalPages) {
+					html += `<button class="px-3 py-1 border rounded bg-[#02b290] text-white" data-page="${current}">${current}</button>`;
+				}
+
+				if (current < totalPages - 1) html += `<span class="px-2">...</span>`;
+
+				// Always show last page
+				html += `<button class="px-3 py-1 border rounded ${current === totalPages ? 'bg-[#02b290] text-white' : ''}" data-page="${totalPages}">${totalPages}</button>`;
+			}
+
+			// Next button
+			html += `<button class="px-3 py-1 border rounded ${current === totalPages ? 'opacity-50 cursor-not-allowed' : ''}" 
+			${current === totalPages ? 'disabled' : ''} data-page="next">Next</button>`;
+
+			// Render pagination
+			paginationEl.innerHTML = html;
+
+			// Add button click events
+			Array.from(paginationEl.querySelectorAll('button')).forEach(btn => {
+				btn.onclick = () => {
+					const p = btn.getAttribute('data-page');
+					const total = Math.max(1, Math.ceil(getFilteredProducts().length / state.perPage));
+
+					if (p === 'prev' && state.currentPage > 1) state.currentPage--;
+					else if (p === 'next' && state.currentPage < total) state.currentPage++;
+					else if (!isNaN(Number(p))) state.currentPage = Number(p);
+
+					renderProducts();
+				};
+			});
+		}
+
+		function applyFiltersFromUI() {
+			// search
+			const s = (document.getElementById('searchDesktop').value || document.getElementById('searchMobile').value || '').toLowerCase().trim();
+			state.search = s;
+			syncSearch(s);
+			// price
+			const px = Number(priceRangeDesktop.value);
+			state.maxPrice = px;
+			syncPrice(px);
+			// rating
+			const rt = Number(document.getElementById('ratingDesktop').value || 0);
+			state.minRating = rt;
+			syncRating(rt);
+			// categories
+			state.categories = new Set(Array.from(document.querySelectorAll('input[type="checkbox"][data-group="category"]:checked')).map(i => i.value));
+			// badges
+			state.badges = new Set(Array.from(document.querySelectorAll('input[type="checkbox"][data-group="badge"]:checked')).map(i => i.value));
+			state.currentPage = 1;
+			renderProducts();
+		}
+
+		function resetFilters() {
+			state.search = '';
+			state.categories = new Set();
+			state.badges = new Set();
+			state.maxPrice = priceMax;
+			state.minRating = 0;
+			state.currentPage = 1;
+			syncSearch('');
+			syncCheckboxes('category', state.categories);
+			syncCheckboxes('badge', state.badges);
+			syncPrice(priceMax);
+			syncRating(0);
+			renderProducts();
+		}
+
+		// Wire inputs
+		document.getElementById('applyDesktop').onclick = applyFiltersFromUI;
+		document.getElementById('applyMobile').onclick = applyFiltersFromUI;
+		document.getElementById('resetDesktop').onclick = resetFilters;
+		document.getElementById('resetMobile').onclick = resetFilters;
+		document.getElementById('searchDesktop').addEventListener('input', applyFiltersFromUI);
+		document.getElementById('searchMobile').addEventListener('input', applyFiltersFromUI);
+		priceRangeDesktop.addEventListener('input', () => {
+			priceValueDesktop.textContent = `$${priceRangeDesktop.value}`;
+			applyFiltersFromUI();
+		});
+		priceRangeMobile.addEventListener('input', () => {
+			priceValueMobile.textContent = `$${priceRangeMobile.value}`;
+			applyFiltersFromUI();
+		});
+		document.getElementById('ratingDesktop').addEventListener('change', applyFiltersFromUI);
+		document.getElementById('ratingMobile').addEventListener('change', applyFiltersFromUI);
+		Array.from(document.querySelectorAll('input[type="checkbox"][data-group="category"], input[type="checkbox"][data-group="badge"]')).forEach(i => {
+			i.addEventListener('change', applyFiltersFromUI);
+		});
+
+		// Initial render
+		resetFilters();
+
+	</script>
 </body>
 
 </html>
