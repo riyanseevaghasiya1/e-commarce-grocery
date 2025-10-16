@@ -5,33 +5,38 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>My Account - Grocery Store</title>
+
+	<!-- External Styles -->
 	<link rel="stylesheet" href="./css/h_style.css">
 	<link rel="stylesheet" href="./index.css">
-	<link rel="stylesheet" href="./css/home.css">
+
 	<!-- Tailwind CSS -->
 	<script src="https://cdn.tailwindcss.com"></script>
+
 	<!-- Google Fonts & Font Awesome -->
 	<link
 		href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap"
 		rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 	<style>
 		.active-tab {
 			background-color: #e5e5e5;
 			border-left: 4px solid #02b290;
+			color: #02b290;
 		}
 	</style>
 </head>
 
 <body class="inter-font">
 
+	<!-- Header -->
 	<div id="header-placeholder"></div>
 
+	<!-- Main Container -->
 	<div class="a_header_container">
 
-		<!-- Main Content -->
 		<main class="flex flex-col md:flex-row gap-6 flex-grow py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
+
 			<!-- Sidebar -->
 			<aside class="w-full lg:w-1/4 bg-white shadow rounded-lg p-5">
 				<h2 class="text-lg font-semibold mb-4">My Account</h2>
@@ -41,42 +46,67 @@
 					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290]"
 							data-tab="orders">Order List</button></li>
 					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290]"
-							data-tab="billing">Billing Address</button></li>
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290]"
 							data-tab="shipping">Shipping Address</button></li>
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290] "
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290]"
 							data-tab="logout">Logout</button></li>
 				</ul>
 			</aside>
 
-			<!-- Content Area -->
+			<!-- Main Content -->
 			<section class="w-full lg:w-3/4 bg-white shadow rounded-lg p-6">
+
 				<!-- Account Details -->
 				<div id="details" class="tab-content">
 					<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Account Details</h2>
-					<form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+					<!-- Profile Image Section -->
+					<div
+						class="flex flex-col sm:flex-row items-center gap-6 bg-white shadow-md p-6 mb-6 rounded-xl border border-gray-100">
+						<div class="relative">
+							<img id="profileImage"
+								src="https://i.pinimg.com/1200x/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg"
+								class="w-28 h-28 rounded-full object-cover border-4 border-[#02b290] shadow-md"
+								alt="Profile Image">
+							<label for="uploadImage"
+								class="absolute bottom-0 right-0 bg-[#02b290] text-white py-[6px] px-[10px] rounded-full cursor-pointer shadow hover:bg-[#02997c] transition">
+								<i class="fa-solid fa-camera text-sm"></i>
+							</label>
+							<input type="file" id="uploadImage" accept="image/*" class="hidden">
+						</div>
+
+						<div class="text-center sm:text-left">
+							<h3 class="text-lg font-semibold text-gray-800">Profile Picture</h3>
+							<p class="text-sm text-gray-500 mb-2">Upload a clear image of yourself</p>
+						</div>
+					</div>
+
+
+					<form id="accountForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<label class="block font-medium mb-1">Full Name</label>
-							<input type="text" placeholder="John Doe"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+							<input type="text" id="fullName" placeholder="John Doe"
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Email Address</label>
-							<input type="email" placeholder="john@example.com"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+							<input type="email" id="email" placeholder="john@example.com"
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Phone Number</label>
-							<input type="text" placeholder="+91 98765 43210"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+							<input type="text" id="phone" placeholder="+91 98765 43210"
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Password</label>
-							<input type="password" placeholder="********"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+							<input type="password" id="password" placeholder="********"
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
 						</div>
-						<div class="md:col-span-2">
-							<button class="bg-[#02b290] text-white px-4 py-2 rounded hover:bg-[#028f7a] mt-3">Save
+						<div class="md:col-span-2 flex gap-3 mt-3">
+							<button id="editBtn" type="button"
+								class="bg-[#02b290] text-white px-4 py-2 rounded hover:bg-[#028f7a]">Edit</button>
+							<button id="saveBtn" type="button"
+								class="bg-[#02b290] text-white px-4 py-2 rounded hover:bg-[#028f7a] hidden">Save
 								Changes</button>
 						</div>
 					</form>
@@ -86,7 +116,7 @@
 				<div id="orders" class="tab-content hidden">
 					<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Your Orders</h2>
 					<div class="overflow-x-auto">
-						<table class="min-w-full border rounded">
+						<table class="min-w-[500px] w-full border rounded">
 							<thead class="bg-[#e5e5e5]">
 								<tr>
 									<th class="py-2 px-3 text-left">Order ID</th>
@@ -124,81 +154,98 @@
 					</div>
 				</div>
 
-				<!-- Modal -->
+				<!-- Order Modal -->
 				<div id="orderModal"
-					class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-					<div class="bg-white rounded-lg w-11/12 md:w-2/3 lg:w-1/2 p-6 relative">
+					class="fixed inset-0 hidden items-center justify-center bg-black/60 backdrop-blur-sm z-50 transition-all duration-300 ease-in-out">
+					<div id="modalBox"
+						class="relative w-11/12 md:w-2/3 lg:w-1/2 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-4 md:p-8 transform scale-95 opacity-0 transition-all duration-300 ease-out border border-gray-100">
+
+						<div class="absolute inset-0 rounded-xl border-2 border-[#02b290]/30 pointer-events-none">
+						</div>
+
 						<button id="closeModal"
-							class="absolute top-3 right-3 text-gray-600 hover:text-gray-800 font-bold text-xl">&times;</button>
-						<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Order Details</h2>
-						<div id="modalContent">
-							<!-- Product details will be injected here -->
+							class="absolute top-5 right-5 text-gray-400 hover:text-[#02b290] transition-all duration-200">
+							<i class="fa-solid fa-xmark text-2xl"></i>
+						</button>
+
+						<div class="text-center mb-8">
+							<h2 class="text-3xl font-bold text-[#02b290] tracking-wide mb-2">Order Details</h2>
+							<p class="text-gray-500 text-sm">A detailed summary of your selected order</p>
+						</div>
+
+						<div id="modalContent" class="max-h-[55vh] overflow-y-auto pr-2 space-y-4">
+							<p class="text-gray-500 text-center">Loading order details...</p>
 						</div>
 					</div>
 				</div>
 
-				<!-- Billing Address -->
-				<div id="billing" class="tab-content hidden">
-					<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Billing Address</h2>
-					<form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-						<div>
-							<label class="block font-medium mb-1">Street Address</label>
-							<input type="text" placeholder="123 Main Street"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
-						</div>
-						<div>
-							<label class="block font-medium mb-1">City</label>
-							<input type="text" placeholder="New York"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
-						</div>
-						<div>
-							<label class="block font-medium mb-1">State</label>
-							<input type="text" placeholder="NY"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
-						</div>
-						<div>
-							<label class="block font-medium mb-1">ZIP Code</label>
-							<input type="text" placeholder="10001"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
-						</div>
-						<div class="md:col-span-2">
-							<button class="bg-[#02b290] text-white px-4 py-2 rounded hover:bg-[#028f7a] mt-3">Save
-								Address</button>
-						</div>
-					</form>
-				</div>
-
 				<!-- Shipping Address -->
 				<div id="shipping" class="tab-content hidden">
-					<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Shipping Address</h2>
-					<form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<h2 class="text-2xl font-semibold mb-6 text-[#02b290] flex flex-wrap justify-between items-center gap-2">
+						<span>Shipping Address</span>
+						<button id="toggleEdit"
+							class="bg-[#02b290] text-white text-base px-5 py-2 rounded-lg shadow hover:bg-[#028f7a] transition-all">
+							<i class="fa-solid fa-pen mr-2"></i>Edit Address
+						</button>
+					</h2>
+
+					<!-- Display Address Card -->
+					<div id="addressCard"
+						class="relative bg-black/5 border border-[#02b290]/20 rounded-2xl p-3 sm:p-6 shadow-sm mb-6 transition-all">
+						<div
+							class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium">
+							Current Address
+						</div>
+						<h3 class="text-lg font-semibold text-gray-800 mb-2">John Doe</h3>
+						<p class="text-gray-600">456 Garden Ave</p>
+						<p class="text-gray-600">Los Angeles, CA 90001</p>
+						<p class="text-gray-600 mb-2">United States</p>
+						<p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+					</div>
+
+					<!-- Editable Form -->
+					<form id="shippingForm"
+						class="hidden bg-white border border-gray-200 rounded-2xl p-6 shadow-md grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
-							<label class="block font-medium mb-1">Street Address</label>
-							<input type="text" placeholder="456 Garden Ave"
+							<label class="block font-medium mb-1 text-gray-700">Street Address</label>
+							<input type="text" id="shipStreet" placeholder="456 Garden Ave"
 								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
 						</div>
 						<div>
-							<label class="block font-medium mb-1">City</label>
-							<input type="text" placeholder="Los Angeles"
+							<label class="block font-medium mb-1 text-gray-700">City</label>
+							<input type="text" id="shipCity" placeholder="Los Angeles"
 								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
 						</div>
 						<div>
-							<label class="block font-medium mb-1">State</label>
-							<input type="text" placeholder="CA"
+							<label class="block font-medium mb-1 text-gray-700">State</label>
+							<input type="text" id="shipState" placeholder="CA"
 								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
 						</div>
 						<div>
-							<label class="block font-medium mb-1">ZIP Code</label>
-							<input type="text" placeholder="90001"
+							<label class="block font-medium mb-1 text-gray-700">ZIP Code</label>
+							<input type="text" id="shipZip" placeholder="90001"
 								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
 						</div>
-						<div class="md:col-span-2">
-							<button class="bg-[#02b290] text-white px-4 py-2 rounded hover:bg-[#028f7a] mt-3">Save
+						<div>
+							<label class="block font-medium mb-1 text-gray-700">Country</label>
+							<input type="text" id="shipCountry" placeholder="United States"
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+						</div>
+						<div>
+							<label class="block font-medium mb-1 text-gray-700">Phone Number</label>
+							<input type="text" id="shipPhone" placeholder="+91 98765 43210"
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+						</div>
+
+						<div class="md:col-span-2 flex justify-end gap-3 mt-4">
+							<button type="button" id="cancelAddressBtn"
+								class="bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 transition">Cancel</button>
+							<button type="button" id="saveAddressBtn"
+								class="bg-[#02b290] text-white px-5 py-2 rounded-lg hover:bg-[#028f7a] transition">Save
 								Address</button>
 						</div>
 					</form>
 				</div>
-
 
 				<!-- Logout -->
 				<div id="logout" class="tab-content hidden text-center py-10">
@@ -208,15 +255,122 @@
 						<button class="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">Logout</button>
 					</a>
 				</div>
+
 			</section>
 		</main>
-
 	</div>
 
+	<!-- Footer -->
 	<div id="footer_add" class="mt-12"></div>
+
 	<script src="./js/rushita.js"></script>
+
 	<script>
-		// Sample product data for each order
+		const toggleEditBtn = document.getElementById('toggleEdit');
+		const addressCard = document.getElementById('addressCard');
+		const shippingForm = document.getElementById('shippingForm');
+		const cancelAddressBtn = document.getElementById('cancelAddressBtn');
+		const saveAddressBtn = document.getElementById('saveAddressBtn');
+
+		const addressFields = ['shipStreet', 'shipCity', 'shipState', 'shipZip', 'shipCountry', 'shipPhone'];
+
+		// Load saved address
+		window.addEventListener('DOMContentLoaded', () => {
+			const savedAddress = JSON.parse(localStorage.getItem('shippingAddress')) || null;
+			if (savedAddress) renderAddress(savedAddress);
+		});
+
+		function renderAddress(addr) {
+			addressCard.innerHTML = `
+			<div class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#02b290] font-medium">
+				Current Address
+			</div>
+			<p class="text-gray-600">${addr.shipStreet}</p>
+			<p class="text-gray-600">${addr.shipCity}, ${addr.shipState} ${addr.shipZip}</p>
+			<p class="text-gray-600 mb-2">${addr.shipCountry}</p>
+			<p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> ${addr.shipPhone}</p>
+		`;
+		}
+
+		// Toggle edit form
+		toggleEditBtn.addEventListener('click', () => {
+			addressCard.classList.add('hidden');
+			shippingForm.classList.remove('hidden');
+		});
+
+		cancelAddressBtn.addEventListener('click', () => {
+			shippingForm.classList.add('hidden');
+			addressCard.classList.remove('hidden');
+		});
+
+		// Save Address
+		saveAddressBtn.addEventListener('click', () => {
+			const data = {};
+			addressFields.forEach(id => data[id] = document.getElementById(id).value.trim());
+
+			localStorage.setItem('shippingAddress', JSON.stringify(data));
+			renderAddress(data);
+
+			shippingForm.classList.add('hidden');
+			addressCard.classList.remove('hidden');
+			alert('Shipping address saved successfully!');
+		});
+	</script>
+
+	<!-- Account Edit Script -->
+	<script>
+		const profileImage = document.getElementById('profileImage');
+		const uploadImage = document.getElementById('uploadImage');
+		const formFields = ['fullName', 'email', 'phone', 'password'];
+		const editBtn = document.getElementById('editBtn');
+		const saveBtn = document.getElementById('saveBtn');
+
+		// Load stored details
+		window.addEventListener('DOMContentLoaded', () => {
+			const savedData = JSON.parse(localStorage.getItem('accountDetails')) || {};
+			if (savedData.image) profileImage.src = savedData.image;
+			formFields.forEach(id => {
+				document.getElementById(id).value = savedData[id] || '';
+			});
+		});
+
+		// Enable editing
+		editBtn.addEventListener('click', () => {
+			formFields.forEach(id => document.getElementById(id).disabled = false);
+			uploadImage.disabled = false;
+			editBtn.classList.add('hidden');
+			saveBtn.classList.remove('hidden');
+		});
+
+		// Preview Image
+		uploadImage.addEventListener('change', (e) => {
+			const file = e.target.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = (event) => {
+					profileImage.src = event.target.result;
+				};
+				reader.readAsDataURL(file);
+			}
+		});
+
+		// Save Data
+		saveBtn.addEventListener('click', () => {
+			const data = {};
+			formFields.forEach(id => data[id] = document.getElementById(id).value);
+			data.image = profileImage.src;
+			localStorage.setItem('accountDetails', JSON.stringify(data));
+
+			formFields.forEach(id => document.getElementById(id).disabled = true);
+			uploadImage.disabled = true;
+			saveBtn.classList.add('hidden');
+			editBtn.classList.remove('hidden');
+			alert('Account details saved successfully!');
+		});
+	</script>
+
+	<!-- Orders Modal Script -->
+	<script>
 		const ordersData = {
 			"1024": [
 				{ name: "Organic Apples", qty: 2, price: "$6.00" },
@@ -225,76 +379,92 @@
 			],
 			"1025": [
 				{ name: "Bananas", qty: 3, price: "$3.00" },
-				{ name: "Eggs (12 pcs)", qty: 1, price: "$5.00" },
+				{ name: "Eggs (12 pcs)", qty: 1, price: "$5.00" }
 			]
 		};
 
 		const modal = document.getElementById('orderModal');
+		const modalBox = document.getElementById('modalBox');
 		const modalContent = document.getElementById('modalContent');
 		const viewButtons = document.querySelectorAll('.view-btn');
 		const closeModal = document.getElementById('closeModal');
 
+		// Open Modal
 		viewButtons.forEach(btn => {
 			btn.addEventListener('click', () => {
 				const orderId = btn.dataset.order;
 				const products = ordersData[orderId];
-				modalContent.innerHTML = `<table class="min-w-[480px] border rounded">
-            <thead class="bg-green-100">
-                <tr>
-                    <th class="py-2 px-3 text-left">Product</th>
-                    <th class="py-2 px-3 text-left">Quantity</th>
-                    <th class="py-2 px-3 text-left">Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${products.map(p => `<tr class="border-b">
-                    <td class="py-2 px-3">${p.name}</td>
-                    <td class="py-2 px-3">${p.qty}</td>
-                    <td class="py-2 px-3">${p.price}</td>
-                </tr>`).join('')}
-            </tbody>
-        </table>`;
+
+				const total = products.reduce((a, p) => a + parseFloat(p.price.replace('$', '')), 0).toFixed(2);
+
+				modalContent.innerHTML = `
+					<div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-inner bg-white">
+						<table class="min-w-[360px] w-full border-collapse">
+							<thead class="bg-[#02b290]/10 text-[#02b290] uppercase text-sm font-semibold">
+								<tr>
+									<th class="py-3 px-4 text-left border-b border-gray-200">Product</th>
+									<th class="py-3 px-4 text-left border-b border-gray-200">Quantity</th>
+									<th class="py-3 px-4 text-left border-b border-gray-200">Price</th>
+								</tr>
+							</thead>
+							<tbody class="text-gray-700 text-sm">
+								${products.map((p, i) => `
+									<tr class="${i % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-[#02b290]/10">
+										<td class="py-3 px-4 border-b border-gray-100 font-medium">${p.name}</td>
+										<td class="py-3 px-4 border-b border-gray-100">${p.qty}</td>
+										<td class="py-3 px-4 border-b border-gray-100 font-semibold text-gray-900">${p.price}</td>
+									</tr>
+								`).join('')}
+							</tbody>
+						</table>
+					</div>
+					<div class="mt-5 bg-[#02b290]/5 p-4 rounded-xl flex justify-between items-center text-sm font-medium">
+						<span>Total Items: ${products.length}</span>
+						<span class="text-[#02b290] font-semibold">Total: $${total}</span>
+					</div>
+				`;
+
 				modal.classList.remove('hidden');
 				modal.classList.add('flex');
-
-				// Prevent background scroll
+				setTimeout(() => {
+					modalBox.classList.remove('opacity-0', 'scale-95');
+					modalBox.classList.add('opacity-100', 'scale-100');
+				}, 50);
 				document.body.classList.add('overflow-hidden');
 			});
 		});
 
+		// Close Modal
 		const closeModalFunc = () => {
-			modal.classList.add('hidden');
-			modal.classList.remove('flex');
-
-			// Restore scroll
-			document.body.classList.remove('overflow-hidden');
+			modalBox.classList.add('opacity-0', 'scale-95');
+			setTimeout(() => {
+				modal.classList.add('hidden');
+				modal.classList.remove('flex');
+				document.body.classList.remove('overflow-hidden');
+			}, 200);
 		};
 
 		closeModal.addEventListener('click', closeModalFunc);
-
-		// Close modal when clicking outside
 		modal.addEventListener('click', (e) => {
-			if (e.target === modal) {
-				closeModalFunc();
-			}
+			if (e.target === modal) closeModalFunc();
 		});
 	</script>
+
+	<!-- Tabs -->
 	<script>
 		const tabButtons = document.querySelectorAll('.tab-btn');
 		const tabContents = document.querySelectorAll('.tab-content');
 
 		tabButtons.forEach(btn => {
 			btn.addEventListener('click', () => {
-				// Remove active state
 				tabButtons.forEach(b => b.classList.remove('active-tab'));
 				tabContents.forEach(c => c.classList.add('hidden'));
-
-				// Activate current tab
 				btn.classList.add('active-tab');
 				document.getElementById(btn.dataset.tab).classList.remove('hidden');
 			});
 		});
 	</script>
+
 </body>
 
 </html>

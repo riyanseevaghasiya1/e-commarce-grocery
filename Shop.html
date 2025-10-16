@@ -15,7 +15,6 @@
 		href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap"
 		rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 
 <body class="inter-font bg-gray-50 text-gray-800">
@@ -27,10 +26,9 @@
 	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center py-16 sm:py-24"
 		style="background-image: url('images/pages-hero-bg.webp');">
 		<div class="relative text-center text-black z-10">
-			<span class="block text-2xl font-bold mb-2 uppercase text-[#02b290] caveat-font">Explore</span>
 			<h1 class="text-2xl md:text-4xl font-semibold mb-4">Shop</h1>
 			<div class="flex items-center justify-center text-sm md:text-base text-black mt-2">
-				<a href="#" class="text-black/60">Home</a>
+				<a href="./home.html" class="text-black/60">Home</a>
 				<span class="mx-2"><i class="fa-solid fa-angle-right"></i></span>
 				<span class="font-semibold">Shop</span>
 			</div>
@@ -270,7 +268,7 @@
 		function renderCheckboxList(containerId, items, group) {
 			const container = document.getElementById(containerId);
 			container.innerHTML = items.map(v => `
-				<li><label class="flex items-center gap-2"><input type="checkbox" data-group="${group}" value="${v}" class="mr-2"> <span>${v}</span></label></li>
+				<li><label class="flex items-center gap-2"><input type="checkbox" data-group="${group}" value="${v}" class="mr-2 accent-[#02b290]"> <span>${v}</span></label></li>
 			`).join('');
 		}
 
