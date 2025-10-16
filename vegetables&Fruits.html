@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Vegetables & Fruits - Grocery Store</title>
+
+	<!-- External CSS -->
+	<link rel="stylesheet" href="./css/h_style.css">
+	<link rel="stylesheet" href="./index.css">
+	<link rel="stylesheet" href="./css/home.css">
+
+	<!-- Tailwind CSS -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<!-- Google Fonts & Font Awesome -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+	<!-- Header Placeholder -->
+	<div id="header-placeholder"></div>
+
+	<!-- Banner -->
+	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center py-16 sm:py-24"
+		style="background-image: url('images/pages-hero-bg.webp');">
+		<div class="relative text-center text-black z-10">
+			<h1 class="text-2xl md:text-4xl font-semibold mb-4">Vegetables & Fruits</h1>
+			<div class="flex items-center justify-center text-sm md:text-base text-black mt-2">
+				<a href="./home.html" class="text-black/60">Home</a>
+				<span class="mx-2"><i class="fa-solid fa-angle-right"></i></span>
+				<span class="font-semibold">Vegetables & Fruits</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Products Section -->
+	<section class="a_header_container">
+		<div class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
+
+			<div id="productContainer" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-6"></div>
+
+			<!-- Pagination -->
+			<div id="pagination" class="flex justify-center mt-10 gap-2"></div>
+		</div>
+	</section>
+
+	<!-- Quick View Modal -->
+	<div class="modal" id="quickViewModal">
+		<div class="modal-content">
+			<button class="modal-close" onclick="closeQuickView()">
+				<i class="fas fa-times"></i>
+			</button>
+			<div class="modal-body">
+				<div class="modal-image-section">
+					<img id="modalProductImage" src="" alt="Product" class="modal-product-image">
+				</div>
+				<div class="modal-info-section">
+					<h2 id="modalProductName">Product Name</h2>
+					<div class="modal-price" id="modalProductPrice">$0.00</div>
+					<div class="product-rating" style="margin-bottom: 20px;">
+						<span class="stars">★★★★★</span>
+						<span style="margin-left: 8px; color: var(--gray-text);">(524 Reviews)</span>
+					</div>
+					<p class="modal-description">
+						Fresh and organic product delivered right to your doorstep.
+						Our products are carefully selected to ensure the highest quality
+						and freshness. Perfect for healthy meals and snacks.
+					</p>
+					<div class="quantity-selector">
+						<span style="font-weight: 600;">Quantity:</span>
+						<div class="quantity-controls">
+							<button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+							<input type="number" class="quantity-input" id="quantityInput" value="1" min="1">
+							<button class="quantity-btn" onclick="increaseQuantity()">+</button>
+						</div>
+					</div>
+					<button class="modal-add-to-cart" onclick="addToCartFromModal()">
+						<i class="fas fa-shopping-bag"></i> Add to Cart
+					</button>
+					<div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+						<p style="font-size: 14px; color: var(--gray-text); margin-bottom: 8px;">
+							<strong>Category:</strong> Fresh Vegetables
+						</p>
+						<p style="font-size: 14px; color: var(--gray-text);">
+							<strong>SKU:</strong> FV-001234
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div id="footer_add" class="mt-12"></div>
+
+	<script src="./js/rushita.js"></script>
+	<script src="./js/home.js"></script>
+
+	<!-- Product & Pagination Script -->
+	<script>
+		const products = [
+			{ name: "Fresh Tomatoes", price: "$4.00", oldPrice: "", rating: "★★★★☆", img: "https://i.pinimg.com/736x/ca/5f/89/ca5f89e67adf90b462dc4989268c5e32.jpg", badge: "Fresh", category: "Vegetables" },
+			{ name: "Organic Carrots", price: "$3.00", oldPrice: "$5.00", rating: "★★★★★", img: "https://i.pinimg.com/736x/03/78/b2/0378b2f99b9e2eb84900b58c51a9f6dc.jpg", badge: "Sale 40%", category: "Vegetables" },
+			{ name: "Broccoli", price: "$5.50", oldPrice: "", rating: "★★★★☆", img: "https://t4.ftcdn.net/jpg/14/42/26/37/360_F_1442263733_76JmOGACga2UsSUyumrVLhUArpTSUBzP.jpg", badge: "New", category: "Vegetables" },
+			{ name: "Organic Potatoes", price: "$2.00", oldPrice: "", rating: "★★★☆☆", img: "https://img.freepik.com/free-photo/side-view-raw-potatoes-dish_141793-7235.jpg?semt=ais_hybrid&w=740&q=80", badge: "", category: "Vegetables" },
+			{ name: "Green Apples", price: "$6.00", oldPrice: "$8.00", rating: "★★★★★", img: "https://cdn2.stylecraze.com/wp-content/uploads/2013/06/Top-26-Amazing-Benefits-Of-Green-Apples-For-Skin-Hair-And-Health-1.jpg.webp", badge: "Fresh", category: "Fruits" },
+			{ name: "Bananas", price: "$3.50", oldPrice: "", rating: "★★★★☆", img: "https://i.pinimg.com/1200x/d0/bf/38/d0bf380e33dd4f4482073028f86e2c6a.jpg", badge: "Sale 20%", category: "Fruits" },
+			{ name: "Mangoes", price: "$7.00", oldPrice: "$10.00", rating: "★★★★★", img: "https://www.euroschoolindia.com/blogs/wp-content/uploads/2023/11/nutritional-value-of-mangoes-jpg.webp", badge: "Hot", category: "Fruits" },
+			{ name: "Strawberries", price: "$8.00", oldPrice: "", rating: "★★★★☆", img: "https://im.pluckk.in/unsafe/1920x0/uploads/30300-2.png", badge: "Fresh", category: "Fruits" },
+			{ name: "Spinach", price: "$2.50", oldPrice: "", rating: "★★★★☆", img: "https://cdn.britannica.com/30/82530-050-79911DD4/Spinach-leaves-vitamins-source-person.jpg", badge: "", category: "Vegetables" },
+			{ name: "Watermelon", price: "$9.00", oldPrice: "$12.00", rating: "★★★★☆", img: "https://static.toiimg.com/thumb/msid-109932142,width-1280,height-720,resizemode-4/109932142.jpg", badge: "Sale", category: "Fruits" },
+		];
+
+		// Filter only Vegetables and Fruits
+		const filteredProducts = products.filter(
+			(p) => p.category === "Vegetables" || p.category === "Fruits"
+		);
+
+		// Pagination setup
+		const state = { currentPage: 1, perPage: 8 };
+
+		function renderProducts() {
+			const start = (state.currentPage - 1) * state.perPage;
+			const end = start + state.perPage;
+			const currentProducts = filteredProducts.slice(start, end);
+
+			const container = document.getElementById("productContainer");
+			container.innerHTML = currentProducts.map(p => `
+					<div class="product-card">
+						<div class="a_image_container">
+							<img src="${p.img}" alt="${p.name}" class="product-image w-full h-48">
+							${p.badge ? `<span class="absolute top-2 left-2 bg-[#02b290] text-white text-xs px-2 py-1 rounded">${p.badge}</span>` : ""}
+							<div class="product-actions">
+								<button class="action-btn" onclick="openQuickView(this)">
+									<i class="far fa-eye"></i>
+								</button>
+								<button class="action-btn">
+									<i class="far fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<div class="product-info">
+							<h4 class="product-name">${p.name}</h4>
+							<div class="product-price">
+								<span class="current-price">${p.price}</span>
+								${p.oldPrice ? `<span class="old-price text-gray-400 line-through text-sm ml-2">${p.oldPrice}</span>` : ""}
+							</div>
+							<div class="flex items-center justify-between mt-2">
+								<div class="product-rating">
+									<span class="stars">${p.rating}</span>
+								</div>
+								<button class="add-to-cart">
+									<i class="fas fa-shopping-bag"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				`).join('');
+
+			renderPagination();
+		}
+
+		function renderPagination() {
+			const totalPages = Math.ceil(filteredProducts.length / state.perPage);
+			let html = '';
+
+			html += `<button class="px-3 py-1 border rounded ${state.currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${state.currentPage === 1 ? 'disabled' : ''} data-page="prev">Prev</button>`;
+
+			for (let i = 1; i <= totalPages; i++) {
+				html += `<button class="px-3 py-1 border rounded ${state.currentPage === i ? 'bg-[#02b290] text-white' : 'bg-white text-gray-800'}" data-page="${i}">${i}</button>`;
+			}
+
+			html += `<button class="px-3 py-1 border rounded ${state.currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}" ${state.currentPage === totalPages ? 'disabled' : ''} data-page="next">Next</button>`;
+
+			const pagination = document.getElementById("pagination");
+			pagination.innerHTML = html;
+
+			document.querySelectorAll("#pagination button").forEach(btn => {
+				btn.addEventListener("click", () => {
+					const page = btn.getAttribute("data-page");
+					if (page === "prev" && state.currentPage > 1) state.currentPage--;
+					else if (page === "next" && state.currentPage < totalPages) state.currentPage++;
+					else if (!isNaN(page)) state.currentPage = parseInt(page);
+					renderProducts();
+				});
+			});
+		}
+
+		renderProducts();
+	</script>
+
+</body>
+
+</html>

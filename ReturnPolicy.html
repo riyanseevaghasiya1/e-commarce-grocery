@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Return Policy - Grocery Go</title>
+	<link rel="stylesheet" href="./css/h_style.css">
+	<link rel="stylesheet" href="./index.css">
+	<!-- Tailwind CSS -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<!-- Google Fonts -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap"
+		rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<style>
+		body {
+			scroll-behavior: smooth;
+		}
+
+		.sidebar a.active {
+			color: #02b290;
+			font-weight: 600;
+		}
+
+		p {
+			font-size: 15px;
+			color: #595959;
+			line-height: 26px;
+		}
+	</style>
+</head>
+
+<body class="inter-font">
+	<div id="header-placeholder"></div>
+
+	<!-- Banner Section -->
+	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center py-16 sm:py-24"
+		style="background-image: url('images/pages-hero-bg.webp');">
+		<div class="relative text-center text-black z-10">
+			<h1 class="text-2xl md:text-4xl font-semibold mb-4">Return Policy</h1>
+			<div class="flex items-center justify-center text-sm md:text-base text-black mt-2">
+				<a href="./home.html" class="text-black/60">Home</a>
+				<span class="mx-2"><i class="fas fa-angle-right"></i></span>
+				<span class="font-semibold">Return Policy</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Return Policy Section -->
+	<div class="a_header_container">
+		<div class="flex mx-auto py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
+			<!-- Sidebar -->
+			<div class="sidebar hidden md:block md:w-60 lg:w-72 xl:w-80 h-screen sticky top-0 p-6">
+				<ul class="space-y-4">
+					<li><a href="#introduction" class="block cursor-pointer sidebar-link">Introduction</a></li>
+					<li><a href="#eligibility" class="block cursor-pointer sidebar-link">Return Eligibility</a></li>
+					<li><a href="#non-returnable" class="block cursor-pointer sidebar-link">Non-returnable Items</a></li>
+					<li><a href="#process" class="block cursor-pointer sidebar-link">Return Process</a></li>
+					<li><a href="#refunds" class="block cursor-pointer sidebar-link">Refunds</a></li>
+					<li><a href="#contact" class="block cursor-pointer sidebar-link">Contact Support</a></li>
+				</ul>
+			</div>
+
+			<!-- Content -->
+			<div class="flex-1 py-5 md:py-10 space-y-16">
+				<section id="introduction">
+					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Introduction</h2>
+					<p>Thank you for shopping with <strong>Grocery Go</strong>. We strive to ensure you are satisfied
+						with every purchase you make. This Return Policy outlines the conditions under which items can be
+						returned, replaced, or refunded. Please review this policy carefully before initiating a return
+						request.</p>
+				</section>
+
+				<section id="eligibility">
+					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Return Eligibility</h2>
+					<p>We accept returns for most items within <strong>7 days</strong> of delivery, provided that:</p>
+					<ul class="list-disc ml-6 mt-3 space-y-2 text-[#595959]">
+						<li>The item is unused, unwashed, and in its original packaging.</li>
+						<li>The product is not damaged, altered, or tampered with in any way.</li>
+						<li>You have the original invoice or proof of purchase.</li>
+					</ul>
+				</section>
+
+				<section id="non-returnable">
+					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Non-returnable Items</h2>
+					<p>Some categories of products are not eligible for return due to hygiene and safety concerns.
+						Non-returnable items include:</p>
+					<ul class="list-disc ml-6 mt-3 space-y-2 text-[#595959]">
+						<li>Fresh fruits and vegetables</li>
+						<li>Dairy, frozen, and bakery products</li>
+						<li>Opened or partially used food items</li>
+						<li>Personal care and hygiene products</li>
+					</ul>
+				</section>
+
+				<section id="process">
+					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Return Process</h2>
+					<p>To initiate a return, please follow these steps:</p>
+					<ul class="list-decimal ml-6 mt-3 space-y-2 text-[#595959]">
+						<li>Go to your <strong>My Orders</strong> page and select the item you wish to return.</li>
+						<li>Click on <strong>Request Return</strong> and fill out the required details.</li>
+						<li>Our team will review your request within 24–48 hours.</li>
+						<li>Once approved, we’ll arrange for pickup or provide instructions for returning the product.</li>
+					</ul>
+					<p class="mt-3">Please ensure the returned product is securely packed to prevent damage during
+						transit.</p>
+				</section>
+
+				<section id="refunds">
+					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Refunds</h2>
+					<p>Once your return is received and inspected, we will notify you via email or SMS. Approved refunds
+						will be processed within <strong>5–7 business days</strong> to your original payment method. In
+						case of Cash on Delivery (COD) orders, the refund will be credited to your bank account or as
+						store credit.</p>
+					<p class="mt-3">Please note: Shipping charges are non-refundable unless the return is due to a
+						defective or wrong item delivered.</p>
+				</section>
+
+				<section id="contact">
+					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Contact Support</h2>
+					<p>If you have any questions or concerns about our Return Policy, feel free to contact our support
+						team:</p>
+					<ul class="mt-3 space-y-2 text-[#595959]">
+						<li>Email: <a href="mailto:support@grocerygo.com"
+								class="text-[#02b290] underline">support@grocerygo.com</a></li>
+						<li>Phone: +91 98765 43210</li>
+						<li>Available: Monday – Saturday, 9 AM to 6 PM</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer_add"></div>
+
+	<script src="./js/rushita.js"></script>
+
+	<script>
+		const links = document.querySelectorAll('.sidebar-link');
+
+		links.forEach(link => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+
+				// Remove active from all links
+				links.forEach(l => l.classList.remove('active'));
+
+				// Add active to clicked link
+				link.classList.add('active');
+
+				// Scroll to section
+				const target = document.querySelector(link.getAttribute('href'));
+				target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			});
+		});
+	</script>
+</body>
+
+</html>
