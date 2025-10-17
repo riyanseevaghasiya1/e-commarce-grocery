@@ -181,7 +181,8 @@
 
 				<!-- Shipping Address -->
 				<div id="shipping" class="tab-content hidden">
-					<h2 class="text-2xl font-semibold mb-6 text-[#02b290] flex flex-wrap justify-between items-center gap-2">
+					<h2
+						class="text-2xl font-semibold mb-6 text-[#02b290] flex flex-wrap justify-between items-center gap-2">
 						<span>Shipping Address</span>
 						<button id="toggleEdit"
 							class="bg-[#02b290] text-white text-base px-5 py-2 rounded-lg shadow hover:bg-[#028f7a] transition-all">
@@ -422,6 +423,16 @@
 						<span>Total Items: ${products.length}</span>
 						<span class="text-[#02b290] font-semibold">Total: $${total}</span>
 					</div>
+					<div class="mt-4 flex flex-wrap gap-3 justify-end">
+				<button
+					class="px-5 py-2.5 rounded-xl border bg-red-500 text-white hover:bg-red-400 transition font-medium">
+					Cancel Order
+				</button>
+				<button
+					class="px-5 py-2.5 rounded-xl bg-[#02b290] text-white hover:bg-[#029673] transition font-medium">
+					Track Order
+				</button>
+				
 				`;
 
 				modal.classList.remove('hidden');
