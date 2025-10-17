@@ -1,13 +1,3 @@
-// Category Slider Navigation
-function scrollCategories(direction) {
-    const slider = document.getElementById('categorySlider');
-    const scrollAmount = 220;
-    slider.scrollBy({
-        left: direction * scrollAmount,
-        behavior: 'smooth'
-    });
-}
-
 // Products Slider Navigation
 function scrollProducts(sliderId, direction) {
     const slider = document.getElementById(sliderId);
@@ -56,57 +46,32 @@ function decreaseQuantity() {
 function addToCartFromModal() {
     const productName = document.getElementById('modalProductName').textContent;
     const quantity = document.getElementById('quantityInput').value;
-    alert(`Added ${quantity}x "${productName}" to cart!`);
+    showNotification(`Added ${quantity}x "${productName}" to cart!`);
     closeQuickView();
 }
 
 // Close modal on outside click
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('quickViewModal');
-    
-    modal.addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeQuickView();
-        }
-    });
 
-    // Close modal with ESC key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeQuickView();
-        }
-    });
+    if (modal) {
+        modal.addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeQuickView();
+            }
+        });
 
-    // Inject 'View All' button into category section header
-    const catHeader = document.querySelector('.category-slider-container .section-header');
-    if (catHeader && !catHeader.querySelector('.category-actions')) {
-        const actions = document.createElement('div');
-        actions.className = 'category-actions';
-
-        const viewBtn = document.createElement('button');
-        viewBtn.className = 'view-all-btn';
-        viewBtn.textContent = 'View All';
-        viewBtn.addEventListener('click', () => showNotification('Viewing all categories'));
-
-        const prev = document.createElement('button');
-        prev.className = 'ghost-icon-btn';
-        prev.innerHTML = '<i class="fas fa-chevron-left"></i>';
-        prev.addEventListener('click', () => scrollCategories(-1));
-
-        const next = document.createElement('button');
-        next.className = 'ghost-icon-btn';
-        next.innerHTML = '<i class="fas fa-chevron-right"></i>';
-        next.addEventListener('click', () => scrollCategories(1));
-
-        actions.appendChild(viewBtn);
-        actions.appendChild(prev);
-        actions.appendChild(next);
-        catHeader.appendChild(actions);
+        // Close modal with ESC key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeQuickView();
+            }
+        });
     }
 
     // Smooth scroll behavior for all sliders
-    const sliders = document.querySelectorAll('.category-slider, .products-slider');
-    
+    const sliders = document.querySelectorAll('.products-slider');
+
     sliders.forEach(slider => {
         let isDown = false;
         let startX;
@@ -138,66 +103,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Auto scroll for category slider
-    const categorySlider = document.getElementById('categorySlider');
-    if (categorySlider) {
-        let autoScrollTimer;
-        let direction = 1;
-        const step = 2; // pixels per tick
-        const tickMs = 16; // ~60fps
-
-        function startAutoScroll() {
-            stopAutoScroll();
-            autoScrollTimer = setInterval(() => {
-                // bounce at edges
-                if (categorySlider.scrollLeft + categorySlider.clientWidth >= categorySlider.scrollWidth - 2) {
-                    direction = -1;
-                } else if (categorySlider.scrollLeft <= 0) {
-                    direction = 1;
-                }
-                categorySlider.scrollLeft += step * direction;
-            }, tickMs);
-        }
-
-        function stopAutoScroll() {
-            if (autoScrollTimer) clearInterval(autoScrollTimer);
-        }
-
-        // pause on hover or when user interacts
-        categorySlider.addEventListener('mouseenter', stopAutoScroll);
-        categorySlider.addEventListener('mouseleave', startAutoScroll);
-        categorySlider.addEventListener('mousedown', stopAutoScroll);
-        categorySlider.addEventListener('touchstart', stopAutoScroll, { passive: true });
-
-        // also pause when hovering over arrows
-        const prevBtn = document.querySelector('.category-slider-container .slider-nav.prev');
-        const nextBtn = document.querySelector('.category-slider-container .slider-nav.next');
-        [prevBtn, nextBtn].forEach(btn => {
-            if (btn) {
-                btn.addEventListener('mouseenter', stopAutoScroll);
-                btn.addEventListener('mouseleave', startAutoScroll);
-            }
-        });
-
-        startAutoScroll();
-    }
-
     // Add to cart functionality for product cards
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    
+
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.stopPropagation();
             const productCard = this.closest('.product-card');
             const productName = productCard.querySelector('.product-name').textContent;
-            const productPrice = productCard.querySelector('.current-price').textContent;
-            
+
             // Add animation effect
             this.style.transform = 'scale(0.9)';
             setTimeout(() => {
                 this.style.transform = 'scale(1)';
             }, 200);
-            
+
             // Show notification
             showNotification(`Added "${productName}" to cart!`);
         });
@@ -205,12 +125,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Wishlist functionality
     const wishlistButtons = document.querySelectorAll('.product-actions .action-btn:nth-child(2)');
-    
+
     wishlistButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.stopPropagation();
             const icon = this.querySelector('i');
-            
+
             if (icon.classList.contains('far')) {
                 icon.classList.remove('far');
                 icon.classList.add('fas');
@@ -225,21 +145,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Category hover effect
-    const categoryItems = document.querySelectorAll('.category-item');
-    
-    categoryItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const categoryName = this.querySelector('.category-name').textContent;
+    // Category click
+    const categoryCards = document.querySelectorAll('.category-card');
+
+    categoryCards.forEach(card => {
+        card.addEventListener('click', function () {
+            const categoryName = this.querySelector('.category-label').textContent;
             showNotification(`Browsing ${categoryName}...`);
         });
     });
 
     // Collection cards click
     const collectionCards = document.querySelectorAll('.collection-card');
-    
+
     collectionCards.forEach(card => {
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function () {
             const title = this.querySelector('.collection-title').textContent;
             showNotification(`Exploring ${title}...`);
         });
@@ -247,15 +167,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Feature cards click
     const featureCards = document.querySelectorAll('.feature-card');
-    
+
     featureCards.forEach(card => {
-        card.addEventListener('click', function(e) {
+        card.addEventListener('click', function (e) {
             if (e.target.tagName !== 'A') {
                 const link = this.querySelector('.feature-link');
                 if (link) {
-                    link.click();
+                    const title = this.querySelector('.feature-title').textContent;
+                    showNotification(title);
                 }
             }
+        });
+    });
+
+    // Quantity input validation
+    const quantityInput = document.getElementById('quantityInput');
+
+    if (quantityInput) {
+        quantityInput.addEventListener('input', function () {
+            if (this.value < 1) {
+                this.value = 1;
+            }
+            if (this.value > 99) {
+                this.value = 99;
+            }
+        });
+
+        quantityInput.addEventListener('blur', function () {
+            if (this.value === '' || isNaN(this.value)) {
+                this.value = 1;
+            }
+        });
+    }
+
+    // Prevent default behavior for demo links
+    const demoLinks = document.querySelectorAll('a[href="#"]');
+
+    demoLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
         });
     });
 });
@@ -267,12 +217,12 @@ function showNotification(message) {
     if (existingNotification) {
         existingNotification.remove();
     }
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = 'custom-notification';
     notification.textContent = message;
-    
+
     // Add styles
     notification.style.cssText = `
         position: fixed;
@@ -288,7 +238,7 @@ function showNotification(message) {
         font-weight: 500;
         font-size: 14px;
     `;
-    
+
     // Add animation styles
     const style = document.createElement('style');
     style.textContent = `
@@ -313,14 +263,14 @@ function showNotification(message) {
             }
         }
     `;
-    
+
     if (!document.querySelector('style[data-notification-styles]')) {
         style.setAttribute('data-notification-styles', '');
         document.head.appendChild(style);
     }
-    
+
     document.body.appendChild(notification);
-    
+
     // Remove after 3 seconds
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease-out';
@@ -333,7 +283,7 @@ function showNotification(message) {
 // Scroll reveal animation (excluding images)
 function revealOnScroll() {
     const elements = document.querySelectorAll('.collection-card, .feature-card');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -344,7 +294,7 @@ function revealOnScroll() {
     }, {
         threshold: 0.1
     });
-    
+
     elements.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(20px)';
@@ -355,36 +305,3 @@ function revealOnScroll() {
 
 // Initialize scroll reveal
 document.addEventListener('DOMContentLoaded', revealOnScroll);
-
-// Prevent default behavior for demo links
-document.addEventListener('DOMContentLoaded', function() {
-    const quantityInput = document.getElementById('quantityInput');
-    
-    if (quantityInput) {
-        quantityInput.addEventListener('input', function() {
-            if (this.value < 1) {
-                this.value = 1;
-            }
-            if (this.value > 99) {
-                this.value = 99;
-            }
-        });
-        
-        quantityInput.addEventListener('blur', function() {
-            if (this.value === '' || isNaN(this.value)) {
-                this.value = 1;
-            }
-        });
-    }
-});
-
-// Prevent default behavior for demo links
-document.addEventListener('DOMContentLoaded', function() {
-    const demoLinks = document.querySelectorAll('a[href="#"]');
-    
-    demoLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-        });
-    });
-});
