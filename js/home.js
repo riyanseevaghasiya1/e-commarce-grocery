@@ -1,3 +1,13 @@
+// Category Slider Navigation
+function scrollCategories(direction) {
+    const slider = document.getElementById('categorySlider');
+    const scrollAmount = 220;
+    slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+
 // Products Slider Navigation
 function scrollProducts(sliderId, direction) {
     const slider = document.getElementById(sliderId);
@@ -69,7 +79,50 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Smooth scroll behavior for all sliders
+    // Category Tabs Functionality
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            categoryTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            showNotification(`Showing ${this.textContent} category`);
+        });
+    });
+
+    // Smooth scroll behavior for category slider
+    const categorySlider = document.getElementById('categorySlider');
+    if (categorySlider) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        categorySlider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            categorySlider.style.cursor = 'grabbing';
+            startX = e.pageX - categorySlider.offsetLeft;
+            scrollLeft = categorySlider.scrollLeft;
+        });
+
+        categorySlider.addEventListener('mouseleave', () => {
+            isDown = false;
+            categorySlider.style.cursor = 'grab';
+        });
+
+        categorySlider.addEventListener('mouseup', () => {
+            isDown = false;
+            categorySlider.style.cursor = 'grab';
+        });
+
+        categorySlider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - categorySlider.offsetLeft;
+            const walk = (x - startX) * 2;
+            categorySlider.scrollLeft = scrollLeft - walk;
+        });
+    }
+
+    // Smooth scroll behavior for all product sliders
     const sliders = document.querySelectorAll('.products-slider');
 
     sliders.forEach(slider => {
