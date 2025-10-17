@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="./css/rushita.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50">
+    <div id="header-placeholder"></div>
+    
+    <section class="relative bg-cover bg-center py-16 md:py-24"
+        style="background-image: url('./images/checkout.webp');">
+        <div class="relative z-10 container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Your Order</h1>
+            <div class="flex items-center justify-center text-gray-700 text-sm space-x-2">
+                <a href="#" class="flex items-center hover:text-teal-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4 mr-1">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75V21h15V9.75" />
+                    </svg>
+                    Home
+                </a>
+                <span>›</span>
+                <span class="text-gray-900 font-semibold">Order</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Confirmation Section -->
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        
+        <!-- Success Message -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8 flex items-center">
+            <span class="text-2xl mr-3">🎉</span>
+            <span class="text-gray-800">Thank you. Your order has been received.</span>
+        </div>
+
+        <!-- Order Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <!-- Order Number -->
+            <div class="bg-white border border-gray-200 rounded p-6">
+                <div class="text-xs text-gray-500 uppercase mb-2">Order Number:</div>
+                <div class="text-lg font-semibold text-gray-900">1746</div>
+            </div>
+
+            <!-- Date -->
+            <div class="bg-white border border-gray-200 rounded p-6">
+                <div class="text-xs text-gray-500 uppercase mb-2">Date:</div>
+                <div class="text-lg font-semibold text-gray-900">October 16, 2025</div>
+            </div>
+
+            <!-- Total -->
+            <div class="bg-white border border-gray-200 rounded p-6">
+                <div class="text-xs text-gray-500 uppercase mb-2">Total:</div>
+                <div class="text-lg font-semibold text-gray-900">$3.50</div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="bg-white border border-gray-200 rounded p-6">
+                <div class="text-xs text-gray-500 uppercase mb-2">Payment Method:</div>
+                <div class="text-lg font-semibold text-gray-900">Cash on delivery</div>
+            </div>
+        </div>
+
+        <!-- Payment Note -->
+        <p class="text-gray-600 mb-8">Pay with cash upon delivery.</p>
+
+        <!-- Order Details -->
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <h2 class="text-2xl font-bold text-gray-900 p-6 pb-4">Order details</h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-gray-100 border-t border-b border-gray-200">
+                            <th class="text-left text-xs font-semibold text-gray-700 uppercase p-4">Product</th>
+                            <th class="text-right text-xs font-semibold text-gray-700 uppercase p-4">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <!-- Product Row -->
+                        <tr>
+                            <td class="p-4">
+                                <span class="text-gray-900">Organic Green Cabbage</span>
+                                <span class="text-gray-500"> × 1</span>
+                            </td>
+                            <td class="p-4 text-right text-gray-900">$3.50</td>
+                        </tr>
+
+                        <!-- Subtotal Row -->
+                        <tr>
+                            <td class="p-4">
+                                <span class="text-xs font-semibold text-gray-700 uppercase">Subtotal:</span>
+                            </td>
+                            <td class="p-4 text-right text-gray-900">$3.50</td>
+                        </tr>
+
+                        <!-- Shipping Row -->
+                        <tr>
+                            <td class="p-4">
+                                <span class="text-xs font-semibold text-gray-700 uppercase">Shipping:</span>
+                            </td>
+                            <td class="p-4 text-right text-gray-600">Free shipping</td>
+                        </tr>
+
+                        <!-- Payment Method Row -->
+                        <tr>
+                            <td class="p-4">
+                                <span class="text-xs font-semibold text-gray-700 uppercase">Payment Method:</span>
+                            </td>
+                            <td class="p-4 text-right text-gray-900">Cash on delivery</td>
+                        </tr>
+
+                        <!-- Total Row -->
+                        <tr class="bg-gray-50">
+                            <td class="p-4">
+                                <span class="text-xs font-semibold text-gray-700 uppercase">Total:</span>
+                            </td>
+                            <td class="p-4 text-right font-semibold text-gray-900">$3.50</td>
+                        </tr>
+
+                        <!-- Note Row -->
+                        <tr>
+                            <td class="p-4">
+                                <span class="text-xs font-semibold text-gray-700 uppercase">Note:</span>
+                            </td>
+                            <td class="p-4 text-right text-gray-600">sdasd</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="footer_add"></div>
+    <script src="./js/rushita.js"></script>
+</body>
+
+</html>

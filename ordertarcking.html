@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#14B8A6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+    <div id="header-placeholder"></div>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+        <!-- Header Section -->
+        <div class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Track Your Order</h1>
+        </div>
+
+  
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h2 class="text-sm text-gray-500 mb-1">Order ID</h2>
+                    <p class="text-lg md:text-xl font-semibold text-gray-800">#ORD-2024-10579</p>
+                </div>
+                <div>
+                    <h2 class="text-sm text-gray-500 mb-1">Order Date</h2>
+                    <p class="text-lg font-medium text-gray-800">Oct 14, 2025</p>
+                </div>
+                <div>
+                    <h2 class="text-sm text-gray-500 mb-1">Estimated Delivery</h2>
+                    <p class="text-lg font-medium" style="color: #14B8A6;">Oct 18, 2025</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tracking Stepper -->
+        <div class="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+            <div class="relative">
+                <!-- Desktop Horizontal Stepper -->
+                <div class="hidden md:block">
+                    <div class="flex items-center justify-between mb-8">
+                        <!-- Step 1 - Completed -->
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-all" style="background-color: #14B8A6;">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <p class="text-sm font-medium text-gray-800">Order Placed</p>
+                            <p class="text-xs text-gray-500 mt-1">Oct 14, 10:30 AM</p>
+                        </div>
+
+                        <!-- Connecting Line -->
+                        <div class="flex-1 h-1 mx-4" style="background-color: #14B8A6;"></div>
+
+                        <!-- Step 2 - Completed -->
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-all" style="background-color: #14B8A6;">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <p class="text-sm font-medium text-gray-800">Processing</p>
+                            <p class="text-xs text-gray-500 mt-1">Oct 14, 02:15 PM</p>
+                        </div>
+
+                        <!-- Connecting Line -->
+                        <div class="flex-1 h-1 mx-4" style="background-color: #14B8A6;"></div>
+
+                        <!-- Step 3 - Current -->
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 border-4 transition-all relative" style="border-color: #14B8A6; background-color: white;">
+                                <div class="w-3 h-3 rounded-full animate-pulse" style="background-color: #14B8A6;"></div>
+                            </div>
+                            <p class="text-sm font-medium" style="color: #14B8A6;">Out for Delivery</p>
+                            <p class="text-xs text-gray-500 mt-1">Oct 17, 08:00 AM</p>
+                        </div>
+
+                        <!-- Connecting Line -->
+                        <div class="flex-1 h-1 mx-4 bg-gray-300"></div>
+
+                        <!-- Step 4 - Pending -->
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center mb-2">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <p class="text-sm font-medium text-gray-500">Delivered</p>
+                            <p class="text-xs text-gray-400 mt-1">Pending</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Vertical Stepper -->
+                <div class="md:hidden">
+                    <!-- Step 1 -->
+                    <div class="flex gap-4 pb-8 relative">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: #14B8A6;">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="w-0.5 h-full absolute top-10" style="background-color: #14B8A6;"></div>
+                        </div>
+                        <div class="flex-1 pb-4">
+                            <p class="font-medium text-gray-800">Order Placed</p>
+                            <p class="text-sm text-gray-500 mt-1">Oct 14, 10:30 AM</p>
+                            <p class="text-sm text-gray-600 mt-2">Your order has been successfully placed</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex gap-4 pb-8 relative">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: #14B8A6;">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="w-0.5 h-full absolute top-10" style="background-color: #14B8A6;"></div>
+                        </div>
+                        <div class="flex-1 pb-4">
+                            <p class="font-medium text-gray-800">Processing</p>
+                            <p class="text-sm text-gray-500 mt-1">Oct 14, 02:15 PM</p>
+                            <p class="text-sm text-gray-600 mt-2">Your order is being prepared</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 - Current -->
+                    <div class="flex gap-4 pb-8 relative">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center border-4" style="border-color: #14B8A6; background-color: white;">
+                                <div class="w-2.5 h-2.5 rounded-full animate-pulse" style="background-color: #14B8A6;"></div>
+                            </div>
+                            <div class="w-0.5 h-full bg-gray-300 absolute top-10"></div>
+                        </div>
+                        <div class="flex-1 pb-4">
+                            <p class="font-medium" style="color: #14B8A6;">Out for Delivery</p>
+                            <p class="text-sm text-gray-500 mt-1">Oct 17, 08:00 AM</p>
+                            <p class="text-sm text-gray-600 mt-2">Your package is on the way</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-medium text-gray-500">Delivered</p>
+                            <p class="text-sm text-gray-400 mt-1">Pending</p>
+                            <p class="text-sm text-gray-500 mt-2">Awaiting delivery confirmation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delivery Address -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Delivery Address</h3>
+            <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 mt-1" style="color: #14B8A6;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <div>
+                    <p class="font-medium text-gray-800">John Doe</p>
+                    <p class="text-gray-600 mt-1">123 Main Street, Apartment 4B</p>
+                    <p class="text-gray-600">Surat, Gujarat - 395001</p>
+                    <p class="text-gray-600 mt-2">Phone: +91 98765 43210</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Order Items</h3>
+            <div class="space-y-4">
+                <div class="flex gap-4 pb-4 border-b border-gray-200">
+                    <div class="w-20 h-20 bg-gray-200 rounded-md flex-shrink-0"></div>
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-800">Product Name 1</p>
+                        <p class="text-sm text-gray-500 mt-1">Quantity: 2</p>
+                        <p class="font-medium mt-2" style="color: #14B8A6;">₹1,999.00</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="w-20 h-20 bg-gray-200 rounded-md flex-shrink-0"></div>
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-800">Product Name 2</p>
+                        <p class="text-sm text-gray-500 mt-1">Quantity: 1</p>
+                        <p class="font-medium mt-2" style="color: #14B8A6;">₹899.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 pt-4 border-t border-gray-200">
+                <div class="flex justify-between text-gray-600 mb-2">
+                    <span>Subtotal</span>
+                    <span>₹4,897.00</span>
+                </div>
+                <div class="flex justify-between text-gray-600 mb-2">
+                    <span>Shipping</span>
+                    <span>₹99.00</span>
+                </div>
+                <div class="flex justify-between text-lg font-semibold text-gray-800 mt-3 pt-3 border-t border-gray-200">
+                    <span>Total</span>
+                    <span style="color: #14B8A6;">₹4,996.00</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="footer_add"></div>
+    <script src="./js/rushita.js"></script>
+</body>
+
+</html>
