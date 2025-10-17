@@ -74,114 +74,96 @@
             </div>
         </section>
 
-        <!-- Category Section - New Design -->
+        <!-- Category Section - NEW SLIDER DESIGN -->
         <section class="category-section">
             <div class="section-header">
-                <h2 class="section-title">What food you love to order</h2>
-                <p class="section-subtitle">Here order your favorite foods from different categories</p>
-            </div>
-            
-            <div class="category-grid">
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1600952841320-db92ec4047ca?w=150" alt="Chips">
-                    </div>
-                    <h4 class="category-label">Chips</h4>
+                <div class="section-header-left">
+                    <h2 class="section-title">Featured Categories</h2>
                 </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=150" alt="Cold Drinks">
-                    </div>
-                    <h4 class="category-label">Cold Drinks</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=150" alt="Cookies & Cakes">
-                    </div>
-                    <h4 class="category-label">Cookies & Cakes</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=150" alt="Deli Items">
-                    </div>
-                    <h4 class="category-label">Deli Items</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=150" alt="Fast Food Items">
-                    </div>
-                    <h4 class="category-label">Fast Food Items</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?w=150" alt="Fish Items">
-                    </div>
-                    <h4 class="category-label">Fish Items</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=150" alt="Fresh Vegetables">
-                    </div>
-                    <h4 class="category-label">Fresh Vegetables</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=150" alt="Fruit Items">
-                    </div>
-                    <h4 class="category-label">Fruit Items</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1604977042946-1eecc30f269e?w=150" alt="Grocery Items">
-                    </div>
-                    <h4 class="category-label">Grocery Items</h4>
+                <div class="category-tabs">
+                    <button class="category-tab active">Cake & Milk</button>
+                    <button class="category-tab">Coffee & Teas</button>
+                    <button class="category-tab">Pet Foods</button>
+                    <button class="category-tab">Vegetables</button>
                 </div>
             </div>
 
-            <!-- Second Row -->
-            <div class="category-grid category-grid-second">
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=150" alt="Healthy Foods">
+            <div class="category-slider-wrapper">
+                <button class="category-nav prev" onclick="scrollCategories(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="category-slider" id="categorySlider">
+                    <div class="category-card" style="background: linear-gradient(135deg, #FFE8E8 0%, #FFF 100%);">
+                        <div class="category-image-wrapper" style="background: #FFE8E8;">
+                            <img src="https://images.unsplash.com/photo-1587049352846-4a222e784129?w=150"
+                                alt="Pomegranate">
+                        </div>
+                        <h4 class="category-label">Pomegranate</h4>
+                        <p class="category-items">6 items</p>
                     </div>
-                    <h4 class="category-label">Healthy Foods</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=150" alt="Meat Store">
+
+                    <div class="category-card" style="background: linear-gradient(135deg, #FFF9E5 0%, #FFF 100%);">
+                        <div class="category-image-wrapper" style="background: #FFF9E5;">
+                            <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=150" alt="Papaya">
+                        </div>
+                        <h4 class="category-label">Papaya</h4>
+                        <p class="category-items">6 items</p>
                     </div>
-                    <h4 class="category-label">Meat Store</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=150" alt="Popcorn & Jerkey">
+
+                    <div class="category-card" style="background: linear-gradient(135deg, #E8F8E8 0%, #FFF 100%);">
+                        <div class="category-image-wrapper" style="background: #E8F8E8;">
+                            <img src="https://images.unsplash.com/photo-1589606663923-283bbd309229?w=150" alt="Kiwi">
+                        </div>
+                        <h4 class="category-label">Kiwi</h4>
+                        <p class="category-items">6 items</p>
                     </div>
-                    <h4 class="category-label">Popcorn & Jerkey</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=150" alt="Quality Milk">
+
+                    <div class="category-card" style="background: linear-gradient(135deg, #E8F8F5 0%, #FFF 100%);">
+                        <div class="category-image-wrapper" style="background: #E8F8F5;">
+                            <img src="https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=150" alt="Grapes">
+                        </div>
+                        <h4 class="category-label">Grapes</h4>
+                        <p class="category-items">6 items</p>
                     </div>
-                    <h4 class="category-label">Quality Milk</h4>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=150" alt="Vitamin Items">
+
+                    <div class="category-card" style="background: linear-gradient(135deg, #FFF4E8 0%, #FFF 100%);">
+                        <div class="category-image-wrapper" style="background: #FFF4E8;">
+                            <img src="https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=150" alt="Orange">
+                        </div>
+                        <h4 class="category-label">Orange</h4>
+                        <p class="category-items">6 items</p>
                     </div>
-                    <h4 class="category-label">Vitamin Items</h4>
+
+                    <div class="category-card" style="background: linear-gradient(135deg, #FFE8F0 0%, #FFF 100%);">
+                        <div class="category-image-wrapper" style="background: #FFE8F0;">
+                            <img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=150"
+                                alt="Strawberry">
+                        </div>
+                        <h4 class="category-label">Strawberry</h4>
+                        <p class="category-items">6 items</p>
+                    </div>
+
+                    <div class="category-card" style="background: linear-gradient(135deg, #FFF9E5 0%, #FFF 100%);">
+                        <div class="category-image-wrapper" style="background: #FFF9E5;">
+                            <img src="https://images.unsplash.com/photo-1587049352846-4a222e784129?w=150"
+                                alt="Papaya Fruit">
+                        </div>
+                        <h4 class="category-label">Papaya Fruit</h4>
+                        <p class="category-items">6 items</p>
+                    </div>
+
+                    <div class="category-card" style="background: linear-gradient(135deg, #F0E8FF 0%, #FFF 100%);">
+                        <div class="category-image-wrapper" style="background: #F0E8FF;">
+                            <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=150"
+                                alt="Pomegranate Fresh">
+                        </div>
+                        <h4 class="category-label">Pomegranate</h4>
+                        <p class="category-items">6 items</p>
+                    </div>
                 </div>
+                <button class="category-nav next" onclick="scrollCategories(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </section>
 
@@ -324,7 +306,7 @@
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
-                    </div>  
+                    </div>
                     <div class="product-info">
                         <h4 class="product-name">Leafy Romaine Mixed Lettuce</h4>
                         <div class="product-price">
