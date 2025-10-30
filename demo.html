@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+    .modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 700px;
+  width: 90%;
+  position: relative;
+}
+
+</style>
+<body class="bg-gray-50 min-h-screen">
+    <div id="header-placeholder"></div>
+
+    <div class="product-card">
+        <div class="a_image_container">
+            <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Product"
+                class="product-image" loading="eager">
+            <div class="product-actions">
+                <button class="action-btn" onclick="openQuickView(this)">
+                    <i class="far fa-eye"></i>
+                </button>
+                <button class="action-btn" onclick="addToWishlist(this)">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+        </div>
+        <div class="product-info">
+            <h4 class="product-name">Farm Fresh White Lettuce</h4>
+            <div class="product-price">
+                <span class="current-price">$3.50</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                </div>
+                <button class="add-to-cart" onclick="addToCart(this)">
+                    <i class="fas fa-shopping-bag"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer_add"></div>
+        <script src="./js/addtocart.js"></script>
+    <script src="./js/rushita.js"></script>
+    <script src="./js/wishlist.js"></script>
+
+</body>
+
+</html>

@@ -157,46 +157,46 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Add to cart functionality for product cards
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    // const addToCartButtons = document.querySelectorAll('.add-to-cart');
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.stopPropagation();
-            const productCard = this.closest('.product-card');
-            const productName = productCard.querySelector('.product-name').textContent;
+    // addToCartButtons.forEach(button => {
+    //     button.addEventListener('click', function (e) {
+    //         e.stopPropagation();
+    //         const productCard = this.closest('.product-card');
+    //         const productName = productCard.querySelector('.product-name').textContent;
 
-            // Add animation effect
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 200);
+    //         // Add animation effect
+    //         this.style.transform = 'scale(0.9)';
+    //         setTimeout(() => {
+    //             this.style.transform = 'scale(1)';
+    //         }, 200);
 
-            // Show notification
-            showNotification(`Added "${productName}" to cart!`);
-        });
-    });
+    //         // Show notification
+    //         showNotification(`Added "${productName}" to cart!`);
+    //     });
+    // });
 
     // Wishlist functionality
-    const wishlistButtons = document.querySelectorAll('.product-actions .action-btn:nth-child(2)');
+    // const wishlistButtons = document.querySelectorAll('.product-actions .action-btn:nth-child(2)');
 
-    wishlistButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.stopPropagation();
-            const icon = this.querySelector('i');
+    // wishlistButtons.forEach(button => {
+    //     button.addEventListener('click', function (e) {
+    //         e.stopPropagation();
+    //         const icon = this.querySelector('i');
 
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                this.style.color = '#FF6B6B';
-                showNotification('Added to wishlist!');
-            } else {
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                this.style.color = '';
-                showNotification('Removed from wishlist!');
-            }
-        });
-    });
+    //         if (icon.classList.contains('far')) {
+    //             icon.classList.remove('far');
+    //             icon.classList.add('fas');
+    //             this.style.color = '#FF6B6B';
+    //             showNotification('Added to wishlist!');
+    //         } else {
+    //             icon.classList.remove('fas');
+    //             icon.classList.add('far');
+    //             this.style.color = '';
+    //             showNotification('Removed from wishlist!');
+    //         }
+    //     });
+    // });
 
     // Category click
     const categoryCards = document.querySelectorAll('.category-card');

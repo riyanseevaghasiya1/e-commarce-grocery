@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./css/home.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body>
     <!-- header -->
     <div id="header-placeholder"></div>
@@ -176,34 +175,34 @@
                 <i class="fas fa-chevron-left"></i>
             </button>
             <div class="products-slider" id="bestSellers">
-                <div class="product-card">
-                    <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Product"
-                            class="product-image" loading="eager">
-                        <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
-                                <i class="far fa-eye"></i>
-                            </button>
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name">Farm Fresh White Lettuce</h4>
-                        <div class="product-price">
-                            <span class="current-price">$3.50</span>
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <div class="product-rating">
-                                <span class="stars">★★★★★</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
-                        </div>
-                    </div>
+              <div class="product-card">
+            <div class="a_image_container">
+                <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Product"
+                    class="product-image" loading="eager">
+                <div class="product-actions">
+                    <button class="action-btn" onclick="openQuickView(this)">
+                        <i class="far fa-eye"></i>
+                    </button>
+                    <button class="action-btn" onclick="addToWishlist(this)">
+                        <i class="far fa-heart"></i>
+                    </button>
                 </div>
+            </div>
+            <div class="product-info">
+                <h4 class="product-name">Farm Fresh White Lettuce</h4>
+                <div class="product-price">
+                    <span class="current-price">$3.50</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 
                 <div class="product-card">
                     <div class="a_image_container">
@@ -214,9 +213,9 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
+                           <button class="action-btn" onclick="addToWishlist(this)">
+                    <i class="far fa-heart"></i>
+                </button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -228,9 +227,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                          <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -243,9 +242,9 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
+                             <button class="action-btn" onclick="addToWishlist(this)">
+                        <i class="far fa-heart"></i>
+                    </button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -257,9 +256,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                          <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -273,9 +272,9 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
+                            <button class="action-btn" onclick="addToWishlist(this)">
+                        <i class="far fa-heart"></i>
+                    </button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -287,13 +286,12 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                          <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
-
                 <div class="product-card">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="Product"
@@ -302,9 +300,9 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
+                            <button class="action-btn" onclick="addToWishlist(this)">
+                        <i class="far fa-heart"></i>
+                    </button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -317,9 +315,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                          <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -346,9 +344,9 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
+                         <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -361,9 +359,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                          <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -390,9 +388,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                         <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -420,9 +418,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                           <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -449,9 +447,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                           <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -478,9 +476,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                          <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -522,9 +520,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                         <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -553,9 +551,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                           <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -583,9 +581,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                           <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -613,9 +611,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                         <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -643,9 +641,9 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
+                          <button class="add-to-cart" onclick="addToCart(this)">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -904,6 +902,26 @@
     <script src="./js/home.js"></script>
     <div id="footer_add"></div>
     <script src="./js/rushita.js"></script>
+    <script src="./js/wishlist.js"></script>
+    <script src="./js/addtocart.js"></script>
+    <script>
+  const modal = document.getElementById('quickViewModal');
+
+  function openQuickView(button) {
+    modal.classList.add('show');
+  }
+
+  function closeQuickView() {
+    modal.classList.remove('show');
+  }
+
+  // Optional: close when clicking outside modal content
+  window.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      closeQuickView();
+    }
+  });
+</script>
 </body>
 
 </html>

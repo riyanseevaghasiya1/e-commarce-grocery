@@ -16,7 +16,32 @@
 		rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+<style>
+	.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
 
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 700px;
+  width: 90%;
+  position: relative;
+}
+
+</style>
 <body class="inter-font bg-gray-50 text-gray-800">
 
 	<!-- Header Placeholder -->
@@ -199,7 +224,8 @@
     </div>
 	<script src="./js/rushita.js"></script>
 	<script src="./js/home.js"></script>
-
+<script src="./js/wishlist.js"></script>
+<script src="./js/addtocart.js"></script>
 	<script>
 		// Offcanvas filter controls (keep behavior)
 		function openFilter() {
@@ -355,9 +381,10 @@
 							<button class=\"action-btn bg-white p-2 rounded-full shadow\" data-index=\"${globalIndex}\" onclick=\"openQuickView(this)\">
 							<i class=\"far fa-eye\"></i>
 							</button>
-							<button class=\"action-btn bg-white p-2 rounded-full shadow\">
+							<button class=\"action-btn bg-white p-2 rounded-full shadow\" onclick="addToWishlist(this)">
 							<i class=\"far fa-heart\"></i>
 							</button>
+						
 						</div>
 					</div>
 					<div class=\"product-info mt-3\">
@@ -368,7 +395,7 @@
 						</div>
 						<div class=\"flex items-center justify-between mt-3\">
 							<div class=\"product-rating text-yellow-500\">${p.rating}</div>
-							<button class=\"add-to-cart bg-[#02b290] text-white px-3 py-1 rounded-md\" onclick=\"quickAddToCart(${globalIndex})\">
+							<button class=\"add-to-cart bg-[#02b290] text-white px-3 py-1 rounded-md\" onclick="addToCart(this)" data-index=\"${globalIndex}\">
 							<i class=\"fas fa-shopping-bag\"></i>
 							</button>
 						</div>
@@ -489,10 +516,11 @@
 			i.addEventListener('change', applyFiltersFromUI);
 		});
 
-		// Initial render
+		
 		resetFilters();
 
 	</script>
+	
 </body>
 
 </html>
