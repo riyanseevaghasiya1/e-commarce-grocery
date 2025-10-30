@@ -1,25 +1,16 @@
-// ============================
-//  rushita.js (FINAL FIXED FOR CART)
-// ============================
 
-// Load header dynamically
 fetch('./header.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('header-placeholder').innerHTML = data;
 
-    // ==============================
-    // Header Elements
-    // ==============================
+    
     const menuToggle = document.getElementById('menuToggle');
     const closeMenu = document.getElementById('closeMenu');
     const offcanvas = document.getElementById('offcanvas');
     const offcanvasPanel = document.getElementById('offcanvasPanel');
     const backdrop = document.getElementById('backdrop');
 
-    // ==============================
-    // Offcanvas (Mobile Menu)
-    // ==============================
     function openOffcanvas() {
       offcanvas.classList.remove('hidden');
       setTimeout(() => {
@@ -40,9 +31,6 @@ fetch('./header.html')
     if (closeMenu) closeMenu.addEventListener('click', closeOffcanvas);
     if (backdrop) backdrop.addEventListener('click', closeOffcanvas);
 
-    // ==============================
-    // Dropdown Hover (Desktop)
-    // ==============================
     const dropdowns = document.querySelectorAll('.dropdown');
     dropdowns.forEach(dropdown => {
       const toggle = dropdown.querySelector('a');
@@ -64,9 +52,6 @@ fetch('./header.html')
       toggle.addEventListener('click', e => e.preventDefault());
     });
 
-    // ==============================
-    // Mobile Accordion
-    // ==============================
     const accordions = document.querySelectorAll('.mobile-accordion');
     accordions.forEach(accordion => {
       const toggle = accordion.querySelector('.mobile-accordion-toggle');
@@ -76,7 +61,6 @@ fetch('./header.html')
       toggle.addEventListener('click', () => {
         const isOpen = !content.classList.contains('hidden');
 
-        // Close all others
         accordions.forEach(other => {
           const otherContent = other.querySelector('.mobile-accordion-content');
           const otherIcon = other.querySelector('.mobile-accordion-toggle i');
@@ -84,7 +68,6 @@ fetch('./header.html')
           otherIcon.classList.remove('rotate-180');
         });
 
-        // Toggle current
         if (isOpen) {
           content.classList.add('hidden');
           icon.classList.remove('rotate-180');
@@ -95,9 +78,7 @@ fetch('./header.html')
       });
     });
 
-    // ==============================
-    // ✅ CART OFFCANVAS (Moved inside header load)
-    // ==============================
+  
     const cartButton = document.getElementById('cartButton');
     const closeCart = document.getElementById('closeCart');
     const overlay = document.getElementById('overlay');
@@ -105,10 +86,16 @@ fetch('./header.html')
     const quantityElement = document.getElementById('quantity');
     const itemTotalElement = document.getElementById('itemTotal');
     const subtotalElement = document.getElementById('subtotal');
-    const cartCount = document.getElementById('cartCount');
+    const cartCount = document.getElementById('cart-count');
 
+    console.log("cart-count",cartCount);
+    
     if (cartButton && closeCart && overlay && cartOffcanvas) {
-      let quantity = 2;
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      console.log("cart>??",cart.length);
+      
+      let quantity =cart.length || 0;
       const unitPrice = 35.00;
 
       function openCart() {
@@ -155,10 +142,6 @@ fetch('./header.html')
   })
   .catch(error => console.error('Error loading header:', error));
 
-
-// ============================
-// FOOTER
-// ============================
 fetch('./Footer.html')
   .then(response => response.text())
   .then(data => {
@@ -166,10 +149,6 @@ fetch('./Footer.html')
   })
   .catch(error => console.error('Error loading footer:', error));
 
-
-// ============================
-// PAYMENT METHOD LOGIC
-// ============================
 const netBankingOption = document.getElementById("netbankingOption");
 const upiOption = document.getElementById("upiOption");
 const bankList = document.getElementById("bankList");
@@ -183,7 +162,6 @@ paymentRadios.forEach((radio) => {
     } else {
       bankList.classList.add("hidden");
     }
-
     if (upiOption.checked) {
       upiField.classList.remove("hidden");
     } else {
@@ -191,3 +169,4 @@ paymentRadios.forEach((radio) => {
     }
   });
 });
+
