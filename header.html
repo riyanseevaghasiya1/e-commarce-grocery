@@ -12,8 +12,8 @@
 </head>
 
 <body class="bg-gray-50">
-        <!-- <header class="fixed top-0 left-0 w-full bg-white shadow-sm r_index"> -->
-        <header class=" w-full bg-white shadow-sm">
+    <!-- <header class="fixed top-0 left-0 w-full bg-white shadow-sm r_index"> -->
+    <header class=" w-full bg-white shadow-sm">
         <div class="border-b border-gray-200" style="background-color: #F2F5F9;">
             <div class="a_header_container max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-20">
@@ -33,22 +33,22 @@
                     </div>
                     <div class="flex items-center space-x-6">
 
-                       <button id="cartButton" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
-  <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
-  <span id="cart-count"
-    class="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
-</button>
+                        <button id="cartButton" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
+                            <span id="cart-count"
+                                class="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
+                        </button>
 
-                       <button id="wishlist" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                           <a href="./wishlist.html">
-        <i class="fa-solid fa-heart text-gray-700 text-xl"></i>
+                        <button id="wishlist" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <a href="./wishlist.html">
+                                <i class="fa-solid fa-heart text-gray-700 text-xl"></i>
 
-        <span id="wishlistCount"
-            class="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
-    </a>
-</button>
+                                <span id="wishlistCount"
+                                    class="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
+                            </a>
+                        </button>
 
-                       
+
                         <button class="">
                             <i class="fas fa-user text-gray-700 text-xl"></i>
                         </button>
@@ -65,134 +65,46 @@
         </div>
 
         <!-- Off-Canvas Shopping Cart -->
-        <div id="cartOffcanvas"
-            class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col overflow-y-auto">
+     <div id="cartOffcanvas"
+  class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col overflow-y-auto">
 
-            <!-- Cart Header -->
-            <div class="flex items-center justify-between p-6 border-b">
-                <h2 class="text-2xl font-bold text-gray-800">Shopping Cart</h2>
-                <button id="closeCart" class="text-gray-500 hover:text-gray-700 transition-colors">
-                    <i class="fas fa-times text-2xl"></i>
-                </button>
-            </div>
-                <div class="flex-1  p-6">
-      
-                <div class="mb-6">
-                    <div class="flex gap-4">
-                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=100&h=100&fit=crop"
-                            alt="Organic Spring Mix" class="w-20 h-20 object-cover rounded-lg">
 
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-gray-800 mb-1">Organic Spring Mix</h3>
-                            <p class="text-sm text-gray-500 mb-3">Unit price : $35.00</p>
+  <div class="flex items-center justify-between p-6 border-b">
+    <h2 class="text-2xl font-bold text-gray-800">Shopping Cart</h2>
+    <button id="closeCart" class="text-gray-500 hover:text-gray-700 transition-colors">
+      <i class="fas fa-times text-2xl"></i>
+    </button>
+  </div>
 
-                            <!-- Quantity Controls -->
-                            <div class="flex items-center gap-3">
-                                <button onclick="decreaseQuantity()"
-                                    class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <i class="fas fa-minus text-xs text-gray-600"></i>
-                                </button>
-                                <span id="quantity" class="text-gray-800 font-medium w-8 text-center">2</span>
-                                <button onclick="increaseQuantity()"
-                                    class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <i class="fas fa-plus text-xs text-gray-600"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-gray-800 text-lg" id="itemTotal">$70.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex-1  p-6">
- 
-                <div class="mb-6">
-                    <div class="flex gap-4">
-                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=100&h=100&fit=crop"
-                            alt="Organic Spring Mix" class="w-20 h-20 object-cover rounded-lg">
+  <div id="cartItems" class="flex-1 p-6"></div>
 
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-gray-800 mb-1">Organic Spring Mix</h3>
-                            <p class="text-sm text-gray-500 mb-3">Unit price : $35.00</p>
+  <div class="border-t p-6">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-lg font-semibold text-gray-800">Subtotal:</span>
+      <span class="text-2xl font-bold text-gray-800" id="subtotal">$0.00</span>
+    </div>
+    <button class="w-full bg-white text-emerald-600 mb-3 py-2 rounded-lg border border-emerald-600 transition-colors font-semibold text-lg">
+      <a href="./cart.html"> View Cart</a>
+    </button>
+    <button class="w-full bg-emerald-500 text-white py-2 rounded-lg hover:bg-emerald-600 transition-colors font-semibold text-lg">
+      Proceed To Checkout
+    </button>
+  </div>
+</div>
 
-                            <div class="flex items-center gap-3">
-                                <button onclick="decreaseQuantity()"
-                                    class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <i class="fas fa-minus text-xs text-gray-600"></i>
-                                </button>
-                                <span id="quantity" class="text-gray-800 font-medium w-8 text-center">2</span>
-                                <button onclick="increaseQuantity()"
-                                    class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <i class="fas fa-plus text-xs text-gray-600"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="text-right">
-                            <p class="font-bold text-gray-800 text-lg" id="itemTotal">$70.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex-1  p-6">
-                
-                <div class="mb-6">
-                    <div class="flex gap-4">
-                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=100&h=100&fit=crop"
-                            alt="Organic Spring Mix" class="w-20 h-20 object-cover rounded-lg">
-
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-gray-800 mb-1">Organic Spring Mix</h3>
-                            <p class="text-sm text-gray-500 mb-3">Unit price : $35.00</p>
-                            <div class="flex items-center gap-3">
-                                <button onclick="decreaseQuantity()"
-                                    class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <i class="fas fa-minus text-xs text-gray-600"></i>
-                                </button>
-                                <span id="quantity" class="text-gray-800 font-medium w-8 text-center">2</span>
-                                <button onclick="increaseQuantity()"
-                                    class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <i class="fas fa-plus text-xs text-gray-600"></i>
-                                </button>
-                                <span id="quantity" class="text-gray-800 font-medium w-8 text-center">2</span>
-
-                            </div>
-                        </div>
-
-                        <div class="text-right">
-                            <p class="font-bold text-gray-800 text-lg" id="itemTotal">$70.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-lg font-semibold text-gray-800">Subtotal:</span>
-                    <span class="text-2xl font-bold text-gray-800" id="subtotal">$70.00</span>
-                </div>
-                <button
-                    class="w-full bg-white text-emerald-600 mb-3 py-3 rounded-lg border border-emerald-600 transition-colors font-semibold text-lg">
-                   <a href="./cart.html"> View Cart</a>
-                </button>
-                <button
-                    class="w-full bg-emerald-500 text-white py-3 rounded-lg hover:bg-emerald-600 transition-colors font-semibold text-lg">
-                    Proceed To Checkout
-                </button>
-            </div>
-        </div>
         <nav class="hidden lg:block bg-white border-b border-gray-200">
             <div class="a_header_container max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center space-x-8 h-14">
-               
-                    <a href="./home.html" class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Home</a>
-                        <div class="relative dropdown h-full flex items-center">
-                            <div class="flex items-center space-x-1 text-gray-700 hover:text-emerald-500 font-medium transition-colors h-full items-center border-b-2 border-transparent cursor-pointer">
-                    <span>Grocery Items</span>
-                            <i class="fas fa-chevron-down text-xs"></i>
-                            </div>
+
+                    <a href="./home.html"
+                        class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Home</a>
+                    <div class="relative dropdown h-full flex items-center">
                         <div
-                            class="dropdown-menu absolute left-0 top-full mt-0 w-48 bg-white shadow-lg  hidden z-50">
+                            class="flex items-center space-x-1 text-gray-700 hover:text-emerald-500 font-medium transition-colors h-full items-center border-b-2 border-transparent cursor-pointer">
+                            <span>Grocery Items</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                        <div class="dropdown-menu absolute left-0 top-full mt-0 w-48 bg-white shadow-lg  hidden z-50">
                             <a href="./Shop.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">Eggs</a>
                             <a href="./Shop.html"
@@ -203,16 +115,17 @@
                                 Milk</a>
                         </div>
                     </div>
-                    <a href="./Blog.html" class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Blog</a>
+                    <a href="./Blog.html"
+                        class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Blog</a>
                     <div class="relative dropdown h-full flex items-center">
-                        <div class="flex items-center space-x-1 text-gray-700 hover:text-emerald-500 font-medium transition-colors h-full items-center border-b-2 border-transparent cursor-pointer">
-                             <span>Pages</span>
+                        <div
+                            class="flex items-center space-x-1 text-gray-700 hover:text-emerald-500 font-medium transition-colors h-full items-center border-b-2 border-transparent cursor-pointer">
+                            <span>Pages</span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </div>
-                        <div
-                            class="dropdown-menu absolute left-0 top-[100%] mt-0 w-48 bg-white shadow-lg  hidden z-50">
+                        <div class="dropdown-menu absolute left-0 top-[100%] mt-0 w-48 bg-white shadow-lg  hidden z-50">
                             <a href="./Shop.html"
-                            class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Shop</a>
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Shop</a>
                             <a href="./MyAccount.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">My
                                 account</a>
@@ -224,14 +137,15 @@
                             <a href="./Terms&condition.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Terms
                                 & Condition</a>
-                            
+
                             <a href="./AboutUS.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">About
                                 Us</a>
-                         
+
                         </div>
                     </div>
-                    <a href="./ContactUs.html" class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Contact us</a>
+                    <a href="./ContactUs.html"
+                        class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Contact us</a>
                 </div>
             </div>
         </nav>
@@ -242,11 +156,11 @@
             class="absolute top-0 left-0 w-80 h-full bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 overflow-y-auto">
             <div class="flex items-center justify-between p-6 border-b border-gray-200">
                 <a href="./home.html">
-                        <div class="flex justify-start items-center gap-1">
-                            <img src="./images/logo.png" alt="" class="h-9 w-9">
-                            <h5 class="text-[20px] font-bold">Grocery Go</h5>
-                        </div>
-                    </a>
+                    <div class="flex justify-start items-center gap-1">
+                        <img src="./images/logo.png" alt="" class="h-9 w-9">
+                        <h5 class="text-[20px] font-bold">Grocery Go</h5>
+                    </div>
+                </a>
                 <button id="closeMenu" class="text-gray-500 hover:text-gray-700">
                     <i class="fas fa-times text-2xl"></i>
                 </button>
@@ -259,8 +173,9 @@
                 </div>
             </div>
             <nav class="p-4">
-                <a href="./home.html" class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">Home</a>
-   <div class="mobile-accordion">
+                <a href="./home.html"
+                    class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">Home</a>
+                <div class="mobile-accordion">
                     <button
                         class="mobile-accordion-toggle flex items-center justify-between py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium w-full text-left">
                         <span>Grocery Items</span>
@@ -277,7 +192,8 @@
                             Milk</a>
                     </div>
                 </div>
-                <a href="./Blog.html" class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">Blog</a>
+                <a href="./Blog.html"
+                    class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">Blog</a>
                 <div class="mobile-accordion">
                     <button
                         class="mobile-accordion-toggle flex items-center justify-between py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium w-full text-left">
@@ -285,28 +201,29 @@
                         <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
                     </button>
                     <div class="mobile-accordion-content hidden pl-4">
-                      <a href="./MyAccount.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">My
-                                account</a>
-                            <a href="./Shop.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Shop</a>
-                            <a href="./FAQ.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">FAQ</a>
-                            <a href="./PrivacyPolicy.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Privacy
-                                Policy</a>
-                            <a href="./Terms&condition.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Terms
-                                & Condition</a>
-                            
-                            <a href="./AboutUS.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">About
-                                Us</a>
+                        <a href="./MyAccount.html"
+                            class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">My
+                            account</a>
+                        <a href="./Shop.html"
+                            class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Shop</a>
+                        <a href="./FAQ.html"
+                            class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">FAQ</a>
+                        <a href="./PrivacyPolicy.html"
+                            class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Privacy
+                            Policy</a>
+                        <a href="./Terms&condition.html"
+                            class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Terms
+                            & Condition</a>
+
+                        <a href="./AboutUS.html"
+                            class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">About
+                            Us</a>
                     </div>
                 </div>
-                <a href="./ContactUs.html" class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">Contact us</a>
-              
-               
+                <a href="./ContactUs.html"
+                    class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">Contact us</a>
+
+
             </nav>
             <div class="p-4 border-t border-gray-200">
                 <button class="flex items-center space-x-3 w-full py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg">
@@ -318,17 +235,19 @@
     </div>
     <script src="./js/rushita.js"></script>
     <script src="./js/wishlist.js"></script>
+    <script src="./js/addtocart.js"></script>
     <script>
-  const header = document.getElementById("header");
+        const header = document.getElementById("header");
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
-      header.classList.add("fixed", "top-0", "left-0", "w-full", "shadow-md");
-    } else {
-      header.classList.remove("fixed", "top-0", "left-0", "w-full", "shadow-md");
-    }
-  });
-</script>
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 100) {
+                header.classList.add("fixed", "top-0", "left-0", "w-full", "shadow-md");
+            } else {
+                header.classList.remove("fixed", "top-0", "left-0", "w-full", "shadow-md");
+            }
+        });
+       
+    </script>
 
 </body>
 
