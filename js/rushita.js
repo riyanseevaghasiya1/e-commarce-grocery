@@ -4,143 +4,14 @@ fetch('./header.html')
   .then(data => {
     document.getElementById('header-placeholder').innerHTML = data;
 
-    
-    const menuToggle = document.getElementById('menuToggle');
-    const closeMenu = document.getElementById('closeMenu');
-    const offcanvas = document.getElementById('offcanvas');
-    const offcanvasPanel = document.getElementById('offcanvasPanel');
-    const backdrop = document.getElementById('backdrop');
+    initializeHeader();
+    renderCartItems();
+    updateCartCount();
 
-    function openOffcanvas() {
-      offcanvas.classList.remove('hidden');
-      setTimeout(() => {
-        offcanvasPanel.classList.remove('-translate-x-full');
-      }, 10);
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeOffcanvas() {
-      offcanvasPanel.classList.add('-translate-x-full');
-      setTimeout(() => {
-        offcanvas.classList.add('hidden');
-        document.body.style.overflow = '';
-      }, 300);
-    }
-
-    if (menuToggle) menuToggle.addEventListener('click', openOffcanvas);
-    if (closeMenu) closeMenu.addEventListener('click', closeOffcanvas);
-    if (backdrop) backdrop.addEventListener('click', closeOffcanvas);
-
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => {
-      const toggle = dropdown.querySelector('a');
-      const menu = dropdown.querySelector('.dropdown-menu');
-      if (!toggle || !menu) return;
-
-      dropdown.addEventListener('mouseenter', () => {
-        menu.classList.remove('hidden');
-        toggle.classList.add('border-emerald-500');
-        toggle.classList.remove('border-transparent');
-      });
-
-      dropdown.addEventListener('mouseleave', () => {
-        menu.classList.add('hidden');
-        toggle.classList.remove('border-emerald-500');
-        toggle.classList.add('border-transparent');
-      });
-
-      toggle.addEventListener('click', e => e.preventDefault());
-    });
-
-    const accordions = document.querySelectorAll('.mobile-accordion');
-    accordions.forEach(accordion => {
-      const toggle = accordion.querySelector('.mobile-accordion-toggle');
-      const content = accordion.querySelector('.mobile-accordion-content');
-      const icon = toggle.querySelector('i');
-
-      toggle.addEventListener('click', () => {
-        const isOpen = !content.classList.contains('hidden');
-
-        accordions.forEach(other => {
-          const otherContent = other.querySelector('.mobile-accordion-content');
-          const otherIcon = other.querySelector('.mobile-accordion-toggle i');
-          otherContent.classList.add('hidden');
-          otherIcon.classList.remove('rotate-180');
-        });
-
-        if (isOpen) {
-          content.classList.add('hidden');
-          icon.classList.remove('rotate-180');
-        } else {
-          content.classList.remove('hidden');
-          icon.classList.add('rotate-180');
-        }
-      });
-    });
-
-  
-    const cartButton = document.getElementById('cartButton');
-    const closeCart = document.getElementById('closeCart');
-    const overlay = document.getElementById('overlay');
-    const cartOffcanvas = document.getElementById('cartOffcanvas');
-    const quantityElement = document.getElementById('quantity');
-    const itemTotalElement = document.getElementById('itemTotal');
-    const subtotalElement = document.getElementById('subtotal');
-    const cartCount = document.getElementById('cart-count');
-
-    console.log("cart-count",cartCount);
-    
-    if (cartButton && closeCart && overlay && cartOffcanvas) {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-      console.log("cart>??",cart.length);
-      
-      let quantity =cart.length || 0;
-      const unitPrice = 35.00;
-
-      function openCart() {
-        overlay.classList.remove('hidden');
-        cartOffcanvas.classList.remove('translate-x-full');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeCartFunc() {
-        overlay.classList.add('hidden');
-        cartOffcanvas.classList.add('translate-x-full');
-        document.body.style.overflow = 'auto';
-      }
-
-      function updateTotals() {
-        const total = quantity * unitPrice;
-        quantityElement.textContent = quantity;
-        itemTotalElement.textContent = `$${total.toFixed(2)}`;
-        subtotalElement.textContent = `$${total.toFixed(2)}`;
-        cartCount.textContent = quantity;
-      }
-
-      function increaseQuantity() {
-        quantity++;
-        updateTotals();
-      }
-
-      function decreaseQuantity() {
-        if (quantity > 1) {
-          quantity--;
-          updateTotals();
-        }
-      }
-
-      cartButton.addEventListener('click', openCart);
-      closeCart.addEventListener('click', closeCartFunc);
-      overlay.addEventListener('click', closeCartFunc);
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeCartFunc();
-      });
-
-      updateTotals();
-    }
+    window.updateQuantity = updateQuantity;
   })
   .catch(error => console.error('Error loading header:', error));
+
 
 fetch('./Footer.html')
   .then(response => response.text())
@@ -149,24 +20,168 @@ fetch('./Footer.html')
   })
   .catch(error => console.error('Error loading footer:', error));
 
-const netBankingOption = document.getElementById("netbankingOption");
-const upiOption = document.getElementById("upiOption");
-const bankList = document.getElementById("bankList");
-const upiField = document.getElementById("upiField");
-const paymentRadios = document.querySelectorAll('input[name="payment"]');
+function initializeHeader() {
+  const menuToggle = document.getElementById('menuToggle');
+  const closeMenu = document.getElementById('closeMenu');
+  const offcanvas = document.getElementById('offcanvas');
+  const offcanvasPanel = document.getElementById('offcanvasPanel');
+  const backdrop = document.getElementById('backdrop');
 
-paymentRadios.forEach((radio) => {
-  radio.addEventListener("change", () => {
-    if (netBankingOption.checked) {
-      bankList.classList.remove("hidden");
-    } else {
-      bankList.classList.add("hidden");
-    }
-    if (upiOption.checked) {
-      upiField.classList.remove("hidden");
-    } else {
-      upiField.classList.add("hidden");
-    }
+  const cartButton = document.getElementById('cartButton');
+  const closeCart = document.getElementById('closeCart');
+  const overlay = document.getElementById('overlay');
+  const cartOffcanvas = document.getElementById('cartOffcanvas');
+
+
+  if (menuToggle && closeMenu && offcanvas && offcanvasPanel && backdrop) {
+    menuToggle.addEventListener('click', () => {
+      offcanvas.classList.remove('hidden');
+      setTimeout(() => offcanvasPanel.classList.remove('-translate-x-full'), 10);
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeMenuFunc = () => {
+      offcanvasPanel.classList.add('-translate-x-full');
+      setTimeout(() => {
+        offcanvas.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+    };
+
+    closeMenu.addEventListener('click', closeMenuFunc);
+    backdrop.addEventListener('click', closeMenuFunc);
+  }
+
+
+  if (cartButton && closeCart && overlay && cartOffcanvas) {
+    cartButton.addEventListener('click', () => {
+      overlay.classList.remove('hidden');
+      cartOffcanvas.classList.remove('translate-x-full');
+      document.body.style.overflow = 'hidden';
+      renderCartItems();
+    });
+
+    const closeCartFunc = () => {
+      overlay.classList.add('hidden');
+      cartOffcanvas.classList.add('translate-x-full');
+      document.body.style.overflow = 'auto';
+    };
+
+    closeCart.addEventListener('click', closeCartFunc);
+    overlay.addEventListener('click', closeCartFunc);
+    document.addEventListener('keydown', e => e.key === 'Escape' && closeCartFunc());
+  }
+}
+function renderCartItems() {
+  const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartContainer = document.getElementById('cartItems');
+  const subtotalEl = document.getElementById('subtotal');
+  if (!cartContainer || !subtotalEl) return;
+
+  cartContainer.innerHTML = '';
+  let subtotal = 0;
+
+  if (cartData.length === 0) {
+    cartContainer.innerHTML = `<div class="text-center text-gray-500 py-10">Your cart is empty.</div>`;
+    subtotalEl.textContent = "$0.00";
+    return;
+  }
+  cartData.forEach((item, index) => {
+    const name = item.name || "Unnamed Product";
+    const priceText = item.price || "$0.00";
+    const priceValue = parseFloat(priceText.replace(/[^0-9.]/g, "")) || 0;
+    const image = item.image || "https://via.placeholder.com/100";
+    const quantity = item.quantity || 1;
+    const total = priceValue * quantity;
+    subtotal += total;
+
+    const itemHTML = `
+      <div class="mb-6 border-b pb-4">
+        <div class="flex gap-4 items-center">
+          <img src="${image}" alt="${name}" class="w-20 h-20 object-cover rounded-lg">
+
+          <div class="flex-1">
+            <h3 class="font-semibold text-gray-800 mb-1">${name}</h3>
+            <p class="text-sm text-gray-500 mb-3">Unit price: ${priceText}</p>
+
+            <div class="flex items-center gap-3">
+              <button data-index="${index}" data-change="-1" class="qty-btn w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+                <i class="fas fa-minus text-xs text-gray-600"></i>
+              </button>
+              <span class="text-gray-800 font-medium w-8 text-center qty-value">${quantity}</span>
+              <button data-index="${index}" data-change="1" class="qty-btn w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+                <i class="fas fa-plus text-xs text-gray-600"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="text-right">
+            <p class="font-bold text-gray-800 text-lg item-total">$${total.toFixed(2)}</p>
+          </div>
+        </div>
+      </div>
+    `;
+    cartContainer.insertAdjacentHTML("beforeend", itemHTML);
   });
-});
+  subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
 
+  document.querySelectorAll('.qty-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const index = parseInt(btn.getAttribute('data-index'));
+      const change = parseInt(btn.getAttribute('data-change'));
+      updateQuantity(index, change, btn);
+    });
+  });
+}
+function updateQuantity(index, change, btnElement) {
+  let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  if (!cartData[index]) return;
+
+  cartData[index].quantity = (cartData[index].quantity || 1) + change;
+
+  if (cartData[index].quantity < 1) {
+    cartData.splice(index, 1);
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cartData));
+
+  if (btnElement) {
+    const parent = btnElement.closest('div.flex.items-center.gap-3');
+    const qtyValueEl = parent.querySelector('.qty-value');
+    if (qtyValueEl) {
+      const newQty = cartData[index]?.quantity || 0;
+      qtyValueEl.textContent = newQty;
+    }
+
+    const itemContainer = btnElement.closest('.flex.gap-4.items-center');
+    const itemTotalEl = itemContainer.querySelector('.item-total');
+    const priceText = cartData[index]?.price || "$0.00";
+    const priceValue = parseFloat(priceText.replace(/[^0-9.]/g, "")) || 0;
+    if (itemTotalEl && cartData[index]) {
+      itemTotalEl.textContent = `$${(priceValue * cartData[index].quantity).toFixed(2)}`;
+    }
+  }
+
+  updateSubtotal();
+  updateCartCount();
+0
+  if (cartData.length === 0) renderCartItems();
+}
+
+function updateSubtotal() {
+  const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  const subtotalEl = document.getElementById('subtotal');
+  if (!subtotalEl) return;
+  const subtotal = cartData.reduce((sum, item) => {
+    const priceValue = parseFloat((item.price || '').replace(/[^0-9.]/g, "")) || 0;
+    return sum + priceValue * (item.quantity || 1);
+  }, 0);
+  subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+}
+function updateCartCount() {
+  const cartCount = document.getElementById('cart-count');
+  if (!cartCount) return;
+  const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalItems = cartData.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  cartCount.textContent = totalItems;
+}
