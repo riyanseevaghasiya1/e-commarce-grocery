@@ -74,96 +74,85 @@
             </div>
         </section>
 
-        <!-- Category Section - NEW SLIDER DESIGN -->
-        <section class="category-section">
-            <div class="section-header">
-                <div class="section-header-left">
-                    <h2 class="section-title">Featured Categories</h2>
+        <!-- Shop By Category Section -->
+        <section class="shop-category-wrapper">
+            <div class="shop-category-header">
+                <h2 class="shop-category-title">Shop By Category</h2>
+                <div class="shop-category-navigation">
+                    <button class="shop-nav-btn shop-prev-btn" onclick="slideShopCategories(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="shop-nav-btn shop-next-btn" onclick="slideShopCategories(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                <div class="category-tabs"> 
-                    <button class="category-tab active">Cake & Milk</button>
-                    <button class="category-tab">Coffee & Teas</button>
-                    <button class="category-tab">Pet Foods</button>
-                    <button class="category-tab">Vegetables</button>
-                </div>
-            </div>  
+            </div>
 
-            <div class="category-slider-wrapper">
-                <button class="category-nav prev" onclick="scrollCategories(-1)">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="category-slider" id="categorySlider">
-                    <div class="category-card" style="background: linear-gradient(135deg, #FFE8E8 0%, #FFF 100%);">
-                        <div class="category-image-wrapper" style="background: #FFE8E8;">
-                            <img src="https://images.unsplash.com/photo-1587049352846-4a222e784129?w=150"
-                                alt="Pomegranate">
+            <div class="shop-categories-container">
+                <div class="shop-categories-track" id="shopCategoriesTrack">
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #FFFBF0 0%, #FFF9E5 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=200" alt="Vegetable">
                         </div>
-                        <h4 class="category-label">Pomegranate</h4>
-                        <p class="category-items">6 items</p>
+                        <h3 class="shop-category-name">Vegetable</h3>
                     </div>
 
-                    <div class="category-card" style="background: linear-gradient(135deg, #FFF9E5 0%, #FFF 100%);">
-                        <div class="category-image-wrapper" style="background: #FFF9E5;">
-                            <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=150" alt="Papaya">
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #FFE8F5 0%, #FFE8F0 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=200" alt="Seafood">
                         </div>
-                        <h4 class="category-label">Papaya</h4>
-                        <p class="category-items">6 items</p>
+                        <h3 class="shop-category-name">Seafood</h3>
                     </div>
 
-                    <div class="category-card" style="background: linear-gradient(135deg, #E8F8E8 0%, #FFF 100%);">
-                        <div class="category-image-wrapper" style="background: #E8F8E8;">
-                            <img src="https://images.unsplash.com/photo-1589606663923-283bbd309229?w=150" alt="Kiwi">
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #FFF5F5 0%, #FFE8E8 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=200" alt="Eggs">
                         </div>
-                        <h4 class="category-label">Kiwi</h4>
-                        <p class="category-items">6 items</p>
+                        <h3 class="shop-category-name">Eggs</h3>
                     </div>
 
-                    <div class="category-card" style="background: linear-gradient(135deg, #E8F8F5 0%, #FFF 100%);">
-                        <div class="category-image-wrapper" style="background: #E8F8F5;">
-                            <img src="https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=150" alt="Grapes">
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #F0FFF4 0%, #E8F8E8 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=200" alt="Baking">
                         </div>
-                        <h4 class="category-label">Grapes</h4>
-                        <p class="category-items">6 items</p>
+                        <h3 class="shop-category-name">Baking</h3>
                     </div>
 
-                    <div class="category-card" style="background: linear-gradient(135deg, #FFF4E8 0%, #FFF 100%);">
-                        <div class="category-image-wrapper" style="background: #FFF4E8;">
-                            <img src="https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=150" alt="Orange">
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #FFFEF0 0%, #FFF9E5 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=200" alt="Cheese">
                         </div>
-                        <h4 class="category-label">Orange</h4>
-                        <p class="category-items">6 items</p>
+                        <h3 class="shop-category-name">Cheese</h3>
                     </div>
 
-                    <div class="category-card" style="background: linear-gradient(135deg, #FFE8F0 0%, #FFF 100%);">
-                        <div class="category-image-wrapper" style="background: #FFE8F0;">
-                            <img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=150"
-                                alt="Strawberry">
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #FFF0F0 0%, #FFE8E8 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=200" alt="Fresh Fruit">
                         </div>
-                        <h4 class="category-label">Strawberry</h4>
-                        <p class="category-items">6 items</p>
+                        <h3 class="shop-category-name">Fresh Fruit</h3>
                     </div>
 
-                    <div class="category-card" style="background: linear-gradient(135deg, #FFF9E5 0%, #FFF 100%);">
-                        <div class="category-image-wrapper" style="background: #FFF9E5;">
-                            <img src="https://images.unsplash.com/photo-1587049352846-4a222e784129?w=150"
-                                alt="Papaya Fruit">
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #FFF0F5 0%, #FFE8F0 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=200" alt="Meat">
                         </div>
-                        <h4 class="category-label">Papaya Fruit</h4>
-                        <p class="category-items">6 items</p>
+                        <h3 class="shop-category-name">Meat</h3>
                     </div>
 
-                    <div class="category-card" style="background: linear-gradient(135deg, #F0E8FF 0%, #FFF 100%);">
-                        <div class="category-image-wrapper" style="background: #F0E8FF;">
-                            <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=150"
-                                alt="Pomegranate Fresh">
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #E8F5FF 0%, #E3F5FF 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=200" alt="Milk">
                         </div>
-                        <h4 class="category-label">Pomegranate</h4>
-                        <p class="category-items">6 items</p>
+                        <h3 class="shop-category-name">Milk</h3>
+                    </div>
+
+                    <div class="shop-category-item" style="background: linear-gradient(135deg, #F0FFF8 0%, #E8F8F5 100%);">
+                        <div class="shop-category-image-box">
+                            <img src="https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?w=200" alt="Drinks">
+                        </div>
+                        <h3 class="shop-category-name">Drinks</h3>
                     </div>
                 </div>
-                <button class="category-nav next" onclick="scrollCategories(1)">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
         </section>
 
@@ -171,10 +160,15 @@
         <section class="products-slider-container">
             <div class="section-header">
                 <h2 class="section-title">Best Sellers in Your Area</h2>
+                <div class="section-navigation">
+                    <button class="slider-nav prev" onclick="scrollProducts('bestSellers', -1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-nav next" onclick="scrollProducts('bestSellers', 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
-            <button class="slider-nav prev" onclick="scrollProducts('bestSellers', -1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
             <div class="products-slider" id="bestSellers">
                 <div class="product-card">
                     <div class="a_image_container">
@@ -293,6 +287,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="product-card">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="Product"
@@ -323,19 +318,21 @@
                     </div>
                 </div>
             </div>
-            <button class="slider-nav next" onclick="scrollProducts('bestSellers', 1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
         </section>
 
         <!-- Fresh Vegetables -->
         <section class="products-slider-container">
             <div class="section-header">
                 <h2 class="section-title">Fresh Vegetables</h2>
+                <div class="section-navigation">
+                    <button class="slider-nav prev" onclick="scrollProducts('freshVeg', -1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-nav next" onclick="scrollProducts('freshVeg', 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
-            <button class="slider-nav prev" onclick="scrollProducts('freshVeg', -1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
             <div class="products-slider" id="freshVeg">
                 <div class="product-card">
                     <div class="a_image_container">
@@ -345,8 +342,8 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="add-to-cart" onclick="addToCart(this)">
-                                <i class="fas fa-shopping-bag"></i>
+                            <button class="action-btn" onclick="addToWishlist(this)">
+                                <i class="far fa-heart"></i>
                             </button>
                         </div>
                     </div>
@@ -375,7 +372,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -405,7 +402,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -434,7 +431,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -463,7 +460,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -484,19 +481,21 @@
                     </div>
                 </div>
             </div>
-            <button class="slider-nav next" onclick="scrollProducts('freshVeg', 1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
         </section>
 
         <!-- Chips Collection -->
         <section class="products-slider-container">
             <div class="section-header">
                 <h2 class="section-title">Chips Collection</h2>
+                <div class="section-navigation">
+                    <button class="slider-nav prev" onclick="scrollProducts('chips', -1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-nav next" onclick="scrollProducts('chips', 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
-            <button class="slider-nav prev" onclick="scrollProducts('chips', -1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
             <div class="products-slider" id="chips">
                 <div class="product-card">
                     <div class="a_image_container">
@@ -507,7 +506,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -537,7 +536,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -568,7 +567,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -598,7 +597,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -627,7 +626,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -649,9 +648,6 @@
                     </div>
                 </div>
             </div>
-            <button class="slider-nav next" onclick="scrollProducts('chips', 1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
         </section>
 
         <!-- Curated Collections -->
@@ -695,10 +691,15 @@
         <section class="products-slider-container">
             <div class="section-header">
                 <h2 class="section-title">Cookies & Cakes</h2>
+                <div class="section-navigation">
+                    <button class="slider-nav prev" onclick="scrollProducts('cookies', -1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-nav next" onclick="scrollProducts('cookies', 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
-            <button class="slider-nav prev" onclick="scrollProducts('cookies', -1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
             <div class="products-slider" id="cookies">
                 <div class="product-card">
                     <div class="a_image_container">
@@ -708,7 +709,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -722,7 +723,7 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
+                            <button class="add-to-cart" onclick="addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
@@ -738,7 +739,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -752,7 +753,7 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
+                            <button class="add-to-cart" onclick="addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
@@ -767,7 +768,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -782,7 +783,7 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
+                            <button class="add-to-cart" onclick="addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
@@ -797,7 +798,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -811,7 +812,7 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart">
+                            <button class="add-to-cart" onclick="addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
@@ -827,7 +828,7 @@
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="action-btn" onclick="addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -841,16 +842,13 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart">
+                            <button class="add-to-cart" onclick="addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="slider-nav next" onclick="scrollProducts('cookies', 1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
         </section>
     </div>
 
@@ -899,30 +897,13 @@
             </div>
         </div>
     </div>
-
-    <script src="./js/home.js"></script>
+    
     <div id="footer_add"></div>
+    <script src="./js/home.js"></script>
     <script src="./js/rushita.js"></script>
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
-    <script>
-        const modal = document.getElementById('quickViewModal');
 
-        function openQuickView(button) {
-            modal.classList.add('show');
-        }
-
-        function closeQuickView() {
-            modal.classList.remove('show');
-        }
-
-        // Optional: close when clicking outside modal content
-        window.addEventListener('click', function (e) {
-            if (e.target === modal) {
-                closeQuickView();
-            }
-        });
-    </script>
 </body>
 
 </html>
