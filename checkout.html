@@ -207,16 +207,7 @@
                             <span class="font-semibold text-sm">SUBTOTAL</span>
                         </div>
 
-                        <div class="flex justify-between pb-4 mb-4">
-                            <span class="text-sm">Organic Spring Mix × 2</span>
-                            <span class="text-sm">$70.00</span>
-                        </div>
-
-                        <div class="flex justify-between pb-3 mb-3 border-b border-gray-300">
-                            <span class="font-semibold text-sm">SUBTOTAL</span>
-                            <span class="text-sm">$70.00</span>
-                        </div>
-
+                     
                         <div class="flex justify-between pb-3 mb-3 border-b border-gray-300">
                             <span class="font-semibold text-sm">SHIPPING</span>
                             <span class="text-sm">
@@ -312,7 +303,7 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </section>
 
@@ -325,7 +316,6 @@
                 <span class="text-green-800 text-sm">Thank you. Your order has been received.</span>
             </div>
 
-            <!-- Order Information Grid -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                 <div class="bg-white border border-gray-200 rounded p-4">
                     <div class="text-xs text-gray-500 uppercase mb-1">Order Number:</div>
@@ -335,21 +325,32 @@
                     <div class="text-xs text-gray-500 uppercase mb-1">Date:</div>
                     <div class="text-base font-semibold" id="displayOrderDate">October 16, 2025</div>
                 </div>
-                <div class="bg-white border border-gray-200 rounded p-4">
-                    <div class="text-xs text-gray-500 uppercase mb-1">Total:</div>
-                    <div class="text-base font-semibold">$82.00</div>
-                </div>
+                
                 <div class="bg-white border border-gray-200 rounded p-4">
                     <div class="text-xs text-gray-500 uppercase mb-1">Payment Method:</div>
                     <div class="text-base font-semibold" id="displayPaymentMethod">Cash on delivery</div>
                 </div>
+ 
+                
+
             </div>
 
             <!-- Payment Info -->
             <p class="text-sm text-gray-600 mb-8" id="paymentInfo">Pay with cash upon delivery.</p>
 
             <!-- Order Details -->
-            <h2 class="text-2xl font-bold mb-6">Order details</h2>
+             <div class="flex justify-between">
+                <div>
+
+                    <h2 class="text-2xl font-bold mb-6">Order details</h2>
+                </div>
+                <div>
+                        <button id="downloadInvoiceBtn" 
+          class="bg-[#10B981] hover:bg-[#28e4a5] text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+     Download Invoice 
+  </button>
+                </div>
+             </div>
 
             <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
                 <table class="w-full">
@@ -360,17 +361,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4">
-                                <span class="text-sm underline">Organic Spring Mix</span>
-                                <span class="text-sm text-gray-600"> × 2</span>
-                            </td>
-                            <td class="px-6 py-4 text-right text-sm">$70.00</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 text-sm font-semibold uppercase">Subtotal:</td>
-                            <td class="px-6 py-4 text-right text-sm">$70.00</td>
-                        </tr>
+                  
                         <tr>
                             <td class="px-6 py-4 text-sm font-semibold uppercase">Shipping:</td>
                             <td class="px-6 py-4 text-right text-sm">
@@ -400,7 +391,254 @@
     <script src="./js/checkout.js"></script>
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const placeOrderBtn = document.getElementById("placeOrderBtn");
+  const checkoutSection = document.getElementById("checkoutSection");
+  const confirmationSection = document.getElementById("confirmationSection");
+  const checkoutContainer = document.querySelector(".bg-gray-50.p-6.rounded");
+
+  if (!checkoutContainer) return;
+
+  // ===================== LOAD CART PRODUCTS ===================== //
+  const checkoutCart = JSON.parse(localStorage.getItem("checkoutCart")) || [];
+  console.log("checkoutCart>>>>", checkoutCart);
+  
+  const buyNowProduct = JSON.parse(localStorage.getItem("buyNowProduct"));
+  let products = [];
+
+  if (checkoutCart.length > 0) products = [...checkoutCart];
+  if (buyNowProduct) products.push(buyNowProduct);
+
+  // ===================== NO PRODUCTS FOUND ===================== //
+  if (products.length === 0) {
+    checkoutContainer.innerHTML = `<p class="text-center text-gray-500 py-10">No products found in checkout.</p>`;
+    return;
+  }
+
+  // ===================== CREATE PRODUCT CARD HTML ===================== //
+  function createProductHTML(item) {
+    const cleanPrice = parseFloat(String(item.price).replace('$', '').trim()) || 0;
+    return `
+      <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dynamic-product">
+        <div class="flex items-center gap-3">
+          <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover">
+          <div>
+            <h4 class="font-medium text-gray-800">${item.name}</h4>
+            <p class="text-sm text-gray-500">Weight: ${item.weight || "—"}</p>
+            <p class="text-sm text-gray-500">Qty: ${item.quantity || 1}</p>
+          </div>
+        </div>
+        <span class="text-sm font-semibold">$${cleanPrice.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  // ===================== INSERT PRODUCTS IN CHECKOUT ===================== //
+  checkoutContainer.querySelectorAll(".dynamic-product").forEach(e => e.remove());
+  const subtotalRow = checkoutContainer.querySelector(".border-b.border-gray-300.mb-3");
+  const allProductsHTML = products.map(p => createProductHTML(p)).join("");
+  if (subtotalRow) {
+    subtotalRow.insertAdjacentHTML("beforebegin", allProductsHTML);
+  } else {
+    checkoutContainer.insertAdjacentHTML("afterbegin", allProductsHTML);
+  }
+
+  // ===================== CALCULATE TOTALS ===================== //
+  let subtotal = 0;
+  products.forEach(p => {
+    const price = parseFloat(String(p.price).replace('$', '').trim()) || 0;
+    const qty = parseInt(p.quantity) || 1;
+    subtotal += price * qty;
+  });
+
+  const subtotalEl = checkoutContainer.querySelector(
+    ".flex.justify-between.pb-3.mb-3.border-b.border-gray-300 span.text-sm:last-child"
+  );
+  const totalEl = checkoutContainer.querySelector(
+    ".flex.justify-between.pb-4.mb-6 span.text-lg.font-semibold:last-child"
+  );
+
+  if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+  if (totalEl) totalEl.textContent = `$${subtotal.toFixed(2)}`;
+
+  // ===================== PLACE ORDER BUTTON ===================== //
+  placeOrderBtn?.addEventListener("click", function () {
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    const paymentMethod = selectedPayment
+      ? selectedPayment.nextElementSibling.querySelector("span")?.textContent.trim() || "Cash on delivery"
+      : "Cash on delivery";
+
+    // Generate random order number
+    const orderNumber = Math.floor(1000 + Math.random() * 9000);
+    const today = new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    // Hide checkout section and show confirmation
+    checkoutSection.classList.add("hidden");
+    confirmationSection.classList.remove("hidden");
+
+    // Fill dynamic data
+    document.getElementById("displayOrderNumber").textContent = orderNumber;
+    document.getElementById("displayOrderDate").textContent = today;
+    document.getElementById("displayPaymentMethod").textContent = paymentMethod;
+    document.getElementById("displayPaymentMethod2").textContent = paymentMethod;
+
+    // ===================== INSERT PRODUCTS IN CONFIRMATION ===================== //
+    const tbody = confirmationSection.querySelector("tbody");
+    tbody.innerHTML = ""; // Clear existing
+
+    products.forEach((p) => {
+  const cleanPrice = parseFloat(String(p.price).replace('$', '').trim()) || 0;
+  const qty = parseInt(p.quantity) || 1;
+  const total = (cleanPrice * qty).toFixed(2);
+
+  tbody.insertAdjacentHTML(
+    "beforeend",
+    `
+    <tr class="border-b border-gray-100">
+      <td class="px-6 py-4 flex items-center gap-3">
+        <img src="${p.image}" alt="${p.name}" class="w-12 h-12 rounded-lg object-cover border" />
+        <div>
+          <span class="text-sm ">${p.name}</span>
+          <span class="text-sm text-gray-600 ml-1">× ${qty}</span>
+        </div>
+      </td>
+      <td class="px-6 py-4 text-right text-sm font-medium">$${total}</td>
+    </tr>
+    `
+  );
+});
+
+
+    // Add subtotal, shipping, total rows
+    tbody.insertAdjacentHTML(
+      "beforeend",
+      `
+      <tr>
+        <td class="px-6 py-4 text-sm font-semibold uppercase">Subtotal:</td>
+        <td class="px-6 py-4 text-right text-sm">$${subtotal.toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 text-sm font-semibold uppercase">Shipping:</td>
+        <td class="px-6 py-4 text-right text-sm">
+          <span>Flat rate: <span class="line-through text-red-500">$22.00</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 text-sm font-semibold uppercase">Payment Method:</td>
+        <td class="px-6 py-4 text-right text-sm">${paymentMethod}</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 text-sm font-semibold uppercase">Total:</td>
+        <td class="px-6 py-4 text-right text-sm font-semibold">$${subtotal.toFixed(2)}</td>
+      </tr>
+      `
+    );
+
+    // Show order note if exists
+    const note = document.getElementById("orderNotes").value.trim();
+    if (note) {
+      tbody.insertAdjacentHTML(
+        "beforeend",
+        `
+        <tr>
+          <td class="px-6 py-4 text-sm font-semibold uppercase">Note:</td>
+          <td class="px-6 py-4 text-right text-sm">${note}</td>
+        </tr>
+        `
+      );
+    }
+
+    // Clear checkout cart after order
+    localStorage.removeItem("checkoutCart");
+    localStorage.removeItem("buyNowProduct");
+  });
+});
+</script>
+<!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const downloadBtn = document.getElementById("downloadInvoiceBtn");
+
+  downloadBtn?.addEventListener("click", async function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Get values dynamically from DOM
+    const orderNumber = document.getElementById("displayOrderNumber")?.textContent.trim() || "-";
+    const orderDate = document.getElementById("displayOrderDate")?.textContent.trim() || "-";
+    const paymentMethod = document.getElementById("displayPaymentMethod")?.textContent.trim() || "-";
+    const note = document.getElementById("displayOrderNote")?.textContent.trim() || "";
     
+    const table = document.querySelector("#confirmationSection table tbody");
+    const rows = [...table.querySelectorAll("tr")];
+
+    let y = 20; // Y-position for content
+
+    // Header
+    doc.setFontSize(18);
+    doc.text("Order Invoice", 14, y);
+    y += 10;
+
+    // Order Info
+    doc.setFontSize(12);
+    doc.text(`Order Number: ${orderNumber}`, 14, y);
+    y += 6;
+    doc.text(`Order Date: ${orderDate}`, 14, y);
+    y += 6;
+    doc.text(`Payment Method: ${paymentMethod}`, 14, y);
+    y += 10;
+
+    // Table Header
+    doc.setFontSize(14);
+    doc.text("Products", 14, y);
+    y += 6;
+    doc.setFontSize(11);
+    doc.text("--------------------------------------------------------------", 14, y);
+    y += 6;
+
+    // Loop through table rows and extract product data
+    rows.forEach((row) => {
+      const cells = row.querySelectorAll("td");
+      if (cells.length === 2) {
+        const item = cells[0].innerText.trim().replace(/\s+/g, " ");
+        const total = cells[1].innerText.trim();
+        doc.text(`${item}`, 14, y);
+        doc.text(`${total}`, 160, y, { align: "right" });
+        y += 6;
+      }
+    });
+
+    // Footer Line
+    doc.text("--------------------------------------------------------------", 14, y);
+    y += 8;
+
+    // Add Note if present
+    if (note) {
+      doc.text("Order Note:", 14, y);
+      y += 6;
+      doc.text(note, 14, y);
+      y += 8;
+    }
+
+    // Thank You Message
+    doc.setFontSize(12);
+    doc.text("Thank you for shopping with us!", 14, y + 6);
+
+    // Save PDF
+    doc.save(`invoice_${orderNumber}.pdf`);
+  });
+});
+</script>
+
+
+
 </body>
 
 </html>

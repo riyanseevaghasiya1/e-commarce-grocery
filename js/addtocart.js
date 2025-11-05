@@ -212,7 +212,4 @@ if (saveAddressBtn) {
     updateCartSummary();
   });
 }
-document.getElementById("checkoutBtn")?.addEventListener("click", () => {
-    alert("Proceeding to checkout...");
-    // window.location.href = "/checkout.html"; // uncomment if you have checkout page
-});
+
