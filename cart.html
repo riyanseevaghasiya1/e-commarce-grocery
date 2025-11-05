@@ -122,47 +122,22 @@
     <script src="./js/rushita.js"></script>
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
-    <script>
-  // Example data (simulate your cart)
-  let cart = [
-    { name: "Product 1", price: 25, quantity: 1 },
-    { name: "Product 2", price: 45, quantity: 1 },
-  ];
 
-  let shipping = 22;
-  let address = "CA";
-
-  function updateCartTotals() {
-    const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const total = subtotal + shipping;
-
-    document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById("shippingCost").textContent = `$${shipping.toFixed(2)}`;
-    document.getElementById("total").textContent = `$${total.toFixed(2)}`;
-    document.getElementById("shippingAddress").textContent = address;
+<script>
+  document.getElementById("checkoutBtn")?.addEventListener("click", () => {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
   }
 
-  updateCartTotals();
+  // ✅ Save cart to localStorage for checkout page
+  localStorage.setItem("checkoutCart", JSON.stringify(cart));
 
-  // Change address logic
-  const modal = document.getElementById("addressModal");
-  document.getElementById("changeAddress").addEventListener("click", (e) => {
-    e.preventDefault();
-    modal.classList.remove("hidden");
-  });
+  // ✅ Redirect to checkout page
+  window.location.href = "./checkout.html";
+});
 
-  document.getElementById("saveAddress").addEventListener("click", () => {
-    const select = document.getElementById("addressSelect");
-    const selectedOption = select.options[select.selectedIndex];
-    address = selectedOption.value;
-    shipping = parseFloat(selectedOption.dataset.shipping);
-    modal.classList.add("hidden");
-    updateCartTotals();
-  });
-  document.getElementById("checkoutBtn").addEventListener("click", () => {
-    alert("Proceeding to checkout...");
-  
-  });
 </script>
 </body>
 

@@ -185,3 +185,62 @@ function updateCartCount() {
   const totalItems = cartData.reduce((sum, item) => sum + (item.quantity || 1), 0);
   cartCount.textContent = totalItems;
 }
+
+
+(function () {
+
+  function closestByClass(el, cls) {
+    while (el && el !== document) {
+      if (el.classList && el.classList.contains(cls)) return el;
+      el = el.parentNode;
+    }
+    return null;
+  }
+
+  document.addEventListener('click', function (ev) {
+
+    const toggle = ev.target.closest('.mobile-accordion-toggle');
+    if (!toggle) return; 
+
+    const accordion = closestByClass(toggle, 'mobile-accordion');
+    if (!accordion) {
+      console.warn('mobile-accordion-toggle clicked but parent .mobile-accordion not found');
+      return;
+    }
+
+    const content = accordion.querySelector('.mobile-accordion-content');
+    const icon = toggle.querySelector('i');
+
+    if (!content) {
+      console.warn('mobile-accordion-content not found for', accordion);
+      return;
+    }
+    ev.preventDefault();
+
+    const isOpen = !content.classList.contains('hidden');
+
+    document.querySelectorAll('.mobile-accordion-content').forEach((c) => {
+      if (c !== content) c.classList.add('hidden');
+    });
+    document.querySelectorAll('.mobile-accordion-toggle i').forEach((ic) => {
+      if (ic !== icon) ic.classList.remove('rotate-180');
+    });
+
+    if (isOpen) {
+      content.classList.add('hidden');
+      if (icon) icon.classList.remove('rotate-180');
+    } else {
+      content.classList.remove('hidden');
+      if (icon) icon.classList.add('rotate-180');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const found = document.querySelectorAll('.mobile-accordion').length;
+    if (found === 0) {
+      console.warn('No .mobile-accordion elements found on page — check your HTML or script placement.');
+    } else {
+      console.info('Mobile accordions found:', found);
+    }
+  });
+})();
