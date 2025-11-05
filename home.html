@@ -580,10 +580,68 @@
     </div>
     
     <div id="footer_add"></div>
+    <script src="./js/viewproduct.js"></script>
     <script src="./js/home.js"></script>
     <script src="./js/rushita.js"></script>
     <!-- <script src="./js/wishlist.js"></script> -->
     <script src="./js/addtocart.js"></script>
+    
+    <script>
+        // Add click handlers to all product cards to navigate to ProductDetails
+        document.addEventListener('DOMContentLoaded', function() {
+            const productCards = document.querySelectorAll('.product-card');
+            
+            // Add cursor pointer style to product cards
+            productCards.forEach(card => {
+                card.style.cursor = 'pointer';
+            });
+            
+            productCards.forEach(card => {
+                // Prevent navigation when clicking on action buttons or add to cart
+                card.addEventListener('click', function(e) {
+                    // Don't navigate if clicking on buttons, icons inside buttons, or links
+                    if (e.target.closest('button') || e.target.closest('a') || e.target.tagName === 'I' || e.target.closest('i')) {
+                        // Check if it's a button click - stop propagation
+                        if (e.target.closest('button')) {
+                            e.stopPropagation();
+                            return;
+                        }
+                        return;
+                    }
+                    
+                    // Stop event from bubbling
+                    e.stopPropagation();
+                    
+                    // Find product name
+                    const productNameEl = card.querySelector('.product-name');
+                    if (productNameEl) {
+                        const productName = productNameEl.textContent.trim();
+                        
+                        // Find matching product in allProducts (exact match first, then partial match)
+                        let productIndex = allProducts.findIndex(p => p.name === productName);
+                        
+                        // If exact match not found, try partial match
+                        if (productIndex === -1) {
+                            productIndex = allProducts.findIndex(p => 
+                                p.name.toLowerCase().includes(productName.toLowerCase()) || 
+                                productName.toLowerCase().includes(p.name.toLowerCase())
+                            );
+                        }
+                        
+                        if (productIndex !== -1) {
+                            viewProductDetails(productIndex);
+                        } else {
+                            console.warn('Product not found in allProducts:', productName);
+                            // Navigate to shop page as fallback
+                            window.location.href = './Shop.html';
+                        }
+                    }
+                });
+            });
+            
+            console.log('Product cards click handlers initialized. Total cards:', productCards.length);
+        });
+    </script>
 
 </body>
 
