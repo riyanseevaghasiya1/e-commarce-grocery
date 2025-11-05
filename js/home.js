@@ -1,9 +1,10 @@
 /* ============================================
-   HOME.JS - Complete Fixed JavaScript
+   HOME.JS - COMPLETE UPDATED VERSION
+   With Circular Category Slider & Dots Below Names
    ============================================ */
 
 // ==========================================
-// SHOP BY CATEGORY SLIDER
+// SHOP BY CATEGORY SLIDER - DOTS BELOW NAMES
 // ==========================================
 
 let shopCurrentSlide = 0;
@@ -11,68 +12,121 @@ const shopTrack = document.getElementById('shopCategoriesTrack');
 const shopItems = document.querySelectorAll('.shop-category-item');
 const shopTotalItems = shopItems.length;
 
+// Get number of visible items based on screen width
 function getShopVisibleItems() {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 1200) return 8;
-    if (screenWidth >= 992) return 6;
-    if (screenWidth >= 768) return 5;
-    if (screenWidth >= 576) return 4;
-    return 3;
+    if (screenWidth >= 1200) return 8;      // Desktop: 8 items
+    if (screenWidth >= 992) return 6;       // Tablet Landscape: 6 items
+    if (screenWidth >= 768) return 5;       // Tablet: 5 items
+    if (screenWidth >= 576) return 4;       // Mobile Large: 4 items
+    if (screenWidth >= 481) return 3;       // Mobile Medium: 3 items
+    return 2;                               // Mobile Small: 2 items
 }
 
+// Calculate maximum slide position
 function getShopMaxSlide() {
     const visibleItems = getShopVisibleItems();
     return Math.max(0, shopTotalItems - visibleItems);
 }
 
+// Create dots navigation
+function createShopDots() {
+    const dotsContainer = document.getElementById('categoryDots');
+    if (!dotsContainer) return;
+    
+    dotsContainer.innerHTML = '';
+    const totalDots = getShopMaxSlide() + 1;
+    
+    for (let i = 0; i < totalDots; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'shop-dot';
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToShopSlide(i));
+        dotsContainer.appendChild(dot);
+    }
+}
+
+// Update dots
+function updateShopDots() {
+    const dots = document.querySelectorAll('.shop-dot');
+    dots.forEach((dot, index) => {
+        if (index === shopCurrentSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// Go to specific slide
+function goToShopSlide(slideIndex) {
+    const maxSlide = getShopMaxSlide();
+    shopCurrentSlide = Math.max(0, Math.min(slideIndex, maxSlide));
+    updateShopSlidePosition();
+}
+
+// Update slide position
 function updateShopSlidePosition() {
     if (!shopTrack || shopItems.length === 0) return;
     
     const itemWidth = shopItems[0].offsetWidth;
-    const gap = 20;
+    const gap = parseFloat(getComputedStyle(shopTrack).gap) || 30;
     const slideAmount = shopCurrentSlide * (itemWidth + gap);
     
     shopTrack.style.transform = `translateX(-${slideAmount}px)`;
+    updateShopDots();
 }
 
-function slideShopCategories(direction) {
-    const maxSlide = getShopMaxSlide();
-    
-    shopCurrentSlide += direction;
-    
-    if (shopCurrentSlide < 0) {
-        shopCurrentSlide = 0;
-    }
-    if (shopCurrentSlide > maxSlide) {
-        shopCurrentSlide = maxSlide;
-    }
-    
-    updateShopSlidePosition();
+// Auto slide function
+let autoSlideInterval;
+
+function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideInterval = setInterval(() => {
+        const maxSlide = getShopMaxSlide();
+        if (shopCurrentSlide >= maxSlide) {
+            shopCurrentSlide = 0;
+        } else {
+            shopCurrentSlide++;
+        }
+        updateShopSlidePosition();
+    }, 3000);
 }
 
-shopItems.forEach((item, index) => {
+function stopAutoSlide() {
+    if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+    }
+}
+
+// Click animation for category items
+shopItems.forEach((item) => {
     item.addEventListener('click', function() {
         const categoryName = this.querySelector('.shop-category-name').textContent;
-        console.log(`Clicked on ${categoryName} category`);
+        console.log(`Selected category: ${categoryName}`);
         
-        this.style.transform = 'scale(0.95)';
+        // Visual feedback
+        this.style.transform = 'scale(0.95) translateY(-10px)';
         setTimeout(() => {
             this.style.transform = '';
         }, 200);
     });
 });
 
+// Touch swipe support
 let shopTouchStartX = 0;
 let shopTouchEndX = 0;
 
 if (shopTrack) {
     shopTrack.addEventListener('touchstart', function(e) {
         shopTouchStartX = e.changedTouches[0].screenX;
+        stopAutoSlide();
     }, { passive: true });
 
     shopTrack.addEventListener('touchend', function(e) {
         shopTouchEndX = e.changedTouches[0].screenX;
         handleShopSwipe();
+        startAutoSlide();
     }, { passive: true });
 }
 
@@ -81,14 +135,17 @@ function handleShopSwipe() {
     const diff = shopTouchStartX - shopTouchEndX;
     
     if (Math.abs(diff) > swipeThreshold) {
+        const maxSlide = getShopMaxSlide();
         if (diff > 0) {
-            slideShopCategories(1);
+            shopCurrentSlide = Math.min(shopCurrentSlide + 1, maxSlide);
         } else {
-            slideShopCategories(-1);
+            shopCurrentSlide = Math.max(shopCurrentSlide - 1, 0);
         }
+        updateShopSlidePosition();
     }
 }
 
+// Mouse drag support for desktop
 let shopIsDragging = false;
 let shopStartX;
 let shopScrollLeft;
@@ -99,16 +156,19 @@ if (shopTrack) {
         shopStartX = e.pageX - shopTrack.offsetLeft;
         shopScrollLeft = shopCurrentSlide;
         shopTrack.style.cursor = 'grabbing';
+        stopAutoSlide();
     });
 
     shopTrack.addEventListener('mouseleave', function() {
         shopIsDragging = false;
         shopTrack.style.cursor = 'grab';
+        startAutoSlide();
     });
 
     shopTrack.addEventListener('mouseup', function() {
         shopIsDragging = false;
         shopTrack.style.cursor = 'grab';
+        startAutoSlide();
     });
 
     shopTrack.addEventListener('mousemove', function(e) {
@@ -118,7 +178,7 @@ if (shopTrack) {
         const x = e.pageX - shopTrack.offsetLeft;
         const walk = (x - shopStartX) * 2;
         
-        const itemWidth = shopItems[0].offsetWidth + 20;
+        const itemWidth = shopItems[0].offsetWidth + 30;
         const draggedSlides = Math.round(-walk / itemWidth);
         const newSlide = Math.max(0, Math.min(shopScrollLeft + draggedSlides, getShopMaxSlide()));
         
@@ -131,6 +191,12 @@ if (shopTrack) {
     shopTrack.style.cursor = 'grab';
 }
 
+// Pause auto-slide on hover
+if (shopTrack) {
+    shopTrack.parentElement.addEventListener('mouseenter', stopAutoSlide);
+    shopTrack.parentElement.addEventListener('mouseleave', startAutoSlide);
+}
+
 // ==========================================
 // PRODUCTS SLIDER NAVIGATION
 // ==========================================
@@ -139,7 +205,13 @@ function scrollProducts(sliderId, direction) {
     const slider = document.getElementById(sliderId);
     if (!slider) return;
     
-    const scrollAmount = 270;
+    const productCard = slider.querySelector('.product-card');
+    if (!productCard) return;
+    
+    const cardWidth = productCard.offsetWidth;
+    const gap = 20;
+    const scrollAmount = (cardWidth + gap) * 1;
+    
     slider.scrollBy({
         left: direction * scrollAmount,
         behavior: 'smooth'
@@ -147,11 +219,11 @@ function scrollProducts(sliderId, direction) {
 }
 
 // ==========================================
-// QUICK VIEW MODAL - FIXED VERSION
+// QUICK VIEW MODAL
 // ==========================================
 
 window.openQuickView = function(button) {
-    console.log('=== Quick View Opening ===');
+    console.log('Opening Quick View...');
     
     const productCard = button.closest('.product-card');
     if (!productCard) {
@@ -163,16 +235,10 @@ window.openQuickView = function(button) {
     const productName = productCard.querySelector('.product-name');
     const productPrice = productCard.querySelector('.current-price');
 
-    console.log('Product found:', {
-        name: productName ? productName.textContent : 'N/A',
-        price: productPrice ? productPrice.textContent : 'N/A',
-        hasImage: !!productImage
-    });
-
     const modal = document.getElementById('quickViewModal');
     
     if (!modal) {
-        console.error('Modal element #quickViewModal not found in HTML!');
+        console.error('Modal not found!');
         return;
     }
 
@@ -198,19 +264,17 @@ window.openQuickView = function(button) {
         quantityInput.value = 1;
     }
 
-    // Force display modal
     modal.style.display = 'flex';
     setTimeout(() => {
         modal.classList.add('show');
     }, 10);
     
     document.body.style.overflow = 'hidden';
-    
-    console.log('Modal displayed successfully');
+    console.log('Modal opened successfully');
 };
 
 window.closeQuickView = function() {
-    console.log('=== Quick View Closing ===');
+    console.log('Closing Quick View...');
     
     const modal = document.getElementById('quickViewModal');
     if (modal) {
@@ -230,7 +294,7 @@ window.increaseQuantity = function() {
     const input = document.getElementById('quantityInput');
     if (input) {
         const currentValue = parseInt(input.value) || 1;
-        input.value = currentValue + 1;
+        input.value = Math.min(currentValue + 1, 99);
     }
 };
 
@@ -238,9 +302,7 @@ window.decreaseQuantity = function() {
     const input = document.getElementById('quantityInput');
     if (input) {
         const currentValue = parseInt(input.value) || 1;
-        if (currentValue > 1) {
-            input.value = currentValue - 1;
-        }
+        input.value = Math.max(currentValue - 1, 1);
     }
 };
 
@@ -299,8 +361,9 @@ window.addEventListener('resize', function() {
         const maxSlide = getShopMaxSlide();
         if (shopCurrentSlide > maxSlide) {
             shopCurrentSlide = maxSlide;
-            updateShopSlidePosition();
         }
+        createShopDots();
+        updateShopSlidePosition();
     }, 250);
 });
 
@@ -317,39 +380,54 @@ document.addEventListener('keydown', function(e) {
     
     if (e.key === 'Escape' && modal && modal.classList.contains('show')) {
         closeQuickView();
+        return;
     }
     
     if (!modal || !modal.classList.contains('show')) {
+        const maxSlide = getShopMaxSlide();
+        
         if (e.key === 'ArrowLeft') {
             e.preventDefault();
-            slideShopCategories(-1);
+            stopAutoSlide();
+            shopCurrentSlide = Math.max(shopCurrentSlide - 1, 0);
+            updateShopSlidePosition();
+            startAutoSlide();
         } else if (e.key === 'ArrowRight') {
             e.preventDefault();
-            slideShopCategories(1);
+            stopAutoSlide();
+            shopCurrentSlide = Math.min(shopCurrentSlide + 1, maxSlide);
+            updateShopSlidePosition();
+            startAutoSlide();
         }
     }
 });
 
 // ==========================================
-// DOM CONTENT LOADED
+// DOM CONTENT LOADED - INITIALIZATION
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log('==========================================');
     console.log('Grocery Store - Home Page Initialized');
     console.log('==========================================');
-    console.log(`Shop Categories: ${shopTotalItems}`);
-    console.log(`Visible Shop Items: ${getShopVisibleItems()}`);
+    console.log(`Total Categories: ${shopTotalItems}`);
+    console.log(`Visible Categories: ${getShopVisibleItems()}`);
+    console.log(`Max Slides: ${getShopMaxSlide()}`);
     console.log('==========================================');
 
-    // Check if modal exists
+    // Initialize dots navigation
+    createShopDots();
+    updateShopSlidePosition();
+    
+    // Start auto-slide
+    startAutoSlide();
+
     const modal = document.getElementById('quickViewModal');
     if (!modal) {
-        console.error('⚠️ Quick View Modal not found! Check HTML structure.');
+        console.error('⚠️ Quick View Modal not found! Check HTML.');
     } else {
-        console.log('✓ Modal found in DOM');
+        console.log('✓ Modal found and ready');
         
-        // Click outside to close
         modal.addEventListener('click', function (e) {
             if (e.target === this) {
                 closeQuickView();
@@ -393,22 +471,22 @@ document.addEventListener('DOMContentLoaded', function () {
         slider.style.cursor = 'grab';
     });
 
-    // Collection cards click
+    // Collection cards click handler
     const collectionCards = document.querySelectorAll('.collection-card');
     collectionCards.forEach(card => {
         card.addEventListener('click', function () {
             const title = this.querySelector('.collection-title').textContent;
-            console.log(`Collection clicked: ${title}`);
+            console.log(`Collection selected: ${title}`);
         });
     });
 
-    // Feature cards click
+    // Feature cards click handler
     const featureCards = document.querySelectorAll('.feature-card');
     featureCards.forEach(card => {
         card.addEventListener('click', function (e) {
             if (e.target.tagName !== 'A') {
                 const title = this.querySelector('.feature-title').textContent;
-                console.log(`Feature clicked: ${title}`);
+                console.log(`Feature selected: ${title}`);
             }
         });
     });
@@ -417,8 +495,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const quantityInput = document.getElementById('quantityInput');
     if (quantityInput) {
         quantityInput.addEventListener('input', function () {
-            if (this.value < 1) this.value = 1;
-            if (this.value > 99) this.value = 99;
+            let value = parseInt(this.value);
+            if (isNaN(value) || value < 1) this.value = 1;
+            if (value > 99) this.value = 99;
         });
 
         quantityInput.addEventListener('blur', function () {
@@ -440,7 +519,11 @@ document.addEventListener('DOMContentLoaded', function () {
     revealOnScroll();
     
     console.log('==========================================');
-    console.log('All event listeners attached successfully');
+    console.log('✓ All event listeners attached');
+    console.log('✓ Sliders initialized');
+    console.log('✓ Dots navigation created (below names)');
+    console.log('✓ Auto-slide started');
+    console.log('✓ Modal ready');
     console.log('==========================================');
 });
 
@@ -449,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // ==========================================
 
 function revealOnScroll() {
-    const elements = document.querySelectorAll('.collection-card, .feature-card');
+    const elements = document.querySelectorAll('.collection-card, .feature-card, .product-card');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -459,7 +542,8 @@ function revealOnScroll() {
             }
         });
     }, {
-        threshold: 0.1
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
 
     elements.forEach(element => {
@@ -471,7 +555,7 @@ function revealOnScroll() {
 }
 
 // ==========================================
-// WISHLIST & CART FUNCTIONS (Keep for external files)
+// WISHLIST & CART FUNCTIONS
 // ==========================================
 
 // window.addToWishlist = function(button) {
