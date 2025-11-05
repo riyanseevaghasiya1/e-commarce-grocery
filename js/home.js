@@ -311,28 +311,43 @@ window.decreaseQuantity = function() {
 // ==========================================
 
 window.addToCartFromModal = function() {
-    const productName = document.getElementById('modalProductName');
-    const quantity = document.getElementById('quantityInput');
-    
-    if (productName && quantity) {
-        console.log(`Added ${quantity.value}x "${productName.textContent}" to cart!`);
-        
-        const btn = document.querySelector('.modal-add-to-cart');
-        if (btn) {
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-            btn.style.background = '#10b981';
-            
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = '';
-            }, 1500);
-        }
-        
-        setTimeout(() => {
-            closeQuickView();
-        }, 1500);
-    }
+  const productNameEl = document.getElementById('modalProductName');
+  const productPriceEl = document.getElementById('modalProductPrice');
+  const productImageEl = document.getElementById('modalProductImage');
+  const quantityInput = document.getElementById('quantityInput');
+
+  if (!productNameEl || !productPriceEl || !productImageEl) {
+    console.error('❌ Missing modal product info!');
+    return;
+  }
+
+  const product = {
+    name: productNameEl.textContent.trim(),
+    price: productPriceEl.textContent.trim(),
+    image: productImageEl.src,
+    quantity: parseInt(quantityInput?.value || 1)
+  };
+
+  console.log('🛒 Adding from Quick View:', product);
+
+  // === Same logic as your addToCart() ===
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const existing = cart.find(item => item.name === product.name);
+
+  if (existing) {
+    existing.quantity += product.quantity;
+  } else {
+    cart.push(product);
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Update UI
+  if (typeof updateCartCount === 'function') updateCartCount();
+  if (typeof showNotification === 'function') showNotification('Item added to cart');
+
+  // Close modal
+  closeQuickView();
 };
 
 // ==========================================
@@ -543,56 +558,32 @@ function revealOnScroll() {
 // WISHLIST & CART FUNCTIONS
 // ==========================================
 
-window.addToWishlist = function(button) {
-    const productCard = button.closest('.product-card');
-    if (productCard) {
-        const productName = productCard.querySelector('.product-name').textContent;
-        console.log(`❤️ Added "${productName}" to wishlist!`);
+// window.addToWishlist = function(button) {
+//     const productCard = button.closest('.product-card');
+//     if (productCard) {
+//         const productName = productCard.querySelector('.product-name').textContent;
+//         console.log(`Added "${productName}" to wishlist!`);
         
-        const icon = button.querySelector('i');
-        if (icon) {
-            icon.classList.remove('far');
-            icon.classList.add('fas');
-            button.style.color = '#ff6b6b';
-        }
+//         button.style.transform = 'scale(1.2)';
+//         setTimeout(() => {
+//             button.style.transform = '';
+//         }, 200);
         
-        button.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-            button.style.transform = '';
-        }, 200);
-    }
-};
+//         // wishlist.js ma actual logic add thase
+//     }
+// };
 
-window.addToCart = function(button) {
-    const productCard = button.closest('.product-card');
-    if (productCard) {
-        const productName = productCard.querySelector('.product-name').textContent;
-        const productPrice = productCard.querySelector('.current-price').textContent;
-        console.log(`🛒 Added "${productName}" (${productPrice}) to cart!`);
+// window.addToCart = function(button) {
+//     const productCard = button.closest('.product-card');
+//     if (productCard) {
+//         const productName = productCard.querySelector('.product-name').textContent;
+//         console.log(`Added "${productName}" to cart!`);
         
-        button.style.transform = 'scale(1.2)';
-        button.style.background = '#10b981';
-        button.style.color = 'white';
+//         button.style.transform = 'scale(1.2)';
+//         setTimeout(() => {
+//             button.style.transform = '';
+//         }, 200);
         
-        setTimeout(() => {
-            button.style.transform = '';
-            button.style.background = '';
-            button.style.color = '';
-        }, 300);
-    }
-};
-
-// ==========================================
-// HERO BUTTON ACTIONS
-// ==========================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    const heroButtons = document.querySelectorAll('.hero-btn');
-    heroButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            console.log('Explore More clicked');
-        });
-    });
-});
-
-console.log('✅ Home.js loaded successfully!');
+//         // addtocart.js ma actual logic add thase
+//     }
+// };
