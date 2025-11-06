@@ -22,21 +22,14 @@
 			<div class="grid md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-6">
 				<!-- Gallery -->
 				<div>
-					<img id="mainImg"
-						src="./images/apple.jpg"
-						alt="Grocery Item" class="w-full h-96 object-cover rounded-xl mb-4" />
+					<img id="mainImg" src="./images/apple.jpg" alt="Grocery Item"
+						class="w-full h-96 object-cover rounded-xl mb-4" />
 					<div class="flex gap-3 justify-center">
-						<img onclick="swapImage(this)"
-							src="./images/apple1.jpg"
-							alt="Thumb 1"
+						<img onclick="swapImage(this)" src="./images/apple1.jpg" alt="Thumb 1"
 							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
-						<img onclick="swapImage(this)"
-							src="./images/apple2.avif"
-							alt="Thumb 2"
+						<img onclick="swapImage(this)" src="./images/apple2.avif" alt="Thumb 2"
 							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
-						<img onclick="swapImage(this)"
-							src="./images/apple.jpg"
-							alt="Thumb 3"
+						<img onclick="swapImage(this)" src="./images/apple.jpg" alt="Thumb 3"
 							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
 					</div>
 				</div>
@@ -80,16 +73,16 @@
 						</div>
 					</div>
 
-				  <button
-      class="bg-[#02b290] hover:bg-[#028f7a] text-white py-2 text-[18px] rounded-lg font-medium transition mb-3"
-      onclick="addToCart1(this)">
-      Add to Cart
-    </button>
-	
-				<button
-  class="hover:bg-[#02b290] border border-[#02b290] text-[#02b290] hover:text-white py-2 text-[18px] rounded-lg font-medium transition mb-3 buy-now-btn">
-  Buy Now
-</button>
+					<button
+						class="bg-[#02b290] hover:bg-[#028f7a] text-white py-2 text-[18px] rounded-lg font-medium transition mb-3"
+						onclick="addToCart1(this)">
+						Add to Cart
+					</button>
+
+					<button
+						class="hover:bg-[#02b290] border border-[#02b290] text-[#02b290] hover:text-white py-2 text-[18px] rounded-lg font-medium transition mb-3 buy-now-btn">
+						Buy Now
+					</button>
 				</div>
 			</div>
 			<div class="mt-10 bg-white rounded-xl shadow-md p-6">
@@ -215,45 +208,61 @@
 	<!-- JS -->
 	<script>
 		// Load product data on page load
-		document.addEventListener('DOMContentLoaded', function() {
-			const productIndex = sessionStorage.getItem('selectedProductIndex');
+		document.addEventListener('DOMContentLoaded', function () {
+			let product = null;
 			
-			if (productIndex !== null && allProducts[productIndex]) {
-				const product = allProducts[productIndex];
-				
+			// First, check if product data is directly stored (from home.html cards)
+			const productDataStr = sessionStorage.getItem('selectedProductData');
+			if (productDataStr) {
+				try {
+					product = JSON.parse(productDataStr);
+				} catch (e) {
+					console.error('Error parsing product data:', e);
+				}
+			}
+			
+			// Fallback to index-based lookup (for compatibility with Shop.html or other pages)
+			if (!product) {
+				const productIndex = sessionStorage.getItem('selectedProductIndex');
+				if (productIndex !== null && allProducts && allProducts[productIndex]) {
+					product = allProducts[productIndex];
+				}
+			}
+
+			if (product) {
 				// Update main image
 				const mainImg = document.getElementById('mainImg');
 				if (mainImg) {
-					mainImg.src = product.img;
-					mainImg.alt = product.name;
+					mainImg.src = product.img || mainImg.src;
+					mainImg.alt = product.name || mainImg.alt;
 				}
-				
+
 				// Update thumbnail images (use same image for all thumbnails for now)
 				document.querySelectorAll('img[onclick="swapImage(this)"]').forEach(thumb => {
-					thumb.src = product.img;
+					thumb.src = product.img || thumb.src;
 				});
-				
+
 				// Update product name
 				const productName = document.querySelector('h1');
-				if (productName) {
+				if (productName && product.name) {
 					productName.textContent = product.name;
 				}
-				
+
 				// Update price - find the price div by looking for the parent div containing price
 				const detailsDiv = document.querySelector('.flex.flex-col.justify-center');
 				if (detailsDiv) {
 					const priceDiv = detailsDiv.querySelector('.text-\\[\\#02b290\\]');
-					if (priceDiv) {
+					if (priceDiv && product.price) {
 						priceDiv.innerHTML = product.price + (product.oldPrice ? `<span class="line-through text-gray-400 text-lg ml-2">${product.oldPrice}</span>` : '');
 					}
 				}
-				
+
 				// Update description
 				const description = document.querySelector('.text-gray-600.mb-4');
 				if (description && product.description) {
 					description.textContent = product.description;
 				}
-				
+
 				// Update product details section
 				const productDetailsP = document.querySelector('.bg-white.rounded-xl.shadow-md.p-6 .text-gray-700.mb-4');
 				if (productDetailsP && product.description) {
@@ -294,124 +303,124 @@
 			form.classList.add('transition-all', 'duration-300');
 		}
 	</script>
-<script>
-	function addToCart1(button) {
-  const container = button.closest('.flex.flex-col') || document.body;
+	<script>
+		function addToCart1(button) {
+			const container = button.closest('.flex.flex-col') || document.body;
 
-  const nameEl = container.querySelector('h1') || document.querySelector('h1');
-  const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
+			const nameEl = container.querySelector('h1') || document.querySelector('h1');
+			const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
 
-  const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
-    document.querySelector('[class*="font-bold"][class*="text"]');
-  let productPrice = '';
-  if (priceEl) {
-    const match = priceEl.textContent.match(/\$\s*\d+(?:\.\d+)?/);
-    productPrice = match ? match[0] : priceEl.textContent.trim();
-  }
+			const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
+				document.querySelector('[class*="font-bold"][class*="text"]');
+			let productPrice = '';
+			if (priceEl) {
+				const match = priceEl.textContent.match(/\$\s*\d+(?:\.\d+)?/);
+				productPrice = match ? match[0] : priceEl.textContent.trim();
+			}
 
-  // ✅ FIXED IMAGE SELECTOR
-  const productImage = document.getElementById('mainImg')?.src || '';
+			// ✅ FIXED IMAGE SELECTOR
+			const productImage = document.getElementById('mainImg')?.src || '';
 
-  const qtyInput = document.getElementById('qty');
-  const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
+			const qtyInput = document.getElementById('qty');
+			const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
 
-  const selectedWeightEl =
-    document.querySelector('[class*="weight-option"][class*="bg-[#02b290]"]') ||
-    document.querySelector('[class*="weight-option"].active') ||
-    document.querySelector('.weight-option');
-  const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
+			const selectedWeightEl =
+				document.querySelector('[class*="weight-option"][class*="bg-[#02b290]"]') ||
+				document.querySelector('[class*="weight-option"].active') ||
+				document.querySelector('.weight-option');
+			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
 
-  const product = {
-    name: productName,
-    price: productPrice,
-    image: productImage,
-    quantity: quantity,
-    weight: selectedWeight
-  };
+			const product = {
+				name: productName,
+				price: productPrice,
+				image: productImage,
+				quantity: quantity,
+				weight: selectedWeight
+			};
 
-  let cart = [];
-  try {
-    cart = JSON.parse(localStorage.getItem('cart')) || [];
-  } catch (e) {
-    cart = [];
-  }
+			let cart = [];
+			try {
+				cart = JSON.parse(localStorage.getItem('cart')) || [];
+			} catch (e) {
+				cart = [];
+			}
 
-  const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
-  if (existing) {
-    existing.quantity += product.quantity;
-  } else {
-    cart.push(product);
-  }
+			const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
+			if (existing) {
+				existing.quantity += product.quantity;
+			} else {
+				cart.push(product);
+			}
 
-  localStorage.setItem('cart', JSON.stringify(cart));
-  localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    showNotification('Item added to cart');
-}
+			localStorage.setItem('cart', JSON.stringify(cart));
+			localStorage.setItem('cart', JSON.stringify(cart));
+			updateCartCount();
+			showNotification('Item added to cart');
+		}
 
-</script>
+	</script>
 
 
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  // Attach to all buy-now buttons (in case there are multiple)
-  const buyNowButtons = document.querySelectorAll('.buy-now-btn');
-  if (!buyNowButtons || buyNowButtons.length === 0) return;
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Attach to all buy-now buttons (in case there are multiple)
+			const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+			if (!buyNowButtons || buyNowButtons.length === 0) return;
 
-  buyNowButtons.forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
+			buyNowButtons.forEach(btn => {
+				btn.addEventListener('click', function (e) {
+					e.preventDefault();
 
-      try {
-        // Product name (first <h1> on the page)
-        const name = (document.querySelector('h1')?.textContent || '').trim() || 'Unknown Product';
+					try {
+						// Product name (first <h1> on the page)
+						const name = (document.querySelector('h1')?.textContent || '').trim() || 'Unknown Product';
 
-        // Price: find an element that contains a dollar sign (or ₹, etc.)
-        const priceCandidate = Array.from(document.querySelectorAll('div, span, p'))
-          .find(el => typeof el.textContent === 'string' && el.textContent.includes('$'));
-        const priceText = priceCandidate?.textContent || '';
-        const priceMatch = priceText.match(/(\d+(\.\d+)?)/);
-        const price = priceMatch ? priceMatch[0] : '0';
+						// Price: find an element that contains a dollar sign (or ₹, etc.)
+						const priceCandidate = Array.from(document.querySelectorAll('div, span, p'))
+							.find(el => typeof el.textContent === 'string' && el.textContent.includes('$'));
+						const priceText = priceCandidate?.textContent || '';
+						const priceMatch = priceText.match(/(\d+(\.\d+)?)/);
+						const price = priceMatch ? priceMatch[0] : '0';
 
-        // Image
-        const image = document.getElementById('mainImg')?.src || '';
+						// Image
+						const image = document.getElementById('mainImg')?.src || '';
 
-        // Quantity
-        const qty = Math.max(1, parseInt(document.getElementById('qty')?.value || '1', 10));
+						// Quantity
+						const qty = Math.max(1, parseInt(document.getElementById('qty')?.value || '1', 10));
 
-        // Weight: iterate weight-option elements and check classList for the BG class added
-        let weight = '1 Kg';
-        const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
-        if (weightOptions.length) {
-          // Tailwind class with bracket chars is stored literally in classList, so use classList.contains
-          const selected = weightOptions.find(opt => opt.classList.contains('bg-[#02b290]') || opt.classList.contains('selected') || opt.classList.contains('active'));
-          weight = selected ? selected.textContent.trim() : weightOptions[0].textContent.trim();
-        }
+						// Weight: iterate weight-option elements and check classList for the BG class added
+						let weight = '1 Kg';
+						const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
+						if (weightOptions.length) {
+							// Tailwind class with bracket chars is stored literally in classList, so use classList.contains
+							const selected = weightOptions.find(opt => opt.classList.contains('bg-[#02b290]') || opt.classList.contains('selected') || opt.classList.contains('active'));
+							weight = selected ? selected.textContent.trim() : weightOptions[0].textContent.trim();
+						}
 
-        // Build product object
-        const product = {
-          name,
-          price,
-          image,
-          quantity: qty,
-          weight
-        };
+						// Build product object
+						const product = {
+							name,
+							price,
+							image,
+							quantity: qty,
+							weight
+						};
 
-        // Save to localStorage as 'buyNowProduct'
-        localStorage.setItem('buyNowProduct', JSON.stringify(product));
+						// Save to localStorage as 'buyNowProduct'
+						localStorage.setItem('buyNowProduct', JSON.stringify(product));
 
-        // Redirect to checkout
-        window.location.href = './checkout.html';
-      } catch (err) {
-        console.error('Buy Now error:', err);
-        // fallback: still try to redirect
-        window.location.href = './checkout.html';
-      }
-    });
-  });
-});
-</script>
+						// Redirect to checkout
+						window.location.href = './checkout.html';
+					} catch (err) {
+						console.error('Buy Now error:', err);
+						// fallback: still try to redirect
+						window.location.href = './checkout.html';
+					}
+				});
+			});
+		});
+	</script>
 
 
 
