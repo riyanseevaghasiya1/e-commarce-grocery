@@ -1,4 +1,3 @@
-
 fetch('./header.html')
   .then(response => response.text())
   .then(data => {
@@ -72,6 +71,7 @@ function initializeHeader() {
     document.addEventListener('keydown', e => e.key === 'Escape' && closeCartFunc());
   }
 }
+
 function renderCartItems() {
   const cartData = JSON.parse(localStorage.getItem('cart')) || [];
   const cartContainer = document.getElementById('cartItems');
@@ -86,6 +86,7 @@ function renderCartItems() {
     subtotalEl.textContent = "$0.00";
     return;
   }
+
   cartData.forEach((item, index) => {
     const name = item.name || "Unnamed Product";
     const priceText = item.price || "$0.00";
@@ -123,6 +124,7 @@ function renderCartItems() {
     `;
     cartContainer.insertAdjacentHTML("beforeend", itemHTML);
   });
+
   subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
 
   document.querySelectorAll('.qty-btn').forEach(btn => {
@@ -133,6 +135,7 @@ function renderCartItems() {
     });
   });
 }
+
 function updateQuantity(index, change, btnElement) {
   let cartData = JSON.parse(localStorage.getItem('cart')) || [];
   if (!cartData[index]) return;
@@ -141,31 +144,35 @@ function updateQuantity(index, change, btnElement) {
 
   if (cartData[index].quantity < 1) {
     cartData.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cartData));
+    renderCartItems();
+    updateCartCount();
+    return;
   }
 
   localStorage.setItem('cart', JSON.stringify(cartData));
 
+  // Update display IMMEDIATELY - FIXED SELECTORS
   if (btnElement) {
-    const parent = btnElement.closest('div.flex.items-center.gap-3');
-    const qtyValueEl = parent.querySelector('.qty-value');
+    // Find the quantity span and update it
+    const qtyContainer = btnElement.parentElement;
+    const qtyValueEl = qtyContainer.querySelector('.qty-value');
     if (qtyValueEl) {
-      const newQty = cartData[index]?.quantity || 0;
-      qtyValueEl.textContent = newQty;
+      qtyValueEl.textContent = cartData[index].quantity;
     }
 
-    const itemContainer = btnElement.closest('.flex.gap-4.items-center');
-    const itemTotalEl = itemContainer.querySelector('.item-total');
-    const priceText = cartData[index]?.price || "$0.00";
+    // Find the item total price and update it
+    const mainContainer = btnElement.closest('.flex.gap-4.items-center');
+    const itemTotalEl = mainContainer.querySelector('.item-total');
+    const priceText = cartData[index].price || "$0.00";
     const priceValue = parseFloat(priceText.replace(/[^0-9.]/g, "")) || 0;
-    if (itemTotalEl && cartData[index]) {
+    if (itemTotalEl) {
       itemTotalEl.textContent = `$${(priceValue * cartData[index].quantity).toFixed(2)}`;
     }
   }
 
   updateSubtotal();
   updateCartCount();
-0
-  if (cartData.length === 0) renderCartItems();
 }
 
 function updateSubtotal() {
@@ -178,6 +185,7 @@ function updateSubtotal() {
   }, 0);
   subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
 }
+
 function updateCartCount() {
   const cartCount = document.getElementById('cart-count');
   if (!cartCount) return;
@@ -186,9 +194,7 @@ function updateCartCount() {
   cartCount.textContent = totalItems;
 }
 
-
 (function () {
-
   function closestByClass(el, cls) {
     while (el && el !== document) {
       if (el.classList && el.classList.contains(cls)) return el;
@@ -198,7 +204,6 @@ function updateCartCount() {
   }
 
   document.addEventListener('click', function (ev) {
-
     const toggle = ev.target.closest('.mobile-accordion-toggle');
     if (!toggle) return; 
 
@@ -244,3 +249,5 @@ function updateCartCount() {
     }
   });
 })();
+
+
