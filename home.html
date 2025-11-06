@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store - Free Delivery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="./css/home.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -74,113 +77,101 @@
             </div>
         </section>
 
-        <!-- Shop By Category Section - SLIDER WITH DOTS BELOW -->
+        <!-- Shop By Category Section - OWL CAROUSEL -->
         <section class="shop-category-wrapper">
             <div class="shop-category-header">
                 <h2 class="shop-category-title">Shop By Category</h2>
             </div>
 
-            <div class="shop-categories-container">
-                <div class="shop-categories-track" id="shopCategoriesTrack">
-                    <!-- Dry Fruits -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1508747703725-719777637510?w=300" alt="Dry Fruits">
-                        </div>
-                        <h3 class="shop-category-name">Dry Fruits</h3>
+            <div class="owl-carousel owl-theme" id="categoryCarousel">
+                <!-- Dry Fruits -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1508747703725-719777637510?w=300" alt="Dry Fruits">
                     </div>
+                    <h3 class="shop-category-name">Dry Fruits</h3>
+                </div>
 
-                    <!-- Fresh Fruits -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=300" alt="Fresh Fruits">
-                        </div>
-                        <h3 class="shop-category-name">Fresh Fruits</h3>
+                <!-- Fresh Fruits -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=300" alt="Fresh Fruits">
                     </div>
+                    <h3 class="shop-category-name">Fresh Fruits</h3>
+                </div>
 
-                    <!-- Vegetables -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=300" alt="Vegetables">
-                        </div>
-                        <h3 class="shop-category-name">Vegetables</h3>
+                <!-- Vegetables -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=300" alt="Vegetables">
                     </div>
+                    <h3 class="shop-category-name">Vegetables</h3>
+                </div>
 
-                    <!-- Sweet Corn -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=300" alt="Sweet Corn">
-                        </div>
-                        <h3 class="shop-category-name">Sweet Corn</h3>
+                <!-- Sweet Corn -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=300" alt="Sweet Corn">
                     </div>
+                    <h3 class="shop-category-name">Sweet Corn</h3>
+                </div>
 
-                    <!-- Organic Juice -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=300" alt="Organic Juice">
-                        </div>
-                        <h3 class="shop-category-name">Organic Juice</h3>
+                <!-- Organic Juice -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=300" alt="Organic Juice">
                     </div>
+                    <h3 class="shop-category-name">Organic Juice</h3>
+                </div>
 
-                    <!-- Cookies -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300" alt="Cookies">
-                        </div>
-                        <h3 class="shop-category-name">Cookies</h3>
+                <!-- Cookies -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300" alt="Cookies">
                     </div>
+                    <h3 class="shop-category-name">Cookies</h3>
+                </div>
 
-                    <!-- Dairy Products -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300" alt="Dairy">
-                        </div>
-                        <h3 class="shop-category-name">Dairy</h3>
+                <!-- Dairy Products -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300" alt="Dairy">
                     </div>
+                    <h3 class="shop-category-name">Dairy</h3>
+                </div>
 
-                    <!-- Organic Food -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=300" alt="Organic Food">
-                        </div>
-                        <h3 class="shop-category-name">Organic Food</h3>
+                <!-- Organic Food -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=300" alt="Organic Food">
                     </div>
-                     <!-- Dairy Products -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300" alt="Dairy">
-                        </div>
-                        <h3 class="shop-category-name">Dairy</h3>
-                    </div>
+                    <h3 class="shop-category-name">Organic Food</h3>
+                </div>
 
-                    <!-- Organic Food -->
-                    <div class="shop-category-item">
-                        <div class="shop-category-circle">
-                            <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=300" alt="Organic Food">
-                        </div>
-                        <h3 class="shop-category-name">Organic Food</h3>
+                <!-- Dairy Products 2 -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300" alt="Dairy">
                     </div>
+                    <h3 class="shop-category-name">Dairy</h3>
+                </div>
+
+                <!-- Organic Food 2 -->
+                <div class="shop-category-item">
+                    <div class="shop-category-circle">
+                        <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=300" alt="Organic Food">
+                    </div>
+                    <h3 class="shop-category-name">Organic Food</h3>
                 </div>
             </div>
-            
-            <!-- Dots Navigation Below Categories -->
-            <div class="shop-category-dots" id="categoryDots"></div>
         </section>
 
         <!-- Best Sellers -->
         <section class="products-slider-container">
             <div class="section-header">
                 <h2 class="section-title">Best Sellers in Your Area</h2>
-                <div class="section-navigation">
-                    <button class="slider-nav prev" onclick="scrollProducts('bestSellers', -1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-nav next" onclick="scrollProducts('bestSellers', 1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
             </div>
-            <div class="products-slider" id="bestSellers">
+            <div class="owl-carousel owl-theme" id="bestSellers">
                 <div class="product-card">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Product"
@@ -335,16 +326,8 @@
         <section class="products-slider-container">
             <div class="section-header">
                 <h2 class="section-title">Fresh Vegetables</h2>
-                <div class="section-navigation">
-                    <button class="slider-nav prev" onclick="scrollProducts('freshVeg', -1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-nav next" onclick="scrollProducts('freshVeg', 1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
             </div>
-            <div class="products-slider" id="freshVeg">
+            <div class="owl-carousel owl-theme" id="freshVeg">
                 <div class="product-card">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=300" alt="Product"
@@ -562,9 +545,9 @@
                             <button class="quantity-btn" onclick="increaseQuantity()">+</button>
                         </div>
                     </div>
-                  <button class="modal-add-to-cart" onclick="addToCartFromModal()">
-  <i class="fas fa-shopping-bag"></i> Add to Cart
-</button>
+                    <button class="modal-add-to-cart" onclick="addToCartFromModal()">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </button>
 
                     <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
                         <p style="font-size: 14px; color: var(--gray-text); margin-bottom: 8px;">
@@ -580,10 +563,15 @@
     </div>
     
     <div id="footer_add"></div>
+    
+    <!-- jQuery - Required for Owl Carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    
     <script src="./js/viewproduct.js"></script>
     <script src="./js/home.js"></script>
     <script src="./js/rushita.js"></script>
-    <!-- <script src="./js/wishlist.js"></script> -->
     <script src="./js/addtocart.js"></script>
     
     <script>
