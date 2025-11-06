@@ -25,7 +25,10 @@ const allProducts = [
 // Function to navigate to ProductDetails page with product index
 function viewProductDetails(productIndex) {
 	if (productIndex >= 0 && productIndex < allProducts.length) {
-		// Store product index in sessionStorage for ProductDetails page
+		const product = allProducts[productIndex];
+		// Store product data directly in sessionStorage (same as home.html approach)
+		sessionStorage.setItem('selectedProductData', JSON.stringify(product));
+		// Also store product index for backward compatibility
 		sessionStorage.setItem('selectedProductIndex', productIndex);
 		// Navigate to ProductDetails page
 		window.location.href = './ProductDetails.html';
@@ -46,4 +49,5 @@ function getProductByIndex(index) {
 function getProductBySKU(sku) {
 	return allProducts.find(p => p.sku === sku);
 }
+
 

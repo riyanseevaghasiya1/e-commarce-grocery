@@ -18,29 +18,28 @@
 </head>
 <style>
 	.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  padding: 20px;
-}
+		display: none;
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.6);
+		justify-content: center;
+		align-items: center;
+		z-index: 9999;
+		padding: 20px;
+	}
 
-.modal.show {
-  display: flex;
-}
+	.modal.show {
+		display: flex;
+	}
 
-.modal-content {
-  background: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  max-width: 700px;
-  width: 90%;
-  position: relative;
-}
-
+	.modal-content {
+		background: #fff;
+		border-radius: 8px;
+		padding: 20px;
+		max-width: 700px;
+		width: 90%;
+		position: relative;
+	}
 </style>
 <body class="inter-font bg-gray-50 text-gray-800">
 
@@ -179,54 +178,54 @@
 
 	<!-- Quick View Modal -->
 	<div class="modal" id="quickViewModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeQuickView()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-body">
-                <div class="modal-image-section">
-                    <img id="modalProductImage" src="" alt="Product" class="modal-product-image">
-                </div>
-                <div class="modal-info-section">
-                    <h2 id="modalProductName">Product Name</h2>
-                    <div class="modal-price" id="modalProductPrice">$0.00</div>
-                    <div class="product-rating" style="margin-bottom: 20px;">
-                        <span class="stars">★★★★★</span>
-                        <span style="margin-left: 8px; color: var(--gray-text);">(524 Reviews)</span>
-                    </div>
-                    <p class="modal-description">
-                        Fresh and organic product delivered right to your doorstep. 
-                        Our products are carefully selected to ensure the highest quality 
-                        and freshness. Perfect for healthy meals and snacks.
-                    </p>
-                    <div class="quantity-selector">
-                        <span style="font-weight: 600;">Quantity:</span>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
-                            <input type="number" class="quantity-input" id="quantityInput" value="1" min="1">
-                            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
-                        </div>
-                    </div>
-                    <button class="modal-add-to-cart" onclick="addToCartFromModal()">
-                        <i class="fas fa-shopping-bag"></i> Add to Cart
-                    </button>
-                    <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
-                        <p style="font-size: 14px; color: var(--gray-text); margin-bottom: 8px;">
-                            <strong>Category:</strong> Fresh Vegetables
-                        </p>
-                        <p style="font-size: 14px; color: var(--gray-text);">
-                            <strong>SKU:</strong> FV-001234
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="modal-content">
+			<button class="modal-close" onclick="closeQuickView()">
+				<i class="fas fa-times"></i>
+			</button>
+			<div class="modal-body">
+				<div class="modal-image-section">
+					<img id="modalProductImage" src="" alt="Product" class="modal-product-image">
+				</div>
+				<div class="modal-info-section">
+					<h2 id="modalProductName">Product Name</h2>
+					<div class="modal-price" id="modalProductPrice">$0.00</div>
+					<div class="product-rating" style="margin-bottom: 20px;">
+						<span class="stars">★★★★★</span>
+						<span style="margin-left: 8px; color: var(--gray-text);">(524 Reviews)</span>
+					</div>
+					<p class="modal-description">
+						Fresh and organic product delivered right to your doorstep.
+						Our products are carefully selected to ensure the highest quality
+						and freshness. Perfect for healthy meals and snacks.
+					</p>
+					<div class="quantity-selector">
+						<span style="font-weight: 600;">Quantity:</span>
+						<div class="quantity-controls">
+							<button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+							<input type="number" class="quantity-input" id="quantityInput" value="1" min="1">
+							<button class="quantity-btn" onclick="increaseQuantity()">+</button>
+						</div>
+					</div>
+					<button class="modal-add-to-cart" onclick="addToCartFromModal()">
+						<i class="fas fa-shopping-bag"></i> Add to Cart
+					</button>
+					<div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+						<p style="font-size: 14px; color: var(--gray-text); margin-bottom: 8px;">
+							<strong>Category:</strong> Fresh Vegetables
+						</p>
+						<p style="font-size: 14px; color: var(--gray-text);">
+							<strong>SKU:</strong> FV-001234
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script src="./js/viewproduct.js"></script>
 	<script src="./js/rushita.js"></script>
 	<script src="./js/home.js"></script>
-<script src="./js/wishlist.js"></script>
-<script src="./js/addtocart.js"></script>
+	<script src="./js/wishlist.js"></script>
+	<script src="./js/addtocart.js"></script>
 	<script>
 		// Offcanvas filter controls (keep behavior)
 		function openFilter() {
@@ -496,11 +495,10 @@
 			i.addEventListener('change', applyFiltersFromUI);
 		});
 
-		
 		resetFilters();
 
 	</script>
-	
+
 </body>
 
 </html>

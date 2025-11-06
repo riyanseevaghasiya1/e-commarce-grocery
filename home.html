@@ -83,27 +83,37 @@
                 <h2 class="shop-category-title">Shop By Category</h2>
             </div>
 
-            <div class="owl-carousel owl-theme" id="categoryCarousel">
-                <!-- Dry Fruits -->
-                <div class="shop-category-item">
-                    <div class="shop-category-circle">
-                        <img src="https://images.unsplash.com/photo-1508747703725-719777637510?w=300" alt="Dry Fruits">
+            <div class="shop-categories-container">
+                <div class="shop-categories-track" id="shopCategoriesTrack">
+                    <!-- Dry Fruits -->
+                    <div class="shop-category-item">
+                        <div class="shop-category-circle">
+                            <img src="https://images.unsplash.com/photo-1508747703725-719777637510?w=300"
+                                alt="Dry Fruits">
+                        </div>
+                        <h3 class="shop-category-name">Dry Fruits</h3>
                     </div>
                     <h3 class="shop-category-name">Dry Fruits</h3>
                 </div>
 
-                <!-- Fresh Fruits -->
-                <div class="shop-category-item">
-                    <div class="shop-category-circle">
-                        <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=300" alt="Fresh Fruits">
+                    <!-- Fresh Fruits -->
+                    <div class="shop-category-item">
+                        <div class="shop-category-circle">
+                            <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=300"
+                                alt="Fresh Fruits">
+                        </div>
+                        <h3 class="shop-category-name">Fresh Fruits</h3>
                     </div>
                     <h3 class="shop-category-name">Fresh Fruits</h3>
                 </div>
 
-                <!-- Vegetables -->
-                <div class="shop-category-item">
-                    <div class="shop-category-circle">
-                        <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=300" alt="Vegetables">
+                    <!-- Vegetables -->
+                    <div class="shop-category-item">
+                        <div class="shop-category-circle">
+                            <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=300"
+                                alt="Vegetables">
+                        </div>
+                        <h3 class="shop-category-name">Vegetables</h3>
                     </div>
                     <h3 class="shop-category-name">Vegetables</h3>
                 </div>
@@ -116,10 +126,13 @@
                     <h3 class="shop-category-name">Sweet Corn</h3>
                 </div>
 
-                <!-- Organic Juice -->
-                <div class="shop-category-item">
-                    <div class="shop-category-circle">
-                        <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=300" alt="Organic Juice">
+                    <!-- Organic Juice -->
+                    <div class="shop-category-item">
+                        <div class="shop-category-circle">
+                            <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=300"
+                                alt="Organic Juice">
+                        </div>
+                        <h3 class="shop-category-name">Organic Juice</h3>
                     </div>
                     <h3 class="shop-category-name">Organic Juice</h3>
                 </div>
@@ -140,30 +153,38 @@
                     <h3 class="shop-category-name">Dairy</h3>
                 </div>
 
-                <!-- Organic Food -->
-                <div class="shop-category-item">
-                    <div class="shop-category-circle">
-                        <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=300" alt="Organic Food">
+                    <!-- Organic Food -->
+                    <div class="shop-category-item">
+                        <div class="shop-category-circle">
+                            <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=300"
+                                alt="Organic Food">
+                        </div>
+                        <h3 class="shop-category-name">Organic Food</h3>
                     </div>
-                    <h3 class="shop-category-name">Organic Food</h3>
-                </div>
-
-                <!-- Dairy Products 2 -->
-                <div class="shop-category-item">
-                    <div class="shop-category-circle">
-                        <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300" alt="Dairy">
+                    <!-- Dairy Products -->
+                    <div class="shop-category-item">
+                        <div class="shop-category-circle">
+                            <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300" alt="Dairy">
+                        </div>
+                        <h3 class="shop-category-name">Dairy</h3>
                     </div>
                     <h3 class="shop-category-name">Dairy</h3>
                 </div>
 
-                <!-- Organic Food 2 -->
-                <div class="shop-category-item">
-                    <div class="shop-category-circle">
-                        <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=300" alt="Organic Food">
+                    <!-- Organic Food -->
+                    <div class="shop-category-item">
+                        <div class="shop-category-circle">
+                            <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=300"
+                                alt="Organic Food">
+                        </div>
+                        <h3 class="shop-category-name">Organic Food</h3>
                     </div>
                     <h3 class="shop-category-name">Organic Food</h3>
                 </div>
             </div>
+
+            <!-- Dots Navigation Below Categories -->
+            <div class="shop-category-dots" id="categoryDots"></div>
         </section>
 
         <!-- Best Sellers -->
@@ -561,7 +582,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="footer_add"></div>
     
     <!-- jQuery - Required for Owl Carousel -->
@@ -573,20 +594,90 @@
     <script src="./js/home.js"></script>
     <script src="./js/rushita.js"></script>
     <script src="./js/addtocart.js"></script>
-    
+
     <script>
+        // Function to extract product data directly from the card
+        function extractProductDataFromCard(card) {
+            const productData = {
+                name: '',
+                price: '',
+                oldPrice: '',
+                rating: '',
+                img: '',
+                badge: '',
+                category: 'General',
+                sku: '',
+                description: ''
+            };
+
+            // Extract product name
+            const nameEl = card.querySelector('.product-name');
+            if (nameEl) {
+                productData.name = nameEl.textContent.trim();
+                // Generate SKU from name if not available
+                productData.sku = productData.name.replace(/\s+/g, '-').toUpperCase().substring(0, 10) + '-' + Date.now().toString().slice(-6);
+            }
+
+            // Extract product image
+            const imgEl = card.querySelector('.product-image');
+            if (imgEl) {
+                productData.img = imgEl.src || imgEl.getAttribute('src') || '';
+            }
+
+            // Extract current price
+            const currentPriceEl = card.querySelector('.current-price');
+            if (currentPriceEl) {
+                productData.price = currentPriceEl.textContent.trim();
+            }
+
+            // Extract old price (if exists)
+            const oldPriceEl = card.querySelector('.old-price');
+            if (oldPriceEl) {
+                productData.oldPrice = oldPriceEl.textContent.trim();
+            }
+
+            // Extract rating
+            const ratingEl = card.querySelector('.stars');
+            if (ratingEl) {
+                productData.rating = ratingEl.textContent.trim();
+            }
+
+            // Extract badge (if exists)
+            const badgeEl = card.querySelector('.product-badge');
+            if (badgeEl) {
+                productData.badge = badgeEl.textContent.trim();
+            }
+
+            // Generate description if not available
+            if (!productData.description) {
+                productData.description = `Fresh and organic ${productData.name.toLowerCase()} delivered right to your doorstep. Our products are carefully selected to ensure the highest quality and freshness. Perfect for healthy meals and snacks.`;
+            }
+
+            return productData;
+        }
+
+        // Function to navigate to product details with product data
+        function navigateToProductDetails(productData) {
+            // Store product data in sessionStorage
+            sessionStorage.setItem('selectedProductData', JSON.stringify(productData));
+            // Clear the old index-based selection
+            sessionStorage.removeItem('selectedProductIndex');
+            // Navigate to ProductDetails page
+            window.location.href = './ProductDetails.html';
+        }
+
         // Add click handlers to all product cards to navigate to ProductDetails
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const productCards = document.querySelectorAll('.product-card');
-            
+
             // Add cursor pointer style to product cards
             productCards.forEach(card => {
                 card.style.cursor = 'pointer';
             });
-            
+
             productCards.forEach(card => {
                 // Prevent navigation when clicking on action buttons or add to cart
-                card.addEventListener('click', function(e) {
+                card.addEventListener('click', function (e) {
                     // Don't navigate if clicking on buttons, icons inside buttons, or links
                     if (e.target.closest('button') || e.target.closest('a') || e.target.tagName === 'I' || e.target.closest('i')) {
                         // Check if it's a button click - stop propagation
@@ -596,37 +687,24 @@
                         }
                         return;
                     }
-                    
+
                     // Stop event from bubbling
                     e.stopPropagation();
-                    
-                    // Find product name
-                    const productNameEl = card.querySelector('.product-name');
-                    if (productNameEl) {
-                        const productName = productNameEl.textContent.trim();
-                        
-                        // Find matching product in allProducts (exact match first, then partial match)
-                        let productIndex = allProducts.findIndex(p => p.name === productName);
-                        
-                        // If exact match not found, try partial match
-                        if (productIndex === -1) {
-                            productIndex = allProducts.findIndex(p => 
-                                p.name.toLowerCase().includes(productName.toLowerCase()) || 
-                                productName.toLowerCase().includes(p.name.toLowerCase())
-                            );
-                        }
-                        
-                        if (productIndex !== -1) {
-                            viewProductDetails(productIndex);
-                        } else {
-                            console.warn('Product not found in allProducts:', productName);
-                            // Navigate to shop page as fallback
-                            window.location.href = './Shop.html';
-                        }
+
+                    // Extract product data directly from the card
+                    const productData = extractProductDataFromCard(card);
+
+                    // Navigate to product details with the extracted data
+                    if (productData.name) {
+                        navigateToProductDetails(productData);
+                    } else {
+                        console.warn('Could not extract product data from card');
+                        // Navigate to shop page as fallback
+                        window.location.href = './Shop.html';
                     }
                 });
             });
-            
+
             console.log('Product cards click handlers initialized. Total cards:', productCards.length);
         });
     </script>
