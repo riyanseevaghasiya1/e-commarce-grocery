@@ -309,7 +309,7 @@ body {
 
 .shop-category-item:hover .shop-category-image-box img {
   transform: scale(1.1);
-}
+} */
 
 .shop-category-name {
   font-size: 15px;
@@ -318,6 +318,37 @@ body {
   text-align: center;
   margin: 0;
   line-height: 1.3;
+}
+
+/* Owl Carousel Custom Styling for Categories */
+#categoryCarousel.owl-carousel .owl-stage-outer {
+  overflow: visible; /* Allow items to show translateY effect */
+  padding: 20px 0;
+  margin: -20px 0;
+}
+
+#categoryCarousel.owl-carousel .owl-item {
+  display: flex;
+  justify-content: center;
+}
+
+/* Owl Carousel Dots - Custom Green Theme */
+#categoryCarousel.owl-theme .owl-dots {
+  margin-top: 30px !important;
+}
+
+#categoryCarousel.owl-theme .owl-dots .owl-dot span {
+  background: #d1d5db;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s ease;
+}
+
+#categoryCarousel.owl-theme .owl-dots .owl-dot.active span,
+#categoryCarousel.owl-theme .owl-dots .owl-dot:hover span {
+  background: var(--primary-color);
+  width: 28px;
+  border-radius: 5px;
 }
 
 /* ============================================
@@ -371,7 +402,7 @@ body {
 }
 
 /* ============================================
-   PRODUCTS SLIDER
+   PRODUCTS SLIDER - OWL CAROUSEL
    ============================================ */
 
 .products-slider-container {
@@ -379,17 +410,15 @@ body {
   margin-bottom: 50px;
 }
 
-.products-slider {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
+/* Owl Carousel for Products */
+.products-slider-container .owl-carousel {
   padding: 10px 0;
 }
 
-.products-slider::-webkit-scrollbar {
-  display: none;
+.products-slider-container .owl-carousel .owl-stage-outer {
+  overflow: visible;
+  padding: 10px 0;
+  margin: -10px 0;
 }
 
 .product-card {
@@ -401,9 +430,9 @@ body {
   overflow: hidden;
   transition: all 0.3s;
   position: relative;
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  margin: 0 10px;
 }
 
 .product-card:hover {
@@ -562,6 +591,15 @@ body {
   border-color: var(--primary-color);
 }
 
+/* Owl Carousel Navigation Arrows - Hide for Products (use custom buttons) */
+.products-slider-container .owl-nav {
+  display: none;
+}
+
+.products-slider-container .owl-dots {
+  display: none;
+}
+
 /* ============================================
    CURATED COLLECTIONS
    ============================================ */
@@ -696,16 +734,17 @@ body {
 .modal-image-section {
   background: var(--light-bg);
   border-radius: 12px;
-  padding: 40px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .modal-product-image {
   width: 100%;
-  max-width: 350px;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .modal-info-section h2 {
