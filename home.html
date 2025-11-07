@@ -190,15 +190,17 @@
                     </button>
                 </div>
             </div>
+            <div class="products-slider" id="bestSellers">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
             <div class="owl-carousel owl-theme" id="bestSellers">
                 <div class="product-card">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -212,22 +214,22 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
                     <div class="a_image_container">
                         <span class="product-badge sale">Sale 50%</span>
                         <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -241,21 +243,21 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -269,22 +271,22 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
                     <div class="a_image_container">
                         <span class="product-badge">On Sale</span>
                         <img src="https://images.unsplash.com/photo-1622205313162-be1d5712a43f?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -298,21 +300,21 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -327,7 +329,7 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
@@ -377,15 +379,17 @@
                     </button>
                 </div>
             </div>
+            <div class="products-slider" id="freshVeg">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
             <div class="owl-carousel owl-theme" id="freshVeg">
                 <div class="product-card">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -400,21 +404,21 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -428,22 +432,22 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
                     <div class="a_image_container">
                         <span class="product-badge">On Sale</span>
                         <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -457,21 +461,21 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -485,21 +489,21 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★★</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" onclick="handleProductCardClick(this)" style="cursor: pointer;">
                     <div class="a_image_container">
                         <img src="https://images.unsplash.com/photo-1608628812044-d7a5aac18211?w=300" alt="Product" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
                                 <i class="far fa-eye"></i>
                             </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
+                            <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
                                 <i class="far fa-heart"></i>
                             </button>
                         </div>
@@ -513,7 +517,7 @@
                             <div class="product-rating">
                                 <span class="stars">★★★★☆</span>
                             </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
                                 <i class="fas fa-shopping-bag"></i>
                             </button>
                         </div>
@@ -637,6 +641,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     
     <div id="footer_add"></div>
+    <script src="./js/ViewProduct.js"></script>
     <script src="./js/home.js"></script>
     <script src="./js/rushita.js"></script>
     <script src="./js/wishlist.js"></script>
