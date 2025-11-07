@@ -461,6 +461,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 10px;
+    cursor: pointer;
 }
 
 .product-card:hover {
