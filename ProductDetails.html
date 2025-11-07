@@ -37,9 +37,10 @@
 				<!-- Details -->
 				<div class="flex flex-col justify-center">
 					<h1 class="text-2xl font-semibold mb-2">Fresh Organic Apples</h1>
-					<div class="text-[#02b290] text-xl font-bold mb-2">$12.00
-						<span class="line-through text-gray-400 text-lg ml-2">$15.00</span>
-					</div>
+					<div id="currentPrice" class="text-[#02b290] text-xl font-bold mb-2">$12.00
+  <span id="price" class="line-through text-gray-400 text-lg ml-2">$15.00</span>
+</div>
+
 					<p class="text-gray-600 mb-4">Get farm-fresh organic apples directly sourced from certified
 						orchards.
 						Perfectly crisp, juicy, and full of natural flavor — a healthy snack for everyone!</p>
@@ -354,6 +355,8 @@
 
 			localStorage.setItem('cart', JSON.stringify(cart));
 			localStorage.setItem('cart', JSON.stringify(cart));
+			console.log("cart///////",cart);
+			
 			updateCartCount();
 			showNotification('Item added to cart');
 		}
@@ -362,65 +365,66 @@
 
 
 
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			// Attach to all buy-now buttons (in case there are multiple)
-			const buyNowButtons = document.querySelectorAll('.buy-now-btn');
-			if (!buyNowButtons || buyNowButtons.length === 0) return;
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+  const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+  if (!buyNowButtons.length) return;
 
-			buyNowButtons.forEach(btn => {
-				btn.addEventListener('click', function (e) {
-					e.preventDefault();
+  buyNowButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
 
-					try {
-						// Product name (first <h1> on the page)
-						const name = (document.querySelector('h1')?.textContent || '').trim() || 'Unknown Product';
+      try {
+        const name = (document.querySelector('h1')?.textContent || '').trim() || 'Unknown Product';
 
-						// Price: find an element that contains a dollar sign (or ₹, etc.)
-						const priceCandidate = Array.from(document.querySelectorAll('div, span, p'))
-							.find(el => typeof el.textContent === 'string' && el.textContent.includes('$'));
-						const priceText = priceCandidate?.textContent || '';
-						const priceMatch = priceText.match(/(\d+(\.\d+)?)/);
-						const price = priceMatch ? priceMatch[0] : '0';
+        let price = '0';
+    const priceContainer = document.getElementById('currentPrice');
+if (priceContainer) {
+  const priceText = priceContainer.textContent.trim();
+  const priceMatch = priceText.match(/\$?(\d+(?:\.\d{2})?)/);
+  if (priceMatch) {
+    price = priceMatch[1];
+  }
+}
+console.log("💰 Extracted price:", price);
+        const image = document.getElementById('mainImg')?.src || '';
+        const qty = Math.max(1, parseInt(document.getElementById('qty')?.value || '1', 10));
 
-						// Image
-						const image = document.getElementById('mainImg')?.src || '';
+        let weight = '1 Kg';
+        const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
+        if (weightOptions.length) {
+          const selected = weightOptions.find(opt =>
+            opt.classList.contains('bg-[#02b290]') ||
+            opt.classList.contains('bg-\\[\\#02b290\\]') ||
+            opt.classList.contains('selected') ||
+            opt.classList.contains('active')
+          );
+          weight = selected ? selected.textContent.trim() : weightOptions[0].textContent.trim();
+        }
 
-						// Quantity
-						const qty = Math.max(1, parseInt(document.getElementById('qty')?.value || '1', 10));
+        const product = {
+          name,
+          price,
+          image,
+          quantity: qty,
+          weight
+        };
 
-						// Weight: iterate weight-option elements and check classList for the BG class added
-						let weight = '1 Kg';
-						const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
-						if (weightOptions.length) {
-							// Tailwind class with bracket chars is stored literally in classList, so use classList.contains
-							const selected = weightOptions.find(opt => opt.classList.contains('bg-[#02b290]') || opt.classList.contains('selected') || opt.classList.contains('active'));
-							weight = selected ? selected.textContent.trim() : weightOptions[0].textContent.trim();
-						}
+        localStorage.setItem('buyNowProduct', JSON.stringify(product));
+        console.log(" buyNowProduct saved:", product);
 
-						// Build product object
-						const product = {
-							name,
-							price,
-							image,
-							quantity: qty,
-							weight
-						};
+        window.location.href = './checkout.html';
+      } catch (err) {
+        console.error('❌ Buy Now error:', err);
+        alert('Error processing your request. Please try again.');
+      }
+    });
+  });
+});
 
-						// Save to localStorage as 'buyNowProduct'
-						localStorage.setItem('buyNowProduct', JSON.stringify(product));
+</script>
 
-						// Redirect to checkout
-						window.location.href = './checkout.html';
-					} catch (err) {
-						console.error('Buy Now error:', err);
-						// fallback: still try to redirect
-						window.location.href = './checkout.html';
-					}
-				});
-			});
-		});
-	</script>
+
 
 
 

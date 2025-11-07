@@ -31,7 +31,7 @@
         </div>
     </section>
 
-    <!-- Checkout Form Section -->
+ 
     <section class="py-10" id="checkoutSection">
         <div class="a_header_container max-w-9xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -133,7 +133,8 @@
 
                             <ul id="countryMenu1"
                                 class="absolute z-10 mt-1 w-full border bg-white rounded-md shadow-md hidden">
-                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Maharashtra</li>
+                                <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Maharashtra
+                                </li>
                                 <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Gujarat</li>
                                 <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Karnataka</li>
                                 <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Tamil Nadu
@@ -207,20 +208,38 @@
                             <span class="font-semibold text-sm">SUBTOTAL</span>
                         </div>
 
-                     
+
                         <div class="flex justify-between pb-3 mb-3 border-b border-gray-300">
                             <span class="font-semibold text-sm">SHIPPING</span>
                             <span class="text-sm">
                                 Flat rate: <span class="line-through text-red-500">$22.00</span>
                             </span>
                         </div>
+                    
+<div id="couponSection" class="pb-4 mb-6 border-b border-gray-300">
+  <h3 class="font-semibold text-sm mb-2">Apply Coupon</h3>
+  <div class="flex gap-2">
+    <input id="couponInput" type="text" placeholder="Enter coupon code"
+      class="border border-gray-300 rounded-lg px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-1 focus:ring-teal-500">
+    <button id="applyCouponBtn"
+      class="bg-teal-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-teal-600 transition">Apply</button>
+  </div>
+  <p id="couponMessage" class="text-xs mt-2 text-gray-500">Available Coupons:</p>
+
+ 
+  <div id="couponList" class="mt-2 space-y-2">
+    <button data-code="SAVE10" class="coupon-btn border border-dashed border-teal-400 text-teal-600 px-3 py-2 rounded-lg w-full hover:bg-teal-50 transition">SAVE10 - 10% Off</button>
+    <button data-code="WELCOME15" class="coupon-btn border border-dashed border-teal-400 text-teal-600 px-3 py-2 rounded-lg w-full hover:bg-teal-50 transition">WELCOME15 - 15% Off</button>
+    <button data-code="SUPER20" class="coupon-btn border border-dashed border-teal-400 text-teal-600 px-3 py-2 rounded-lg w-full hover:bg-teal-50 transition">SUPER20 - 20% Off</button>
+  </div>
+</div>
 
                         <div class="flex justify-between pb-4 mb-6">
                             <span class="font-semibold text-lg">TOTAL</span>
                             <span class="font-semibold text-lg">$82.00</span>
                         </div>
                         <div class="space-y-4 mb-6">
-               
+
                             <div>
                                 <label class="flex items-start cursor-pointer">
                                     <input type="radio" name="payment" value="netbanking" id="netbankingOption"
@@ -234,31 +253,38 @@
                                 </label>
 
 
-  <div class="relative w-full mt-2">
-  <button id="bankDropdownBtn"
-    class="w-full px-3 py-2 border border-gray-300 rounded-md text-left flex justify-between items-center bg-white">
-    <span id="selectedCountry2">Select your bank</span>
-    <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none"
-      viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M19 9l-7 7-7-7" />
-    </svg>
-  </button>
+                                <div class="relative w-full mt-2">
+                                    <button id="bankDropdownBtn"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md text-left flex justify-between items-center bg-white">
+                                        <span id="selectedCountry2">Select your bank</span>
+                                        <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
 
-  <ul id="bankDropdownMenu"
-    class="hidden absolute left-0 top-full w-full bg-white border border-gray-200 mt-1 rounded-md shadow-lg z-10">
-    <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">HDFC Bank</li>
-    <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">State Bank of India (SBI)</li>
-    <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Axis Bank</li>
-    <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Kotak Mahindra Bank</li>
-    <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Punjab National Bank</li>
-    <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Bank of Baroda</li>
-    <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Yes Bank</li>
-  </ul>
-</div>
+                                    <ul id="bankDropdownMenu"
+                                        class="hidden absolute left-0 top-full w-full bg-white border border-gray-200 mt-1 rounded-md shadow-lg z-10">
+                                        <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">HDFC
+                                            Bank</li>
+                                        <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">State
+                                            Bank of India (SBI)</li>
+                                        <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Axis
+                                            Bank</li>
+                                        <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Kotak
+                                            Mahindra Bank</li>
+                                        <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Punjab
+                                            National Bank</li>
+                                        <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Bank of
+                                            Baroda</li>
+                                        <li class="px-3 py-2 hover:bg-[#02B290] hover:text-white cursor-pointer">Yes
+                                            Bank</li>
+                                    </ul>
+                                </div>
 
-</div>
-                           
+                            </div>
+
 
                             <!-- UPI Payment -->
                             <div>
@@ -284,7 +310,8 @@
 
                             <!-- Cash on Delivery -->
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="payment" value="cod" class="mr-3 accent-teal-600 hover:accent-teal-600" />
+                                <input type="radio" name="payment" value="cod"
+                                    class="mr-3 accent-teal-600 hover:accent-teal-600" />
                                 <span class="font-medium text-sm">Cash on delivery</span>
                             </label>
                         </div>
@@ -300,7 +327,7 @@
                         </button>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </section>
 
@@ -322,29 +349,29 @@
                     <div class="text-xs text-gray-500 uppercase mb-1">Date:</div>
                     <div class="text-base font-semibold" id="displayOrderDate">October 16, 2025</div>
                 </div>
-                
+
                 <div class="bg-white border border-gray-200 rounded p-4">
                     <div class="text-xs text-gray-500 uppercase mb-1">Payment Method:</div>
                     <div class="text-base font-semibold" id="displayPaymentMethod">Cash on delivery</div>
                 </div>
             </div>
 
-            
+
             <p class="text-sm text-gray-600 mb-8" id="paymentInfo">Pay with cash upon delivery.</p>
 
             <!-- Order Details -->
-             <div class="flex justify-between">
+            <div class="flex justify-between">
                 <div>
 
                     <h2 class="text-2xl font-bold mb-6">Order details</h2>
                 </div>
                 <div>
-                        <button id="downloadInvoiceBtn" 
-          class="bg-[#10B981]  hover:bg-[#28e4a5] text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-     Download Invoice 
-  </button>
+                    <button id="downloadInvoiceBtn"
+                        class="bg-[#10B981]  hover:bg-[#28e4a5] text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                        Download Invoice
+                    </button>
                 </div>
-             </div>
+            </div>
             <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
                 <table class="w-full">
                     <thead class="bg-gray-50">
@@ -379,9 +406,11 @@
     </section>
     <div id="footer_add"></div>
     <script src="./js/rushita.js"></script>
-    <script src="./js/checkout.js"></script>
+
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
+    <script src="./js/checkout.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
+
 </html>
