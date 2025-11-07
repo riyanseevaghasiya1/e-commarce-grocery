@@ -596,4 +596,88 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// ==========================================
+// PRODUCT CARD CLICK HANDLER
+// ==========================================
+
+window.handleProductCardClick = function(cardElement) {
+    // Get product name from the card
+    const productNameElement = cardElement.querySelector('.product-name');
+    if (!productNameElement) {
+        console.error('Product name not found in card');
+        return;
+    }
+    
+    const productName = productNameElement.textContent.trim();
+    
+    // Find matching product in allProducts array
+    if (typeof allProducts !== 'undefined' && allProducts.length > 0) {
+        // Try exact match first
+        let productIndex = allProducts.findIndex(p => p.name === productName);
+        
+        // If no exact match, try partial match
+        if (productIndex === -1) {
+            productIndex = allProducts.findIndex(p => 
+                p.name.toLowerCase().includes(productName.toLowerCase()) ||
+                productName.toLowerCase().includes(p.name.toLowerCase())
+            );
+        }
+        
+        // If still no match, try to create product data from card
+        if (productIndex === -1) {
+            const productImage = cardElement.querySelector('.product-image');
+            const productPrice = cardElement.querySelector('.current-price');
+            const oldPriceElement = cardElement.querySelector('.old-price');
+            const ratingElement = cardElement.querySelector('.stars');
+            
+            // Create product object from card data
+            const productData = {
+                name: productName,
+                price: productPrice ? productPrice.textContent.trim() : '$0.00',
+                oldPrice: oldPriceElement ? oldPriceElement.textContent.trim() : '',
+                img: productImage ? productImage.src : '',
+                rating: ratingElement ? ratingElement.textContent.trim() : '★★★★☆',
+                badge: '',
+                category: 'Vegetables',
+                sku: 'HOME-' + Date.now(),
+                description: `${productName} - Fresh and organic product delivered right to your doorstep. Our products are carefully selected to ensure the highest quality and freshness.`
+            };
+            
+            // Store directly and navigate
+            sessionStorage.setItem('selectedProductData', JSON.stringify(productData));
+            window.location.href = './ProductDetails.html';
+            return;
+        }
+        
+        // Found matching product, use viewProductDetails function
+        if (typeof viewProductDetails === 'function') {
+            viewProductDetails(productIndex);
+        } else {
+            console.error('viewProductDetails function not found');
+        }
+    } else {
+        console.error('allProducts array not loaded');
+        // Fallback: navigate anyway with card data
+        const productImage = cardElement.querySelector('.product-image');
+        const productPrice = cardElement.querySelector('.current-price');
+        const oldPriceElement = cardElement.querySelector('.old-price');
+        const ratingElement = cardElement.querySelector('.stars');
+        
+        const productData = {
+            name: productName,
+            price: productPrice ? productPrice.textContent.trim() : '$0.00',
+            oldPrice: oldPriceElement ? oldPriceElement.textContent.trim() : '',
+            img: productImage ? productImage.src : '',
+            rating: ratingElement ? ratingElement.textContent.trim() : '★★★★☆',
+            badge: '',
+            category: 'Vegetables',
+            sku: 'HOME-' + Date.now(),
+            description: `${productName} - Fresh and organic product delivered right to your doorstep.`
+        };
+        
+        sessionStorage.setItem('selectedProductData', JSON.stringify(productData));
+        window.location.href = './ProductDetails.html';
+    }
+};
+
 console.log('✅ Home.js loaded successfully!');
