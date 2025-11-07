@@ -1,34 +1,6 @@
  $(document).ready(function() {
-            // Category Carousel
-            $('#categoryCarousel').owlCarousel({
-                loop: true,
-                margin: 30,
-                nav: false,
-                dots: true,
-                autoplay: true,
-                autoplayTimeout: 3000,
-                autoplayHoverPause: true,
-                responsive: {
-                    0: {
-                        items: 2
-                    },
-                    481: {
-                        items: 3
-                    },
-                    576: {
-                        items: 4
-                    },
-                    768: {
-                        items: 5
-                    },
-                    992: {
-                        items: 6
-                    },
-                    1200: {
-                        items: 8
-                    }
-                }
-            });
+            // Category Carousel - Custom Implementation
+            initializeCategorySlider();
 
             // Best Sellers Carousel
             var bestSellersCarousel = $('#bestSellers').owlCarousel({
@@ -82,16 +54,7 @@
                 }
             });
 
-            // Custom Navigation Buttons
-            $('.slider-nav.prev').click(function() {
-                var carouselId = $(this).data('carousel');
-                $('#' + carouselId).trigger('prev.owl.carousel');
-            });
-
-            $('.slider-nav.next').click(function() {
-                var carouselId = $(this).data('carousel');
-                $('#' + carouselId).trigger('next.owl.carousel');
-            });
+            // Custom Navigation Buttons - Now handled by scrollProducts function
 
             // Category Item Click Animation
             $('.shop-category-item').click(function() {
@@ -414,5 +377,134 @@ window.handleProductCardClick = function(cardElement) {
     }
 };
 
+// ==========================================
+// CATEGORY SLIDER - CUSTOM IMPLEMENTATION
+// ==========================================
+function initializeCategorySlider() {
+    const track = document.getElementById('shopCategoriesTrack');
+    const dotsContainer = document.getElementById('categoryDots');
+    if (!track || !dotsContainer) {
+        console.warn('Category slider elements not found');
+        return;
+    }
+
+    const items = track.querySelectorAll('.shop-category-item');
+    if (items.length === 0) return;
+
+    let itemsPerView = getItemsPerView();
+    const totalItems = items.length;
+    let totalPages = Math.ceil(totalItems / itemsPerView);
+    let currentPage = 0;
+    let autoPlayInterval = null;
+
+    function getItemsPerView() {
+        const width = window.innerWidth;
+        if (width >= 1200) return 8;
+        if (width >= 992) return 6;
+        if (width >= 768) return 5;
+        if (width >= 576) return 4;
+        if (width >= 481) return 3;
+        return 2;
+    }
+
+    function updateSlider() {
+        itemsPerView = getItemsPerView();
+        totalPages = Math.ceil(totalItems / itemsPerView);
+        if (currentPage >= totalPages) currentPage = Math.max(0, totalPages - 1);
+        
+        // Update item widths
+        const itemWidth = 100 / itemsPerView;
+        items.forEach(item => {
+            item.style.flex = `0 0 ${itemWidth}%`;
+        });
+        
+        // Recreate dots
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'category-dot' + (i === currentPage ? ' active' : '');
+            dot.setAttribute('data-page', i);
+            dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+            dot.addEventListener('click', () => goToPage(i));
+            dotsContainer.appendChild(dot);
+        }
+        
+        goToPage(currentPage);
+    }
+
+    function goToPage(page) {
+        currentPage = Math.max(0, Math.min(page, totalPages - 1));
+        const offset = -(currentPage * (100 / itemsPerView));
+        track.style.transform = `translateX(${offset}%)`;
+        
+        // Update dots
+        dotsContainer.querySelectorAll('.category-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentPage);
+        });
+    }
+
+    function startAutoPlay() {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(() => {
+            const nextPage = (currentPage + 1) % totalPages;
+            goToPage(nextPage);
+        }, 4000);
+    }
+
+    function stopAutoPlay() {
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+    }
+
+    // Initialize
+    updateSlider();
+    startAutoPlay();
+
+    // Pause on hover
+    const wrapper = track.closest('.shop-category-wrapper');
+    if (wrapper) {
+        wrapper.addEventListener('mouseenter', stopAutoPlay);
+        wrapper.addEventListener('mouseleave', startAutoPlay);
+    }
+
+    // Responsive update
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateSlider();
+            startAutoPlay();
+        }, 250);
+    });
+}
+
+// ==========================================
+// SCROLL PRODUCTS FUNCTION
+// ==========================================
+function scrollProducts(sliderId, direction) {
+    const slider = document.getElementById(sliderId);
+    if (!slider) return;
+
+    // Check if Owl Carousel is initialized
+    if (typeof $ !== 'undefined' && $(slider).hasClass('owl-carousel')) {
+        if (direction === -1) {
+            $(slider).trigger('prev.owl.carousel');
+        } else {
+            $(slider).trigger('next.owl.carousel');
+        }
+    } else {
+        // Fallback: manual scroll
+        const scrollAmount = slider.offsetWidth * 0.8;
+        slider.scrollBy({
+            left: direction * scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// CSS is now in home.css file
+
 console.log('✅ Home.js loaded successfully!');
-        console.log('✅ Grocery Store - Owl Carousel Version Loaded Successfully!');
+console.log('✅ Grocery Store - Owl Carousel Version Loaded Successfully!');
