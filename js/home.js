@@ -160,45 +160,51 @@
             }
         }
 
-        // Add to Wishlist
-        function addToWishlist(button) {
-            const productCard = button.closest('.product-card');
-            if (productCard) {
-                const productName = productCard.querySelector('.product-name').textContent;
-                console.log(`❤️ Added "${productName}" to wishlist!`);
-                
-                const icon = button.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-                    button.style.color = '#ff6b6b';
+        // Add to Wishlist - This function is now in wishlist.js
+        // Keeping this as a fallback if wishlist.js is not loaded
+        if (typeof window.addToWishlist === 'undefined') {
+            window.addToWishlist = function(button) {
+                const productCard = button.closest('.product-card');
+                if (productCard) {
+                    const productName = productCard.querySelector('.product-name').textContent;
+                    console.log(`❤️ Added "${productName}" to wishlist!`);
+                    
+                    const icon = button.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        button.style.color = '#ff6b6b';
+                    }
+                    
+                    button.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        button.style.transform = '';
+                    }, 200);
                 }
-                
-                button.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    button.style.transform = '';
-                }, 200);
-            }
+            };
         }
 
-        // Add to Cart
-        function addToCart(button) {
-            const productCard = button.closest('.product-card');
-            if (productCard) {
-                const productName = productCard.querySelector('.product-name').textContent;
-                const productPrice = productCard.querySelector('.current-price').textContent;
-                console.log(`🛒 Added "${productName}" (${productPrice}) to cart!`);
-                
-                button.style.transform = 'scale(1.2)';
-                button.style.background = '#10b981';
-                button.style.color = 'white';
-                
-                setTimeout(() => {
-                    button.style.transform = '';
-                    button.style.background = '';
-                    button.style.color = '';
-                }, 300);
-            }
+        // Add to Cart - This function is now in wishlist.js
+        // Keeping this as a fallback if wishlist.js is not loaded
+        if (typeof window.addToCart === 'undefined') {
+            window.addToCart = function(button) {
+                const productCard = button.closest('.product-card');
+                if (productCard) {
+                    const productName = productCard.querySelector('.product-name').textContent;
+                    const productPrice = productCard.querySelector('.current-price').textContent;
+                    console.log(`🛒 Added "${productName}" (${productPrice}) to cart!`);
+                    
+                    button.style.transform = 'scale(1.2)';
+                    button.style.background = '#10b981';
+                    button.style.color = 'white';
+                    
+                    setTimeout(() => {
+                        button.style.transform = '';
+                        button.style.background = '';
+                        button.style.color = '';
+                    }, 300);
+                }
+            };
         }
 
         // Modal Close on Outside Click
@@ -293,11 +299,70 @@
         // Initialize Scroll Reveal
         revealOnScroll();
 
+        // Add click handlers to product cards for viewing product details
+        // This will be called again after Owl Carousel initializes
+        setupProductCardClicks();
+
+// ==========================================
+// SETUP PRODUCT CARD CLICKS
+// ==========================================
+function setupProductCardClicks() {
+        // Add click handlers to all product cards
+        document.querySelectorAll('.product-card').forEach(card => {
+        // Skip if already has click handler
+        if (card.dataset.clickHandlerAdded === 'true') {
+            return;
+        }
+        
+        // Mark as having click handler
+        card.dataset.clickHandlerAdded = 'true';
+        
+        // Ensure buttons stop propagation
+        const buttons = card.querySelectorAll('button, .action-btn, .add-to-cart');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+        
+        // Add click handler to card
+        card.addEventListener('click', function(e) {
+            // Don't navigate if clicking on buttons, links, or action buttons
+            if (e.target.closest('button') || 
+                e.target.closest('a') || 
+                e.target.closest('.product-actions') ||
+                e.target.closest('.action-btn') ||
+                e.target.closest('.add-to-cart')) {
+                return;
+            }
+            e.preventDefault();
+            e.stopPropagation();
+            handleProductCardClick(this);
+        });
+    });
+}
+
+// Re-setup clicks after Owl Carousel initializes (in case it recreates elements)
+$(document).ready(function() {
+    // Setup clicks after a short delay to ensure Owl Carousel has initialized
+    setTimeout(() => {
+        setupProductCardClicks();
+    }, 500);
+    
+    // Also setup clicks when Owl Carousel is ready
+    if (typeof $.fn.owlCarousel !== 'undefined') {
+        $('#bestSellers, #freshVeg').on('initialized.owl.carousel', function() {
+            setTimeout(() => {
+                setupProductCardClicks();
+            }, 100);
+        });
+    }
+});
+
 // ==========================================
 // PRODUCT CARD CLICK HANDLER
 // ==========================================
-
-window.handleProductCardClick = function(cardElement) {
+function handleProductCardClick(cardElement) {
     // Get product name from the card
     const productNameElement = cardElement.querySelector('.product-name');
     if (!productNameElement) {
