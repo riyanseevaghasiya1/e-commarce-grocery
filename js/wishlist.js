@@ -31,9 +31,13 @@ function saveCartToStorage() {
 function updateWishlistCount() {
   const countElement = document.getElementById('wishlistCount');
   if (!countElement) return;
+
+
   countElement.textContent = wishlist.length;
-  countElement.style.display = wishlist.length > 0 ? 'flex' : 'none';
+
+  countElement.style.display = 'flex';
 }
+
 
 function updateCartCount() {
   const countElement = document.getElementById('cartCount');
@@ -271,7 +275,7 @@ function addToCart(button) {
     showNotification('🛒 Quantity updated in cart!');
   } else {
     cart.push(product);
-    showNotification('🛍️ Added to cart!');
+    showNotification(' Added to cart!');
   }
 
   saveCartToStorage();
