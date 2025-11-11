@@ -23,12 +23,12 @@
                         items: 4
                     },
                     1200: {
-                        items: 5
+                        items: 4
                     }
                 }
             });
 
-            // Fresh Vegetables Carousel
+            // deal of the day
             var freshVegCarousel = $('#freshVeg').owlCarousel({
                 loop: false,
                 margin: 20,
@@ -573,3 +573,10 @@ function scrollProducts(sliderId, direction) {
 
 console.log('✅ Home.js loaded successfully!');
 console.log('✅ Grocery Store - Owl Carousel Version Loaded Successfully!');
+
+
+
+
+
+
+

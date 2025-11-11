@@ -38,8 +38,8 @@
 				<div class="flex flex-col justify-center">
 					<h1 class="text-2xl font-semibold mb-2">Fresh Organic Apples</h1>
 					<div id="currentPrice" class="text-[#02b290] text-xl font-bold mb-2">$12.00
-  <span id="price" class="line-through text-gray-400 text-lg ml-2">$15.00</span>
-</div>
+						<span id="price" class="line-through text-gray-400 text-lg ml-2">$15.00</span>
+					</div>
 
 					<p class="text-gray-600 mb-4">Get farm-fresh organic apples directly sourced from certified
 						orchards.
@@ -211,7 +211,7 @@
 		// Load product data on page load
 		document.addEventListener('DOMContentLoaded', function () {
 			let product = null;
-			
+
 			// First, check if product data is directly stored (from home.html cards)
 			const productDataStr = sessionStorage.getItem('selectedProductData');
 			if (productDataStr) {
@@ -221,7 +221,7 @@
 					console.error('Error parsing product data:', e);
 				}
 			}
-			
+
 			// Fallback to index-based lookup (for compatibility with Shop.html or other pages)
 			if (!product) {
 				const productIndex = sessionStorage.getItem('selectedProductIndex');
@@ -355,8 +355,8 @@
 
 			localStorage.setItem('cart', JSON.stringify(cart));
 			localStorage.setItem('cart', JSON.stringify(cart));
-			console.log("cart///////",cart);
-			
+			console.log("cart///////", cart);
+
 			updateCartCount();
 			showNotification('Item added to cart');
 		}
@@ -365,70 +365,64 @@
 
 
 
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-  const buyNowButtons = document.querySelectorAll('.buy-now-btn');
-  if (!buyNowButtons.length) return;
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+			if (!buyNowButtons.length) return;
 
-  buyNowButtons.forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
+			buyNowButtons.forEach(btn => {
+				btn.addEventListener('click', function (e) {
+					e.preventDefault();
 
-      try {
-        const name = (document.querySelector('h1')?.textContent || '').trim() || 'Unknown Product';
+					try {
+						const name = (document.querySelector('h1')?.textContent || '').trim() || 'Unknown Product';
 
-        let price = '0';
-    const priceContainer = document.getElementById('currentPrice');
-if (priceContainer) {
-  const priceText = priceContainer.textContent.trim();
-  const priceMatch = priceText.match(/\$?(\d+(?:\.\d{2})?)/);
-  if (priceMatch) {
-    price = priceMatch[1];
-  }
-}
-console.log("💰 Extracted price:", price);
-        const image = document.getElementById('mainImg')?.src || '';
-        const qty = Math.max(1, parseInt(document.getElementById('qty')?.value || '1', 10));
+						let price = '0';
+						const priceContainer = document.getElementById('currentPrice');
+						if (priceContainer) {
+							const priceText = priceContainer.textContent.trim();
+							const priceMatch = priceText.match(/\$?(\d+(?:\.\d{2})?)/);
+							if (priceMatch) {
+								price = priceMatch[1];
+							}
+						}
+						console.log("💰 Extracted price:", price);
+						const image = document.getElementById('mainImg')?.src || '';
+						const qty = Math.max(1, parseInt(document.getElementById('qty')?.value || '1', 10));
 
-        let weight = '1 Kg';
-        const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
-        if (weightOptions.length) {
-          const selected = weightOptions.find(opt =>
-            opt.classList.contains('bg-[#02b290]') ||
-            opt.classList.contains('bg-\\[\\#02b290\\]') ||
-            opt.classList.contains('selected') ||
-            opt.classList.contains('active')
-          );
-          weight = selected ? selected.textContent.trim() : weightOptions[0].textContent.trim();
-        }
+						let weight = '1 Kg';
+						const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
+						if (weightOptions.length) {
+							const selected = weightOptions.find(opt =>
+								opt.classList.contains('bg-[#02b290]') ||
+								opt.classList.contains('bg-\\[\\#02b290\\]') ||
+								opt.classList.contains('selected') ||
+								opt.classList.contains('active')
+							);
+							weight = selected ? selected.textContent.trim() : weightOptions[0].textContent.trim();
+						}
 
-        const product = {
-          name,
-          price,
-          image,
-          quantity: qty,
-          weight
-        };
+						const product = {
+							name,
+							price,
+							image,
+							quantity: qty,
+							weight
+						};
 
-        localStorage.setItem('buyNowProduct', JSON.stringify(product));
-        console.log(" buyNowProduct saved:", product);
+						localStorage.setItem('buyNowProduct', JSON.stringify(product));
+						console.log(" buyNowProduct saved:", product);
 
-        window.location.href = './checkout.html';
-      } catch (err) {
-        console.error('❌ Buy Now error:', err);
-        alert('Error processing your request. Please try again.');
-      }
-    });
-  });
-});
+						window.location.href = './checkout.html';
+					} catch (err) {
+						console.error('❌ Buy Now error:', err);
+						alert('Error processing your request. Please try again.');
+					}
+				});
+			});
+		});
 
-</script>
-
-
-
-
-
-
+	</script>
 </body>
 
 </html>

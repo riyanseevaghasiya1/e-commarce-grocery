@@ -28,30 +28,26 @@
                     </a>
                     <div class="hidden lg:flex flex-1 max-w-2xl mx-8">
                         <div class="relative w-full">
-                            <input type="text" placeholder="What are you looking for.."
+                            <input type="text" id="headerSearchDesktop" placeholder="What are you looking for.."
                                 class="w-full px-4 py-3 pl-12 border border-gray-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-700">
-                            <i
-                                class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-4 md:space-x-6">
 
                         <button id="cartButton" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
                             <span id="cart-count"
-                                class="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
+                                class="absolute -top-[6px] -right-[6px] bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
                         </button>
-
                         <button id="wishlist" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <a href="./wishlist.html">
                                 <i class="fa-solid fa-heart text-gray-700 text-xl"></i>
 
                                 <span id="wishlistCount"
-                                    class="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
+                                    class="absolute -top-[6px] -right-[6px] bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
                             </a>
                         </button>
-
-
                         <button class="">
                             <i class="fas fa-user text-gray-700 text-xl"></i>
                         </button>
@@ -68,35 +64,32 @@
         </div>
 
         <!-- Off-Canvas Shopping Cart -->
-     <div id="cartOffcanvas"
-  class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col overflow-y-auto">
+        <div id="cartOffcanvas"
+            class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col overflow-y-auto">
+            <div class="flex items-center justify-between p-6 border-b">
+                <h2 class="text-2xl font-bold text-gray-800">Shopping Cart</h2>
+                <button id="closeCart" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
 
+            <div id="cartItems" class="flex-1 p-6"></div>
 
-  <div class="flex items-center justify-between p-6 border-b">
-    <h2 class="text-2xl font-bold text-gray-800">Shopping Cart</h2>
-    <button id="closeCart" class="text-gray-500 hover:text-gray-700 transition-colors">
-      <i class="fas fa-times text-2xl"></i>
-    </button>
-  </div>
-
-  <div id="cartItems" class="flex-1 p-6"></div>
-
-
-  <div class="border-t p-6">
-    <div class="flex items-center justify-between mb-4">
-      <span class="text-lg font-semibold text-gray-800">Subtotal:</span>
-      <span class="text-2xl font-bold text-gray-800" id="subtotal">$0.00</span>
-    </div>
-    <button class="w-full bg-white text-emerald-600 mb-3 py-2 rounded-lg border border-emerald-600 transition-colors font-semibold text-lg">
-      <a href="./cart.html"> View Cart</a>
-    </button>
- <button id="proceedCheckoutBtn"
-  class="w-full bg-emerald-500 text-white py-2 rounded-lg hover:bg-emerald-600 transition-colors font-semibold text-lg">
-  Proceed To Checkout
-</button>
-
-  </div>
-</div>
+            <div class="border-t p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-lg font-semibold text-gray-800">Subtotal:</span>
+                    <span class="text-2xl font-bold text-gray-800" id="subtotal">$0.00</span>
+                </div>
+                <button
+                    class="w-full bg-white text-emerald-600 mb-3 py-2 rounded-lg border border-emerald-600 transition-colors font-semibold text-lg">
+                    <a href="./cart.html"> View Cart</a>
+                </button>
+                <button id="proceedCheckoutBtn"
+                    class="w-full bg-emerald-500 text-white py-2 rounded-lg hover:bg-emerald-600 transition-colors font-semibold text-lg">
+                    Proceed To Checkout
+                </button>
+            </div>
+        </div>
         <nav class="hidden lg:block bg-white border-b border-gray-200">
             <div class="a_header_container max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center space-x-8 h-14">
@@ -123,11 +116,12 @@
                         class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Blog</a>
                     <div class="relative group h-full flex items-center">
                         <div
-                            class="flex items-center space-x-1 text-gray-700 hover:text-emerald-500 font-medium transition-colors h-full items-center border-b-2 border-transparent cursor-pointer">
+                            class="flex items-center space-x-1 text-gray-700 hover:text-emerald-500 font-medium transition-colors h-full border-b-2 border-transparent cursor-pointer">
                             <span>Pages</span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </div>
-                        <div class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
+                        <div
+                            class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
                             <a href="./Shop.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Shop</a>
                             <a href="./MyAccount.html"
@@ -171,7 +165,7 @@
             </div>
             <div class="p-4 border-b border-gray-200">
                 <div class="relative">
-                    <input type="text" placeholder="What are you looking for.."
+                    <input type="text" id="headerSearchMobile" placeholder="What are you looking for.."
                         class="w-full px-4 py-3 pl-10 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-700">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
@@ -237,10 +231,12 @@
             </div>
         </div>
     </div>
+    <script src="./js/ViewProduct.js"></script>
     <script src="./js/rushita.js"></script>
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
     <script src="./js/checkout.js"></script>
+    <script src="./js/Search.js"></script>
     <script>
         const header = document.getElementById("header");
         window.addEventListener("scroll", () => {
