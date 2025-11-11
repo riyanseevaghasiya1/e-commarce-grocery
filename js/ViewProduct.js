@@ -50,4 +50,3 @@ function getProductBySKU(sku) {
 	return allProducts.find(p => p.sku === sku);
 }
 
-

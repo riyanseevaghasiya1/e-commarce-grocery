@@ -38,7 +38,7 @@
 		<main class="flex flex-col md:flex-row gap-6 flex-grow py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
 
 			<!-- Sidebar -->
-			<aside class="w-full lg:w-1/4 bg-white shadow rounded-lg p-5">
+			<aside class="w md:w-2/6 lg:w-1/4 bg-white shadow rounded-lg p-5">
 				<h2 class="text-lg font-semibold mb-4">My Account</h2>
 				<ul class="space-y-3">
 					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290] active-tab"
@@ -53,7 +53,7 @@
 			</aside>
 
 			<!-- Main Content -->
-			<section class="w-full lg:w-3/4 bg-white shadow rounded-lg p-6">
+			<section class="w- md:w-4/6 lg:w-3/4 bg-white shadow rounded-lg p-6">
 
 				<!-- Account Details -->
 				<div id="details" class="tab-content">
@@ -126,55 +126,11 @@
 									<th class="py-2 px-3 text-left">Action</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr class="border-b">
-									<td class="py-2 px-3">#1024</td>
-									<td class="py-2 px-3">10 Oct 2025</td>
-									<td class="py-2 px-3">$48.00</td>
-									<td class="py-2 px-3 text-[#02b290]">Delivered</td>
-									<td class="py-2 px-3">
-										<button
-											class="view-btn bg-[#02b290] text-white px-3 py-1 rounded hover:bg-[#028f7a]"
-											data-order="1024">View</button>
-									</td>
-								</tr>
-								<tr class="border-b">
-									<td class="py-2 px-3">#1025</td>
-									<td class="py-2 px-3">12 Oct 2025</td>
-									<td class="py-2 px-3">$22.50</td>
-									<td class="py-2 px-3 text-yellow-600">Pending</td>
-									<td class="py-2 px-3">
-										<button
-											class="view-btn bg-[#02b290] text-white px-3 py-1 rounded hover:bg-[#028f7a]"
-											data-order="1025">View</button>
-									</td>
-								</tr>
+							<tbody id="ordersTableBody">
 							</tbody>
 						</table>
-					</div>
-				</div>
-
-				<!-- Order Modal -->
-				<div id="orderModal"
-					class="fixed inset-0 hidden items-center justify-center bg-black/60 backdrop-blur-sm z-50 transition-all duration-300 ease-in-out">
-					<div id="modalBox"
-						class="relative w-11/12 md:w-2/3 lg:w-1/2 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-4 md:p-8 transform scale-95 opacity-0 transition-all duration-300 ease-out border border-gray-100">
-
-						<div class="absolute inset-0 rounded-xl border-2 border-[#02b290]/30 pointer-events-none">
-						</div>
-
-						<button id="closeModal"
-							class="absolute top-5 right-5 text-gray-400 hover:text-[#02b290] transition-all duration-200">
-							<i class="fa-solid fa-xmark text-2xl"></i>
-						</button>
-
-						<div class="text-center mb-8">
-							<h2 class="text-3xl font-bold text-[#02b290] tracking-wide mb-2">Order Details</h2>
-							<p class="text-gray-500 text-sm">A detailed summary of your selected order</p>
-						</div>
-
-						<div id="modalContent" class="max-h-[55vh] overflow-y-auto pr-2 space-y-4">
-							<p class="text-gray-500 text-center">Loading order details...</p>
+						<div id="ordersEmptyState" class="hidden py-10 text-center text-gray-500">
+							No orders yet. Start shopping to see your orders here.
 						</div>
 					</div>
 				</div>
@@ -372,95 +328,74 @@
 		});
 	</script>
 
-	<!-- Orders Modal Script -->
 	<script>
-		const ordersData = {
-			"1024": [
-				{ name: "Organic Apples", qty: 2, price: "$6.00" },
-				{ name: "Almond Milk", qty: 1, price: "$4.50" },
-				{ name: "Whole Wheat Bread", qty: 1, price: "$3.50" }
-			],
-			"1025": [
-				{ name: "Bananas", qty: 3, price: "$3.00" },
-				{ name: "Eggs (12 pcs)", qty: 1, price: "$5.00" }
-			]
-		};
+		const ordersTableBody = document.getElementById('ordersTableBody');
+		const ordersEmptyState = document.getElementById('ordersEmptyState');
 
-		const modal = document.getElementById('orderModal');
-		const modalBox = document.getElementById('modalBox');
-		const modalContent = document.getElementById('modalContent');
-		const viewButtons = document.querySelectorAll('.view-btn');
-		const closeModal = document.getElementById('closeModal');
+		function getStatusClass(status = '') {
+			const normalized = status.toLowerCase();
+			if (normalized.includes('deliver')) return 'text-[#02b290]';
+			if (normalized.includes('cancel')) return 'text-red-500';
+			if (normalized.includes('pending')) return 'text-yellow-600';
+			return 'text-blue-500';
+		}
 
-		// Open Modal
-		viewButtons.forEach(btn => {
-			btn.addEventListener('click', () => {
-				const orderId = btn.dataset.order;
-				const products = ordersData[orderId];
+		function formatCurrency(amount) {
+			const numeric = Number(amount);
+			if (Number.isNaN(numeric)) return '$0.00';
+			return `$${numeric.toFixed(2)}`;
+		}
 
-				const total = products.reduce((a, p) => a + parseFloat(p.price.replace('$', '')), 0).toFixed(2);
+		function renderOrders() {
+			let orders = [];
+			try {
+				orders = JSON.parse(localStorage.getItem('orders')) || [];
+			} catch (error) {
+				console.error('Unable to read orders from storage', error);
+			}
 
-				modalContent.innerHTML = `
-					<div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-inner bg-white">
-						<table class="min-w-[360px] w-full border-collapse">
-							<thead class="bg-[#02b290]/10 text-[#02b290] uppercase text-sm font-semibold">
-								<tr>
-									<th class="py-3 px-4 text-left border-b border-gray-200">Product</th>
-									<th class="py-3 px-4 text-left border-b border-gray-200">Quantity</th>
-									<th class="py-3 px-4 text-left border-b border-gray-200">Price</th>
-								</tr>
-							</thead>
-							<tbody class="text-gray-700 text-sm">
-								${products.map((p, i) => `
-									<tr class="${i % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-[#02b290]/10">
-										<td class="py-3 px-4 border-b border-gray-100 font-medium">${p.name}</td>
-										<td class="py-3 px-4 border-b border-gray-100">${p.qty}</td>
-										<td class="py-3 px-4 border-b border-gray-100 font-semibold text-gray-900">${p.price}</td>
-									</tr>
-								`).join('')}
-							</tbody>
-						</table>
-					</div>
-					<div class="mt-5 bg-[#02b290]/5 p-4 rounded-xl flex justify-between items-center text-sm font-medium">
-						<span>Total Items: ${products.length}</span>
-						<span class="text-[#02b290] font-semibold">Total: $${total}</span>
-					</div>
-					<div class="mt-4 flex flex-wrap gap-3 justify-end">
-				<button
-					class="px-5 py-2.5 rounded-xl border bg-red-500 text-white hover:bg-red-400 transition font-medium">
-					Cancel Order
-				</button>
-				<button
-					class="px-5 py-2.5 rounded-xl bg-[#02b290] text-white hover:bg-[#029673] transition font-medium">
-					Track Order
-				</button>
-				
+			ordersTableBody.innerHTML = '';
+
+			if (!orders.length) {
+				ordersEmptyState.classList.remove('hidden');
+				return;
+			}
+
+			ordersEmptyState.classList.add('hidden');
+
+			orders.forEach((order) => {
+				const row = document.createElement('tr');
+				row.className = 'border-b';
+
+				row.innerHTML = `
+					<td class="py-2 px-3">#${order.orderId}</td>
+					<td class="py-2 px-3">${order.orderDate}</td>
+					<td class="py-2 px-3">${formatCurrency(order.total)}</td>
+					<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
+					<td class="py-2 px-3">
+						<button
+							class="view-btn bg-[#02b290] text-white px-3 py-1 rounded hover:bg-[#028f7a]"
+							data-order-id="${order.orderId}">
+							View
+						</button>
+					</td>
 				`;
 
-				modal.classList.remove('hidden');
-				modal.classList.add('flex');
-				setTimeout(() => {
-					modalBox.classList.remove('opacity-0', 'scale-95');
-					modalBox.classList.add('opacity-100', 'scale-100');
-				}, 50);
-				document.body.classList.add('overflow-hidden');
+				const viewButton = row.querySelector('.view-btn');
+				viewButton.addEventListener('click', () => {
+					try {
+						localStorage.setItem('selectedOrderId', order.orderId);
+					} catch (storageError) {
+						console.error('Unable to set selected order id', storageError);
+					}
+					window.location.href = './ordertarcking.html';
+				});
+
+				ordersTableBody.appendChild(row);
 			});
-		});
+		}
 
-		// Close Modal
-		const closeModalFunc = () => {
-			modalBox.classList.add('opacity-0', 'scale-95');
-			setTimeout(() => {
-				modal.classList.add('hidden');
-				modal.classList.remove('flex');
-				document.body.classList.remove('overflow-hidden');
-			}, 200);
-		};
-
-		closeModal.addEventListener('click', closeModalFunc);
-		modal.addEventListener('click', (e) => {
-			if (e.target === modal) closeModalFunc();
-		});
+		window.addEventListener('DOMContentLoaded', renderOrders);
 	</script>
 
 	<!-- Tabs -->
