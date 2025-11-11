@@ -281,6 +281,109 @@ document.addEventListener("DOMContentLoaded", function () {
       tbody.insertAdjacentHTML("beforeend", summaryHTML);
     }
 
+    // checkout myprofile show code start  -----hasti
+
+    const discountAmountStored = parseFloat(localStorage.getItem("discountAmountValue"));
+    const discountAmountResolved = !isNaN(discountAmountStored)
+      ? discountAmountStored
+      : (subtotal * discount) / 100;
+    const storedFinalTotal = parseFloat(localStorage.getItem("finalDiscountedTotal"));
+    const finalTotalValue = !isNaN(storedFinalTotal)
+      ? storedFinalTotal
+      : subtotal - discountAmountResolved + SHIPPING_CHARGE;
+
+    const firstName = document.getElementById("firstName")?.value.trim() || "";
+    const lastName = document.getElementById("lastName")?.value.trim() || "";
+    const customerName = `${firstName} ${lastName}`.trim();
+    const emailValue = document.getElementById("email")?.value.trim() || "";
+    const phoneValue = document.getElementById("phone")?.value.trim() || "";
+    const addressLine = document.getElementById("address1")?.value.trim() || "";
+    const cityValue = document.getElementById("city")?.value.trim() || "";
+    const stateValue = document.getElementById("selectedCountry1")?.textContent?.trim() || "";
+    const countryValue = document.getElementById("selectedCountry")?.textContent?.trim() || "";
+    const zipValue = document.getElementById("zipcode")?.value.trim() || "";
+    const orderNoteValue = document.getElementById("orderNotes")?.value.trim() || "";
+
+    const orderItems = products.map((p) => {
+      const price = parseFloat(String(p.price).replace("$", "").trim()) || 0;
+      const qty = parseInt(p.quantity) || 1;
+      return {
+        name: p.name,
+        quantity: qty,
+        price: price,
+        image: p.image || "",
+        total: parseFloat((price * qty).toFixed(2)),
+      };
+    });
+
+    const estimatedDeliveryDate = (() => {
+      const estDate = new Date();
+      estDate.setDate(estDate.getDate() + 3);
+      return estDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+    })();
+
+    const orderRecord = {
+      orderId: orderNumber.toString(),
+      orderDate: today,
+      paymentMethod,
+      status: "Processing",
+      statusIndex: 1,
+      subtotal: parseFloat(subtotal.toFixed(2)),
+      discountPercent: discount,
+      discountAmount: parseFloat(discountAmountResolved.toFixed(2)),
+      shippingCharge: SHIPPING_CHARGE,
+      total: parseFloat(finalTotalValue.toFixed(2)),
+      notes: orderNoteValue,
+      customer: {
+        name: customerName || "Guest User",
+        email: emailValue,
+        phone: phoneValue,
+        address: {
+          line1: addressLine,
+          city: cityValue,
+          state: stateValue,
+          country: countryValue,
+          zip: zipValue,
+        },
+      },
+      estimatedDelivery: estimatedDeliveryDate,
+      items: orderItems,
+      timeline: [
+        {
+          label: "Order Placed",
+          timestamp: new Date().toISOString(),
+          state: "completed",
+        },
+        {
+          label: "Processing",
+          timestamp: new Date().toISOString(),
+          state: "current",
+        },
+        {
+          label: "Out for Delivery",
+          timestamp: null,
+          state: "pending",
+        },
+        {
+          label: "Delivered",
+          timestamp: null,
+          state: "pending",
+        },
+      ],
+    };
+
+    try {
+      const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+      const updatedOrders = [orderRecord, ...existingOrders];
+      localStorage.setItem("orders", JSON.stringify(updatedOrders));
+      localStorage.setItem("selectedOrderId", orderRecord.orderId);
+    } catch (storageError) {
+      console.error("Failed to persist order", storageError);
+    }
+
+
+    // endd
+
     checkoutSection.classList.add("hidden");
     confirmationSection.classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: "smooth" });
