@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -224,22 +225,34 @@
 	<script src="./js/addtocart.js"></script>
 
 	<script>
-		const toggleEditBtn = document.getElementById('toggleEdit');
-		const addressCard = document.getElementById('addressCard');
-		const shippingForm = document.getElementById('shippingForm');
-		const cancelAddressBtn = document.getElementById('cancelAddressBtn');
-		const saveAddressBtn = document.getElementById('saveAddressBtn');
+		document.addEventListener("DOMContentLoaded", () => {
 
-		const addressFields = ['shipStreet', 'shipCity', 'shipState', 'shipZip', 'shipCountry', 'shipPhone'];
+			const toggleEditBtn = document.getElementById('toggleEdit');
+			const addressCard = document.getElementById('addressCard');
+			const shippingForm = document.getElementById('shippingForm');
+			const cancelAddressBtn = document.getElementById('cancelAddressBtn');
+			const saveAddressBtn = document.getElementById('saveAddressBtn');
 
-		// Load saved address
-		window.addEventListener('DOMContentLoaded', () => {
-			const savedAddress = JSON.parse(localStorage.getItem('shippingAddress')) || null;
+			const addressFields = ['shipStreet', 'shipCity', 'shipState', 'shipZip', 'shipCountry', 'shipPhone'];
+
+			// Toggle Edit → Show Form
+			toggleEditBtn.addEventListener('click', () => {
+				addressCard.classList.add('hidden');
+				shippingForm.classList.remove('hidden');
+			});
+
+			// Cancel → Show Card Again
+			cancelAddressBtn.addEventListener('click', () => {
+				shippingForm.classList.add('hidden');
+				addressCard.classList.remove('hidden');
+			});
+
+			// Load Saved Address
+			const savedAddress = JSON.parse(localStorage.getItem('shippingAddress'));
 			if (savedAddress) renderAddress(savedAddress);
-		});
 
-		function renderAddress(addr) {
-			addressCard.innerHTML = `
+			function renderAddress(addr) {
+				addressCard.innerHTML = `
 			<div class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#02b290] font-medium">
 				Current Address
 			</div>
@@ -247,33 +260,31 @@
 			<p class="text-gray-600">${addr.shipCity}, ${addr.shipState} ${addr.shipZip}</p>
 			<p class="text-gray-600 mb-2">${addr.shipCountry}</p>
 			<p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> ${addr.shipPhone}</p>
-		`;
-		}
+			`;
 
-		// Toggle edit form
-		toggleEditBtn.addEventListener('click', () => {
-			addressCard.classList.add('hidden');
-			shippingForm.classList.remove('hidden');
-		});
+				// Re-bind edit button because innerHTML removed old reference
+				document.getElementById('toggleEdit').onclick = () => {
+					addressCard.classList.add('hidden');
+					shippingForm.classList.remove('hidden');
+				};
+			}
 
-		cancelAddressBtn.addEventListener('click', () => {
-			shippingForm.classList.add('hidden');
-			addressCard.classList.remove('hidden');
-		});
+			// Save Address
+			saveAddressBtn.addEventListener('click', () => {
+				const data = {};
+				addressFields.forEach(id => data[id] = document.getElementById(id).value.trim());
 
-		// Save Address
-		saveAddressBtn.addEventListener('click', () => {
-			const data = {};
-			addressFields.forEach(id => data[id] = document.getElementById(id).value.trim());
+				localStorage.setItem('shippingAddress', JSON.stringify(data));
+				renderAddress(data);
 
-			localStorage.setItem('shippingAddress', JSON.stringify(data));
-			renderAddress(data);
+				shippingForm.classList.add('hidden');
+				addressCard.classList.remove('hidden');
+				alert('✅ Shipping address saved successfully!');
+			});
 
-			shippingForm.classList.add('hidden');
-			addressCard.classList.remove('hidden');
-			alert('Shipping address saved successfully!');
 		});
 	</script>
+
 
 	<!-- Account Edit Script -->
 	<script>

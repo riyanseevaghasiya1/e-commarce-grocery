@@ -226,6 +226,7 @@
 	<script src="./js/home.js"></script>
 	<script src="./js/wishlist.js"></script>
 	<script src="./js/addtocart.js"></script>
+	<script src="./js/Search.js"></script>
 	<script>
 		// Offcanvas filter controls (keep behavior)
 		function openFilter() {
@@ -495,7 +496,17 @@
 			i.addEventListener('change', applyFiltersFromUI);
 		});
 
-		resetFilters();
+		// Handle URL search parameter
+		const urlParams = new URLSearchParams(window.location.search);
+		const searchQuery = urlParams.get('search');
+		if (searchQuery) {
+			document.getElementById('searchDesktop').value = searchQuery;
+			document.getElementById('searchMobile').value = searchQuery;
+			state.search = searchQuery.toLowerCase().trim();
+			renderProducts();
+		} else {
+			resetFilters();
+		}
 
 	</script>
 
