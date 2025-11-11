@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./index.css">
     <link rel="stylesheet" href="./css/rushita.css">
+    <style>
+           .rotate-180 { transform: rotate(180deg); transition: transform 200ms ease; }
+    </style>
 </head>
 
 <body class="bg-gray-50">
@@ -115,6 +118,7 @@
       class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Quality Milk</a>
   </div>
 </div>
+
                     <a href="./Blog.html"
                         class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Blog</a>
                     <div class="relative group h-full flex items-center">
@@ -239,7 +243,6 @@
     <script src="./js/checkout.js"></script>
     <script>
         const header = document.getElementById("header");
-
         window.addEventListener("scroll", () => {
             if (window.scrollY > 100) {
                 header.classList.add("fixed", "top-0", "left-0", "w-full", "shadow-md");
@@ -247,9 +250,7 @@
                 header.classList.remove("fixed", "top-0", "left-0", "w-full", "shadow-md");
             }
         });
-       
     </script>
-
 </body>
 
 </html>
