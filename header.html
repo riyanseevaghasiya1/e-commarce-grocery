@@ -10,13 +10,43 @@
     <link rel="stylesheet" href="./index.css">
     <link rel="stylesheet" href="./css/rushita.css">
     <style>
-           .rotate-180 { transform: rotate(180deg); transition: transform 200ms ease; }
+            .rotate-180 {
+            transform: rotate(180deg);
+            transition: transform 200ms ease;
+        }
+
+        .currency-dropdown,
+        .user-dropdown {
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .currency-dropdown.show,
+        .user-dropdown.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .currency-item:hover,
+        .user-menu-item:hover {
+            background-color: #f0fdf4;
+            color: #10b981;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-currency-select {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gray-50">
     <!-- <header class="fixed top-0 left-0 w-full bg-white shadow-sm r_index"> -->
-    <header class=" w-full bg-white shadow-sm">
+  <header class="w-full bg-white shadow-sm">
         <div class="border-b border-gray-200" style="background-color: #F2F5F9;">
             <div class="a_header_container max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-20">
@@ -30,10 +60,36 @@
                         <div class="relative w-full">
                             <input type="text" id="headerSearchDesktop" placeholder="What are you looking for.."
                                 class="w-full px-4 py-3 pl-12 border border-gray-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-700">
-                            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <i
+                                class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         </div>
                     </div>
                     <div class="flex items-center space-x-4 md:space-x-6">
+                        <!-- Currency Dropdown (Desktop) -->
+                        <div class="hidden lg:block relative">
+                            <button id="currencyBtn"
+                                class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                                <span id="selectedCurrency" class="font-semibold text-gray-700">USD</span>
+                                <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                            </button>
+                            <div id="currencyDropdown"
+                                class="currency-dropdown absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                                <div class="py-2">
+                                    <button onclick="changeCurrency('AUD', '$', 1.52)"
+                                        class="currency-item w-full text-left px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
+                                        <i class="fas fa-dollar-sign text-xs mr-2"></i> AUD
+                                    </button>
+                                    <button onclick="changeCurrency('USD', '$', 1.00)"
+                                        class="currency-item w-full text-left px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
+                                        <i class="fas fa-dollar-sign text-xs mr-2"></i> USD
+                                    </button>
+                                    <button onclick="changeCurrency('CAD', '$', 1.36)"
+                                        class="currency-item w-full text-left px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
+                                        <i class="fas fa-dollar-sign text-xs mr-2"></i> CAD
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 
                         <button id="cartButton" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
@@ -43,14 +99,49 @@
                         <button id="wishlist" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <a href="./wishlist.html">
                                 <i class="fa-solid fa-heart text-gray-700 text-xl"></i>
-
                                 <span id="wishlistCount"
                                     class="absolute -top-[6px] -right-[6px] bg-emerald-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
                             </a>
                         </button>
-                        <button class="">
-                            <i class="fas fa-user text-gray-700 text-xl"></i>
-                        </button>
+
+                        <!-- User Menu (Desktop) -->
+                        <div class="hidden lg:block relative">
+                            <!-- Login Button (shown when not logged in) -->
+                            <button id="loginBtn"
+                                class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors font-semibold">
+                                Login
+                            </button>
+                            <!-- User Dropdown (shown when logged in) -->
+                            <div id="userMenuContainer" class="hidden">
+                                <button id="userMenuBtn"
+                                    class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fas fa-user text-gray-700 text-xl"></i>
+                                    <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                                </button>
+                                <div id="userDropdown"
+                                    class="user-dropdown absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                                    <div class="py-2">
+                                        <a href="./MyAccount.html"
+                                            class="user-menu-item block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
+                                            <i class="fas fa-user-circle mr-2"></i> My Account
+                                        </a>
+                                        <a href="./orders.html"
+                                            class="user-menu-item block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
+                                            <i class="fas fa-box mr-2"></i> My Orders
+                                        </a>
+                                        <a href="./wishlist.html"
+                                            class="user-menu-item block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
+                                            <i class="fas fa-heart mr-2"></i> Wishlist
+                                        </a>
+                                        <hr class="my-2">
+                                        <button onclick="handleLogout()"
+                                            class="user-menu-item w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
+                                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <button id="menuToggle" class="lg:hidden">
                             <i class="fas fa-bars text-gray-700 text-2xl"></i>
@@ -90,27 +181,29 @@
                 </button>
             </div>
         </div>
+
         <nav class="hidden lg:block bg-white border-b border-gray-200">
             <div class="a_header_container max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center space-x-8 h-14">
                     <a href="./home.html"
                         class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Home</a>
-                  <div class="relative group h-full flex items-center">
-  <div
-    class="flex items-center space-x-1 text-gray-700 group-hover:text-emerald-500 font-medium transition-colors h-full border-b-2 border-transparent cursor-pointer">
-    <span>Grocery Items</span>
-    <i class="fas fa-chevron-down text-xs"></i>
-  </div>
-  <div
-    class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
-    <a href="./Shop.html"
-      class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">Eggs</a>
-    <a href="./Shop.html"
-      class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Rice & Pulse</a>
-    <a href="./Shop.html"
-      class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Quality Milk</a>
-  </div>
-</div>
+                    <div class="relative group h-full flex items-center">
+                        <div
+                            class="flex items-center space-x-1 text-gray-700 group-hover:text-emerald-500 font-medium transition-colors h-full border-b-2 border-transparent cursor-pointer">
+                            <span>Grocery Items</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                        <div class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">Eggs</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Rice
+                                & Pulse</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Quality
+                                Milk</a>
+                        </div>
+                    </div>
 
                     <a href="./Blog.html"
                         class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Blog</a>
@@ -120,8 +213,7 @@
                             <span>Pages</span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </div>
-                        <div
-                            class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
+                        <div class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
                             <a href="./Shop.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Shop</a>
                             <a href="./MyAccount.html"
@@ -135,11 +227,9 @@
                             <a href="./Terms&condition.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Terms
                                 & Condition</a>
-
                             <a href="./AboutUS.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">About
                                 Us</a>
-
                         </div>
                     </div>
                     <a href="./ContactUs.html"
@@ -148,6 +238,8 @@
             </div>
         </nav>
     </header>
+
+    <!-- Mobile Offcanvas Menu -->
     <div id="offcanvas" class="fixed inset-0 z-50 hidden">
         <div id="backdrop" class="absolute inset-0 bg-black bg-opacity-50"></div>
         <div id="offcanvasPanel"
@@ -163,6 +255,18 @@
                     <i class="fas fa-times text-2xl"></i>
                 </button>
             </div>
+
+            <!-- Mobile Currency Selector -->
+            <div class="p-4 border-b border-gray-200">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Currency</label>
+                <select id="mobileCurrencySelect"
+                    class="mobile-currency-select w-full px-4 py-2 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-700">
+                    <option value="AUD" data-rate="1.52">AUD - Australian Dollar</option>
+                    <option value="USD" data-rate="1.00" selected>USD - US Dollar</option>
+                    <option value="CAD" data-rate="1.36">CAD - Canadian Dollar</option>
+                </select>
+            </div>
+
             <div class="p-4 border-b border-gray-200">
                 <div class="relative">
                     <input type="text" id="headerSearchMobile" placeholder="What are you looking for.."
@@ -170,6 +274,7 @@
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
             </div>
+
             <nav class="p-4">
                 <a href="./home.html"
                     class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">Home</a>
@@ -180,12 +285,12 @@
                         <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
                     </button>
                     <div class="mobile-accordion-content hidden pl-4 transition-all duration-300 ease-in-out">
-                        <a href="#"
+                        <a href="./Shop.html"
                             class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded">Eggs</a>
-                        <a href="#"
-                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded">Rice &
-                            Pulse</a>
-                        <a href="#"
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded">Rice
+                            & Pulse</a>
+                        <a href="./Shop.html"
                             class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded">Quality
                             Milk</a>
                     </div>
@@ -212,7 +317,6 @@
                         <a href="./Terms&condition.html"
                             class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Terms
                             & Condition</a>
-
                         <a href="./AboutUS.html"
                             class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">About
                             Us</a>
@@ -220,14 +324,38 @@
                 </div>
                 <a href="./ContactUs.html"
                     class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">Contact us</a>
-
-
             </nav>
+
             <div class="p-4 border-t border-gray-200">
-                <button class="flex items-center space-x-3 w-full py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-user text-emerald-500"></i>
-                    <span class="font-medium">My Account</span>
+                <!-- Mobile Login Button -->
+                <button id="mobileLoginBtn"
+                    class="flex items-center justify-center space-x-3 w-full py-3 px-4 bg-emerald-500 text-white hover:bg-emerald-600 rounded-lg font-semibold">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
                 </button>
+                <!-- Mobile User Menu -->
+                <div id="mobileUserMenu" class="hidden">
+                    <a href="./MyAccount.html"
+                        class="flex items-center space-x-3 w-full py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-user text-emerald-500"></i>
+                        <span class="font-medium">My Account</span>
+                    </a>
+                    <a href="./orders.html"
+                        class="flex items-center space-x-3 w-full py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-box text-emerald-500"></i>
+                        <span class="font-medium">My Orders</span>
+                    </a>
+                    <a href="./wishlist.html"
+                        class="flex items-center space-x-3 w-full py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-heart text-emerald-500"></i>
+                        <span class="font-medium">Wishlist</span>
+                    </a>
+                    <button onclick="handleLogout()"
+                        class="flex items-center space-x-3 w-full py-3 px-4 text-red-600 hover:bg-red-50 rounded-lg font-medium">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -247,10 +375,7 @@
             }
         });
     </script>
-
-
-
-
+    
 </body>
 
 </html>
