@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./index.css">
     <link rel="stylesheet" href="./css/rushita.css">
+    <style>
+           .rotate-180 { transform: rotate(180deg); transition: transform 200ms ease; }
+    </style>
 </head>
 
 <body class="bg-gray-50">
@@ -92,24 +95,23 @@
                 <div class="flex items-center space-x-8 h-14">
                     <a href="./home.html"
                         class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Home</a>
-                    <div class="relative group h-full flex items-center">
-                        <div
-                            class="flex items-center space-x-1 text-gray-700 group-hover:text-emerald-500 font-medium transition-colors h-full border-b-2 border-transparent cursor-pointer">
-                            <span>Grocery Items</span>
-                            <i class="fas fa-chevron-down text-xs"></i>
-                        </div>
-                        <div
-                            class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
-                            <a href="./Shop.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">Eggs</a>
-                            <a href="./Shop.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Rice
-                                & Pulse</a>
-                            <a href="./Shop.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Quality
-                                Milk</a>
-                        </div>
-                    </div>
+                  <div class="relative group h-full flex items-center">
+  <div
+    class="flex items-center space-x-1 text-gray-700 group-hover:text-emerald-500 font-medium transition-colors h-full border-b-2 border-transparent cursor-pointer">
+    <span>Grocery Items</span>
+    <i class="fas fa-chevron-down text-xs"></i>
+  </div>
+  <div
+    class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
+    <a href="./Shop.html"
+      class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">Eggs</a>
+    <a href="./Shop.html"
+      class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Rice & Pulse</a>
+    <a href="./Shop.html"
+      class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Quality Milk</a>
+  </div>
+</div>
+
                     <a href="./Blog.html"
                         class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Blog</a>
                     <div class="relative group h-full flex items-center">
@@ -237,7 +239,6 @@
     <script src="./js/Search.js"></script>
     <script>
         const header = document.getElementById("header");
-
         window.addEventListener("scroll", () => {
             if (window.scrollY > 100) {
                 header.classList.add("fixed", "top-0", "left-0", "w-full", "shadow-md");
@@ -245,8 +246,10 @@
                 header.classList.remove("fixed", "top-0", "left-0", "w-full", "shadow-md");
             }
         });
-
     </script>
+
+
+
 
 </body>
 

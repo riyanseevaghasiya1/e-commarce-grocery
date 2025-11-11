@@ -201,3 +201,27 @@ function updateCartCount() {
   const totalItems = cartData.reduce((sum, item) => sum + (item.quantity || 1), 0);
   cartCount.textContent = totalItems;
 }
+
+  document.addEventListener('click', function (e) {
+      // Find nearest toggle button
+      const toggle = e.target.closest('.mobile-accordion-toggle');
+      if (!toggle) return;
+
+      const accordion = toggle.closest('.mobile-accordion');
+      if (!accordion) return;
+
+      const content = accordion.querySelector('.mobile-accordion-content');
+      const icon = toggle.querySelector('i');
+
+      // Toggle Tailwind 'hidden'
+      const opened = toggle.getAttribute('aria-expanded') === 'true';
+      if (opened) {
+        content.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+        if (icon) icon.classList.remove('rotate-180');
+      } else {
+        content.classList.remove('hidden');
+        toggle.setAttribute('aria-expanded', 'true');
+        if (icon) icon.classList.add('rotate-180');
+      }
+    });
