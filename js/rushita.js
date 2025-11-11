@@ -1,12 +1,12 @@
-
 let discount = 0;
-
 
 fetch('./header.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('header-placeholder').innerHTML = data;
     initializeHeader();
+    initializeCurrency(); // Add this line
+    initializeUserMenu(); // Add this line
     renderCartItems();
     updateCartCount();
     setupProceedToCheckout();
@@ -19,7 +19,6 @@ fetch('./Footer.html')
     document.getElementById('footer_add').innerHTML = data;
   })
   .catch(error => console.error('Error loading footer:', error));
-
 
 function initializeHeader() {
   const menuToggle = document.getElementById('menuToggle');
@@ -69,6 +68,29 @@ function initializeHeader() {
     overlay.addEventListener('click', closeCartFunc);
     document.addEventListener('keydown', e => e.key === 'Escape' && closeCartFunc());
   }
+
+  // Mobile accordion
+  document.addEventListener('click', function (e) {
+    const toggle = e.target.closest('.mobile-accordion-toggle');
+    if (!toggle) return;
+
+    const accordion = toggle.closest('.mobile-accordion');
+    if (!accordion) return;
+
+    const content = accordion.querySelector('.mobile-accordion-content');
+    const icon = toggle.querySelector('i');
+
+    const opened = toggle.getAttribute('aria-expanded') === 'true';
+    if (opened) {
+      content.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
+      if (icon) icon.classList.remove('rotate-180');
+    } else {
+      content.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+      if (icon) icon.classList.add('rotate-180');
+    }
+  });
 }
 
 // ========== Calculate Cart Totals ==========
@@ -167,7 +189,7 @@ function updateCartSummary() {
     `;
   }
 
-  console.log(' UPDATED:', {
+  console.log('UPDATED:', {
     subtotal: `$${totals.final.toFixed(2)}`
   });
 }
@@ -202,26 +224,185 @@ function updateCartCount() {
   cartCount.textContent = totalItems;
 }
 
-  document.addEventListener('click', function (e) {
-      // Find nearest toggle button
-      const toggle = e.target.closest('.mobile-accordion-toggle');
-      if (!toggle) return;
+// ========== Currency System ==========
+let currentCurrency = {
+  code: 'USD',
+  symbol: '$',
+  rate: 1.00
+};
 
-      const accordion = toggle.closest('.mobile-accordion');
-      if (!accordion) return;
+function loadCurrency() {
+  const saved = localStorage.getItem('selectedCurrency');
+  if (saved) {
+    currentCurrency = JSON.parse(saved);
+    const selectedCurrencyEl = document.getElementById('selectedCurrency');
+    if (selectedCurrencyEl) {
+      selectedCurrencyEl.textContent = currentCurrency.code;
+    }
+    const mobileSelect = document.getElementById('mobileCurrencySelect');
+    if (mobileSelect) {
+      mobileSelect.value = currentCurrency.code;
+    }
+  }
+}
 
-      const content = accordion.querySelector('.mobile-accordion-content');
-      const icon = toggle.querySelector('i');
+function changeCurrency(code, symbol, rate) {
+  currentCurrency = { code, symbol, rate };
+  localStorage.setItem('selectedCurrency', JSON.stringify(currentCurrency));
+  
+  const selectedCurrencyEl = document.getElementById('selectedCurrency');
+  if (selectedCurrencyEl) {
+    selectedCurrencyEl.textContent = code;
+  }
+  
+  const mobileSelect = document.getElementById('mobileCurrencySelect');
+  if (mobileSelect) {
+    mobileSelect.value = code;
+  }
+  
+  // Dispatch custom event for price updates
+  window.dispatchEvent(new CustomEvent('currencyChanged', { detail: currentCurrency }));
+  
+  // Close dropdown
+  const dropdown = document.getElementById('currencyDropdown');
+  if (dropdown) {
+    dropdown.classList.remove('show');
+  }
+}
 
-      // Toggle Tailwind 'hidden'
-      const opened = toggle.getAttribute('aria-expanded') === 'true';
-      if (opened) {
-        content.classList.add('hidden');
-        toggle.setAttribute('aria-expanded', 'false');
-        if (icon) icon.classList.remove('rotate-180');
-      } else {
-        content.classList.remove('hidden');
-        toggle.setAttribute('aria-expanded', 'true');
-        if (icon) icon.classList.add('rotate-180');
+function initializeCurrency() {
+  loadCurrency();
+  
+  // Mobile currency select handler
+  const mobileSelect = document.getElementById('mobileCurrencySelect');
+  if (mobileSelect) {
+    mobileSelect.addEventListener('change', function (e) {
+      const selected = e.target.selectedOptions[0];
+      const code = selected.value;
+      const rate = parseFloat(selected.dataset.rate);
+      const symbol = '$';
+      changeCurrency(code, symbol, rate);
+    });
+  }
+
+  // Currency dropdown toggle
+  const currencyBtn = document.getElementById('currencyBtn');
+  if (currencyBtn) {
+    currencyBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const dropdown = document.getElementById('currencyDropdown');
+      if (dropdown) {
+        dropdown.classList.toggle('show');
       }
     });
+  }
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function (e) {
+    const currencyDropdown = document.getElementById('currencyDropdown');
+    if (currencyDropdown && !e.target.closest('#currencyBtn')) {
+      currencyDropdown.classList.remove('show');
+    }
+  });
+}
+
+// ========== User Authentication System ==========
+let isLoggedIn = false;
+
+function checkLoginStatus() {
+  const user = localStorage.getItem('currentUser');
+  if (user) {
+    isLoggedIn = true;
+    showUserMenu();
+  } else {
+    isLoggedIn = false;
+    showLoginButton();
+  }
+}
+
+function showUserMenu() {
+  const loginBtn = document.getElementById('loginBtn');
+  const userMenuContainer = document.getElementById('userMenuContainer');
+  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+  const mobileUserMenu = document.getElementById('mobileUserMenu');
+  
+  if (loginBtn) loginBtn.classList.add('hidden');
+  if (userMenuContainer) userMenuContainer.classList.remove('hidden');
+  if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
+  if (mobileUserMenu) mobileUserMenu.classList.remove('hidden');
+}
+
+function showLoginButton() {
+  const loginBtn = document.getElementById('loginBtn');
+  const userMenuContainer = document.getElementById('userMenuContainer');
+  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+  const mobileUserMenu = document.getElementById('mobileUserMenu');
+  
+  if (loginBtn) loginBtn.classList.remove('hidden');
+  if (userMenuContainer) userMenuContainer.classList.add('hidden');
+  if (mobileLoginBtn) mobileLoginBtn.classList.remove('hidden');
+  if (mobileUserMenu) mobileUserMenu.classList.add('hidden');
+}
+
+function handleLogout() {
+  if (confirm('Are you sure you want to logout?')) {
+    localStorage.removeItem('currentUser');
+    isLoggedIn = false;
+    showLoginButton();
+    alert('Logged out successfully!');
+  }
+}
+
+function initializeUserMenu() {
+  checkLoginStatus();
+  
+  // Login button handlers
+  const loginBtn = document.getElementById('loginBtn');
+  if (loginBtn) {
+    loginBtn.addEventListener('click', function () {
+      window.location.href = './login.html';
+    });
+  }
+
+  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+  if (mobileLoginBtn) {
+    mobileLoginBtn.addEventListener('click', function () {
+      window.location.href = './login.html';
+    });
+  }
+
+  // User dropdown toggle
+  const userMenuBtn = document.getElementById('userMenuBtn');
+  if (userMenuBtn) {
+    userMenuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const dropdown = document.getElementById('userDropdown');
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+      }
+    });
+  }
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function (e) {
+    const userDropdown = document.getElementById('userDropdown');
+    if (userDropdown && !e.target.closest('#userMenuBtn')) {
+      userDropdown.classList.remove('show');
+    }
+  });
+}
+
+// Expose functions globally for integration with other scripts
+window.getCurrentCurrency = function() {
+  return currentCurrency;
+};
+
+window.convertPrice = function(price) {
+  return (price * currentCurrency.rate).toFixed(2);
+};
+
+window.formatPrice = function(price) {
+  return currentCurrency.symbol + window.convertPrice(price);
+};
+
+window.handleLogout = handleLogout;
