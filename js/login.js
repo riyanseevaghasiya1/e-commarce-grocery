@@ -71,32 +71,37 @@ function showSuccess(msgId, message) {
 function handleLogin(event) {
     event.preventDefault();
     clearAllErrors();
-    let isValid = true;
 
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
+    const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
 
-    if (!email) {
-        showError('loginEmail', 'loginEmailError', 'Email is required');
-        isValid = false;
-    } else if (!validateEmail(email)) {
-        showError('loginEmail', 'loginEmailError', 'Please enter a valid email');
-        isValid = false;
+    if (!email || !validateEmail(email)) {
+        showError('loginEmail', 'loginEmailError', 'Enter a valid email');
+        return;
     }
-
     if (!password) {
-        showError('loginPassword', 'loginPasswordError', 'Password is required');
-        isValid = false;
+        showError('loginPassword', 'loginPasswordError', 'Enter password');
+        return;
     }
 
-    if (isValid) {
+    if (!registeredUser) {
+        showError('loginEmail', 'loginEmailError', 'No account found. Please register first.');
+        return;
+    }
+
+    if (registeredUser.email === email && registeredUser.password === password) {
+        localStorage.setItem('currentUser', JSON.stringify(registeredUser));
         showSuccess('loginSuccessMsg', 'Login successful! Redirecting...');
         setTimeout(() => {
-            alert('Login successful! You are now logged in.');
-            document.getElementById('loginForm').reset();
+            window.location.href = './home.html';
         }, 1500);
+    } else {
+        showError('loginPassword', 'loginPasswordError', 'Invalid email or password');
     }
 }
+
+
 
 // Register Handler
 function handleRegister(event) {
@@ -118,26 +123,17 @@ function handleRegister(event) {
         isValid = false;
     }
 
-    if (!email) {
-        showError('registerEmail', 'registerEmailError', 'Email is required');
-        isValid = false;
-    } else if (!validateEmail(email)) {
-        showError('registerEmail', 'registerEmailError', 'Please enter a valid email');
+    if (!email || !validateEmail(email)) {
+        showError('registerEmail', 'registerEmailError', 'Enter a valid email');
         isValid = false;
     }
 
-    if (!password) {
-        showError('registerPassword', 'registerPasswordError', 'Password is required');
-        isValid = false;
-    } else if (!validatePassword(password)) {
+    if (!password || password.length < 8) {
         showError('registerPassword', 'registerPasswordError', 'Password must be at least 8 characters');
         isValid = false;
     }
 
-    if (!confirmPassword) {
-        showError('registerConfirmPassword', 'registerConfirmPasswordError', 'Please confirm your password');
-        isValid = false;
-    } else if (password !== confirmPassword) {
+    if (password !== confirmPassword) {
         showError('registerConfirmPassword', 'registerConfirmPasswordError', 'Passwords do not match');
         isValid = false;
     }
@@ -150,38 +146,43 @@ function handleRegister(event) {
     }
 
     if (isValid) {
-        document.getElementById('otpEmail').textContent = email;
-        showSuccess('registerSuccessMsg', 'Account created! Redirecting to OTP verification...');
+        const userData = { name, email, password };
+        localStorage.setItem('registeredUser', JSON.stringify(userData));
+
+        showSuccess('registerSuccessMsg', 'Account created successfully!');
         setTimeout(() => {
-            showPage('otpPage');
-            document.getElementById('otp1').focus();
+            showPage('loginPage'); // 👈 Redirect directly to login
         }, 1500);
     }
 }
+
+
 
 // Forgot Password Handler
 function handleForgotPassword(event) {
     event.preventDefault();
     clearAllErrors();
-    let isValid = true;
 
     const email = document.getElementById('forgotEmail').value.trim();
+    const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
 
-    if (!email) {
-        showError('forgotEmail', 'forgotEmailError', 'Email is required');
-        isValid = false;
-    } else if (!validateEmail(email)) {
-        showError('forgotEmail', 'forgotEmailError', 'Please enter a valid email');
-        isValid = false;
+    if (!email || !validateEmail(email)) {
+        showError('forgotEmail', 'forgotEmailError', 'Enter valid email');
+        return;
     }
 
-    if (isValid) {
-        showSuccess('forgotSuccessMsg', 'Reset link sent to your email!');
-        setTimeout(() => {
-            document.getElementById('forgotForm').reset();
-        }, 2000);
+    if (!registeredUser || registeredUser.email !== email) {
+        showError('forgotEmail', 'forgotEmailError', 'Email not found.');
+        return;
     }
+
+    // ✅ If email matches — show OTP page
+    document.getElementById('otpEmail').textContent = email;
+    showPage('otpPage');
 }
+
+
+
 
 // OTP Input Handler
 function handleOTPInput(event, currentId) {
@@ -201,7 +202,7 @@ function handleOTPInput(event, currentId) {
 
 function handleOTPKeydown(event, currentId) {
     const current = document.getElementById(currentId);
-    
+
     if (event.key === 'Backspace' && !current.value) {
         const currentNum = parseInt(currentId.replace('otp', ''));
         if (currentNum > 1) {
@@ -228,14 +229,11 @@ function handleOTPVerify(event) {
         otp += value;
     }
 
-    showSuccess('otpSuccessMsg', 'Email verified successfully!');
+    // ✅ OTP verified - go to Reset Password page
+    showSuccess('otpSuccessMsg', 'OTP verified successfully!');
     setTimeout(() => {
-        alert('Email verified! You can now login.');
-        showPage('loginPage');
-        for (let i = 1; i <= 6; i++) {
-            document.getElementById('otp' + i).value = '';
-        }
-    }, 1500);
+        showPage('resetPasswordPage');
+    }, 1000);
 }
 
 // Resend OTP
@@ -248,9 +246,9 @@ function resendOTP() {
 }
 
 // Add input listeners
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.form-input').forEach(input => {
-        input.addEventListener('input', function() {
+        input.addEventListener('input', function () {
             this.classList.remove('error');
             const errorId = this.id + 'Error';
             const errorElement = document.getElementById(errorId);
@@ -260,8 +258,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('agreeTerms').addEventListener('change', function() {
+    document.getElementById('agreeTerms').addEventListener('change', function () {
         const termsError = document.getElementById('termsError');
         termsError.classList.remove('show');
     });
 });
+
+//confirm password
+function handleResetPassword(event) {
+    event.preventDefault();
+    clearAllErrors();
+
+    const oldPassword = document.getElementById('oldPassword').value.trim();
+    const newPassword = document.getElementById('newPassword').value.trim();
+    const confirmNewPassword = document.getElementById('confirmNewPassword').value.trim();
+
+    const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
+
+    if (!oldPassword) {
+        showError('oldPassword', 'oldPasswordError', 'Enter your old password');
+        return;
+    }
+    if (!newPassword || newPassword.length < 8) {
+        showError('newPassword', 'newPasswordError', 'New password must be at least 8 characters');
+        return;
+    }
+    if (newPassword !== confirmNewPassword) {
+        showError('confirmNewPassword', 'confirmNewPasswordError', 'Passwords do not match');
+        return;
+    }
+
+    if (registeredUser && registeredUser.password === oldPassword) {
+        registeredUser.password = newPassword;
+        localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
+        showSuccess('resetSuccessMsg', 'Password updated successfully! Redirecting to login...');
+        setTimeout(() => {
+            showPage('loginPage');
+        }, 1500);
+    } else {
+        showError('oldPassword', 'oldPasswordError', 'Old password is incorrect');
+    }
+}

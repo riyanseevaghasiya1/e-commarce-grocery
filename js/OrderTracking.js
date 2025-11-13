@@ -179,7 +179,7 @@ function renderOrderDetails(order) {
                         <div class="flex-1">
                             <p class="font-medium text-gray-800">${item.name || 'Unnamed product'}</p>
                             <p class="text-sm text-gray-500 mt-1">Quantity: ${item.quantity ?? 1}</p>
-                            <p class="font-medium mt-2 text-primary">${formatCurrency(item.total ?? item.price ?? 0)}</p>
+                            <p class="font-medium mt-2 text-primary current-price">${formatCurrency(item.total ?? item.price ?? 0)}</p>
                         </div>
                     </div>
                 `).join('');

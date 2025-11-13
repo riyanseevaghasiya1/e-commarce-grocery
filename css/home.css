@@ -740,18 +740,20 @@ body {
 }
 
 .modal-image-section {
-    background: var(--light-bg);
+     background: var(--light-bg);
     border-radius: 12px;
-    padding: 40px;
+    padding: 0; /* ✅ Remove padding */
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden; /* ✅ Ensure image fits cleanly */
 }
 
 .modal-product-image {
     width: 100%;
-    max-width: 350px;
-    height: auto;
+    height: 100%;
+    object-fit: cover; /* ✅ Image will fully fill container */
+    border-radius: 12px; /* keeps smooth corners */
 }
 
 .modal-info-section h2 {
