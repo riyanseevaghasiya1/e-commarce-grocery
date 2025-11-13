@@ -62,6 +62,37 @@ $(document).ready(function () {
     });
 
 
+        
+        // Quick View Modal Functions
+        function openQuickView(button) {
+            const productCard = button.closest('.product-card');
+            const productImage = productCard.querySelector('.product-image');
+            const productName = productCard.querySelector('.product-name');
+            const productPrice = productCard.querySelector('.current-price');
+
+            const modal = document.getElementById('quickViewModal');
+            const modalImage = document.getElementById('modalProductImage');
+            const modalName = document.getElementById('modalProductName');
+            const modalPrice = document.getElementById('modalProductPrice');
+            const quantityInput = document.getElementById('quantityInput');
+
+            if (modalImage && productImage) {
+                modalImage.src = productImage.src;
+                modalImage.alt = productName ? productName.textContent : 'Product';
+            }
+            
+            if (modalName && productName) {
+                modalName.textContent = productName.textContent;
+            }
+            
+            if (modalPrice && productPrice) {
+                modalPrice.textContent = productPrice.textContent;
+            }
+            
+            if (quantityInput) {
+                quantityInput.value = 1;
+            }
+
 });
 
 // Quick View Modal Functions
