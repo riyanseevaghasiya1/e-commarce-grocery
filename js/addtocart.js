@@ -1,15 +1,16 @@
-
+// ========== Update Cart Count ==========
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const count = cart.length; 
+    const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0); // Count total items, not just products
     const cartCountElement = document.getElementById('cart-count');
-console.log("cartCountElement?//////////////",cartCountElement);
+    console.log("cartCountElement?//////////////", cartCountElement);
 
     if (cartCountElement) {
         cartCountElement.textContent = count;
     }
 }
 
+// ========== Add to Cart ==========
 function addToCart(button) {
     const productInfo = button.closest('.product-info');
 
@@ -22,7 +23,7 @@ function addToCart(button) {
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existing = cart.find(item => item.name === product.name);
-    console.log("cart>>>>",cart);
+    console.log("cart>>>>", cart);
     
     if (existing) {
         existing.quantity += 1; 
@@ -35,7 +36,7 @@ function addToCart(button) {
     showNotification('Item added to cart');
 }
 
-
+// ========== Load Cart Items ==========
 function loadCartItems() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const container = document.getElementById('cartItemsContainer');
@@ -63,7 +64,7 @@ function loadCartItems() {
                 <span class="text-sm font-medium text-gray-800">${item.name}</span>
             </div>
             <div class="col-span-2 text-center">
-                <span class="text-gray-800 font-semibold">${item.price}</span>
+                <span class="text-gray-800 font-semibold current-price">${item.price}</span>
             </div>
             <div class="col-span-3 flex justify-center">
                 <div class="flex items-center border border-gray-300 rounded">
@@ -72,18 +73,20 @@ function loadCartItems() {
                     <button class="px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="updateQuantity(${index}, 1)">+</button>
                 </div>
             </div>
-            <div class="col-span-2 text-right font-semibold text-gray-800">$${calculateItemTotal(item)}</div>
+            <div class="col-span-2 text-right font-semibold text-gray-800 current-price">$${calculateItemTotal(item)}</div>
         </div>
     `).join('');
 
     updateCartSummary();
 }
 
+// ========== Calculate Item Total ==========
 function calculateItemTotal(item) {
     const price = parseFloat(item.price.replace('$', ''));
     return (price * item.quantity).toFixed(2);
 }
 
+// ========== Update Quantity ==========
 function updateQuantity(index, change) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -96,6 +99,7 @@ function updateQuantity(index, change) {
     }
 }
 
+// ========== Remove from Cart ==========
 function removeFromCart(index) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart.splice(index, 1);
@@ -105,25 +109,32 @@ function removeFromCart(index) {
     showNotification('Item removed from cart');
 }
 
+// ========== Update Cart Summary (Single Function) ==========
 function updateCartSummary() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     let subtotal = 0;
 
+    // Calculate subtotal
     cart.forEach(item => {
-        const price = parseFloat(item.price.replace('$', ''));
+        const price = parseFloat(item.price.replace('$', '').trim());
         subtotal += price * item.quantity;
     });
 
-    const shipping = 22.00; 
-    const total = subtotal + shipping;
+    // Get shipping from global variable or default
+    const shippingCost = typeof shipping !== 'undefined' ? shipping : 22.00;
+    const total = subtotal + shippingCost;
 
-    const subtotalEl = document.getElementById('cartSubtotal');
-    const totalEl = document.getElementById('cartTotal');
+    // Update all possible elements (for different pages)
+    const subtotalEl = document.getElementById('subtotal') || document.getElementById('cartSubtotal');
+    const shippingEl = document.getElementById('shippingCost');
+    const totalEl = document.getElementById('total') || document.getElementById('cartTotal');
 
     if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+    if (shippingEl) shippingEl.textContent = `$${shippingCost.toFixed(2)}`;
     if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
 }
 
+// ========== Show Notification ==========
 function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
     notification.textContent = message;
@@ -147,6 +158,7 @@ function showNotification(message, type = 'success') {
     }, 1800);
 }
 
+// ========== Notification Animations CSS ==========
 const style = document.createElement('style');
 style.textContent = `
     @keyframes fadeIn {
@@ -159,33 +171,14 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ========== DOM Content Loaded ==========
 document.addEventListener('DOMContentLoaded', function() {
     loadCartItems();
+    updateCartCount();
 });
 
-function updateCartSummary() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let subtotal = 0;
-
-    // Calculate subtotal
-    cart.forEach(item => {
-        const price = parseFloat(item.price.replace('$', '').trim());
-        subtotal += price * item.quantity;
-    });
-
-    // Default shipping and total
-    const shipping = 22.00; 
-    const total = subtotal + shipping;
-
-    // Update both your table summary AND cart totals box
-    const subtotalEl = document.getElementById('subtotal');
-    const shippingEl = document.getElementById('shippingCost');
-    const totalEl = document.getElementById('total');
-
-    if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
-    if (shippingEl) shippingEl.textContent = `$${shipping.toFixed(2)}`;
-    if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
-}
+// ========== Shipping & Address Modal ==========
 let shipping = 22;
 let address = "CA";
 
@@ -195,21 +188,20 @@ const saveAddressBtn = document.getElementById("saveAddress");
 const shippingAddress = document.getElementById("shippingAddress");
 
 if (changeAddressBtn) {
-  changeAddressBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    modal.classList.remove("hidden");
-  });
+    changeAddressBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        modal.classList.remove("hidden");
+    });
 }
 
 if (saveAddressBtn) {
-  saveAddressBtn.addEventListener("click", () => {
-    const select = document.getElementById("addressSelect");
-    const selectedOption = select.options[select.selectedIndex];
-    address = selectedOption.value;
-    shipping = parseFloat(selectedOption.dataset.shipping);
-    shippingAddress.textContent = address;
-    modal.classList.add("hidden");
-    updateCartSummary();
-  });
+    saveAddressBtn.addEventListener("click", () => {
+        const select = document.getElementById("addressSelect");
+        const selectedOption = select.options[select.selectedIndex];
+        address = selectedOption.value;
+        shipping = parseFloat(selectedOption.dataset.shipping);
+        shippingAddress.textContent = address;
+        modal.classList.add("hidden");
+        updateCartSummary();
+    });
 }
-

@@ -380,7 +380,7 @@
 				row.innerHTML = `
 					<td class="py-2 px-3">#${order.orderId}</td>
 					<td class="py-2 px-3">${order.orderDate}</td>
-					<td class="py-2 px-3">${formatCurrency(order.total)}</td>
+					<td class="py-2 px-3 current-price">${formatCurrency(order.total)}</td>
 					<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
 					<td class="py-2 px-3">
 						<button

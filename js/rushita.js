@@ -1,25 +1,47 @@
 let discount = 0;
 
-fetch('./header.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
-    initializeHeader();
-    initializeCurrency(); // Add this line
-    initializeUserMenu(); // Add this line
-    renderCartItems();
-    updateCartCount();
-    setupProceedToCheckout();
-  })
-  .catch(error => console.error('Error loading header:', error));
+// Check if header needs to be loaded dynamically or is already in page
+document.addEventListener('DOMContentLoaded', function() {
+  const headerPlaceholder = document.getElementById('header-placeholder');
+  
+  if (headerPlaceholder) {
+    // Load header dynamically
+    fetch('./header.html')
+      .then(response => response.text())
+      .then(data => {
+        headerPlaceholder.innerHTML = data;
+        initializeEverything();
+      })
+      .catch(error => console.error('Error loading header:', error));
 
-fetch('./Footer.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('footer_add').innerHTML = data;
-  })
-  .catch(error => console.error('Error loading footer:', error));
+    // Load footer
+    const footerPlaceholder = document.getElementById('footer_add');
+    if (footerPlaceholder) {
+      fetch('./Footer.html')
+        .then(response => response.text())
+        .then(data => {
+          footerPlaceholder.innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error));
+    }
+  } else {
+    // Header is already in the page, just initialize
+    console.log('Header already in page, initializing...');
+    initializeEverything();
+  }
+});
 
+// Combined initialization function
+function initializeEverything() {
+  initializeHeader();
+  initializeCurrency();
+  initializeUserMenu();
+  renderCartItems();
+  updateCartCount();
+  setupProceedToCheckout();
+}
+
+// ========== Initialize Header ==========
 function initializeHeader() {
   const menuToggle = document.getElementById('menuToggle');
   const closeMenu = document.getElementById('closeMenu');
@@ -111,6 +133,8 @@ function calculateTotals() {
 // ========== Render Cart Items ==========
 function renderCartItems() {
   const cartItemsContainer = document.getElementById("cartItems");
+  if (!cartItemsContainer) return;
+  
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   cartItemsContainer.innerHTML = "";
@@ -127,7 +151,7 @@ function renderCartItems() {
           <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg border">
           <div>
             <h3 class="font-semibold text-gray-800">${item.name}</h3>
-            <p class="text-sm text-gray-600">${item.price}</p>
+            <p class="text-sm text-gray-600 current-price">${item.price}</p>
           </div>
         </div>
         <div class="flex items-center">
@@ -183,13 +207,19 @@ function updateCartSummary() {
       <div class="text-gray-700">
         <p class="flex justify-between font-semibold text-lg">
           <span>Subtotal:</span> 
-          <span class="text-teal-600">$${totals.final.toFixed(2)}</span>
+          <span class="text-teal-600 current-price">$${totals.final.toFixed(2)}</span>
         </p>
       </div>
     `;
   }
 
-  console.log('UPDATED:', {
+  // Also update subtotal in cart offcanvas
+  const subtotalEl = document.getElementById("subtotal");
+  if (subtotalEl) {
+    subtotalEl.textContent = `$${totals.final.toFixed(2)}`;
+  }
+
+  console.log('Cart Updated:', {
     subtotal: `$${totals.final.toFixed(2)}`
   });
 }
@@ -224,7 +254,7 @@ function updateCartCount() {
   cartCount.textContent = totalItems;
 }
 
-// ========== Currency System ==========
+// ========== CURRENCY SYSTEM - SINGLE CLEAN VERSION ==========
 let currentCurrency = {
   code: 'USD',
   symbol: '$',
@@ -247,6 +277,7 @@ function loadCurrency() {
 }
 
 function changeCurrency(code, symbol, rate) {
+  console.log('changeCurrency called:', code, symbol, rate); // Debug
   currentCurrency = { code, symbol, rate };
   localStorage.setItem('selectedCurrency', JSON.stringify(currentCurrency));
   
@@ -263,14 +294,16 @@ function changeCurrency(code, symbol, rate) {
   // Dispatch custom event for price updates
   window.dispatchEvent(new CustomEvent('currencyChanged', { detail: currentCurrency }));
   
-  // Close dropdown
+  // Close dropdown using 'show' class
   const dropdown = document.getElementById('currencyDropdown');
   if (dropdown) {
+    console.log('Closing dropdown'); // Debug
     dropdown.classList.remove('show');
   }
 }
 
 function initializeCurrency() {
+  console.log('initializeCurrency called'); // Debug
   loadCurrency();
   
   // Mobile currency select handler
@@ -280,33 +313,9 @@ function initializeCurrency() {
       const selected = e.target.selectedOptions[0];
       const code = selected.value;
       const rate = parseFloat(selected.dataset.rate);
-      const symbol = '$';
-      changeCurrency(code, symbol, rate);
-    });
-  }
+      const symbol = '';
 
-  // Currency dropdown toggle
-  const currencyBtn = document.getElementById('currencyBtn');
-  if (currencyBtn) {
-    currencyBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      const dropdown = document.getElementById('currencyDropdown');
-      if (dropdown) {
-        dropdown.classList.toggle('show');
-      }
-    });
-  }
-  
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function (e) {
-    const currencyDropdown = document.getElementById('currencyDropdown');
-    if (currencyDropdown && !e.target.closest('#currencyBtn')) {
-      currencyDropdown.classList.remove('show');
-    }
-  });
-}
-
-// ========== User Authentication System ==========
+// ========== USER AUTHENTICATION SYSTEM ==========
 let isLoggedIn = false;
 
 function checkLoginStatus() {
@@ -392,7 +401,7 @@ function initializeUserMenu() {
   });
 }
 
-// Expose functions globally for integration with other scripts
+// ========== EXPOSE FUNCTIONS GLOBALLY ==========
 window.getCurrentCurrency = function() {
   return currentCurrency;
 };
@@ -406,3 +415,201 @@ window.formatPrice = function(price) {
 };
 
 window.handleLogout = handleLogout;
+window.changeCurrency = changeCurrency; // Make it globally accessible for onclick;
+      changeCurrency(code, symbol, rate);
+    });
+  }
+
+  // Currency dropdown toggle - DESKTOP - FIXED VERSION
+  const currencyBtn = document.getElementById('currencyBtn');
+  if (currencyBtn) {
+    console.log('Currency button found, attaching listener'); // Debug
+    
+    // Remove any existing listeners by cloning
+    const newCurrencyBtn = currencyBtn.cloneNode(true);
+    currencyBtn.parentNode.replaceChild(newCurrencyBtn, currencyBtn);
+    
+    newCurrencyBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const dropdown = document.getElementById('currencyDropdown');
+      console.log('Click detected! Dropdown:', dropdown); // Debug
+      
+      if (dropdown) {
+        const isVisible = dropdown.classList.contains('show');
+        console.log('Current state - show class:', isVisible); // Debug
+        
+        if (isVisible) {
+          dropdown.classList.remove('show');
+          console.log('Removed show class'); // Debug
+        } else {
+          dropdown.classList.add('show');
+          console.log('Added show class'); // Debug
+        }
+        
+        // Force inline styles as backup
+        if (dropdown.classList.contains('show')) {
+          dropdown.style.display = 'block';
+          dropdown.style.opacity = '1';
+          dropdown.style.visibility = 'visible';
+          console.log('Applied inline styles'); // Debug
+        } else {
+          dropdown.style.display = 'none';
+          dropdown.style.opacity = '0';
+          dropdown.style.visibility = 'hidden';
+        }
+      } else {
+        console.log('Dropdown element not found!'); // Debug
+      }
+    });
+  } else {
+    console.log('Currency button not found!'); // Debug
+  }
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function (e) {
+    const currencyDropdown = document.getElementById('currencyDropdown');
+    const currencyBtn = document.getElementById('currencyBtn');
+    
+    if (currencyDropdown && currencyBtn && !currencyBtn.contains(e.target) && !currencyDropdown.contains(e.target)) {
+      currencyDropdown.classList.remove('show');
+      currencyDropdown.style.display = 'none';
+      currencyDropdown.style.opacity = '0';
+      currencyDropdown.style.visibility = 'hidden';
+    }
+  });
+}
+
+// ========== USER AUTHENTICATION SYSTEM ==========
+let isLoggedIn = false;
+
+function checkLoginStatus() {
+  const user = localStorage.getItem('currentUser');
+  if (user) {
+    isLoggedIn = true;
+    showUserMenu();
+  } else {
+    isLoggedIn = false;
+    showLoginButton();
+  }
+}
+
+function showUserMenu() {
+  const loginBtn = document.getElementById('loginBtn');
+  const userMenuContainer = document.getElementById('userMenuContainer');
+  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+  const mobileUserMenu = document.getElementById('mobileUserMenu');
+  
+  if (loginBtn) loginBtn.classList.add('hidden');
+  if (userMenuContainer) userMenuContainer.classList.remove('hidden');
+  if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
+  if (mobileUserMenu) mobileUserMenu.classList.remove('hidden');
+}
+
+function showLoginButton() {
+  const loginBtn = document.getElementById('loginBtn');
+  const userMenuContainer = document.getElementById('userMenuContainer');
+  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+  const mobileUserMenu = document.getElementById('mobileUserMenu');
+  
+  if (loginBtn) loginBtn.classList.remove('hidden');
+  if (userMenuContainer) userMenuContainer.classList.add('hidden');
+  if (mobileLoginBtn) mobileLoginBtn.classList.remove('hidden');
+  if (mobileUserMenu) mobileUserMenu.classList.add('hidden');
+}
+
+function handleLogout() {
+  if (confirm('Are you sure you want to logout?')) {
+    localStorage.removeItem('currentUser');
+    isLoggedIn = false;
+    showLoginButton();
+    alert('Logged out successfully!');
+  }
+}
+
+function initializeUserMenu() {
+  checkLoginStatus();
+  
+  // Login button handlers
+  const loginBtn = document.getElementById('loginBtn');
+  if (loginBtn) {
+    loginBtn.addEventListener('click', function () {
+      window.location.href = './login.html';
+    });
+  }
+
+  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+  if (mobileLoginBtn) {
+    mobileLoginBtn.addEventListener('click', function () {
+      window.location.href = './login.html';
+    });
+  }
+
+  // User dropdown toggle
+  const userMenuBtn = document.getElementById('userMenuBtn');
+  if (userMenuBtn) {
+    userMenuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const dropdown = document.getElementById('userDropdown');
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+      }
+    });
+  }
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function (e) {
+    const userDropdown = document.getElementById('userDropdown');
+    if (userDropdown && !e.target.closest('#userMenuBtn')) {
+      userDropdown.classList.remove('show');
+    }
+  });
+}
+
+// ========== EXPOSE FUNCTIONS GLOBALLY ==========
+window.getCurrentCurrency = function() {
+  return currentCurrency;
+};
+
+window.convertPrice = function(price) {
+  return (price * currentCurrency.rate).toFixed(2);
+};
+
+window.formatPrice = function(price) {
+  return currentCurrency.symbol + window.convertPrice(price);
+};
+
+window.handleLogout = handleLogout;
+
+
+
+window.changeCurrency = changeCurrency; // Make it globally accessible for onclick
+
+
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// === GLOBAL PRICE UPDATE LISTENER ===
+window.addEventListener('currencyChanged', function (e) {
+  const { symbol, rate } = e.detail;
+  
+  document.querySelectorAll('.current-price').forEach(priceEl => {
+    const basePrice = parseFloat(priceEl.dataset.basePrice || priceEl.textContent.replace(/[^0-9.]/g, ''));
+    priceEl.dataset.basePrice = basePrice; // Store original USD price once
+    priceEl.textContent = symbol + (basePrice * rate).toFixed(2);
+  });
+});
+
+// category filter
+document.addEventListener('click', function (e) {
+    const link = e.target.closest('.category-link');
+    if (link) {
+        e.preventDefault();
+        const category = link.dataset.category;
+        localStorage.setItem('selectedCategory', category);
+        window.location.href = './Shop.html';
+    }
+});
+
+
+

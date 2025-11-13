@@ -174,7 +174,7 @@ function renderWishlistPage() {
           <p class="text-gray-600 text-sm mb-1">${item.badge ? `Badge: ${item.badge}` : ''}</p>
         </div>
         <div class="text-left">
-          <p class="text-gray-900 font-medium text-lg">${item.price || '—'}</p>
+          <p class="text-gray-900 font-medium text-lg current-price">${item.price || '—'}</p>
         </div>
         <div class="text-left">
           <span class="inline-block text-green-600 font-medium">In Stock</span>
