@@ -68,6 +68,8 @@
             });
         });
 
+
+        
         // Quick View Modal Functions
         function openQuickView(button) {
             const productCard = button.closest('.product-card');
