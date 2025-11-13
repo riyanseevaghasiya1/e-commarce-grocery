@@ -16,6 +16,23 @@
 <body class="inter-font">
 	<div id="header-placeholder"></div>
 
+	<!-- Banner -->
+	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center py-16 sm:py-24"
+		style="background-image: url('images/pages-hero-bg.webp');">
+		<div class="relative text-center text-black z-10">
+			<h1 class="text-2xl md:text-4xl font-semibold mb-4">Shop</h1>
+			<div class="flex items-center justify-center text-sm md:text-base text-black mt-2">
+				<a href="./home.html" class="text-black/60">Home</a>
+				<span class="mx-2"><i class="fa-solid fa-angle-right"></i></span>
+				<a href="./Shop.html">
+					<span class="font-semibold">Shop</span>
+				</a>
+				<span class="mx-2"><i class="fa-solid fa-angle-right"></i></span>
+				<h1 class="text-[16px] font-semibold productname">Apples</h1>
+			</div>
+		</div>
+	</div>
+
 	<div class="a_header_container">
 		<div class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
 			<!-- Product Section -->
@@ -239,15 +256,32 @@
 				}
 
 				// Update thumbnail images (use same image for all thumbnails for now)
-				document.querySelectorAll('img[onclick="swapImage(this)"]').forEach(thumb => {
-					thumb.src = product.img || thumb.src;
-				});
-
+				const thumbnails = document.querySelectorAll('img[onclick="swapImage(this)"]');
+				if (product.images && product.images.length) {
+					thumbnails.forEach((thumb, index) => {
+						if (product.images[index]) {
+							thumb.src = product.images[index];
+						}
+					});
+				}
 				// Update product name
 				const productName = document.querySelector('h1');
 				if (productName && product.name) {
 					productName.textContent = product.name;
 				}
+
+				// update in breadcrumb product name
+				const breadcrumbPName = document.querySelector('.productname');
+				if (productName && breadcrumbPName) {
+					breadcrumbPName.textContent = product.name;
+				}
+
+				// update in main product name
+				const mainProductName = document.querySelector('.mainproductname');
+				if (productName && mainProductName) {
+					mainProductName.textContent = product.name;
+				}
+
 
 				// Update price - find the price div by looking for the parent div containing price
 				const detailsDiv = document.querySelector('.flex.flex-col.justify-center');

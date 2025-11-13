@@ -279,12 +279,11 @@
 
 				shippingForm.classList.add('hidden');
 				addressCard.classList.remove('hidden');
-				alert('✅ Shipping address saved successfully!');
+				alert('Shipping address saved successfully!');
 			});
 
 		});
 	</script>
-
 
 	<!-- Account Edit Script -->
 	<script>
@@ -380,7 +379,7 @@
 				row.innerHTML = `
 					<td class="py-2 px-3">#${order.orderId}</td>
 					<td class="py-2 px-3">${order.orderDate}</td>
-					<td class="py-2 px-3">${formatCurrency(order.total)}</td>
+					<td class="py-2 px-3 current-price">${formatCurrency(order.total)}</td>
 					<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
 					<td class="py-2 px-3">
 						<button
@@ -422,40 +421,40 @@
 			});
 		});
 	</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // ✅ Match the same key used in checkout.js
-  const savedAddress = JSON.parse(localStorage.getItem("userAddress")) || null;
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			// Match the same key used in checkout.js
+			const savedAddress = JSON.parse(localStorage.getItem("userAddress")) || null;
 
-  if (savedAddress) {
-    const addressCard = document.getElementById("addressCard");
+			if (savedAddress) {
+				const addressCard = document.getElementById("addressCard");
 
-    if (addressCard) {
-      addressCard.innerHTML = `
-        <div
-          class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium">
-          Current Address
-        </div>
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">
-          ${savedAddress.firstName || ""} ${savedAddress.lastName || ""}
-        </h3>
-        <p class="text-gray-600">${savedAddress.address1 || ""}</p>
-        <p class="text-gray-600">
-          ${savedAddress.city || ""}, ${savedAddress.state || ""} ${savedAddress.zipcode || ""}
-        </p>
-        <p class="text-gray-600 mb-2">${savedAddress.country || ""}</p>
-        <p class="text-gray-700 font-medium">
-          <i class="fa-solid fa-phone"></i> ${savedAddress.phone || ""}
-        </p>
-      `;
-    } else {
-      console.error("❌ #addressCard not found in DOM");
-    }
-  } else {
-    console.warn("⚠️ No address found in localStorage with key 'userAddress'");
-  }
-});
-</script>
+				if (addressCard) {
+					addressCard.innerHTML = `
+					<div
+					class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium">
+					Current Address
+					</div>
+					<h3 class="text-lg font-semibold text-gray-800 mb-2">
+					${savedAddress.firstName || ""} ${savedAddress.lastName || ""}
+					</h3>
+					<p class="text-gray-600">${savedAddress.address1 || ""}</p>
+					<p class="text-gray-600">
+					${savedAddress.city || ""}, ${savedAddress.state || ""} ${savedAddress.zipcode || ""}
+					</p>
+					<p class="text-gray-600 mb-2">${savedAddress.country || ""}</p>
+					<p class="text-gray-700 font-medium">
+					<i class="fa-solid fa-phone"></i> ${savedAddress.phone || ""}
+					</p>
+				`;
+				} else {
+					console.error("❌ #addressCard not found in DOM");
+				}
+			} else {
+				console.warn("⚠️ No address found in localStorage with key 'userAddress'");
+			}
+		});
+	</script>
 
 
 
