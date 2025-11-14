@@ -116,7 +116,7 @@
 				<div id="orders" class="tab-content hidden">
 					<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Your Orders</h2>
 					<div class="overflow-x-auto">
-						<table class="min-w-[500px] w-full border rounded">
+						<table class="min-w-[560px] w-full border rounded">
 							<thead class="bg-[#e5e5e5]">
 								<tr>
 									<th class="py-2 px-3 text-left">Order ID</th>
@@ -234,7 +234,66 @@
 	<script src="./js/checkout.js"></script>
 
 	
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
 
+			const toggleEditBtn = document.getElementById('toggleEdit');
+			const addressCard = document.getElementById('addressCard');
+			const shippingForm = document.getElementById('shippingForm');
+			const cancelAddressBtn = document.getElementById('cancelAddressBtn');
+			const saveAddressBtn = document.getElementById('saveAddressBtn');
+
+			const addressFields = ['shipStreet', 'shipCity', 'shipState', 'shipZip', 'shipCountry', 'shipPhone'];
+
+			// Toggle Edit → Show Form
+			toggleEditBtn.addEventListener('click', () => {
+				addressCard.classList.add('hidden');
+				shippingForm.classList.remove('hidden');
+			});
+
+			// Cancel → Show Card Again
+			cancelAddressBtn.addEventListener('click', () => {
+				shippingForm.classList.add('hidden');
+				addressCard.classList.remove('hidden');
+			});
+
+			// Load Saved Address
+			const savedAddress = JSON.parse(localStorage.getItem('shippingAddress'));
+			if (savedAddress) renderAddress(savedAddress);
+
+			function renderAddress(addr) {
+				addressCard.innerHTML = `
+			<div class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#02b290] font-medium">
+				Current Address
+			</div>
+			<p class="text-gray-600">${addr.shipStreet}</p>
+			<p class="text-gray-600">${addr.shipCity}, ${addr.shipState} ${addr.shipZip}</p>
+			<p class="text-gray-600 mb-2">${addr.shipCountry}</p>
+			<p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> ${addr.shipPhone}</p>
+			`;
+
+				// Re-bind edit button because innerHTML removed old reference
+				document.getElementById('toggleEdit').onclick = () => {
+					addressCard.classList.add('hidden');
+					shippingForm.classList.remove('hidden');
+				};
+			}
+
+			// Save Address
+			saveAddressBtn.addEventListener('click', () => {
+				const data = {};
+				addressFields.forEach(id => data[id] = document.getElementById(id).value.trim());
+
+				localStorage.setItem('shippingAddress', JSON.stringify(data));
+				renderAddress(data);
+
+				shippingForm.classList.add('hidden');
+				addressCard.classList.remove('hidden');
+				alert('Shipping address saved successfully!');
+			});
+
+		});
+	</script>
 
 	<!-- Account Edit Script -->
 	<script>
@@ -330,7 +389,7 @@
 				row.innerHTML = `
 					<td class="py-2 px-3">#${order.orderId}</td>
 					<td class="py-2 px-3">${order.orderDate}</td>
-					<td class="py-2 px-3">${formatCurrency(order.total)}</td>
+					<td class="py-2 px-3 current-price">${formatCurrency(order.total)}</td>
 					<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
 					<td class="py-2 px-3">
 						<button
@@ -550,6 +609,40 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			// Match the same key used in checkout.js
+			const savedAddress = JSON.parse(localStorage.getItem("userAddress")) || null;
+
+			if (savedAddress) {
+				const addressCard = document.getElementById("addressCard");
+
+				if (addressCard) {
+					addressCard.innerHTML = `
+					<div
+					class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium">
+					Current Address
+					</div>
+					<h3 class="text-lg font-semibold text-gray-800 mb-2">
+					${savedAddress.firstName || ""} ${savedAddress.lastName || ""}
+					</h3>
+					<p class="text-gray-600">${savedAddress.address1 || ""}</p>
+					<p class="text-gray-600">
+					${savedAddress.city || ""}, ${savedAddress.state || ""} ${savedAddress.zipcode || ""}
+					</p>
+					<p class="text-gray-600 mb-2">${savedAddress.country || ""}</p>
+					<p class="text-gray-700 font-medium">
+					<i class="fa-solid fa-phone"></i> ${savedAddress.phone || ""}
+					</p>
+				`;
+				} else {
+					console.error("❌ #addressCard not found in DOM");
+				}
+			} else {
+				console.warn("⚠️ No address found in localStorage with key 'userAddress'");
+			}
+		});
+	</script>
 
 
 
