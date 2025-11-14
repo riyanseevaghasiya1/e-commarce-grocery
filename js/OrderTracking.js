@@ -162,7 +162,21 @@ function renderOrderDetails(order) {
 
 	orderIdEl.textContent = `#${order.orderId}`;
 	orderDateEl.textContent = order.orderDate || '—';
-	estimatedDeliveryEl.textContent = order.estimatedDelivery || 'To be updated';
+	// estimatedDeliveryEl.textContent = order.estimatedDelivery || 'To be updated';
+
+	// Calculate estimated delivery (1 day after order date)
+	if (order.orderDate) {
+		const date = new Date(order.orderDate);
+		date.setDate(date.getDate() + 1); // +1 day for grocery delivery
+		const formatted = date.toLocaleDateString('en-US', {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric'
+		});
+		estimatedDeliveryEl.textContent = formatted;
+	} else {
+		estimatedDeliveryEl.textContent = 'To be updated';
+	}
 
 	const items = Array.isArray(order.items) ? order.items : [];
 	if (!items.length) {
@@ -190,6 +204,25 @@ function renderOrderDetails(order) {
 	summaryShippingEl.textContent = formatCurrency(order.shippingCharge || 0);
 	summaryPaymentEl.textContent = order.paymentMethod || '—';
 	summaryTotalEl.textContent = formatCurrency(order.total || 0);
+
+	if (order.status && order.status.toLowerCase().includes('cancel')) {
+		const cancelHTML = `
+		<div class="flex flex-col items-center justify-center text-center text-red-600 py-10 w-full">
+			<i class="fa-solid fa-circle-xmark text-5xl mb-4"></i>
+			<h2 class="text-2xl font-semibold mb-2">Order Canceled</h2>
+			<p class="text-gray-600">This order was canceled and will not be delivered.</p>
+		</div>
+	`;
+
+		// Apply same message to both desktop and mobile timelines
+		const desktopTimeline = document.getElementById('desktopTimeline');
+		const mobileTimeline = document.getElementById('mobileTimeline');
+
+		if (desktopTimeline) desktopTimeline.innerHTML = cancelHTML;
+		if (mobileTimeline) mobileTimeline.innerHTML = cancelHTML;
+
+		return; // Stop here (don’t render normal timeline)
+	}
 
 	const timeline = order.timeline && order.timeline.length ? order.timeline : getDefaultTimeline(order.orderDate);
 	renderTimeline(timeline);

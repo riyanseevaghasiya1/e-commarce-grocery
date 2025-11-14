@@ -2,6 +2,10 @@ $(document).ready(function () {
     // Category Carousel - Custom Implementation
     initializeCategorySlider();
 
+    // Daily Best Sells
+    var bestSellersCarousel = $('#bestSellers').owlCarousel({
+        loop: true,
+        // margin: 20,
     // Best Sellers Carousel
     var bestSellersCarousel = $('#bestSellers').owlCarousel({
         loop: false,
@@ -11,6 +15,24 @@ $(document).ready(function () {
         autoplay: false,
         responsive: {
             0: {
+                items: 1,
+                margin: 10,
+            },
+            480: {
+                items: 2,
+                margin: 12,
+            },
+            768: {
+                items: 3,
+                margin: 14,
+            },
+            992: {
+                items: 4,
+                margin: 16,
+            },
+            1200: {
+                items: 4,
+                margin: 20,
                 items: 1
             },
             480: {
@@ -31,12 +53,33 @@ $(document).ready(function () {
     // deal of the day
     var freshVegCarousel = $('#freshVeg').owlCarousel({
         loop: false,
+        // margin: 20,
         margin: 20,
         nav: false,
         dots: false,
         autoplay: false,
         responsive: {
             0: {
+                items: 1,
+                margin: 10,
+            },
+            480: {
+                items: 2,
+                margin: 12,
+            },
+            768: {
+                items: 3,
+                margin: 14,
+
+            },
+            992: {
+                items: 4, 
+                margin: 16,
+
+            },
+            1200: {
+                items: 5,
+                margin: 20,
                 items: 1
             },
             480: {
@@ -55,6 +98,99 @@ $(document).ready(function () {
     });
 
     // Custom Navigation Buttons - Now handled by scrollProducts function
+
+    // Category Item Click Animation
+    $('.shop-category-item').click(function () {
+        var categoryName = $(this).find('.shop-category-name').text();
+        console.log('Selected category: ' + categoryName);
+
+        $(this).css('transform', 'scale(0.95) translateY(-10px)');
+        setTimeout(() => {
+            $(this).css('transform', '');
+        }, 200);
+    });
+});
+
+// Quick View Modal Functions
+function openQuickView(button) {
+    const productCard = button.closest('.product-card');
+    const productImage = productCard.querySelector('.product-image');
+    const productName = productCard.querySelector('.product-name');
+    const productPrice = productCard.querySelector('.current-price');
+
+    const modal = document.getElementById('quickViewModal');
+    const modalImage = document.getElementById('modalProductImage');
+    const modalName = document.getElementById('modalProductName');
+    const modalPrice = document.getElementById('modalProductPrice');
+    const quantityInput = document.getElementById('quantityInput');
+
+    if (modalImage && productImage) {
+        modalImage.src = productImage.src;
+        modalImage.alt = productName ? productName.textContent : 'Product';
+    }
+
+    if (modalName && productName) {
+        modalName.textContent = productName.textContent;
+    }
+
+    if (modalPrice && productPrice) {
+        modalPrice.textContent = productPrice.textContent;
+    }
+
+    if (quantityInput) {
+        quantityInput.value = 1;
+    }
+
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+
+    document.body.style.overflow = 'hidden';
+}
+
+function closeQuickView() {
+    const modal = document.getElementById('quickViewModal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Quantity Controls
+function increaseQuantity() {
+    const input = document.getElementById('quantityInput');
+    if (input) {
+        const currentValue = parseInt(input.value) || 1;
+        input.value = Math.min(currentValue + 1, 99);
+    }
+}
+
+function decreaseQuantity() {
+    const input = document.getElementById('quantityInput');
+    if (input) {
+        const currentValue = parseInt(input.value) || 1;
+        input.value = Math.max(currentValue - 1, 1);
+    }
+}
+
+// Add to Cart from Modal
+function addToCartFromModal() {
+    const productName = document.getElementById('modalProductName');
+    const quantity = document.getElementById('quantityInput');
+
+    if (productName && quantity) {
+        console.log(`Added ${quantity.value}x "${productName.textContent}" to cart!`);
+
+        const btn = document.querySelector('.modal-add-to-cart');
+        if (btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+            btn.style.background = '#10b981';
+
     $('.shop-category-item').click(function () {
         const categoryName = $(this).find('.shop-category-name').text().trim();
         localStorage.setItem('selectedCategory', categoryName);

@@ -83,7 +83,7 @@
         <!-- Shop By Category Section - SLIDER WITH DOTS BELOW -->
         <section class="shop-category-wrapper">
             <div class="shop-category-header">
-                <h2 class="shop-category-title">Shop By Category</h2>
+                <h2 class="shop-category-title section-title">Shop By Category</h2>
             </div>
 
             <div class="shop-categories-container">
@@ -412,6 +412,21 @@
             </div>
         </section>
 
+        <!-- shop now content section -->
+        <section class="shop-now-content bg-[#00b207] rounded-md p-6 mb-[30px] md:mb-[50px]">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div class="text-white">
+                    <h4 class="text-[22px] sm:text-[26px] font-semibold mb-2">Get farm-fresh groceries delivered to your
+                        door!</h4>
+                    <h6 class="text-[14px] sm:text-[16px] font-medium">Handpicked fruits, vegetables, and essentials —
+                        fresher than ever.</h6>
+                </div>
+                <div class="h_shop-now-btn">
+                    <a href="./Shop.html">Shop Now</a>
+                </div>
+            </div>
+        </section>
+
         <!-- Deals Of the day -->
         <section class="products-slider-container">
             <div class="section-header">
@@ -428,7 +443,7 @@
             <div class="products-slider owl-carousel" id="freshVeg">
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=300" alt="Product"
+                        <img src="https://www.kroger.com/product/images/xlarge/front/0000000004066" alt="Product"
                             class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
@@ -458,8 +473,68 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=300" alt="Product"
-                            class="product-image">
+                        <span class="product-badge">On Sale</span>
+                        <img src="https://at.coca-colahellenic.com/en/our-24-7-portfolio/sparkling/_jcr_content/root/sectionteaser_image/container/teaser.coreimg.jpeg/1651242522120/brands.jpeg"
+                            alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn" onclick="addToWishlist(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Sparkling Soft Drinks</h4>
+                        <div class="product-price">
+                            <span class="current-price">$21.80</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart" onclick="addToCart(this)">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <!-- <span class="product-badge">On Sale</span> -->
+                        <img src="https://exoticflora.in/cdn/shop/products/exoticflorakinnow_1024x1024.jpg?v=1620208006"
+                            alt="Product" class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" onclick="openQuickView(this)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button class="action-btn" onclick="addToWishlist(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">Organic Orange</h4>
+                        <div class="product-price">
+                            <span class="current-price">$8.80</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <button class="add-to-cart" onclick="addToCart(this)">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="a_image_container">
+                        <img src="https://organicmandya.com/cdn/shop/files/Cabbage.jpg?v=1757077973&width=1000"
+                            alt="Product" class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -487,9 +562,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <span class="product-badge">On Sale</span>
-                        <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=300" alt="Product"
-                            class="product-image">
+                        <img src="https://www.shutterstock.com/image-photo/ripe-fresh-strawberries-green-leaves-260nw-2610323315.jpg"
+                            alt="Product" class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -500,36 +574,7 @@
                         </div>
                     </div>
                     <div class="product-info">
-                        <h4 class="product-name">Gourmet Garden Lightly Dried Cilantro</h4>
-                        <div class="product-price">
-                            <span class="current-price">$2.80</span>
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <div class="product-rating">
-                                <span class="stars">★★★★☆</span>
-                            </div>
-                            <button class="add-to-cart" onclick="addToCart(this)">
-                                <i class="fas fa-shopping-bag"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=300" alt="Product"
-                            class="product-image">
-                        <div class="product-actions">
-                            <button class="action-btn" onclick="openQuickView(this)">
-                                <i class="far fa-eye"></i>
-                            </button>
-                            <button class="action-btn" onclick="addToWishlist(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name">Fresh Cilantro</h4>
+                        <h4 class="product-name">Organic Fresh Strawberry</h4>
                         <div class="product-price">
                             <span class="current-price">$3.50</span>
                         </div>
@@ -546,8 +591,8 @@
 
                 <div class="product-card">
                     <div class="a_image_container">
-                        <img src="https://images.unsplash.com/photo-1608628812044-d7a5aac18211?w=300" alt="Product"
-                            class="product-image">
+                        <img src="https://t4.ftcdn.net/jpg/14/42/26/37/360_F_1442263733_76JmOGACga2UsSUyumrVLhUArpTSUBzP.jpg"
+                            alt="Product" class="product-image">
                         <div class="product-actions">
                             <button class="action-btn" onclick="openQuickView(this)">
                                 <i class="far fa-eye"></i>
@@ -575,6 +620,56 @@
             </div>
         </section>
 
+        <!-- testimonial section -->
+        <section class="">
+            <div class=" mx-auto rounded-lg pb-[30px] md:pb-[52px]">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        What Our Customer Say
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-[#f1f1f1] rounded-xl shadow-xl p-6 text-center">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Anna Sthesia"
+                            class="w-20 h-20 rounded-full mx-auto mb-4 object-cover" />
+                        <h3 class="text-lg font-semibold text-gray-800">Anna Sthesia</h3>
+                        <p class="text-sm text-gray-500 mb-4">November 17, 2025</p>
+                        <p class="text-gray-600">
+                            "I always find the freshest fruits and vegetables here. The delivery is fast and
+                            packaging is excellent. Highly recommend their grocery service!"
+                        </p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-[#f1f1f1] rounded-xl shadow-xl p-6 text-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mario Speedwagon"
+                            class="w-20 h-20 rounded-full mx-auto mb-4 object-cover" />
+                        <h3 class="text-lg font-semibold text-gray-800">Mario Speedwagon</h3>
+                        <p class="text-sm text-gray-500 mb-4">May 19, 2025</p>
+                        <p class="text-gray-600">
+                            "This grocery website made my life so easy! Great quality, reasonable prices,
+                            and super-friendly customer support. Love it!"
+                        </p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-[#f1f1f1] rounded-xl shadow-xl p-6 text-center">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Angelina Juli"
+                            class="w-20 h-20 rounded-full mx-auto mb-4 object-cover" />
+                        <h3 class="text-lg font-semibold text-gray-800">Angelina Juli</h3>
+                        <p class="text-sm text-gray-500 mb-4">September 10, 2025</p>
+                        <p class="text-gray-600">
+                            "I’ve switched to ordering all my groceries here. Everything is delivered on
+                            time and fresh. The experience is always smooth and reliable."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- Curated Collections -->
         <section>
             <div class="section-header">
@@ -582,34 +677,37 @@
             </div>
             <div class="collections-grid">
                 <div class="collection-card"
-                    style="background-image: url('https://images.unsplash.com/photo-1546171753-97d7676e4602?w=500');">
+                    style="background-image: url('https://images.unsplash.com/photo-1557844352-761f2565b576?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHZlZ2V0YWJsZXN8ZW58MHx8MHx8fDA%3D');">
                     <div class="collection-overlay">
-                        <h3 class="collection-title">Feel the thirsty in Summer anytime</h3>
-                        <p class="collection-description">Your body's way of telling you unapologetically</p>
+                        <h3 class="collection-title">Fresh Organic Vegetables</h3>
+                        <p class="collection-description">Discover nature’s finest — straight from the farm to your
+                            plate.</p>
                     </div>
                 </div>
                 <div class="collection-card"
-                    style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500');">
+                    style="background-image: url('https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGVhbHRoeSUyMGZvb2R8ZW58MHx8MHx8fDA%3D');">
                     <div class="collection-overlay">
-                        <h3 class="collection-title">Most popular item for Fast food</h3>
-                        <p class="collection-description">Tasty and spicy fast food with different flavors.</p>
+                        <h3 class="collection-title">Healthy Salads & Greens</h3>
+                        <p class="collection-description">Eat light, feel right — colorful, crunchy, and full of
+                            freshness.</p>
                     </div>
                 </div>
                 <div class="collection-card"
-                    style="background-image: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=500');">
+                    style="background-image: url('https://media.istockphoto.com/id/175176230/photo/fresh-fruits.webp?a=1&b=1&s=612x612&w=0&k=20&c=myYUviF56ZG2u6oOyX9lN-fvzach3eSqWj5ZEWJt2bk=');">
                     <div class="collection-overlay">
-                        <h3 class="collection-title">Authentic Japanese food in real taste</h3>
-                        <p class="collection-description">Your body's way of telling you that it's snack o'clock</p>
+                        <h3 class="collection-title">Farm Fresh Fruits</h3>
+                        <p class="collection-description">Juicy, natural sweetness for every season and every mood.</p>
                     </div>
                 </div>
                 <div class="collection-card"
-                    style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500');">
+                    style="background-image: url('https://plus.unsplash.com/premium_photo-1723485659167-e6ff630c5b07?q=80&w=742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
                     <div class="collection-overlay">
-                        <h3 class="collection-title">Explore our Family of Freshpet® Foods</h3>
-                        <p class="collection-description">Your best way of tasting you that it's make use.</p>
+                        <h3 class="collection-title">Plant-Based Essentials</h3>
+                        <p class="collection-description">Everything you need for a wholesome vegetarian lifestyle.</p>
                     </div>
                 </div>
             </div>
+
         </section>
     </div>
 
@@ -681,6 +779,25 @@
         } else {
             resetFilters();
         }
+
+
+
+
+         $(document).ready(function(){
+      $(".testimonial-slider").owlCarousel({
+        loop: true,
+        center: true,
+        margin: 30,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 4000,
+        responsive:{
+          0:{ items:1 },
+          768:{ items:2 },
+          1024:{ items:3 }
+        }
+      });
+    });
     </script>
 
 

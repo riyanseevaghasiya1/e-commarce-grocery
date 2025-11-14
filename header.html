@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="./index.css">
     <link rel="stylesheet" href="./css/rushita.css">
     <style>
-        /* CRITICAL FIX: Proper dropdown positioning */
-        .dropdown-container {
-            position: relative;
+        .rotate-180 {
+            transform: rotate(180deg);
+            transition: transform 200ms ease;
         }
 
         .currency-dropdown,
@@ -55,8 +55,8 @@
                 <div class="flex items-center justify-between h-20">
                     <a href="./home.html">
                         <div class="flex justify-start items-center gap-1">
-                            <img src="./images/logo.png" alt="" class="h-9 w-9 r_img">
-                            <h5 class="text-[20px] font-bold r_smnone">Grocery Go</h5>
+                            <img src="https://cdn-icons-png.flaticon.com/128/14264/14264157.png" alt="" class="h-9 w-9 r_img">
+                            <h5 class="text-[20px] font-bold">Grocery Go</h5>
                         </div>
                     </a>
                     <div class="hidden lg:flex flex-1 max-w-2xl mx-8">
@@ -67,9 +67,9 @@
                                 class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-4 md:space-x-6">
-                        <!-- Currency Dropdown (Desktop) - ADDED dropdown-container class -->
-                        <div class="hidden lg:block dropdown-container">
+                    <div class="flex items-center space-x-1 sm:space-x-4 md:space-x-6">
+                        <!-- Currency Dropdown (Desktop) -->
+                        <div class="hidden lg:block relative">
                             <button id="currencyBtn"
                                 class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition-colors">
                                 <span id="selectedCurrency" class="font-semibold text-gray-700">USD</span>
@@ -147,7 +147,7 @@
                         </div>
 
                         <button id="menuToggle" class="lg:hidden">
-                            <i class="fas fa-bars text-gray-700 text-2xl"></i>
+                            <i class="fas fa-bars text-gray-700 text-2xl ms-2"></i>
                         </button>
                     </div>
                 </div>
@@ -262,6 +262,9 @@
                             <a href="./Terms&condition.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Terms
                                 & Condition</a>
+                            <a href="./ReturnPolicy.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Return
+                                Policy</a>
                             <a href="./AboutUS.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">About
                                 Us</a>
@@ -282,7 +285,7 @@
             <div class="flex items-center justify-between p-6 border-b border-gray-200">
                 <a href="./home.html">
                     <div class="flex justify-start items-center gap-1">
-                        <img src="./images/logo.png" alt="" class="h-9 w-9">
+                        <img src="https://cdn-icons-png.flaticon.com/128/14264/14264157.png" alt="" class="h-9 w-9">
                         <h5 class="text-[20px] font-bold">Grocery Go</h5>
                     </div>
                 </a>
@@ -424,6 +427,23 @@
                 </div>
             </div>
         </div>
+    </div>
+    <script src="./js/ViewProduct.js"></script>
+    <script src="./js/rushita.js"></script>
+    <script src="./js/wishlist.js"></script>
+    <script src="./js/addtocart.js"></script>
+    <script src="./js/checkout.js"></script>
+    <script src="./js/Search.js"></script>
+    <script>
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 100) {
+                header.classList.add("fixed", "top-0", "left-0", "w-full", "shadow-md");
+            } else {
+                header.classList.remove("fixed", "top-0", "left-0", "w-full", "shadow-md");
+            }
+        });
+    </script>
         <script src="./js/ViewProduct.js"></script>
         <script src="./js/rushita.js"></script>
         <script src="./js/wishlist.js"></script>

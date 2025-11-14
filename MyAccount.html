@@ -68,7 +68,7 @@
 								class="w-28 h-28 rounded-full object-cover border-4 border-[#02b290] shadow-md"
 								alt="Profile Image">
 							<label for="uploadImage"
-								class="absolute bottom-0 right-0 bg-[#02b290] text-white py-[6px] px-[10px] rounded-full cursor-pointer shadow hover:bg-[#02997c] transition">
+								class="absolute bottom-0 right-0 bg-[#02b290] text-white py-[6px] px-[10px] rounded-full cursor-pointer shadow hover:bg-[#02997c] transition hidden">
 								<i class="fa-solid fa-camera text-sm"></i>
 							</label>
 							<input type="file" id="uploadImage" accept="image/*" class="hidden">
@@ -80,27 +80,26 @@
 						</div>
 					</div>
 
-
 					<form id="accountForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<label class="block font-medium mb-1">Full Name</label>
 							<input type="text" id="fullName" placeholder="John Doe"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none placeholder:text-black" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Email Address</label>
 							<input type="email" id="email" placeholder="john@example.com"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none placeholder:text-black" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Phone Number</label>
 							<input type="text" id="phone" placeholder="+91 98765 43210"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none placeholder:text-black" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Password</label>
 							<input type="password" id="password" placeholder="********"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
+								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none placeholder:text-black" disabled>
 						</div>
 						<div class="md:col-span-2 flex gap-3 mt-3">
 							<button id="editBtn" type="button"
@@ -116,7 +115,7 @@
 				<div id="orders" class="tab-content hidden">
 					<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Your Orders</h2>
 					<div class="overflow-x-auto">
-						<table class="min-w-[560px] w-full border rounded">
+						<table class="min-w-[630px] w-full border rounded">
 							<thead class="bg-[#e5e5e5]">
 								<tr>
 									<th class="py-2 px-3 text-left">Order ID</th>
@@ -308,7 +307,11 @@
 			uploadImage.disabled = false;
 			editBtn.classList.add('hidden');
 			saveBtn.classList.remove('hidden');
+
+			// ✅ Show camera icon only in edit mode
+			document.querySelector('label[for="uploadImage"]').classList.remove('hidden');
 		});
+
 
 		// Preview Image
 		uploadImage.addEventListener('change', (e) => {
@@ -334,7 +337,11 @@
 			saveBtn.classList.add('hidden');
 			editBtn.classList.remove('hidden');
 			alert('Account details saved successfully!');
+
+			//  Hide camera icon again after saving
+			document.querySelector('label[for="uploadImage"]').classList.add('hidden');
 		});
+
 	</script>
 
 	<script>
@@ -377,17 +384,22 @@
 				row.className = 'border-b';
 
 				row.innerHTML = `
-					<td class="py-2 px-3">#${order.orderId}</td>
-					<td class="py-2 px-3">${order.orderDate}</td>
-					<td class="py-2 px-3 current-price">${formatCurrency(order.total)}</td>
-					<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
-					<td class="py-2 px-3">
-						<button
-							class="view-btn bg-[#02b290] text-white px-3 py-1 rounded hover:bg-[#028f7a]"
-							data-order-id="${order.orderId}">
-							View
-						</button>
-					</td>
+				<td class="py-2 px-3">#${order.orderId}</td>
+				<td class="py-2 px-3">${order.orderDate}</td>
+				<td class="py-2 px-3">${formatCurrency(order.total)}</td>
+				<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
+				<td class="py-2 px-3 flex gap-2">
+					<button
+						class="view-btn bg-[#02b290] text-white px-3 py-1 rounded hover:bg-[#028f7a]"
+						data-order-id="${order.orderId}">
+						View
+					</button>
+					<button
+						class="cancel-btn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+						data-order-id="${order.orderId}">
+						Cancel
+					</button>
+				</td>
 				`;
 
 				const viewButton = row.querySelector('.view-btn');
@@ -401,6 +413,34 @@
 				});
 
 				ordersTableBody.appendChild(row);
+
+				const cancelButton = row.querySelector('.cancel-btn');
+				cancelButton.addEventListener('click', () => {
+					if (order.status && order.status.toLowerCase().includes('cancel')) {
+						alert('This order is already canceled.');
+						return;
+					}
+
+					if (!confirm('Are you sure you want to cancel this order?')) return;
+
+					order.status = 'Canceled';
+					// Update order timeline for tracking page
+					order.timeline = [
+						{ label: 'Order Placed', state: 'completed', timestamp: new Date().toISOString() },
+						{ label: 'Canceled', state: 'current', timestamp: new Date().toISOString() }
+					];
+
+					// Save updated orders list
+					const updatedOrders = JSON.parse(localStorage.getItem('orders')) || [];
+					const index = updatedOrders.findIndex(o => o.orderId === order.orderId);
+					if (index !== -1) updatedOrders[index] = order;
+					localStorage.setItem('orders', JSON.stringify(updatedOrders));
+
+					alert(`Order #${order.orderId} has been canceled.`);
+					renderOrders();
+				});
+
+
 			});
 		}
 
