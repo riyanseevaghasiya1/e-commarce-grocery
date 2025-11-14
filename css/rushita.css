@@ -63,6 +63,6 @@ select option:checked {
       width: 100%;
     }
 
-    /* .sticky + .content {
+    .sticky + .content {
       padding-top:150px;
-    } */
+    }
