@@ -400,8 +400,15 @@
 			resetBtns.forEach(btn => {
 				btn.addEventListener("click", () => {
 					localStorage.removeItem("selectedCategory");
+
+					// NEW FIX ADDED BELOW
+					if (typeof state !== "undefined") {
+						state.categories = new Set();  // Clear category filters
+						renderProducts();              // Reload all products
+					}
 				});
 			});
+
 		});
 	</script>
 
@@ -708,7 +715,14 @@
 		}
 
 	</script>
+	<script>
+		resetBtns.forEach(btn => {
+			btn.addEventListener("click", () => {
+				localStorage.removeItem("selectedCategory");
+			});
+		});
 
+	</script>
 </body>
 
 </html>

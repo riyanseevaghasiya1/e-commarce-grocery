@@ -36,18 +36,33 @@ $(document).ready(function () {
             480: { items: 2 },
             768: { items: 3 },
             992: { items: 4 },
-            1200: { items: 5 }
+            1200: { items: 4 }
         }
     });
+
+
+
+    // Currency Change
+    document.getElementById("currencySelect").addEventListener("change", function () {
+        let curr = this.value;
+        document.querySelectorAll(".trend-price").forEach(el => {
+            let usd = parseFloat(el.dataset.usd);
+
+            if (curr === "USD") el.innerText = "$" + usd.toFixed(2);
+            if (curr === "INR") el.innerText = "₹" + (usd * 83).toFixed(0);
+            if (curr === "EUR") el.innerText = "€" + (usd * 0.92).toFixed(2);
+        });
+    });
+
 
     // ==========================================
     // CATEGORY CLICK HANDLER
     // ==========================================
-   $('.shop-category-item').click(function () {
-  const categoryName = $(this).find('.shop-category-name').text().trim();
-  localStorage.setItem('selectedCategory', categoryName);
-  window.location.href = './Shop.html';
-});
+    $('.shop-category-item').click(function () {
+        const categoryName = $(this).find('.shop-category-name').text().trim();
+        localStorage.setItem('selectedCategory', categoryName);
+        window.location.href = './Shop.html';
+    });
 
 
     // ==========================================
