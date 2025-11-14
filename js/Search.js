@@ -98,7 +98,7 @@
                                 <span style="
                                     font-size: 18px;
                                     font-weight: 700;
-                                    color: #0db561;
+                                    color: #02B290;
                                 ">${product.price}</span>
                                 ${product.oldPrice ? `<span style="
                                     font-size: 14px;
@@ -112,7 +112,7 @@
                             </div>
                             ${product.badge ? `<span style="
                                 display: inline-block;
-                                background: #0db561;
+                                background: #02B290;
                                 color: white;
                                 font-size: 12px;
                                 padding: 4px 8px;
@@ -192,7 +192,7 @@
                     viewAllLink.href = `./Shop.html?search=${encodeURIComponent(query)}`;
                     viewAllLink.textContent = `View all ${results.length} results`;
                     viewAllLink.style.cssText = `
-                        color: #0db561;
+                        color: #02B290;
                         font-weight: 600;
                         text-decoration: none;
                     `;

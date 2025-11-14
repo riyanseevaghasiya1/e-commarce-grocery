@@ -162,8 +162,20 @@ function renderOrderDetails(order) {
 
 	orderIdEl.textContent = `#${order.orderId}`;
 	orderDateEl.textContent = order.orderDate || '—';
-	estimatedDeliveryEl.textContent = order.estimatedDelivery || 'To be updated';
 
+	// Calculate estimated delivery (1 day after order date)
+	if (order.orderDate) {
+		const date = new Date(order.orderDate);
+		date.setDate(date.getDate() + 1); // +1 day for grocery delivery
+		const formatted = date.toLocaleDateString('en-US', {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric'
+		});
+		estimatedDeliveryEl.textContent = formatted;
+	} else {
+		estimatedDeliveryEl.textContent = 'To be updated';
+	}
 	const items = Array.isArray(order.items) ? order.items : [];
 	if (!items.length) {
 		itemsListEl.innerHTML = '<p class="text-gray-500">No items found in this order.</p>';
