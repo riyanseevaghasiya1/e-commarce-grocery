@@ -5,16 +5,12 @@
 }
 
 :root {
-    --primary-color: #0db561;
-    --secondary-color: #2c742f;
+    --primary-color: #02B290;
+    --secondary-color: #4dc9b1;
     --blacktext: #1a1a1a;
     --gray-text: #666;
     --light-bg: #f3f8fb;
     --border-color: #e5e5e5;
-    --primary-color: #10B981;
-    --secondary-color: #2c742f;
-    --blacktext: #1a1a1a;
-    --gray-text: #666;
     --light-bg: #f3f8fb;
     --border-color: #e5e5e5;
 }
@@ -107,7 +103,7 @@ body {
 }
 
 .hero-btn {
-    background: #0db561;
+    background: #02B290;
     color: white;
     border: none;
     padding: 12px 28px;
@@ -420,6 +416,7 @@ body {
     font-weight: 700;
     margin: 0;
     color: var(--blacktext);
+    margin-bottom: 20px;
 }
 
 .section-navigation {
