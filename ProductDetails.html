@@ -25,7 +25,7 @@
 				<a href="./home.html" class="text-black/60">Home</a>
 				<span class="mx-2"><i class="fa-solid fa-angle-right"></i></span>
 				<a href="./Shop.html">
-					<span class="font-semibold">Shop</span>
+					<span class="font-semibold text-black/60">Shop</span>
 				</a>
 				<span class="mx-2"><i class="fa-solid fa-angle-right"></i></span>
 				<h1 class="text-[16px] font-semibold productname">Apples</h1>
@@ -43,18 +43,18 @@
 						class="w-full h-96 object-cover rounded-xl mb-4" />
 					<div class="flex gap-3 justify-center">
 						<img onclick="swapImage(this)" src="./images/apple1.jpg" alt="Thumb 1"
-							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
+							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#0db561] cursor-pointer" />
 						<img onclick="swapImage(this)" src="./images/apple2.avif" alt="Thumb 2"
-							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
+							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#0db561] cursor-pointer" />
 						<img onclick="swapImage(this)" src="./images/apple.jpg" alt="Thumb 3"
-							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02b290] cursor-pointer" />
+							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#0db561] cursor-pointer" />
 					</div>
 				</div>
 
 				<!-- Details -->
 				<div class="flex flex-col justify-center">
-					<h1 class="text-2xl font-semibold mb-2">Fresh Organic Apples</h1>
-					<div id="currentPrice" class="text-[#02b290] text-xl font-bold mb-2">$12.00
+					<h1 class="text-2xl font-semibold mb-2 mainproductname">Fresh Organic Apples</h1>
+					<div id="currentPrice" class="text-[#0db561] text-xl font-bold mb-2">$12.00
 						<span id="price" class="line-through text-gray-400 text-lg ml-2">$15.00</span>
 					</div>
 
@@ -64,11 +64,11 @@
 
 					<div class="flex items-center gap-4 mb-6">
 						<button onclick="decreaseQty()"
-							class="bg-[#02b290] text-white w-8 h-8 rounded-md text-[22px]">-</button>
+							class="bg-[#0db561] text-white w-8 h-8 rounded-md text-[22px]">-</button>
 						<input id="qty" type="number" value="1" min="1"
 							class="w-16 text-center border border-gray-300 rounded-md py-1" />
 						<button onclick="increaseQty()"
-							class="bg-[#02b290] text-white w-8 h-8 rounded-md text-[22px]">+</button>
+							class="bg-[#0db561] text-white w-8 h-8 rounded-md text-[22px]">+</button>
 					</div>
 
 					<div class="flex items-center gap-4 mb-6">
@@ -78,7 +78,7 @@
 							500g
 						</div>
 						<div onclick="selectWeight(this)"
-							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option bg-[#02b290] text-white">
+							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option bg-[#0db561] text-white">
 							1 Kg
 						</div>
 						<div onclick="selectWeight(this)"
@@ -92,19 +92,19 @@
 					</div>
 
 					<button
-						class="bg-[#02b290] hover:bg-[#028f7a] text-white py-2 text-[18px] rounded-lg font-medium transition mb-3"
+						class="bg-[#0db561] hover:bg-[#028f7a] text-white py-2 text-[18px] rounded-lg font-medium transition mb-3"
 						onclick="addToCart1(this)">
 						Add to Cart
 					</button>
 
 					<button
-						class="hover:bg-[#02b290] border border-[#02b290] text-[#02b290] hover:text-white py-2 text-[18px] rounded-lg font-medium transition mb-3 buy-now-btn">
+						class="hover:bg-[#0db561] border border-[#0db561] text-[#0db561] hover:text-white py-2 text-[18px] rounded-lg font-medium transition mb-3 buy-now-btn">
 						Buy Now
 					</button>
 				</div>
 			</div>
 			<div class="mt-10 bg-white rounded-xl shadow-md p-6">
-				<h3 class="text-xl font-semibold text-[#02b290] mb-2">Product Details</h3>
+				<h3 class="text-xl font-semibold text-[#0db561] mb-2">Product Details</h3>
 				<p class="text-gray-700 mb-4">These apples are 100% organic, handpicked, and pesticide-free. Each pack
 					contains approximately 5–6 medium-sized apples. Store in a cool, dry place or refrigerate for
 					freshness.</p>
@@ -139,7 +139,7 @@
 			</div>
 
 			<div class="mt-10 bg-white rounded-xl shadow-md p-6">
-				<h3 class="text-xl font-semibold text-[#02b290] mb-3">Delivery & Return Policy</h3>
+				<h3 class="text-xl font-semibold text-[#0db561] mb-3">Delivery & Return Policy</h3>
 				<ul class="text-gray-700 list-disc list-inside space-y-2">
 					<li>Orders placed before 2 PM are delivered on the same day.</li>
 					<li>We deliver across major cities in India within 1–2 business days.</li>
@@ -150,7 +150,7 @@
 
 			<!-- Customer Reviews -->
 			<div class="mt-10 bg-white rounded-xl shadow-md p-6">
-				<h3 class="text-xl font-semibold text-[#02b290] mb-3">Customer Reviews (3)</h3>
+				<h3 class="text-xl font-semibold text-[#0db561] mb-3">Customer Reviews (3)</h3>
 				<div class="space-y-4">
 					<div class="border-b pb-3">
 						<div class="flex justify-between items-center">
@@ -178,7 +178,7 @@
 
 				<!-- Write Review Button -->
 				<button onclick="toggleReviewForm()"
-					class="mt-5 border border-[#02b290] text-[#02b290] hover:bg-[#028f7a] hover:text-white py-2 px-5 rounded-lg font-semibold transition">Write
+					class="mt-5 border border-[#0db561] text-[#0db561] hover:bg-[#028f7a] hover:text-white py-2 px-5 rounded-lg font-semibold transition">Write
 					a Review</button>
 
 				<!-- Hidden Review Form -->
@@ -188,12 +188,12 @@
 						<div>
 							<label class="block text-sm font-medium mb-1">Name</label>
 							<input type="text" placeholder="Enter your name"
-								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02b290]">
+								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0db561]">
 						</div>
 						<div>
 							<label class="block text-sm font-medium mb-1">Rating</label>
 							<select
-								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02b290]">
+								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0db561]">
 								<option value="">Select Rating</option>
 								<option>★★★★★</option>
 								<option>★★★★☆</option>
@@ -205,10 +205,10 @@
 						<div>
 							<label class="block text-sm font-medium mb-1">Your Review</label>
 							<textarea rows="4" placeholder="Write your feedback here..."
-								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02b290]"></textarea>
+								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0db561]"></textarea>
 						</div>
 						<button type="submit"
-							class="bg-[#02b290] text-white py-2 px-5 rounded-md font-semibold hover:bg-[#028f7a] transition">Submit
+							class="bg-[#0db561] text-white py-2 px-5 rounded-md font-semibold hover:bg-[#028f7a] transition">Submit
 							Review</button>
 					</form>
 				</div>
@@ -286,7 +286,7 @@
 				// Update price - find the price div by looking for the parent div containing price
 				const detailsDiv = document.querySelector('.flex.flex-col.justify-center');
 				if (detailsDiv) {
-					const priceDiv = detailsDiv.querySelector('.text-\\[\\#02b290\\]');
+					const priceDiv = detailsDiv.querySelector('.text-\\[\\#0db561\\]');
 					if (priceDiv && product.price) {
 						priceDiv.innerHTML = product.price + (product.oldPrice ? `<span class="line-through text-gray-400 text-lg ml-2">${product.oldPrice}</span>` : '');
 					}
@@ -311,9 +311,9 @@
 
 		function selectWeight(el) {
 			document.querySelectorAll('.weight-option').forEach(opt => {
-				opt.classList.remove('bg-[#02b290]', 'text-white');
+				opt.classList.remove('bg-[#0db561]', 'text-white');
 			});
-			el.classList.add('bg-[#02b290]', 'text-white');
+			el.classList.add('bg-[#0db561]', 'text-white');
 		}
 		document.querySelectorAll('div[onclick="selectWeight(this)"]').forEach(opt => {
 			opt.classList.add('weight-option');
@@ -360,7 +360,7 @@
 			const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
 
 			const selectedWeightEl =
-				document.querySelector('[class*="weight-option"][class*="bg-[#02b290]"]') ||
+				document.querySelector('[class*="weight-option"][class*="bg-[#0db561]"]') ||
 				document.querySelector('[class*="weight-option"].active') ||
 				document.querySelector('.weight-option');
 			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
@@ -428,8 +428,8 @@
 						const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
 						if (weightOptions.length) {
 							const selected = weightOptions.find(opt =>
-								opt.classList.contains('bg-[#02b290]') ||
-								opt.classList.contains('bg-\\[\\#02b290\\]') ||
+								opt.classList.contains('bg-[#0db561]') ||
+								opt.classList.contains('bg-\\[\\#0db561\\]') ||
 								opt.classList.contains('selected') ||
 								opt.classList.contains('active')
 							);

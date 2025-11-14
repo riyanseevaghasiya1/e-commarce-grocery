@@ -14,11 +14,11 @@ $(document).ready(function () {
         dots: false,
         autoplay: false,
         responsive: {
-            0: { items: 1 },
-            480: { items: 2 },
-            768: { items: 3 },
-            992: { items: 4 },
-            1200: { items: 4 }
+            0: {items: 1},
+            480: {items: 2},
+            768: {items: 3},
+            992: {items: 4},
+            1200: {items: 4}
         }
     });
 
@@ -32,7 +32,26 @@ $(document).ready(function () {
         dots: false,
         autoplay: false,
         responsive: {
+            0: {items: 1},
+            480: {items: 2},
+            768: {items: 3},
+            992: {items: 4},
+            1200: {items: 5}
+        }
+    });
+
+    var testimonialSlider = $('#testimonialSlider').owlCarousel({
+        loop: true,
+        // margin: 20,
+        center: true,
+        dots: true,
+        autoplay: false,
+        autoplayTimeout: 3500,
+        smartSpeed: 800,
+        responsive: {
             0: { items: 1 },
+            768: { items: 2 },
+            1024: { items: 3 }
             480: { items: 2 },
             768: { items: 3 },
             992: { items: 4 },
@@ -149,7 +168,7 @@ $(document).ready(function () {
             if (btn) {
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-                btn.style.background = '#10b981';
+                btn.style.background = '#0db561';
 
                 setTimeout(() => {
                     btn.innerHTML = originalText;
@@ -200,7 +219,7 @@ $(document).ready(function () {
                 console.log(`🛒 Added "${productName}" (${productPrice}) to cart!`);
 
                 button.style.transform = 'scale(1.2)';
-                button.style.background = '#10b981';
+                button.style.background = '#0db561';
                 button.style.color = 'white';
 
                 setTimeout(() => {
