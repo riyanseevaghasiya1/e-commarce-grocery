@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,12 @@
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="auth-container">
         <!-- Left Section with Image -->
         <div class="left-section">
-            <img src="../images/loginimage.png" alt="Fresh vegetables and meat">
+            <img src="./images//loginformimges.jpg" alt="Fresh vegetables and meat">
         </div>
 
         <!-- Right Section with Forms -->
@@ -28,7 +30,8 @@
                 <!-- Login Page -->
                 <div id="loginPage" class="page active">
                     <h1 class="page-title">Welcome Back, Get Login</h1>
-                    <p class="page-subtitle">Join us anytime. Don't have an account? <a href="#" onclick="showPage('registerPage')">Create account</a></p>
+                    <p class="page-subtitle">Join us anytime. Don't have an account? <a href="#"
+                            onclick="showPage('registerPage')">Create account</a></p>
 
                     <div class="success-message" id="loginSuccessMsg"></div>
 
@@ -43,7 +46,8 @@
                             <label class="form-label">Password <span class="required">*</span></label>
                             <div class="input-wrapper">
                                 <input type="password" class="form-input" id="loginPassword">
-                                <i class="fas fa-eye password-toggle" onclick="togglePassword('loginPassword', this)"></i>
+                                <i class="fas fa-eye password-toggle"
+                                    onclick="togglePassword('loginPassword', this)"></i>
                             </div>
                             <div class="error-message" id="loginPasswordError"></div>
                         </div>
@@ -70,7 +74,8 @@
                 <!-- Register Page -->
                 <div id="registerPage" class="page">
                     <h1 class="page-title">Create Your Account</h1>
-                    <p class="page-subtitle">Join us today. Already have an account? <a href="#" onclick="showPage('loginPage')">Login here</a></p>
+                    <p class="page-subtitle">Join us today. Already have an account? <a href="#"
+                            onclick="showPage('loginPage')">Login here</a></p>
 
                     <div class="success-message" id="registerSuccessMsg"></div>
 
@@ -90,8 +95,10 @@
                         <div class="form-group">
                             <label class="form-label">Password <span class="required">*</span></label>
                             <div class="input-wrapper">
-                                <input type="password" class="form-input" id="registerPassword" placeholder="Minimum 8 characters">
-                                <i class="fas fa-eye password-toggle" onclick="togglePassword('registerPassword', this)"></i>
+                                <input type="password" class="form-input" id="registerPassword"
+                                    placeholder="Minimum 8 characters">
+                                <i class="fas fa-eye password-toggle"
+                                    onclick="togglePassword('registerPassword', this)"></i>
                             </div>
                             <div class="error-message" id="registerPasswordError"></div>
                         </div>
@@ -99,8 +106,10 @@
                         <div class="form-group">
                             <label class="form-label">Confirm Password <span class="required">*</span></label>
                             <div class="input-wrapper">
-                                <input type="password" class="form-input" id="registerConfirmPassword" placeholder="Re-enter password">
-                                <i class="fas fa-eye password-toggle" onclick="togglePassword('registerConfirmPassword', this)"></i>
+                                <input type="password" class="form-input" id="registerConfirmPassword"
+                                    placeholder="Re-enter password">
+                                <i class="fas fa-eye password-toggle"
+                                    onclick="togglePassword('registerConfirmPassword', this)"></i>
                             </div>
                             <div class="error-message" id="registerConfirmPasswordError"></div>
                         </div>
@@ -127,7 +136,8 @@
                 <!-- Forgot Password Page -->
                 <div id="forgotPage" class="page">
                     <h1 class="page-title">Forgot Password?</h1>
-                    <p class="page-subtitle">Enter your email to receive reset instructions. <a href="#" onclick="showPage('loginPage')">Back to login</a></p>
+                    <p class="page-subtitle">Enter your email to receive reset instructions. <a href="#"
+                            onclick="showPage('loginPage')">Back to login</a></p>
 
                     <div class="success-message" id="forgotSuccessMsg"></div>
 
@@ -152,18 +162,25 @@
                 <!-- OTP Verification Page -->
                 <div id="otpPage" class="page">
                     <h1 class="page-title">Verify Your Email</h1>
-                    <p class="page-subtitle">Enter the 6-digit code sent to <span id="otpEmail" style="font-weight: 600;"></span></p>
+                    <p class="page-subtitle">Enter the 6-digit code sent to <span id="otpEmail"
+                            style="font-weight: 600;"></span></p>
 
                     <div class="success-message" id="otpSuccessMsg"></div>
 
                     <form id="otpForm" onsubmit="handleOTPVerify(event)">
                         <div class="otp-inputs">
-                            <input type="text" class="otp-input" maxlength="1" id="otp1" oninput="handleOTPInput(event, 'otp1')" onkeydown="handleOTPKeydown(event, 'otp1')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp2" oninput="handleOTPInput(event, 'otp2')" onkeydown="handleOTPKeydown(event, 'otp2')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp3" oninput="handleOTPInput(event, 'otp3')" onkeydown="handleOTPKeydown(event, 'otp3')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp4" oninput="handleOTPInput(event, 'otp4')" onkeydown="handleOTPKeydown(event, 'otp4')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp5" oninput="handleOTPInput(event, 'otp5')" onkeydown="handleOTPKeydown(event, 'otp5')">
-                            <input type="text" class="otp-input" maxlength="1" id="otp6" oninput="handleOTPInput(event, 'otp6')" onkeydown="handleOTPKeydown(event, 'otp6')">
+                            <input type="text" class="otp-input" maxlength="1" id="otp1"
+                                oninput="handleOTPInput(event, 'otp1')" onkeydown="handleOTPKeydown(event, 'otp1')">
+                            <input type="text" class="otp-input" maxlength="1" id="otp2"
+                                oninput="handleOTPInput(event, 'otp2')" onkeydown="handleOTPKeydown(event, 'otp2')">
+                            <input type="text" class="otp-input" maxlength="1" id="otp3"
+                                oninput="handleOTPInput(event, 'otp3')" onkeydown="handleOTPKeydown(event, 'otp3')">
+                            <input type="text" class="otp-input" maxlength="1" id="otp4"
+                                oninput="handleOTPInput(event, 'otp4')" onkeydown="handleOTPKeydown(event, 'otp4')">
+                            <input type="text" class="otp-input" maxlength="1" id="otp5"
+                                oninput="handleOTPInput(event, 'otp5')" onkeydown="handleOTPKeydown(event, 'otp5')">
+                            <input type="text" class="otp-input" maxlength="1" id="otp6"
+                                oninput="handleOTPInput(event, 'otp6')" onkeydown="handleOTPKeydown(event, 'otp6')">
                         </div>
                         <div class="error-message" id="otpError" style="text-align: center;"></div>
 
@@ -174,10 +191,55 @@
                         Didn't receive code? <span class="resend-link" onclick="resendOTP()">Resend</span>
                     </div>
                 </div>
+
+                <!-- Reset Password Page -->
+                <div id="resetPasswordPage" class="page">
+                    <h1 class="page-title">Reset Your Password</h1>
+                    <p class="page-subtitle">Enter your old password and new password below.</p>
+
+                    <div class="success-message" id="resetSuccessMsg"></div>
+
+                    <form id="resetPasswordForm" onsubmit="handleResetPassword(event)">
+                        <div class="form-group">
+                            <label class="form-label">Old Password <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <input type="password" class="form-input" id="oldPassword"
+                                    placeholder="Enter your old password">
+                                <i class="fas fa-eye password-toggle" onclick="togglePassword('oldPassword', this)"></i>
+                            </div>
+                            <div class="error-message" id="oldPasswordError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">New Password <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <input type="password" class="form-input" id="newPassword"
+                                    placeholder="Enter new password">
+                                <i class="fas fa-eye password-toggle" onclick="togglePassword('newPassword', this)"></i>
+                            </div>
+                            <div class="error-message" id="newPasswordError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Confirm New Password <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <input type="password" class="form-input" id="confirmNewPassword"
+                                    placeholder="Confirm new password">
+                                <i class="fas fa-eye password-toggle"
+                                    onclick="togglePassword('confirmNewPassword', this)"></i>
+                            </div>
+                            <div class="error-message" id="confirmNewPasswordError"></div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Update Password</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
 
     <script src="./js/login.js"></script>
 </body>
+
 </html>
