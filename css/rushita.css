@@ -66,3 +66,40 @@ select option:checked {
     .sticky + .content {
       padding-top:150px;
     }
+
+   /* UNIVERSAL DROPDOWN SCROLL FIX */
+.dropdown-scroll,
+nav .group:hover > div,
+.mobile-accordion-content,
+.user-dropdown,
+.currency-dropdown {
+    max-height: 320px !important;
+    overflow-y: auto !important;
+    scrollbar-width: thin; /* Firefox */
+}
+
+/* Chrome Scrollbar Styling */
+.dropdown-scroll::-webkit-scrollbar,
+nav .group:hover > div::-webkit-scrollbar,
+.mobile-accordion-content::-webkit-scrollbar,
+.user-dropdown::-webkit-scrollbar,
+.currency-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-scroll::-webkit-scrollbar-thumb,
+nav .group:hover > div::-webkit-scrollbar-thumb,
+.mobile-accordion-content::-webkit-scrollbar-thumb,
+.user-dropdown::-webkit-scrollbar-thumb,
+.currency-dropdown::-webkit-scrollbar-thumb {
+    background: #2ecc71;
+    border-radius: 10px;
+}
+
+.dropdown-scroll::-webkit-scrollbar-track,
+nav .group:hover > div::-webkit-scrollbar-track,
+.mobile-accordion-content::-webkit-scrollbar-track,
+.user-dropdown::-webkit-scrollbar-track,
+.currency-dropdown::-webkit-scrollbar-track {
+    background: #eaeaea;
+}
