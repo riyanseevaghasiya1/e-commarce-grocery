@@ -1,4 +1,5 @@
 // Product Data - Shared across all pages
+// Product Data - Shared across all pages
 const allProducts = [
 	{
 		name: "Organic Spring Mix", price: "$35.00", oldPrice: "", rating: "★★★★☆", img: "https://images-cdn.ubuy.co.in/66e977cdf3858528d36b3a4c-organic-spring-mix-lettuce-5oz-good.jpg", badge: "Sale 50%", category: "Greens", sku: "OSM-001", description: "Fresh and organic spring mix salad greens delivered right to your doorstep. Our products are carefully selected to ensure the highest quality and freshness. Perfect for healthy meals and snacks.",
@@ -161,6 +162,8 @@ const allProducts = [
 		]
 	}
 ];
+
+
 
 // Function to navigate to ProductDetails page with product index
 function viewProductDetails(productIndex) {

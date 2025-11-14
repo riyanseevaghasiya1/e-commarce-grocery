@@ -6,6 +6,10 @@ $(document).ready(function () {
     var bestSellersCarousel = $('#bestSellers').owlCarousel({
         loop: true,
         // margin: 20,
+    // Best Sellers Carousel
+    var bestSellersCarousel = $('#bestSellers').owlCarousel({
+        loop: false,
+        margin: 20,
         nav: false,
         dots: false,
         autoplay: false,
@@ -29,6 +33,19 @@ $(document).ready(function () {
             1200: {
                 items: 4,
                 margin: 20,
+                items: 1
+            },
+            480: {
+                items: 2
+            },
+            768: {
+                items: 3
+            },
+            992: {
+                items: 4
+            },
+            1200: {
+                items: 4
             }
         }
     });
@@ -37,6 +54,7 @@ $(document).ready(function () {
     var freshVegCarousel = $('#freshVeg').owlCarousel({
         loop: false,
         // margin: 20,
+        margin: 20,
         nav: false,
         dots: false,
         autoplay: false,
@@ -62,6 +80,19 @@ $(document).ready(function () {
             1200: {
                 items: 5,
                 margin: 20,
+                items: 1
+            },
+            480: {
+                items: 2
+            },
+            768: {
+                items: 3
+            },
+            992: {
+                items: 4
+            },
+            1200: {
+                items: 5
             }
         }
     });
@@ -78,6 +109,126 @@ $(document).ready(function () {
             $(this).css('transform', '');
         }, 200);
     });
+});
+
+// Quick View Modal Functions
+function openQuickView(button) {
+    const productCard = button.closest('.product-card');
+    const productImage = productCard.querySelector('.product-image');
+    const productName = productCard.querySelector('.product-name');
+    const productPrice = productCard.querySelector('.current-price');
+
+    const modal = document.getElementById('quickViewModal');
+    const modalImage = document.getElementById('modalProductImage');
+    const modalName = document.getElementById('modalProductName');
+    const modalPrice = document.getElementById('modalProductPrice');
+    const quantityInput = document.getElementById('quantityInput');
+
+    if (modalImage && productImage) {
+        modalImage.src = productImage.src;
+        modalImage.alt = productName ? productName.textContent : 'Product';
+    }
+
+    if (modalName && productName) {
+        modalName.textContent = productName.textContent;
+    }
+
+    if (modalPrice && productPrice) {
+        modalPrice.textContent = productPrice.textContent;
+    }
+
+    if (quantityInput) {
+        quantityInput.value = 1;
+    }
+
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+
+    document.body.style.overflow = 'hidden';
+}
+
+function closeQuickView() {
+    const modal = document.getElementById('quickViewModal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Quantity Controls
+function increaseQuantity() {
+    const input = document.getElementById('quantityInput');
+    if (input) {
+        const currentValue = parseInt(input.value) || 1;
+        input.value = Math.min(currentValue + 1, 99);
+    }
+}
+
+function decreaseQuantity() {
+    const input = document.getElementById('quantityInput');
+    if (input) {
+        const currentValue = parseInt(input.value) || 1;
+        input.value = Math.max(currentValue - 1, 1);
+    }
+}
+
+// Add to Cart from Modal
+function addToCartFromModal() {
+    const productName = document.getElementById('modalProductName');
+    const quantity = document.getElementById('quantityInput');
+
+    if (productName && quantity) {
+        console.log(`Added ${quantity.value}x "${productName.textContent}" to cart!`);
+
+        const btn = document.querySelector('.modal-add-to-cart');
+        if (btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+            btn.style.background = '#10b981';
+
+    $('.shop-category-item').click(function () {
+        const categoryName = $(this).find('.shop-category-name').text().trim();
+        localStorage.setItem('selectedCategory', categoryName);
+        window.location.href = './Shop.html';
+    });
+
+
+        
+        // Quick View Modal Functions
+        function openQuickView(button) {
+            const productCard = button.closest('.product-card');
+            const productImage = productCard.querySelector('.product-image');
+            const productName = productCard.querySelector('.product-name');
+            const productPrice = productCard.querySelector('.current-price');
+
+            const modal = document.getElementById('quickViewModal');
+            const modalImage = document.getElementById('modalProductImage');
+            const modalName = document.getElementById('modalProductName');
+            const modalPrice = document.getElementById('modalProductPrice');
+            const quantityInput = document.getElementById('quantityInput');
+
+            if (modalImage && productImage) {
+                modalImage.src = productImage.src;
+                modalImage.alt = productName ? productName.textContent : 'Product';
+            }
+            
+            if (modalName && productName) {
+                modalName.textContent = productName.textContent;
+            }
+            
+            if (modalPrice && productPrice) {
+                modalPrice.textContent = productPrice.textContent;
+            }
+            
+            if (quantityInput) {
+                quantityInput.value = 1;
+            }
+
 });
 
 // Quick View Modal Functions
@@ -586,6 +737,20 @@ function scrollProducts(sliderId, direction) {
 console.log('✅ Home.js loaded successfully!');
 console.log('✅ Grocery Store - Owl Carousel Version Loaded Successfully!');
 
+
+
+function resetFilters() {
+    // Reset all filter inputs
+    const filterInputs = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+    filterInputs.forEach(input => input.checked = false);
+
+    // Reset any filter dropdowns
+    const filterSelects = document.querySelectorAll('select.filter-select');
+    filterSelects.forEach(select => select.selectedIndex = 0);
+
+    // Reload or refilter products
+    console.log('Filters reset');
+}
 
 
 

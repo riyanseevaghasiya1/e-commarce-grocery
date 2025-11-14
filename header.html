@@ -19,27 +19,30 @@
         .user-dropdown {
             display: none;
             opacity: 0;
+            visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
+            position: absolute;
+            top: 100%;
+            /* Position below the button */
+            right: 0;
+            margin-top: 0.5rem;
+            z-index: 9999;
         }
 
+        /* FORCE SHOW */
         .currency-dropdown.show,
         .user-dropdown.show {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
         }
 
         .currency-item:hover,
         .user-menu-item:hover {
             background-color: #f0fdf4;
             color: #10b981;
-        }
-
-        @media (max-width: 1024px) {
-            .mobile-currency-select {
-                width: 100%;
-            }
         }
     </style>
 </head>
@@ -73,7 +76,7 @@
                                 <i class="fas fa-chevron-down text-xs text-gray-500"></i>
                             </button>
                             <div id="currencyDropdown"
-                                class="currency-dropdown absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                                class="currency-dropdown right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200">
                                 <div class="py-2">
                                     <button onclick="changeCurrency('AUD', '$', 1.52)"
                                         class="currency-item w-full text-left px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
@@ -104,8 +107,8 @@
                             </a>
                         </button>
 
-                        <!-- User Menu (Desktop) -->
-                        <div class="hidden lg:block relative">
+                        <!-- User Menu (Desktop) - ADDED dropdown-container class -->
+                        <div class="hidden lg:block dropdown-container">
                             <!-- Login Button (shown when not logged in) -->
                             <button id="loginBtn"
                                 class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors font-semibold">
@@ -119,7 +122,7 @@
                                     <i class="fas fa-chevron-down text-xs text-gray-500"></i>
                                 </button>
                                 <div id="userDropdown"
-                                    class="user-dropdown absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                                    class="user-dropdown right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200">
                                     <div class="py-2">
                                         <a href="./MyAccount.html"
                                             class="user-menu-item block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
@@ -169,11 +172,11 @@
             <div class="border-t p-6">
                 <div class="flex items-center justify-between mb-4">
                     <span class="text-lg font-semibold text-gray-800">Subtotal:</span>
-                    <span class="text-2xl font-bold text-gray-800" id="subtotal">$0.00</span>
+                    <span class="text-2xl font-bold text-gray-800 current-price" id="subtotal">$0.00</span>
                 </div>
                 <button
                     class="w-full bg-white text-emerald-600 mb-3 py-2 rounded-lg border border-emerald-600 transition-colors font-semibold text-lg">
-                    <a href="./cart.html"> View Cart</a>
+                    <a href="./cart.html">View Cart</a>
                 </button>
                 <button id="proceedCheckoutBtn"
                     class="w-full bg-emerald-500 text-white py-2 rounded-lg hover:bg-emerald-600 transition-colors font-semibold text-lg">
@@ -196,16 +199,46 @@
                         <div
                             class="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg hidden group-hover:block z-50">
                             <a href="./Shop.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg">Eggs</a>
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Fresh Produce">Fresh Produce</a>
                             <a href="./Shop.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Rice
-                                & Pulse</a>
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Bakery & Dairy">Bakery & Dairy</a>
                             <a href="./Shop.html"
-                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Quality
-                                Milk</a>
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Staples & Grains">Staples & Grains</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Masala & Spices">Masala & Spices</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Snacks & Branded Foods">Snacks & Branded Foods</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Packaged & Canned Foods">Packaged & Canned Foods</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Beverages">Beverages</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Household Essentials">Household Essentials</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Personal Care">Personal Care</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Pet Care">Pet Care</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Baby Care">Baby Care</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Organic & Health Products">Organic & Health Products</a>
+                            <a href="./Shop.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors first:rounded-t-lg category-link"
+                                data-category="Fresh Produce">Frozen Foods</a>
                         </div>
                     </div>
-
                     <a href="./Blog.html"
                         class="text-gray-700 hover:text-emerald-500 font-medium transition-colors">Blog</a>
                     <div class="relative group h-full flex items-center">
@@ -256,7 +289,7 @@
                         <h5 class="text-[20px] font-bold">Grocery Go</h5>
                     </div>
                 </a>
-                <button id="closeMenu" class="text-gray-500 hover:text-gray-700">
+                <button id="closeMenu" class="text- gray-500 hover:text-gray-700">
                     <i class="fas fa-times text-2xl"></i>
                 </button>
             </div>
@@ -291,13 +324,44 @@
                     </button>
                     <div class="mobile-accordion-content hidden pl-4 transition-all duration-300 ease-in-out">
                         <a href="./Shop.html"
-                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded">Eggs</a>
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Fresh Produce">Fresh Produce</a>
                         <a href="./Shop.html"
-                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded">Rice
-                            & Pulse</a>
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Bakery & Dairy">Bakery & Dairy</a>
                         <a href="./Shop.html"
-                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded">Quality
-                            Milk</a>
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Staples & Grains">Staples & Grains</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Masala & Spices">Masala & Spices</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Snacks & Branded Foods">Snacks & Branded Foods</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Packaged & Canned Foods">Packaged & Canned Foods</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Beverages">Beverages</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Household Essentials">Household Essentials</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Personal Care">Personal Care</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Pet Care">Pet Care</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Baby Care">Baby Care</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Organic & Health Products">Organic & Health Products</a>
+                        <a href="./Shop.html"
+                            class="block py-2 px-4 text-gray-600 hover:text-emerald-600 hover:bg-gray-50 rounded category-link"
+                            data-category="Frozen Foods">Frozen Foods</a>
                     </div>
                 </div>
                 <a href="./Blog.html"
@@ -380,6 +444,23 @@
             }
         });
     </script>
+        <script src="./js/ViewProduct.js"></script>
+        <script src="./js/rushita.js"></script>
+        <script src="./js/wishlist.js"></script>
+        <script src="./js/addtocart.js"></script>
+        <script src="./js/checkout.js"></script>
+        <script src="./js/Search.js"></script>
+        <script src="./js/curruncy.js"></script>
+        <script>
+            const header = document.getElementById("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 100) {
+                    header.classList.add("fixed", "top-0", "left-0", "w-full", "shadow-md");
+                } else {
+                    header.classList.remove("fixed", "top-0", "left-0", "w-full", "shadow-md");
+                }
+            });
+        </script>
 
 </body>
 
