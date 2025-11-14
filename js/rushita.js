@@ -611,5 +611,10 @@ document.addEventListener('click', function (e) {
     }
 });
 
+//category filter remove
+function clearSelectedCategory() {
+  localStorage.removeItem("selectedCategory");
+}
+
 
 
