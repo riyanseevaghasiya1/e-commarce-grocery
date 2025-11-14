@@ -158,8 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
     }
-
-  
     const addressData = {
       firstName: document.getElementById("firstName").value.trim(),
       lastName: document.getElementById("lastName").value.trim(),
@@ -167,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // country: document.getElementById("selectedCountry").textContent.trim(),
       address1: document.getElementById("address1").value.trim(),
       city: document.getElementById("city").value.trim(),
-      // state: document.getElementById("selectedCountry1").textContent.trim(),
+      // state: document.getElementById("selectedCountry1").textContent.trim() ,
       zipcode: document.getElementById("zipcode").value.trim(),
       phone: document.getElementById("phone").value.trim(),
       email: document.getElementById("email").value.trim(),
@@ -345,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// ✅ Coupon System
+//  Coupon System
 document.addEventListener("DOMContentLoaded", function () {
   const couponInput = document.getElementById("couponInput");
   const applyBtn = document.getElementById("applyCouponBtn");
@@ -404,8 +402,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const newTotal = subtotalLocal - discountAmountLocal + SHIPPING_CHARGE_LOCAL;
 
         if (totalEl2) totalEl2.textContent = `$${newTotal.toFixed(2)}`;
-
-        // ✅ Save to localStorage for confirmation page
         try {
           localStorage.setItem("appliedCouponCode", appliedCoupon2);
           localStorage.setItem("appliedCouponDiscount", discount2.toString());
@@ -439,7 +435,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// ✅ Invoice Download Fix (works with or without coupon)
+//  Invoice Download Fix (works with or without coupon)
 document.addEventListener("DOMContentLoaded", function () {
   const downloadBtn = document.getElementById("downloadInvoiceBtn");
 
@@ -452,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const paymentMethod = document.getElementById("displayPaymentMethod")?.textContent.trim() || "-";
     const note = document.getElementById("displayOrderNote")?.textContent.trim() || "";
 
-    // ⚡ FIXED: safe default values for coupon fields
+    //  safe default values for coupon fields
     const appliedCoupon = localStorage.getItem("appliedCouponCode") || "No Coupon Applied";
     const discountPercent = parseFloat(localStorage.getItem("appliedCouponDiscount")) || 0;
     const discountAmountValue = parseFloat(localStorage.getItem("discountAmountValue")) || 0;
@@ -500,7 +496,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const SHIPPING_CHARGE = 22;
 
-    // ⚡ FIXED: handle case when no discount applied
     const computedDiscountAmount = (subtotal * (discountPercent || 0)) / 100;
     let finalTotal = !isNaN(finalDiscountedTotal)
       ? finalDiscountedTotal

@@ -41,6 +41,36 @@ function initializeEverything() {
   setupProceedToCheckout();
 }
 
+fetch('./header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+    initializeHeader();
+    renderCartItems();
+    updateCartCount();
+    setupProceedToCheckout();
+     const header = document.getElementById("myHeader");
+    if (header) {
+      const stickyOffset = header.offsetTop;
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > stickyOffset) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      });
+    }
+  })
+  .catch(error => console.error('Error loading header:', error));
+
+fetch('./Footer.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('footer_add').innerHTML = data;
+  })
+  .catch(error => console.error('Error loading footer:', error));
+
+
 // ========== Initialize Header ==========
 function initializeHeader() {
   const menuToggle = document.getElementById('menuToggle');
@@ -556,6 +586,23 @@ function initializeUserMenu() {
         dropdown.classList.toggle('show');
       }
     });
+
+
+
+     window.onscroll = function() {
+      myFunction();
+    };
+
+    // var header = document.getElementById("myHeader");
+    // var stickyOffset = header.offsetTop; // Get the initial offset of the header
+
+    // function myFunction() {
+    //   if (window.pageYOffset > stickyOffset) {
+    //     header.classList.add("sticky");
+    //   } else {
+    //     header.classList.remove("sticky");
+    //   }
+    // }
   }
   
   // Close dropdown when clicking outside
