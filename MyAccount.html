@@ -21,8 +21,8 @@
 	<style>
 		.active-tab {
 			background-color: #e5e5e5;
-			border-left: 4px solid #02b290;
-			color: #02b290;
+			border-left: 4px solid #0db561;
+			color: #0db561;
 		}
 	</style>
 </head>
@@ -41,13 +41,13 @@
 			<aside class="w md:w-2/6 lg:w-1/4 bg-white shadow rounded-lg p-5">
 				<h2 class="text-lg font-semibold mb-4">My Account</h2>
 				<ul class="space-y-3">
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290] active-tab"
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#0db561] active-tab"
 							data-tab="details">Account Details</button></li>
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290]"
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#0db561]"
 							data-tab="orders">Order List</button></li>
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290]"
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#0db561]"
 							data-tab="shipping">Shipping Address</button></li>
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02b290]"
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#0db561]"
 							data-tab="logout">Logout</button></li>
 				</ul>
 			</aside>
@@ -57,7 +57,7 @@
 
 				<!-- Account Details -->
 				<div id="details" class="tab-content">
-					<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Account Details</h2>
+					<h2 class="text-2xl font-semibold mb-4 text-[#0db561]">Account Details</h2>
 
 					<!-- Profile Image Section -->
 					<div
@@ -65,10 +65,10 @@
 						<div class="relative">
 							<img id="profileImage"
 								src="https://i.pinimg.com/1200x/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg"
-								class="w-28 h-28 rounded-full object-cover border-4 border-[#02b290] shadow-md"
+								class="w-28 h-28 rounded-full object-cover border-4 border-[#d3d3d3] shadow-md"
 								alt="Profile Image">
 							<label for="uploadImage"
-								class="absolute bottom-0 right-0 bg-[#02b290] text-white py-[6px] px-[10px] rounded-full cursor-pointer shadow hover:bg-[#02997c] transition">
+								class="absolute bottom-0 right-0 bg-[#0db561] text-white py-[6px] px-[10px] rounded-full cursor-pointer shadow hover:bg-[#02997c] transition hidden">
 								<i class="fa-solid fa-camera text-sm"></i>
 							</label>
 							<input type="file" id="uploadImage" accept="image/*" class="hidden">
@@ -80,33 +80,32 @@
 						</div>
 					</div>
 
-
 					<form id="accountForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<label class="block font-medium mb-1">Full Name</label>
 							<input type="text" id="fullName" placeholder="John Doe"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none placeholder:text-gray-700" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Email Address</label>
 							<input type="email" id="email" placeholder="john@example.com"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none placeholder:text-gray-700" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Phone Number</label>
 							<input type="text" id="phone" placeholder="+91 98765 43210"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none placeholder:text-gray-700" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Password</label>
 							<input type="password" id="password" placeholder="********"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none" disabled>
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none placeholder:text-gray-700" disabled>
 						</div>
 						<div class="md:col-span-2 flex gap-3 mt-3">
 							<button id="editBtn" type="button"
-								class="bg-[#02b290] text-white px-4 py-2 rounded hover:bg-[#028f7a]">Edit</button>
+								class="bg-[#0db561] text-white px-4 py-2 rounded hover:bg-[#028f7a]">Edit</button>
 							<button id="saveBtn" type="button"
-								class="bg-[#02b290] text-white px-4 py-2 rounded hover:bg-[#028f7a] hidden">Save
+								class="bg-[#0db561] text-white px-4 py-2 rounded hover:bg-[#028f7a] hidden">Save
 								Changes</button>
 						</div>
 					</form>
@@ -114,7 +113,7 @@
 
 				<!-- Order List -->
 				<div id="orders" class="tab-content hidden">
-					<h2 class="text-2xl font-semibold mb-4 text-[#02b290]">Your Orders</h2>
+					<h2 class="text-2xl font-semibold mb-4 text-[#0db561]">Your Orders</h2>
 					<div class="overflow-x-auto">
 						<table class="min-w-[560px] w-full border rounded">
 							<thead class="bg-[#e5e5e5]">
@@ -138,19 +137,19 @@
 				<!-- Shipping Address -->
 				<div id="shipping" class="tab-content hidden">
 					<h2
-						class="text-2xl font-semibold mb-6 text-[#02b290] flex flex-wrap justify-between items-center gap-2">
+						class="text-2xl font-semibold mb-6 text-[#0db561] flex flex-wrap justify-between items-center gap-2">
 						<span>Shipping Address</span>
 						<button id="toggleEdit"
-							class="bg-[#02b290] text-white text-base px-5 py-2 rounded-lg shadow hover:bg-[#028f7a] transition-all">
+							class="bg-[#0db561] text-white text-base px-5 py-2 rounded-lg shadow hover:bg-[#028f7a] transition-all">
 							Add address
 						</button>
 					</h2>
 
 					<!-- Display Address Card -->
 					<div id="addressList"
-						class="relative bg-black/5 border  border-[#02b290]/20 rounded-2xl p-3 sm:p-6 shadow-sm transition-all " >
-						<div
-							class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium" style="margin-bottom: 10px !important;">
+						class="relative bg-black/5 border border-[#0db561]/20 rounded-2xl p-3 sm:p-6 shadow-sm transition-all ">
+						<div class="absolute top-3 right-3 bg-[#0db561]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium"
+							style="margin-bottom: 10px !important;">
 							Current Address
 						</div>
 						<h3 class="text-lg font-semibold text-gray-800 mb-2">John Doe</h3>
@@ -165,56 +164,56 @@
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">First Name</label>
 							<input type="text" id="shipfname" placeholder="456 Garden Ave"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">Last Name</label>
 							<input type="text" id="shiplname" placeholder="456 Garden Ave"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">Street Address</label>
 							<input type="text" id="shipStreet" placeholder="456 Garden Ave"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">City</label>
 							<input type="text" id="shipCity" placeholder="Los Angeles"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">State</label>
 							<input type="text" id="shipState" placeholder="CA"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">ZIP Code</label>
 							<input type="text" id="shipZip" placeholder="90001"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">Country</label>
 							<input type="text" id="shipCountry" placeholder="United States"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">Phone Number</label>
 							<input type="text" id="shipPhone" placeholder="+91 98765 43210"
-								class="w-full border rounded p-2 focus:border-[#02b290] focus:outline-none">
+								class="w-full border rounded p-2 focus:border-[#0db561] focus:outline-none">
 						</div>
 
 						<div class="md:col-span-2 flex justify-end gap-3 mt-4">
 							<button type="button" id="cancelAddressBtn"
 								class="bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 transition">Cancel</button>
 							<button type="button" id="saveAddressBtn"
-								class="bg-[#02b290] text-white px-5 py-2 rounded-lg hover:bg-[#028f7a] transition">Save
+								class="bg-[#0db561] text-white px-5 py-2 rounded-lg hover:bg-[#028f7a] transition">Save
 								Address</button>
 						</div>
 					</form>
 				</div>
 				<!-- Logout -->
 				<div id="logout" class="tab-content hidden text-center py-10">
-					<h2 class="text-2xl font-semibold text-[#02b290] mb-4">Ready to Leave?</h2>
+					<h2 class="text-2xl font-semibold text-[#0db561] mb-4">Ready to Leave?</h2>
 					<p class="mb-6">Click below to securely log out from your account.</p>
 					<a href="/login.html">
 						<button class="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">Logout</button>
@@ -263,7 +262,7 @@
 
 			function renderAddress(addr) {
 				addressCard.innerHTML = `
-			<div class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#02b290] font-medium">
+			<div class="absolute top-3 right-3 bg-[#0db561]/10 px-3 py-1 rounded-full text-sm text-[#0db561] font-medium">
 				Current Address
 			</div>
 			<p class="text-gray-600">${addr.shipStreet}</p>
@@ -318,6 +317,9 @@
 			uploadImage.disabled = false;
 			editBtn.classList.add('hidden');
 			saveBtn.classList.remove('hidden');
+
+			// Show camera icon only in edit mode
+			document.querySelector('label[for="uploadImage"]').classList.remove('hidden');
 		});
 
 		// Preview Image
@@ -344,6 +346,9 @@
 			saveBtn.classList.add('hidden');
 			editBtn.classList.remove('hidden');
 			alert('Account details saved successfully!');
+
+			// Hide camera icon again after saving
+			document.querySelector('label[for="uploadImage"]').classList.add('hidden');
 		});
 	</script>
 
@@ -353,7 +358,7 @@
 
 		function getStatusClass(status = '') {
 			const normalized = status.toLowerCase();
-			if (normalized.includes('deliver')) return 'text-[#02b290]';
+			if (normalized.includes('deliver')) return 'text-[#0db561]';
 			if (normalized.includes('cancel')) return 'text-red-500';
 			if (normalized.includes('pending')) return 'text-yellow-600';
 			return 'text-blue-500';
@@ -387,17 +392,22 @@
 				row.className = 'border-b';
 
 				row.innerHTML = `
-					<td class="py-2 px-3">#${order.orderId}</td>
-					<td class="py-2 px-3">${order.orderDate}</td>
-					<td class="py-2 px-3 current-price">${formatCurrency(order.total)}</td>
-					<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
-					<td class="py-2 px-3">
-						<button
-							class="view-btn bg-[#02b290] text-white px-3 py-1 rounded hover:bg-[#028f7a]"
-							data-order-id="${order.orderId}">
-							View
-						</button>
-					</td>
+				<td class="py-2 px-3">#${order.orderId}</td>
+				<td class="py-2 px-3">${order.orderDate}</td>
+				<td class="py-2 px-3">${formatCurrency(order.total)}</td>
+				<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
+				<td class="py-2 px-3 flex gap-2">
+					<button
+						class="view-btn bg-[#0db561] text-white px-3 py-1 rounded hover:bg-[#028f7a]"
+						data-order-id="${order.orderId}">
+						View
+					</button>
+					<button
+						class="cancel-btn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+						data-order-id="${order.orderId}">
+						Cancel
+					</button>
+				</td>
 				`;
 
 				const viewButton = row.querySelector('.view-btn');
@@ -411,6 +421,34 @@
 				});
 
 				ordersTableBody.appendChild(row);
+
+
+				const cancelButton = row.querySelector('.cancel-btn');
+				cancelButton.addEventListener('click', () => {
+					if (order.status && order.status.toLowerCase().includes('cancel')) {
+						alert('This order is already canceled.');
+						return;
+					}
+
+					if (!confirm('Are you sure you want to cancel this order?')) return;
+
+					order.status = 'Canceled';
+					// Update order timeline for tracking page
+					order.timeline = [
+						{ label: 'Order Placed', state: 'completed', timestamp: new Date().toISOString() },
+						{ label: 'Canceled', state: 'current', timestamp: new Date().toISOString() }
+					];
+
+					// Save updated orders list
+					const updatedOrders = JSON.parse(localStorage.getItem('orders')) || [];
+					const index = updatedOrders.findIndex(o => o.orderId === order.orderId);
+					if (index !== -1) updatedOrders[index] = order;
+					localStorage.setItem('orders', JSON.stringify(updatedOrders));
+
+					alert(`Order #${order.orderId} has been canceled.`);
+					renderOrders();
+				});
+
 			});
 		}
 
@@ -429,70 +467,70 @@
 				btn.classList.add('active-tab');
 				document.getElementById(btn.dataset.tab).classList.remove('hidden');
 			});
-			  document.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
-    const tabParam = params.get("tab");
+			document.addEventListener("DOMContentLoaded", () => {
+				const params = new URLSearchParams(window.location.search);
+				const tabParam = params.get("tab");
 
-    if (tabParam) {
-      const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabParam}"]`);
-      const targetContent = document.getElementById(tabParam);
+				if (tabParam) {
+					const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabParam}"]`);
+					const targetContent = document.getElementById(tabParam);
 
-      if (targetBtn && targetContent) {
-        // Remove active and hide other tabs
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+					if (targetBtn && targetContent) {
+						// Remove active and hide other tabs
+						document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+						document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
 
-        // Activate correct tab
-        targetBtn.classList.add('active-tab');
-        targetContent.classList.remove('hidden');
-      }
-    }
-  });
+						// Activate correct tab
+						targetBtn.classList.add('active-tab');
+						targetContent.classList.remove('hidden');
+					}
+				}
+			});
 		});
 	</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const addressList = document.getElementById("addressList");
-  const shippingForm = document.getElementById("shippingForm");
-  const toggleEditBtn = document.getElementById("toggleEdit");
-  const cancelAddressBtn = document.getElementById("cancelAddressBtn");
-  const saveAddressBtn = document.getElementById("saveAddressBtn");
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const addressList = document.getElementById("addressList");
+			const shippingForm = document.getElementById("shippingForm");
+			const toggleEditBtn = document.getElementById("toggleEdit");
+			const cancelAddressBtn = document.getElementById("cancelAddressBtn");
+			const saveAddressBtn = document.getElementById("saveAddressBtn");
 
-  // ===== Load & Merge Addresses from localStorage =====
-  let savedAddresses = JSON.parse(localStorage.getItem("userAddresses")) || [];
+			// ===== Load & Merge Addresses from localStorage =====
+			let savedAddresses = JSON.parse(localStorage.getItem("userAddresses")) || [];
 
-  // Support for older single-address key
-  const singleAddress = JSON.parse(localStorage.getItem("userAddress"));
-  if (singleAddress) {
-    const exists = savedAddresses.some(
-      a =>
-        a.address1 === singleAddress.address1 &&
-        a.phone === singleAddress.phone
-    );
-    if (!exists) {
-      savedAddresses.push(singleAddress);
-      localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
-      console.log(" Migrated old userAddress into userAddresses:", savedAddresses);
-    }
-    localStorage.removeItem("userAddress");
-  }
+			// Support for older single-address key
+			const singleAddress = JSON.parse(localStorage.getItem("userAddress"));
+			if (singleAddress) {
+				const exists = savedAddresses.some(
+					a =>
+						a.address1 === singleAddress.address1 &&
+						a.phone === singleAddress.phone
+				);
+				if (!exists) {
+					savedAddresses.push(singleAddress);
+					localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
+					console.log(" Migrated old userAddress into userAddresses:", savedAddresses);
+				}
+				localStorage.removeItem("userAddress");
+			}
 
-  // ===== Render Addresses =====
-  function renderAddresses() {
-    addressList.innerHTML = "";
+			// ===== Render Addresses =====
+			function renderAddresses() {
+				addressList.innerHTML = "";
 
-    if (savedAddresses.length === 0) {
-      addressList.innerHTML = `<p class="text-gray-600 italic">No saved addresses yet.</p>`;
-      return;
-    }
+				if (savedAddresses.length === 0) {
+					addressList.innerHTML = `<p class="text-gray-600 italic">No saved addresses yet.</p>`;
+					return;
+				}
 
-    savedAddresses.forEach((addr, index) => {
-      const card = document.createElement("div");
-      card.className =
-        "relative bg-black/5 border border-[#02b290]/20 rounded-2xl p-4 sm:p-6 shadow-sm transition-all mb-4";
+				savedAddresses.forEach((addr, index) => {
+					const card = document.createElement("div");
+					card.className =
+						"relative bg-black/5 border border-[#0db561]/20 rounded-2xl p-4 sm:p-6 shadow-sm transition-all mb-4";
 
-      card.innerHTML = `
-        <div class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#02b290] font-medium">
+					card.innerHTML = `
+        <div class="absolute top-3 right-3 bg-[#0db561]/10 px-3 py-1 rounded-full text-sm text-[#0db561] font-medium">
           Address ${index + 1}
         </div>
         <p class="text-gray-800 font-semibold mb-1">${addr.firstName || ""} ${addr.lastName || ""}</p>
@@ -501,7 +539,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <p class="text-gray-600 mb-2">${addr.country || ""}</p>
         <p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> ${addr.phone || ""}</p>
         <div class="mt-3 flex gap-2">
-          <button class="edit-btn bg-[#02b290] text-white text-sm px-3 py-1 rounded hover:bg-[#028f7a]" data-index="${index}">
+          <button class="edit-btn bg-[#0db561] text-white text-sm px-3 py-1 rounded hover:bg-[#028f7a]" data-index="${index}">
             Edit
           </button>
           <button class="delete-btn bg-red-500 text-white text-sm px-3 py-1 rounded hover:bg-red-600" data-index="${index}">
@@ -509,106 +547,106 @@ document.addEventListener("DOMContentLoaded", () => {
           </button>
         </div>
       `;
-      addressList.appendChild(card);
-    });
+					addressList.appendChild(card);
+				});
 
-    // Attach event listeners
-    document.querySelectorAll(".edit-btn").forEach((btn) => {
-      btn.addEventListener("click", (e) => editAddress(e.target.dataset.index));
-    });
+				// Attach event listeners
+				document.querySelectorAll(".edit-btn").forEach((btn) => {
+					btn.addEventListener("click", (e) => editAddress(e.target.dataset.index));
+				});
 
-    document.querySelectorAll(".delete-btn").forEach((btn) => {
-      btn.addEventListener("click", (e) => deleteAddress(e.target.dataset.index));
-    });
+				document.querySelectorAll(".delete-btn").forEach((btn) => {
+					btn.addEventListener("click", (e) => deleteAddress(e.target.dataset.index));
+				});
 
-    console.log("📦 Current Addresses:", savedAddresses);
-  }
+				console.log("📦 Current Addresses:", savedAddresses);
+			}
 
-  renderAddresses();
+			renderAddresses();
 
-  // ===== Add New Address =====
-  toggleEditBtn.addEventListener("click", () => {
-    shippingForm.reset();
-    shippingForm.classList.remove("hidden");
-    addressList.classList.add("hidden");
-    toggleEditBtn.classList.add("hidden");
-    shippingForm.dataset.editIndex = "";
-  });
+			// ===== Add New Address =====
+			toggleEditBtn.addEventListener("click", () => {
+				shippingForm.reset();
+				shippingForm.classList.remove("hidden");
+				addressList.classList.add("hidden");
+				toggleEditBtn.classList.add("hidden");
+				shippingForm.dataset.editIndex = "";
+			});
 
-  // ===== Cancel =====
-  cancelAddressBtn.addEventListener("click", () => {
-    shippingForm.classList.add("hidden");
-    addressList.classList.remove("hidden");
-    toggleEditBtn.classList.remove("hidden");
-  });
+			// ===== Cancel =====
+			cancelAddressBtn.addEventListener("click", () => {
+				shippingForm.classList.add("hidden");
+				addressList.classList.remove("hidden");
+				toggleEditBtn.classList.remove("hidden");
+			});
 
-  // ===== Save Address =====
-  saveAddressBtn.addEventListener("click", () => {
-    const newAddress = {
-      firstName: document.getElementById("shipfname").value.trim(),
-      lastName: document.getElementById("shiplname").value.trim(),
-      address1: document.getElementById("shipStreet").value.trim(),
-      city: document.getElementById("shipCity").value.trim(),
-      state: document.getElementById("shipState").value.trim(),
-      zipcode: document.getElementById("shipZip").value.trim(),
-      country: document.getElementById("shipCountry").value.trim(),
-      phone: document.getElementById("shipPhone").value.trim(),
-    };
+			// ===== Save Address =====
+			saveAddressBtn.addEventListener("click", () => {
+				const newAddress = {
+					firstName: document.getElementById("shipfname").value.trim(),
+					lastName: document.getElementById("shiplname").value.trim(),
+					address1: document.getElementById("shipStreet").value.trim(),
+					city: document.getElementById("shipCity").value.trim(),
+					state: document.getElementById("shipState").value.trim(),
+					zipcode: document.getElementById("shipZip").value.trim(),
+					country: document.getElementById("shipCountry").value.trim(),
+					phone: document.getElementById("shipPhone").value.trim(),
+				};
 
-    // Validate
-    if (!newAddress.firstName || !newAddress.address1 || !newAddress.phone) {
-      alert("Please fill all required fields!");
-      return;
-    }
+				// Validate
+				if (!newAddress.firstName || !newAddress.address1 || !newAddress.phone) {
+					alert("Please fill all required fields!");
+					return;
+				}
 
-    const editIndex = shippingForm.dataset.editIndex;
-    if (editIndex !== "") {
-      savedAddresses[editIndex] = newAddress;
-      console.log("✏️ Edited address:", newAddress);
-    } else {
-      savedAddresses.push(newAddress);
-      console.log("➕ Added new address:", newAddress);
-    }
+				const editIndex = shippingForm.dataset.editIndex;
+				if (editIndex !== "") {
+					savedAddresses[editIndex] = newAddress;
+					console.log("✏️ Edited address:", newAddress);
+				} else {
+					savedAddresses.push(newAddress);
+					console.log("➕ Added new address:", newAddress);
+				}
 
-    localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
-    console.log(" Saved to localStorage:", savedAddresses);
+				localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
+				console.log(" Saved to localStorage:", savedAddresses);
 
-    renderAddresses();
-    shippingForm.classList.add("hidden");
-    addressList.classList.remove("hidden");
-    toggleEditBtn.classList.remove("hidden");
-    alert("Address saved successfully!");
-  });
+				renderAddresses();
+				shippingForm.classList.add("hidden");
+				addressList.classList.remove("hidden");
+				toggleEditBtn.classList.remove("hidden");
+				alert("Address saved successfully!");
+			});
 
-  // ===== Edit Address =====
-  function editAddress(index) {
-    const addr = savedAddresses[index];
-    document.getElementById("shipfname").value = addr.firstName;
-    document.getElementById("shiplname").value = addr.lastName;
-    document.getElementById("shipStreet").value = addr.address1;
-    document.getElementById("shipCity").value = addr.city;
-    document.getElementById("shipState").value = addr.state;
-    document.getElementById("shipZip").value = addr.zipcode;
-    document.getElementById("shipCountry").value = addr.country;
-    document.getElementById("shipPhone").value = addr.phone;
+			// ===== Edit Address =====
+			function editAddress(index) {
+				const addr = savedAddresses[index];
+				document.getElementById("shipfname").value = addr.firstName;
+				document.getElementById("shiplname").value = addr.lastName;
+				document.getElementById("shipStreet").value = addr.address1;
+				document.getElementById("shipCity").value = addr.city;
+				document.getElementById("shipState").value = addr.state;
+				document.getElementById("shipZip").value = addr.zipcode;
+				document.getElementById("shipCountry").value = addr.country;
+				document.getElementById("shipPhone").value = addr.phone;
 
-    shippingForm.dataset.editIndex = index;
-    shippingForm.classList.remove("hidden");
-    addressList.classList.add("hidden");
-    toggleEditBtn.classList.add("hidden");
-  }
+				shippingForm.dataset.editIndex = index;
+				shippingForm.classList.remove("hidden");
+				addressList.classList.add("hidden");
+				toggleEditBtn.classList.add("hidden");
+			}
 
-  // ===== Delete Address =====
-  function deleteAddress(index) {
-    if (confirm("Are you sure you want to delete this address?")) {
-      savedAddresses.splice(index, 1);
-      localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
-      console.log(" Deleted address index:", index);
-      renderAddresses();
-    }
-  }
-});
-</script>
+			// ===== Delete Address =====
+			function deleteAddress(index) {
+				if (confirm("Are you sure you want to delete this address?")) {
+					savedAddresses.splice(index, 1);
+					localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
+					console.log(" Deleted address index:", index);
+					renderAddresses();
+				}
+			}
+		});
+	</script>
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
 			// Match the same key used in checkout.js
@@ -620,7 +658,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				if (addressCard) {
 					addressCard.innerHTML = `
 					<div
-					class="absolute top-3 right-3 bg-[#02b290]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium">
+					class="absolute top-3 right-3 bg-[#0db561]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium">
 					Current Address
 					</div>
 					<h3 class="text-lg font-semibold text-gray-800 mb-2">
@@ -643,11 +681,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	</script>
-
-
-
-
-
 
 
 </body>

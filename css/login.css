@@ -69,12 +69,6 @@ body {
 .logo-icon {
     width: 36px;
     height: 36px;
-    background: #10b981;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
     font-size: 20px;
 }
 
@@ -98,7 +92,7 @@ body {
 }
 
 .page-subtitle a {
-    color: #10b981;
+    color: #0db561;
     text-decoration: none;
     font-weight: 500;
 }
@@ -140,7 +134,7 @@ body {
 }
 
 .form-input:focus {
-    border-color: #10b981;
+    border-color: #0db561;
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
@@ -193,11 +187,11 @@ body {
     width: 18px;
     height: 18px;
     cursor: pointer;
-    accent-color: #10b981;
+    accent-color: #0db561;
 }
 
 .forgot-link {
-    color: #10b981;
+    color: #0db561;
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
@@ -210,7 +204,7 @@ body {
 .btn-primary {
     width: 100%;
     padding: 0.9375rem;
-    background: #10b981;
+    background: #0db561;
     color: white;
     border: none;
     border-radius: 6px;
@@ -290,7 +284,7 @@ body {
 }
 
 .otp-input:focus {
-    border-color: #10b981;
+    border-color: #0db561;
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
@@ -302,7 +296,7 @@ body {
 }
 
 .resend-link {
-    color: #10b981;
+    color: #0db561;
     cursor: pointer;
     font-weight: 500;
 }

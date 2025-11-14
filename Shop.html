@@ -212,7 +212,7 @@
 
 	<!-- Filter Button (Mobile Only) -->
 	<div class="container mx-auto px-4 py-4 lg:hidden flex justify-end">
-		<button onclick="openFilter()" class="bg-[#02b290] text-white px-4 py-2 rounded-md flex items-center gap-2">
+		<button onclick="openFilter()" class="bg-[#0db561] text-white px-4 py-2 rounded-md flex items-center gap-2">
 			<i class="fa-solid fa-filter"></i> Filters
 		</button>
 	</div>
@@ -236,7 +236,7 @@
 			<div class="border-t pt-4 mt-6">
 				<h3 class="font-medium mb-2">Max Price: <span id="priceValueDesktop"></span></h3>
 				<input id="priceRangeDesktop" type="range" min="0" max="500" value="500"
-					class="w-full accent-[#02b290]">
+					class="w-full accent-[#0db561]">
 				<div class="flex justify-between text-sm mt-1">
 					<span>$0</span>
 					<span id="priceMaxDesktop">$500</span>
@@ -259,7 +259,7 @@
 			</div>
 			<!-- Actions -->
 			<div class="border-t pt-4 mt-6 flex gap-2">
-				<button id="applyDesktop" class="bg-[#02b290] text-white px-4 py-2 rounded">Apply</button>
+				<button id="applyDesktop" class="bg-[#0db561] text-white px-4 py-2 rounded">Apply</button>
 				<button id="resetDesktop" class="border px-4 py-2 rounded">Reset</button>
 			</div>
 		</div>
@@ -295,7 +295,7 @@
 		<!-- Price -->
 		<div class="mt-6 border-t pt-4">
 			<h3 class="font-medium mb-2">Max Price: <span id="priceValueMobile"></span></h3>
-			<input id="priceRangeMobile" type="range" min="0" max="500" value="500" class="w-full accent-[#02b290]">
+			<input id="priceRangeMobile" type="range" min="0" max="500" value="500" class="w-full accent-[#0db561]">
 			<div class="flex justify-between text-sm mt-1">
 				<span>$0</span>
 				<span id="priceMaxMobile">$500</span>
@@ -318,7 +318,7 @@
 		</div>
 		<!-- Actions -->
 		<div class="border-t pt-4 mt-6 flex gap-2">
-			<button id="applyMobile" class="bg-[#02b290] text-white px-4 py-2 rounded"
+			<button id="applyMobile" class="bg-[#0db561] text-white px-4 py-2 rounded"
 				onclick="closeFilter()">Apply</button>
 			<button id="resetMobile" class="border px-4 py-2 rounded">Reset</button>
 		</div>
@@ -473,7 +473,7 @@
 		function renderCheckboxList(containerId, items, group) {
 			const container = document.getElementById(containerId);
 			container.innerHTML = items.map(v => `
-				<li><label class="flex items-center gap-2"><input type="checkbox" data-group="${group}" value="${v}" class="mr-2 accent-[#02b290]"> <span>${v}</span></label></li>
+				<li><label class="flex items-center gap-2"><input type="checkbox" data-group="${group}" value="${v}" class="mr-2 accent-[#0db561]"> <span>${v}</span></label></li>
 			`).join('');
 		}
 
@@ -574,7 +574,7 @@
 						</div>
 						<div class="flex items-center justify-between">
 							<div class="product-rating text-yellow-500">${p.rating}</div>
-							<button class="add-to-cart bg-[#02b290] text-white px-3 py-1 rounded-md" onclick="event.stopPropagation(); addToCart(this)" data-index="${globalIndex}">
+							<button class="add-to-cart bg-[#0db561] text-white px-3 py-1 rounded-md" onclick="event.stopPropagation(); addToCart(this)" data-index="${globalIndex}">
 							<i class="fas fa-shopping-bag"></i>
 							</button>
 						</div>
@@ -597,23 +597,23 @@
 			if (totalPages <= 3) {
 				// Show all if only 3 or fewer pages
 				for (let i = 1; i <= totalPages; i++) {
-					html += `<button class="px-3 py-1 border rounded ${i === current ? 'bg-[#02b290] text-white' : ''}" data-page="${i}">${i}</button>`;
+					html += `<button class="px-3 py-1 border rounded ${i === current ? 'bg-[#0db561] text-white' : ''}" data-page="${i}">${i}</button>`;
 				}
 			} else {
 				// Always show first page
-				html += `<button class="px-3 py-1 border rounded ${current === 1 ? 'bg-[#02b290] text-white' : ''}" data-page="1">1</button>`;
+				html += `<button class="px-3 py-1 border rounded ${current === 1 ? 'bg-[#0db561] text-white' : ''}" data-page="1">1</button>`;
 
 				if (current > 2) html += `<span class="px-2">...</span>`;
 
 				// Middle page (current)
 				if (current > 1 && current < totalPages) {
-					html += `<button class="px-3 py-1 border rounded bg-[#02b290] text-white" data-page="${current}">${current}</button>`;
+					html += `<button class="px-3 py-1 border rounded bg-[#0db561] text-white" data-page="${current}">${current}</button>`;
 				}
 
 				if (current < totalPages - 1) html += `<span class="px-2">...</span>`;
 
 				// Always show last page
-				html += `<button class="px-3 py-1 border rounded ${current === totalPages ? 'bg-[#02b290] text-white' : ''}" data-page="${totalPages}">${totalPages}</button>`;
+				html += `<button class="px-3 py-1 border rounded ${current === totalPages ? 'bg-[#0db561] text-white' : ''}" data-page="${totalPages}">${totalPages}</button>`;
 			}
 
 			// Next button
