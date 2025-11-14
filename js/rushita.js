@@ -1,35 +1,35 @@
 let discount = 0;
 
 // Check if header needs to be loaded dynamically or is already in page
-document.addEventListener('DOMContentLoaded', function() {
-  const headerPlaceholder = document.getElementById('header-placeholder');
+// document.addEventListener('DOMContentLoaded', function() {
+//   const headerPlaceholder = document.getElementById('header-placeholder');
   
-  if (headerPlaceholder) {
-    // Load header dynamically
-    fetch('./header.html')
-      .then(response => response.text())
-      .then(data => {
-        headerPlaceholder.innerHTML = data;
-        initializeEverything();
-      })
-      .catch(error => console.error('Error loading header:', error));
+//   if (headerPlaceholder) {
+//     // Load header dynamically
+//     fetch('./header.html')
+//       .then(response => response.text())
+//       .then(data => {
+//         headerPlaceholder.innerHTML = data;
+//         initializeEverything();
+//       })
+//       .catch(error => console.error('Error loading header:', error));
 
-    // Load footer
-    const footerPlaceholder = document.getElementById('footer_add');
-    if (footerPlaceholder) {
-      fetch('./Footer.html')
-        .then(response => response.text())
-        .then(data => {
-          footerPlaceholder.innerHTML = data;
-        })
-        .catch(error => console.error('Error loading footer:', error));
-    }
-  } else {
-    // Header is already in the page, just initialize
-    console.log('Header already in page, initializing...');
-    initializeEverything();
-  }
-});
+//     // Load footer
+//     const footerPlaceholder = document.getElementById('footer_add');
+//     if (footerPlaceholder) {
+//       fetch('./Footer.html')
+//         .then(response => response.text())
+//         .then(data => {
+//           footerPlaceholder.innerHTML = data;
+//         })
+//         .catch(error => console.error('Error loading footer:', error));
+//     }
+//   } else {
+//     // Header is already in the page, just initialize
+//     console.log('Header already in page, initializing...');
+//     initializeEverything();
+//   }
+// });
 
 // Combined initialization function
 function initializeEverything() {
@@ -48,6 +48,7 @@ fetch('./header.html')
     initializeHeader();
     renderCartItems();
     updateCartCount();
+    initializeEverything();
     setupProceedToCheckout();
      const header = document.getElementById("myHeader");
     if (header) {
