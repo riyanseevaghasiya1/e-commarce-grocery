@@ -10,6 +10,17 @@ fetch('./header.html')
     renderCartItems();
     updateCartCount();
     setupProceedToCheckout();
+     const header = document.getElementById("myHeader");
+    if (header) {
+      const stickyOffset = header.offsetTop;
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > stickyOffset) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      });
+    }
   })
   .catch(error => console.error('Error loading header:', error));
 
@@ -225,3 +236,20 @@ function updateCartCount() {
         if (icon) icon.classList.add('rotate-180');
       }
     });
+
+
+
+     window.onscroll = function() {
+      myFunction();
+    };
+
+    // var header = document.getElementById("myHeader");
+    // var stickyOffset = header.offsetTop; // Get the initial offset of the header
+
+    // function myFunction() {
+    //   if (window.pageYOffset > stickyOffset) {
+    //     header.classList.add("sticky");
+    //   } else {
+    //     header.classList.remove("sticky");
+    //   }
+    // }
