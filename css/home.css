@@ -946,6 +946,20 @@ body {
     background: var(--secondary-color);
     transform: translateY(-2px);
 }
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+/* Default Modal Hidden */
+#quickViewModal {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+/* When modal is opened */
+#quickViewModal.show {
+    opacity: 1;
+    transform: scale(1);
+}'
 
 /* ============================================
    RESPONSIVE DESIGN

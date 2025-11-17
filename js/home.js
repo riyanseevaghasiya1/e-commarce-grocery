@@ -37,7 +37,7 @@ $(document).ready(function () {
             768: { items: 3 },
             992: { items: 4 },
             1200: { items: 5 }
-           
+
         }
     });
 
@@ -88,18 +88,56 @@ $(document).ready(function () {
     // ==========================================
     // QUICK VIEW MODAL FUNCTIONS
     // ==========================================
-    function openQuickView(button) {
+
+
+    // ==========================================
+    // COMPLETE QUICK VIEW SOLUTION
+    // Place this code at the TOP of home.js (before document.ready)
+    // ==========================================
+
+    // Global Quick View Functions
+    window.openQuickView = function (button) {
+        console.log('🔍 Opening Quick View...', button);
+
+        // Get product card
         const productCard = button.closest('.product-card');
+        if (!productCard) {
+            console.error('❌ Product card not found');
+            return;
+        }
+
+        console.log('✅ Product card found:', productCard);
+
+        // Get product details
         const productImage = productCard.querySelector('.product-image');
         const productName = productCard.querySelector('.product-name');
         const productPrice = productCard.querySelector('.current-price');
+        const oldPrice = productCard.querySelector('.old-price');
+        const rating = productCard.querySelector('.stars');
+        const badge = productCard.querySelector('.product-badge');
 
+        console.log('Product details:', {
+            name: productName?.textContent,
+            price: productPrice?.textContent,
+            image: productImage?.src
+        });
+
+        // Get modal elements
         const modal = document.getElementById('quickViewModal');
         const modalImage = document.getElementById('modalProductImage');
         const modalName = document.getElementById('modalProductName');
         const modalPrice = document.getElementById('modalProductPrice');
+        const modalDescription = document.getElementById('modalProductDescription');
+        const modalCategory = document.getElementById('modalProductCategory');
+        const modalSKU = document.getElementById('modalProductSKU');
         const quantityInput = document.getElementById('quantityInput');
 
+        if (!modal) {
+            console.error('❌ Modal not found! Make sure #quickViewModal exists in HTML');
+            return;
+        }
+
+        // Update modal content
         if (modalImage && productImage) {
             modalImage.src = productImage.src;
             modalImage.alt = productName ? productName.textContent : 'Product';
@@ -113,28 +151,159 @@ $(document).ready(function () {
             modalPrice.textContent = productPrice.textContent;
         }
 
+        if (modalDescription && productName) {
+            modalDescription.textContent = `${productName.textContent} - Fresh and organic product delivered right to your doorstep. Our products are carefully selected to ensure the highest quality and freshness.`;
+        }
+
         if (quantityInput) {
             quantityInput.value = 1;
         }
 
+        // Show modal
         modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+
         setTimeout(() => {
             modal.classList.add('show');
         }, 10);
 
-        document.body.style.overflow = 'hidden';
-    }
+        console.log('✅ Modal opened successfully');
+    };
 
-    function closeQuickView() {
+    window.closeQuickView = function () {
+        console.log('❌ Closing Quick View...');
         const modal = document.getElementById('quickViewModal');
         if (modal) {
             modal.classList.remove('show');
             setTimeout(() => {
                 modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }, 300);
-            document.body.style.overflow = 'auto';
         }
-    }
+    };
+
+    window.increaseQuantity = function () {
+        const input = document.getElementById('quantityInput');
+        if (input) {
+            const currentValue = parseInt(input.value) || 1;
+            input.value = Math.min(currentValue + 1, 99);
+        }
+    };
+
+    window.decreaseQuantity = function () {
+        const input = document.getElementById('quantityInput');
+        if (input) {
+            const currentValue = parseInt(input.value) || 1;
+            input.value = Math.max(currentValue - 1, 1);
+        }
+    };
+
+    window.addToCartFromModal = function () {
+        const productName = document.getElementById('modalProductName');
+        const productPrice = document.getElementById('modalProductPrice');
+        const productImage = document.getElementById('modalProductImage');
+        const quantity = document.getElementById('quantityInput');
+
+        if (productName && quantity) {
+            const product = {
+                name: productName.textContent,
+                price: productPrice ? productPrice.textContent : '$0.00',
+                image: productImage ? productImage.src : '',
+                quantity: parseInt(quantity.value) || 1
+            };
+
+            console.log(`🛒 Added ${quantity.value}x "${productName.textContent}" to cart!`);
+
+            // Add to localStorage cart
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existing = cart.find(item => item.name === product.name);
+
+            if (existing) {
+                existing.quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            const btn = document.querySelector('.modal-add-to-cart');
+            if (btn) {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+                btn.style.background = '#02B290';
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 1500);
+            }
+
+            setTimeout(() => {
+                window.closeQuickView();
+            }, 1500);
+        }
+    };
+
+    // ==========================================
+    // EVENT LISTENERS SETUP
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('🚀 Setting up Quick View event listeners...');
+
+        // Method 1: Direct click on eye button (works for static content)
+        document.addEventListener('click', function (e) {
+            // Check if clicked element or its parent is the eye button
+            const actionBtn = e.target.closest('.action-btn');
+
+            if (actionBtn) {
+                const icon = actionBtn.querySelector('i');
+                if (icon && (icon.classList.contains('fa-eye') || icon.classList.contains('far'))) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('👁️ Eye button clicked!');
+                    window.openQuickView(actionBtn);
+                }
+            }
+        });
+
+        // Close modal on overlay click
+        const modal = document.getElementById('quickViewModal');
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    window.closeQuickView();
+                }
+            });
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('quickViewModal');
+                if (modal && modal.classList.contains('show')) {
+                    window.closeQuickView();
+                }
+            }
+        });
+
+        // Quantity input validation
+        const quantityInput = document.getElementById('quantityInput');
+        if (quantityInput) {
+            quantityInput.addEventListener('input', function () {
+                let value = parseInt(this.value);
+                if (isNaN(value) || value < 1) this.value = 1;
+                if (value > 99) this.value = 99;
+            });
+
+            quantityInput.addEventListener('blur', function () {
+                if (this.value === '' || isNaN(this.value)) this.value = 1;
+            });
+        }
+
+        console.log('✅ Quick View event listeners set up successfully!');
+    });
+
+    console.log('✅ Quick View module loaded!');
 
     // ==========================================
     // QUANTITY CONTROLS

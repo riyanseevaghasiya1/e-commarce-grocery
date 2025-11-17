@@ -330,68 +330,103 @@
 	<!-- Quick View Modal -->
 	<div class="modal" id="quickViewModal">
 		<div class="modal-content">
-			<button class="modal-close" onclick="closeQuickView()">
+			<button class="modal-close" onclick="window.closeQuickView()">
 				<i class="fas fa-times"></i>
 			</button>
 			<div class="modal-body">
-				<!-- Left: Image -->
 				<div class="modal-image-section">
 					<img id="modalProductImage" src="" alt="Product" class="modal-product-image">
 				</div>
-
-				<!-- Right: Info -->
 				<div class="modal-info-section">
 					<h2 id="modalProductName">Product Name</h2>
 					<div class="modal-price" id="modalProductPrice">$0.00</div>
-
 					<div class="product-rating" style="margin-bottom: 20px;">
 						<span class="stars">★★★★★</span>
 						<span style="margin-left: 8px; color: var(--gray-text);">(524 Reviews)</span>
 					</div>
-
 					<p class="modal-description" id="modalProductDescription">
 						Fresh and organic product delivered right to your doorstep.
-						Our products are carefully selected to ensure the highest quality
-						and freshness. Perfect for healthy meals and snacks.
 					</p>
-
 					<div class="quantity-selector">
 						<span style="font-weight: 600;">Quantity:</span>
 						<div class="quantity-controls">
-							<button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+							<button class="quantity-btn" onclick="window.decreaseQuantity()">-</button>
 							<input type="number" class="quantity-input" id="quantityInput" value="1" min="1">
-							<button class="quantity-btn" onclick="increaseQuantity()">+</button>
+							<button class="quantity-btn" onclick="window.increaseQuantity()">+</button>
 						</div>
 					</div>
-
-					<button class="modal-add-to-cart" onclick="addToCartFromModal()">
+					<button class="modal-add-to-cart" onclick="window.addToCartFromModal()">
 						<i class="fas fa-shopping-bag"></i> Add to Cart
 					</button>
-
-					<div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
-						<p style="font-size: 14px; color: var(--gray-text); margin-bottom: 8px;">
-							<strong>Category:</strong> <span id="modalProductCategory">Fresh Vegetables</span>
-						</p>
-						<p style="font-size: 14px; color: var(--gray-text);">
-							<strong>SKU:</strong> <span id="modalProductSKU">FV-001234</span>
-						</p>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<script>
-		document.addEventListener("click", function (e) {
+		/* ============================
+		   QUICK VIEW FUNCTION (SHOP PAGE)
+		   ============================ */
+		window.openQuickView = function (btn) {
+			const productCard = btn.closest(".product-card");
+			if (!productCard) return;
 
-			// 🔍 If Quick View button clicked inside dynamically loaded product
-			if (e.target.closest(".action-btn") && e.target.closest(".action-btn").querySelector(".fa-eye")) {
-				e.stopPropagation();
-				openQuickView(e.target.closest(".action-btn"));
+			// Extract product info
+			const img = productCard.querySelector(".product-image")?.src || "";
+			const name = productCard.querySelector(".product-name")?.textContent.trim() || "Product";
+			const price = productCard.querySelector(".current-price")?.textContent.trim() || "$0.00";
+			const desc = `${name} - Fresh and organic product delivered right to your doorstep.`;
+
+			// Insert into modal
+			document.getElementById("modalProductImage").src = img;
+			document.getElementById("modalProductName").textContent = name;
+			document.getElementById("modalProductPrice").textContent = price;
+			document.getElementById("modalProductDescription").textContent = desc;
+			document.getElementById("quantityInput").value = 1;
+
+			// Show modal with animation
+			const modal = document.getElementById("quickViewModal");
+			modal.style.display = "flex";
+
+			// Add animation class
+			setTimeout(() => {
+				modal.classList.add("show");
+			}, 10);
+
+			document.body.style.overflow = "hidden"; // prevent scrolling
+		};
+
+		/* ============================
+		   CLOSE QUICK VIEW
+		   ============================ */
+		window.closeQuickView = function () {
+			const modal = document.getElementById("quickViewModal");
+
+			modal.classList.remove("show");
+
+			setTimeout(() => {
+				modal.style.display = "none";
+			}, 300);
+
+			document.body.style.overflow = "auto";
+		};
+
+		/* ============================
+		   QUANTITY CONTROLS
+		   ============================ */
+		window.increaseQuantity = function () {
+			const input = document.getElementById("quantityInput");
+			input.value = Number(input.value) + 1;
+		};
+
+		window.decreaseQuantity = function () {
+			const input = document.getElementById("quantityInput");
+			if (Number(input.value) > 1) {
+				input.value = Number(input.value) - 1;
 			}
-
-		});
+		};
 	</script>
+
 
 	<script>
 		window.addEventListener("DOMContentLoaded", () => {
