@@ -959,7 +959,7 @@ body {
 #quickViewModal.show {
     opacity: 1;
     transform: scale(1);
-}'
+}
 
 /* ============================================
    RESPONSIVE DESIGN
