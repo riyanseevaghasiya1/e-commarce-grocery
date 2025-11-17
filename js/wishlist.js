@@ -152,7 +152,7 @@ function renderWishlistPage() {
   if (wishlist.length === 0) {
     wishlistContainer.innerHTML = `
       <div class="text-center py-16">
-        <h2 class="text-2xl font-semibold text-gray-700">Your wishlist is empty 😢</h2>
+        <h2 class="text-2xl font-semibold text-gray-700">Your wishlist is empty</h2>
         <p class="text-gray-500 mt-2">Add some products you love!</p>
       </div>
     `;
@@ -177,10 +177,11 @@ function renderWishlistPage() {
           <p class="text-gray-900 font-medium text-lg current-price">${item.price || '—'}</p>
         </div>
         <div class="text-left">
-          <span class="inline-block text-green-600 font-medium">In Stock</span>
+          <span class="inline-block text-[#4dc9b1] font-medium">In Stock</span>
         </div>
         <div class="flex gap-2 justify-start">
           <button class="add-to-cart bg-[#02B290] hover:bg-[#029b80] text-white p-3 rounded transition-colors" onclick="addToCartFromWishlist(this)">
+          <button class="add-to-cart bg-[#02B290] hover:bg-[#4dc9b1] text-white p-3 rounded transition-colors" onclick="addToCartFromWishlist(this)">
             <i class="fas fa-shopping-bag"></i>
           </button>
           <button onclick="removeFromWishlist('${item.id}')" 

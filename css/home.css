@@ -7,14 +7,11 @@
 :root {
     --primary-color: #02B290;
     --secondary-color: #2c742f;
+    --secondary-color: #4dc9b1;
     --blacktext: #1a1a1a;
     --gray-text: #666;
     --light-bg: #f3f8fb;
     --border-color: #e5e5e5;
-    --primary-color: #10B981;
-    --secondary-color: #2c742f;
-    --blacktext: #1a1a1a;
-    --gray-text: #666;
     --light-bg: #f3f8fb;
     --border-color: #e5e5e5;
 }
@@ -421,6 +418,7 @@ body {
     margin: 0;
     margin-bottom: 20px;
     color: var(--blacktext);
+    margin-bottom: 20px;
 }
 
 .section-navigation {
