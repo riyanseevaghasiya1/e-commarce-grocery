@@ -115,7 +115,7 @@ function showNotification(message) {
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: #0db561;
+    background-color: #02B290;
     color: white;
     padding: 12px 24px;
     border-radius: 8px;
@@ -180,6 +180,7 @@ function renderWishlistPage() {
           <span class="inline-block text-[#4dc9b1] font-medium">In Stock</span>
         </div>
         <div class="flex gap-2 justify-start">
+          <button class="add-to-cart bg-[#02B290] hover:bg-[#029b80] text-white p-3 rounded transition-colors" onclick="addToCartFromWishlist(this)">
           <button class="add-to-cart bg-[#02B290] hover:bg-[#4dc9b1] text-white p-3 rounded transition-colors" onclick="addToCartFromWishlist(this)">
             <i class="fas fa-shopping-bag"></i>
           </button>

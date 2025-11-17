@@ -6,6 +6,7 @@
 
 :root {
     --primary-color: #02B290;
+    --secondary-color: #2c742f;
     --secondary-color: #4dc9b1;
     --blacktext: #1a1a1a;
     --gray-text: #666;
@@ -353,7 +354,7 @@ body {
     width: 10px !important;
     height: 10px !important;
     border-radius: 50% !important;
-    background: #0db561 !important;
+    background: #02B290 !important;
     opacity: 0.3 !important;
     margin: 0 5px !important;
     transition: all 0.3s ease !important;
@@ -365,7 +366,7 @@ body {
 
 /* Active dot style */
 .owl-carousel .owl-dot.active {
-    background: #0db561 !important;
+    background: #02B290 !important;
     opacity: 1 !important;
     width: 28px !important;
     border-radius: 5px !important;
@@ -415,6 +416,7 @@ body {
     font-size: 30px;
     font-weight: 700;
     margin: 0;
+    margin-bottom: 20px;
     color: var(--blacktext);
     margin-bottom: 20px;
 }

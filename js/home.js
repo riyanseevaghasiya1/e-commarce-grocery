@@ -14,11 +14,11 @@ $(document).ready(function () {
         dots: false,
         autoplay: false,
         responsive: {
-            0: {items: 1},
-            480: {items: 2},
-            768: {items: 3},
-            992: {items: 4},
-            1200: {items: 4}
+            0: { items: 1 },
+            480: { items: 2 },
+            768: { items: 3 },
+            992: { items: 4 },
+            1200: { items: 4 }
         }
     });
 
@@ -32,6 +32,11 @@ $(document).ready(function () {
         dots: false,
         autoplay: false,
         responsive: {
+            0: { items: 1 },
+            480: { items: 2 },
+            768: { items: 3 },
+            992: { items: 4 },
+            1200: { items: 5 }
             0: {items: 1},
             480: {items: 2},
             768: {items: 3},
@@ -168,7 +173,7 @@ $(document).ready(function () {
             if (btn) {
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-                btn.style.background = '#0db561';
+                btn.style.background = '#02B290';
 
                 setTimeout(() => {
                     btn.innerHTML = originalText;
@@ -181,6 +186,14 @@ $(document).ready(function () {
             }, 1500);
         }
     }
+
+    // MAKE THEM GLOBAL 👇👇
+    // window.openQuickView = openQuickView;
+    // window.closeQuickView = closeQuickView;
+    // window.increaseQuantity = increaseQuantity;
+    // window.decreaseQuantity = decreaseQuantity;
+    // window.addToCartFromModal = addToCartFromModal;
+
 
     // ==========================================
     // ADD TO WISHLIST (Fallback)
@@ -219,7 +232,7 @@ $(document).ready(function () {
                 console.log(`🛒 Added "${productName}" (${productPrice}) to cart!`);
 
                 button.style.transform = 'scale(1.2)';
-                button.style.background = '#0db561';
+                button.style.background = '#02B290';
                 button.style.color = 'white';
 
                 setTimeout(() => {

@@ -142,7 +142,7 @@ function showNotification(message, type = 'success') {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${type === 'error' ? '#ef4444' : '#0db561'};
+        background: ${type === 'error' ? '#ef4444' : '#02B290'};
         color: white;
         padding: 12px 20px;
         border-radius: 8px;
