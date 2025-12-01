@@ -46,7 +46,7 @@ $(document).ready(function () {
         // margin: 20,
         center: true,
         dots: true,
-        autoplay: false,
+        autoplay: true,
         autoplayTimeout: 3500,
         smartSpeed: 800,
         responsive: {
