@@ -122,14 +122,14 @@ const allProducts = [
   },
 
   // Frozen Foods
-  {
-    name: "Frozen Peas (500g)", price: "$5.00", rating: "★★★★☆", img: "./images/FrozenPeas.webp", badge: "Fresh", category: "Frozen Foods", sku: "FF-001", description: "Frozen green peas for quick cooking.",
-    images: ["./images/FrozenPeas.webp", "./images/FrozenPeas1.webp", "./images/FrozenPeas2.webp",]
-  },
-  {
-    name: "French Fries (1kg)", price: "$6.50", rating: "★★★★★", img: "./images/Frozenfranchfries.jpg", badge: "Hot", category: "Frozen Foods", sku: "FF-002", description: "Crispy frozen french fries ready to fry.",
-    images: ["./images/Frozenfranchfries.jpg", "./images/Frozenfranchfries1.png", "./images/Frozenfranchfries2.png",]
-  }
+  // {
+  //   name: "Frozen Peas (500g)", price: "$5.00", rating: "★★★★☆", img: "./images/FrozenPeas.webp", badge: "Fresh", category: "Frozen Foods", sku: "FF-001", description: "Frozen green peas for quick cooking.",
+  //   images: ["./images/FrozenPeas.webp", "./images/FrozenPeas1.webp", "./images/FrozenPeas2.webp",]
+  // },
+  // {
+  //   name: "French Fries (1kg)", price: "$6.50", rating: "★★★★★", img: "./images/Frozenfranchfries.jpg", badge: "Hot", category: "Frozen Foods", sku: "FF-002", description: "Crispy frozen french fries ready to fry.",
+  //   images: ["./images/Frozenfranchfries.jpg", "./images/Frozenfranchfries1.png", "./images/Frozenfranchfries2.png",]
+  // }
 ];
 
 // Function to navigate to ProductDetails page with product index
