@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store - Free Delivery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/home.css">
+    <!-- Styles & fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="./css/home.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- jQuery and Owl Carousel -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+
+    <!-- Owl Carousel CSS -->
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
 
 </head>
 
@@ -93,7 +94,7 @@
                 </div>
 
                 <div class="shop-categories-container">
-                    <div class="shop-categories-track" id="shopCategoriesTrack">
+                    <div class="shop-categories-track owl-carousel">
 
                         <!-- Fresh Produce -->
                         <a href="./Shop.html" class="category-link" data-category="Fresh Produce">
@@ -839,7 +840,10 @@
     </main>
 
     <div id="footer_add"></div>
-
+    <!-- jQuery FIRST -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Owl Carousel AFTER jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="./js/home.js"></script>
     <script src="./js/ViewProduct.js"></script>
     <script src="./js/wishlist.js"></script>
@@ -847,9 +851,57 @@
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
     <script src="./js/Search.js"></script>
-    <!-- Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const slider = document.getElementById("testimonialSlider");
+
+            let reviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
+
+            if (reviews.length === 0) return;
+
+            slider.innerHTML = ""; // remove old slides
+
+            reviews.forEach(r => {
+                slider.innerHTML += `
+        <div class="h_slider-item">
+            <div class="h_slider-card bg-white shadow-xl rounded-xl p-6 lg:p-8 xl:p-10 text-center relative mx-auto">
+
+                <img src="${r.image}" 
+                     class="h_slider-img w-20 h-20 rounded-full object-cover mx-auto absolute -top-10 left-1/2 transform -translate-x-1/2 shadow-md border-4 border-white" />
+
+                <h3 class="h_slider-name text-xl font-semibold mt-8">${r.name}</h3>
+                <p class="h_slider-role text-gray-500 text-sm mb-4">Verified Buyer</p>
+
+                <p class="h_slider-text text-gray-700 italic">
+                    ${r.review}
+                </p>
+            </div>
+        </div>
+        `;
+            });
+
+            // Re-init Owl Carousel
+            $("#testimonialSlider").owlCarousel({
+                loop: true,
+                margin: 20,
+                center: true,
+                items: 3,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                responsive: {
+                    0: { items: 1 },
+                    768: { items: 2 },
+                    1024: { items: 3 }
+                }
+            });
+
+        });
+    </script>
+
+
     <script>
         function addToCartFromModal() {
             const productName = document.getElementById('modalProductName')?.textContent.trim();
