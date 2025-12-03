@@ -14,10 +14,11 @@ fetch('./header.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('header-placeholder').innerHTML = data;
-    // Wait for DOM to update before initializing
-    
+
     setTimeout(() => {
       initializeEverything();
+
+      // Sticky Header Logic
       const header = document.getElementById("myHeader");
       if (header) {
         const stickyOffset = header.offsetTop;
@@ -29,9 +30,34 @@ fetch('./header.html')
           }
         });
       }
+
+      // ==============================
+      // HIDE SEARCH BAR ON MyAccount.html
+      // ==============================
+const pagesToHideSearch = [
+  "MyAccount.html",
+  "FAQ.html",
+  "PrivacyPolicy.html",
+  "Terms&Condition.html",
+  "AboutUs.html",
+  "ContactUs",
+  "Blog.html"
+];
+
+const currentPage = window.location.pathname.split("/").pop();
+
+if (pagesToHideSearch.includes(currentPage)) {
+  const searchBar = document.querySelector("#headerSearchDesktop");
+  if (searchBar) {
+    const container = searchBar.closest(".lg\\:flex");
+    if (container) container.style.display = "none";
+  }
+}
+
     }, 0);
   })
   .catch(error => console.error('Error loading header:', error));
+
 
 fetch('./Footer.html')
   .then(response => response.text())
@@ -113,6 +139,29 @@ function initializeHeader() {
       if (icon) icon.classList.add('rotate-180');
     }
   });
+
+
+  // Hide mobile search bar only on MyAccount page
+const pagesToHideSearch = [
+  "MyAccount.html",
+  "FAQ.html",
+  "PrivacyPolicy.html",
+  "Terms&Condition.html",
+  "AboutUs.html",
+  "ContactUs",
+  "Blog.html"
+];
+
+const currentPage = window.location.pathname.split("/").pop();
+
+if (pagesToHideSearch.includes(currentPage)) {
+  const mobileSearch = document.getElementById("headerSearchMobile");
+  if (mobileSearch) {
+    const wrapper = mobileSearch.closest(".p-4");
+    if (wrapper) wrapper.style.display = "none";
+  }
+}
+
 }
 
 // ========== Calculate Cart Totals ==========
@@ -249,10 +298,16 @@ function setupProceedToCheckout() {
 function updateCartCount() {
   const cartCount = document.getElementById('cart-count');
   if (!cartCount) return;
+
   const cartData = JSON.parse(localStorage.getItem('cart')) || [];
-  const totalItems = cartData.reduce((sum, item) => sum + (item.quantity || 1), 0);
-  cartCount.textContent = totalItems;
+  
+  // Count unique cart items
+  const totalUniqueItems = cartData.length;
+
+  // Set count
+  cartCount.textContent = totalUniqueItems;
 }
+
 
 // ========== CURRENCY SYSTEM - SINGLE CLEAN VERSION ==========
 let currentCurrency = {
@@ -559,9 +614,9 @@ function initializeUserMenu() {
 
 
 
-     window.onscroll = function() {
-      myFunction();
-    };
+    //  window.onscroll = function() {
+    //   myFunction();
+    // };
 
     // var header = document.getElementById("myHeader");
     // var stickyOffset = header.offsetTop; // Get the initial offset of the header
@@ -635,3 +690,28 @@ function clearSelectedCategory() {
 
 
 
+function subscribeNow() {
+    const email = document.getElementById("subscribeEmail").value;
+    const message = document.getElementById("subscribeMessage");
+
+    if (email.trim() === "") {
+        message.textContent = "Please enter your email.";
+        message.style.color = "red";
+        return;
+    }
+
+    // Simple email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        message.textContent = "Enter a valid email address.";
+        message.style.color = "red";
+        return;
+    }
+
+    // Success (you can send the email to backend here)
+    message.textContent = "Subscribed successfully!";
+    message.style.color = "#02B290";
+
+    // Clear input
+    document.getElementById("subscribeEmail").value = "";
+  }

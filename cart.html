@@ -19,7 +19,7 @@
             <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Cart</h1>
 
             <div class="flex items-center justify-center text-gray-700 text-sm space-x-2">
-                <a href="#" class="flex items-center hover:text-teal-600">
+                <a href="./home.html" class="flex items-center hover:text-teal-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-4 h-4 mr-1">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -88,11 +88,12 @@
   </div>
 
   <div class="px-6 py-6">
-    <button id="checkoutBtn"
-      class="w-full py-2 text-white font-semibold rounded hover:opacity-90 transition"
-      style="background-color: #02B290;">
-     <a href="./checkout.html"> Proceed to checkout</a>
-    </button>
+   <button id="checkoutBtn"
+  class="w-full py-2 text-white font-semibold rounded hover:opacity-90 transition"
+  style="background-color: #02B290;">
+  Proceed to checkout
+</button>
+
   </div>
 </div>
 
@@ -119,18 +120,22 @@
     <script src="./js/addtocart.js"></script>
 
 <script>
-  document.getElementById("checkoutBtn")?.addEventListener("click", () => {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
+document.getElementById("checkoutBtn")?.addEventListener("click", (e) => {
+    e.preventDefault(); // stop any default action
 
-  // ✅ Save cart to localStorage for checkout page
-  localStorage.setItem("checkoutCart", JSON.stringify(cart));
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // ✅ Redirect to checkout page
-  window.location.href = "./checkout.html";
+    // If cart empty → Stop redirect
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    // Save cart for checkout page
+    localStorage.setItem("checkoutCart", JSON.stringify(cart));
+
+    // Redirect to checkout page
+    window.location.href = "./checkout.html";
 });
 
 </script>
