@@ -38,9 +38,9 @@ const pagesToHideSearch = [
   "MyAccount.html",
   "FAQ.html",
   "PrivacyPolicy.html",
-  "Terms&Condition.html",
-  "AboutUs.html",
-  "ContactUs",
+  "Terms&condition.html",
+  "AboutUS.html",
+  "ContactUs.html",
   "Blog.html"
 ];
 
@@ -143,12 +143,12 @@ function initializeHeader() {
 
   // Hide mobile search bar only on MyAccount page
 const pagesToHideSearch = [
-  "MyAccount.html",
+ "MyAccount.html",
   "FAQ.html",
   "PrivacyPolicy.html",
-  "Terms&Condition.html",
-  "AboutUs.html",
-  "ContactUs",
+  "Terms&condition.html",
+  "AboutUS.html",
+  "ContactUs.html",
   "Blog.html"
 ];
 
