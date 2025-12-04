@@ -336,64 +336,80 @@
 			form.classList.add('transition-all', 'duration-300');
 		}
 	</script>
-	<script>
-		function addToCart1(button) {
-			const container = button.closest('.flex.flex-col') || document.body;
+<script>
+	function addToCart1(button) {
+		const container = button.closest('.flex.flex-col') || document.body;
 
-			const nameEl = container.querySelector('h1') || document.querySelector('h1');
-			const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
+		const nameEl = container.querySelector('h1') || document.querySelector('h1');
+		const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
 
-			const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
-				document.querySelector('[class*="font-bold"][class*="text"]');
-			let productPrice = '';
-			if (priceEl) {
-				const match = priceEl.textContent.match(/\$\s*\d+(?:\.\d+)?/);
-				productPrice = match ? match[0] : priceEl.textContent.trim();
-			}
+		const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
+			document.querySelector('[class*="font-bold"][class*="text"]');
 
-			// ✅ FIXED IMAGE SELECTOR
-			const productImage = document.getElementById('mainImg')?.src || '';
-
-			const qtyInput = document.getElementById('qty');
-			const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
-
-			const selectedWeightEl =
-				document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
-				document.querySelector('[class*="weight-option"].active') ||
-				document.querySelector('.weight-option');
-			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
-
-			const product = {
-				name: productName,
-				price: productPrice,
-				image: productImage,
-				quantity: quantity,
-				weight: selectedWeight
-			};
-
-			let cart = [];
-			try {
-				cart = JSON.parse(localStorage.getItem('cart')) || [];
-			} catch (e) {
-				cart = [];
-			}
-
-			const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
-			if (existing) {
-				existing.quantity += product.quantity;
-			} else {
-				cart.push(product);
-			}
-
-			localStorage.setItem('cart', JSON.stringify(cart));
-			localStorage.setItem('cart', JSON.stringify(cart));
-			console.log("cart///////", cart);
-
-			updateCartCount();
-			showNotification('Item added to cart');
+		let productPrice = 0;
+		if (priceEl) {
+			// remove everything except numbers and dot
+			productPrice = parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0;
 		}
 
-	</script>
+		// Image
+		const productImage = document.getElementById('mainImg')?.src || '';
+
+		// Quantity
+		const qtyInput = document.getElementById('qty');
+		const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
+
+		// Selected Weight
+		const selectedWeightEl =
+			document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
+			document.querySelector('[class*="weight-option"].active') ||
+			document.querySelector('.weight-option');
+
+		const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
+
+		// ⭐ Weight Multiplier
+		let weightMultiplier = 1;
+
+		if (selectedWeight.includes("500")) weightMultiplier = 0.5;
+		else if (selectedWeight.includes("1 Kg")) weightMultiplier = 1;
+		else if (selectedWeight.includes("2 Kg")) weightMultiplier = 2;
+		else if (selectedWeight.includes("5 Kg")) weightMultiplier = 5;
+
+		// ⭐ FINAL PRICE = Base Price × Weight
+		const finalPrice = (productPrice * weightMultiplier).toFixed(2);
+
+		const product = {
+			name: productName,
+			price: finalPrice,      // ⭐ FINAL PRICE
+			image: productImage,
+			quantity: quantity,
+			weight: selectedWeight
+		};
+
+		let cart = [];
+		try {
+			cart = JSON.parse(localStorage.getItem('cart')) || [];
+		} catch (e) {
+			cart = [];
+		}
+
+		// If same product & same weight → increase qty
+		const existing = cart.find(item =>
+			item.name === product.name && item.weight === product.weight
+		);
+
+		if (existing) {
+			existing.quantity += product.quantity;
+		} else {
+			cart.push(product);
+		}
+
+		localStorage.setItem('cart', JSON.stringify(cart));
+
+		updateCartCount();
+		showNotification('Item added to cart');
+	}
+</script>
 
 
 

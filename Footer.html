@@ -24,7 +24,7 @@
                             <h5 class="text-[20px] font-bold">Grocery Go</h5>
                         </div>
                     </a>
-                    <p class="text-gray-600 text-sm mb-6">
+                    <p class="text-gray-600 text-sm mb-6 pt-2">
                         We offer high-quality products and the best produce selection, and the ability to get them fresh
                     </p>
                     <!-- Social Icons -->
@@ -48,9 +48,9 @@
                 <div>
                     <h4 class="text-gray-900 font-semibold mb-4">About us</h4>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-600 hover:text-[#0db561] text-sm transition">Support Center</a></li>
+                        <li><a href="./PrivacyPolicy.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Support Center</a></li>
                   
-                        <li><a href="#" class="text-gray-600 hover:text-[#0db561] text-sm transition">About Team</a></li>
+                        <li><a href="./AboutUS.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">About Team</a></li>
                     </ul>
                 </div>
 
@@ -74,22 +74,31 @@
                 </div>
 
                 <!-- Subscribe Now -->
-                <div>
-                    <h4 class="text-gray-900 font-semibold mb-4">Subscribe Now</h4>
-                    <p class="text-gray-600 text-sm mb-4">
-                        Subscribe your email for newsletter and featured news based on your interest
-                    </p>
-                    <div class="relative">
-                        <input 
-                            type="email" 
-                            placeholder="Email Address" 
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#02B290] text-sm pr-12"
-                        >
-                        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#02B290] hover:text-[#4dc9b1] transition">
-                            <i class="fas fa-paper-plane text-lg "></i>
-                        </button>
-                    </div>
-                </div>
+              <div>
+    <h4 class="text-gray-900 font-semibold mb-4">Subscribe Now</h4>
+    <p class="text-gray-600 text-sm mb-4">
+        Subscribe your email for newsletter and featured news based on your interest
+    </p>
+
+    <div class="relative">
+        <input 
+            id="subscribeEmail"
+            type="email" 
+            placeholder="Email Address" 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none 
+                   focus:border-[#02B290] text-sm pr-12"
+        >
+        
+        <button 
+            onclick="subscribeNow()" 
+            class="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#02B290] hover:text-[#4dc9b1] transition"
+        >
+            <i class="fas fa-paper-plane text-lg"></i>
+        </button>
+    </div>
+
+    <p id="subscribeMessage" class="text-sm mt-2"></p>
+</div>
             </div>
 
             <!-- Payment Methods & Copyright -->

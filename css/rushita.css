@@ -12,6 +12,17 @@
   .r_height{
     height: 400px;
   }
+
+@media (max-width:425px){
+  .r_cart425{
+    width: auto;
+  }
+}
+@media (max-width:425px){
+  .r_375{
+    flex-wrap: wrap;
+  }
+}
 @media (max-width: 360px) {
   .r_img{
     height: 25px;
@@ -19,6 +30,15 @@
   }
   .r_smnone {
     font-size: 14px;
+  }
+  .r_320side{
+    width: auto !important;
+  }
+
+}
+@media (max-width: 320px) {
+    .r_cart425{
+    width: 280px !important;
   }
 }
  .addr-select-radio {
