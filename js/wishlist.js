@@ -42,8 +42,13 @@ function updateWishlistCount() {
 function updateCartCount() {
   const countElement = document.getElementById('cartCount');
   if (!countElement) return;
-  countElement.textContent = cart.length;
-  countElement.style.display = cart.length > 0 ? 'flex' : 'none';
+  
+  const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+  countElement.textContent = totalQty;
+
+  countElement.style.display = totalQty > 0 ? 'flex' : 'none';
+
+
 }
 
 function addToWishlist(button) {
@@ -180,7 +185,7 @@ function renderWishlistPage() {
           <span class="inline-block text-[#4dc9b1] font-medium">In Stock</span>
         </div>
         <div class="flex gap-2 justify-start">
-          <button class="add-to-cart bg-[#02B290] hover:bg-[#029b80] text-white p-3 rounded transition-colors" onclick="addToCartFromWishlist(this)">
+         
           <button class="add-to-cart bg-[#02B290] hover:bg-[#4dc9b1] text-white p-3 rounded transition-colors" onclick="addToCartFromWishlist(this)">
             <i class="fas fa-shopping-bag"></i>
           </button>
@@ -209,6 +214,20 @@ function removeFromWishlist(productId) {
 }
 
 // ===================== CART LOGIC ===================== //
+// function mergeDuplicates() {
+//   const map = {};
+  
+//   cart.forEach(item => {
+//     const id = item.id.toString();
+//     if (!map[id]) {
+//       map[id] = { ...item };
+//     } else {
+//       map[id].quantity += item.quantity;
+//     }
+//   });
+
+//   cart = Object.values(map);
+// }
 
 
 function addToCartFromWishlist(button) {
@@ -250,6 +269,7 @@ function addToCartFromWishlist(button) {
 
   saveCartToStorage();
   updateCartCount();
+  // mergeDuplicates();
 
   
 }

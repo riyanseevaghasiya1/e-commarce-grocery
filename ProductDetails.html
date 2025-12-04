@@ -17,8 +17,8 @@
 	<div id="header-placeholder"></div>
 
 	<!-- Banner -->
-	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center py-16 sm:py-24"
-		style="background-image: url('images/pages-hero-bg.webp');">
+	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center 
+    py-10 sm:py-16 px-4" style="background-image: url('images/pages-hero-bg.webp');">
 		<div class="relative text-center text-black z-10">
 			<h1 class="text-2xl md:text-4xl font-semibold mb-4">Shop</h1>
 			<div class="flex items-center justify-center text-sm md:text-base text-black mt-2">
@@ -33,21 +33,21 @@
 		</div>
 	</div>
 
-	<div class="a_header_container">
+	<div class="a_header_container px-4 sm:px-0">
 		<div class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
 			<!-- Product Section -->
-			<div class="grid md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-6">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-4 sm:p-6">
 				<!-- Gallery -->
 				<div>
-					<img id="mainImg" src="./images/apple.jpg" alt="Grocery Item"
-						class="w-full h-96 object-cover rounded-xl mb-4" />
+					<img id="mainImg" src="./images/apple.jpg"
+						class="w-full max-h-[350px] sm:max-h-[450px] object-contain rounded-xl mb-4" />
 					<div class="flex gap-3 justify-center">
 						<img onclick="swapImage(this)" src="./images/apple1.jpg" alt="Thumb 1"
-							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02B290] cursor-pointer" />
+							class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg cursor-pointer hover:border-[#02B290] border-2 border-transparent" />
 						<img onclick="swapImage(this)" src="./images/apple2.avif" alt="Thumb 2"
-							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02B290] cursor-pointer" />
+							class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg cursor-pointer hover:border-[#02B290] border-2 border-transparent" />
 						<img onclick="swapImage(this)" src="./images/apple.jpg" alt="Thumb 3"
-							class="w-20 h-20 object-cover rounded-lg border-2 border-transparent hover:border-[#02B290] cursor-pointer" />
+							class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg cursor-pointer hover:border-[#02B290] border-2 border-transparent" />
 					</div>
 				</div>
 
@@ -71,25 +71,30 @@
 							class="bg-[#02B290] text-white w-8 h-8 rounded-md text-[22px]">+</button>
 					</div>
 
-					<div class="flex items-center gap-4 mb-6">
-						<h4>Weight :</h4>
+					<div class="flex flex-wrap items-center gap-3 mb-6">
+						<h4 class="w-full sm:w-auto">Weight :</h4>
+
 						<div onclick="selectWeight(this)"
-							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option">
+							class="weight-option rounded-full px-4 py-1 cursor-pointer transition">
 							500g
 						</div>
+
 						<div onclick="selectWeight(this)"
-							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option bg-[#02B290] text-white">
+							class="weight-option rounded-full px-4 py-1 cursor-pointer transition bg-[#02B290] text-white">
 							1 Kg
 						</div>
+
 						<div onclick="selectWeight(this)"
-							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option">
+							class="weight-option rounded-full px-4 py-1 cursor-pointer transition">
 							2 Kg
 						</div>
+
 						<div onclick="selectWeight(this)"
-							class=" rounded-full px-3 py-1 cursor-pointer transition weight-option">
+							class="weight-option rounded-full px-4 py-1 cursor-pointer transition">
 							5 Kg
 						</div>
 					</div>
+
 
 					<button
 						class="bg-[#02B290] hover:bg-[#4dc9b1] text-white py-2 text-[18px] rounded-lg font-medium transition mb-3"
@@ -184,33 +189,26 @@
 				<!-- Hidden Review Form -->
 				<div id="reviewForm" class="hidden mt-6 border-t pt-4">
 					<h4 class="text-lg font-semibold text-gray-800 mb-3">Write Your Review</h4>
-					<form class="space-y-4">
-						<div>
-							<label class="block text-sm font-medium mb-1">Name</label>
-							<input type="text" placeholder="Enter your name"
-								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02B290]">
-						</div>
-						<div>
-							<label class="block text-sm font-medium mb-1">Rating</label>
-							<select
-								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02B290]">
-								<option value="">Select Rating</option>
-								<option>★★★★★</option>
-								<option>★★★★☆</option>
-								<option>★★★☆☆</option>
-								<option>★★☆☆☆</option>
-								<option>★☆☆☆☆</option>
-							</select>
-						</div>
-						<div>
-							<label class="block text-sm font-medium mb-1">Your Review</label>
-							<textarea rows="4" placeholder="Write your feedback here..."
-								class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#02B290]"></textarea>
-						</div>
-						<button type="submit"
-							class="bg-[#02B290] text-white py-2 px-5 rounded-md font-semibold hover:bg-[#4dc9b1] transition">Submit
-							Review</button>
+					<form id="reviewFormContent" class="space-y-4">
+						<input type="text" placeholder="Your Name" class="border p-2 w-full" />
+
+						<select class="border p-2 w-full">
+							<option value="">Select Rating</option>
+							<option value="5">⭐⭐⭐⭐⭐</option>
+							<option value="4">⭐⭐⭐⭐</option>
+							<option value="3">⭐⭐⭐</option>
+							<option value="2">⭐⭐</option>
+							<option value="1">⭐</option>
+						</select>
+
+						<!-- NEW: Image Upload -->
+						<input type="file" accept="image/*" id="reviewImage" class="border p-2 w-full" />
+
+						<textarea placeholder="Write your review" class="border p-2 w-full"></textarea>
+
+						<button class="bg-green-600 text-white px-4 py-2 rounded">Submit Review</button>
 					</form>
+
 				</div>
 			</div>
 
@@ -338,64 +336,80 @@
 			form.classList.add('transition-all', 'duration-300');
 		}
 	</script>
-	<script>
-		function addToCart1(button) {
-			const container = button.closest('.flex.flex-col') || document.body;
+<script>
+	function addToCart1(button) {
+		const container = button.closest('.flex.flex-col') || document.body;
 
-			const nameEl = container.querySelector('h1') || document.querySelector('h1');
-			const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
+		const nameEl = container.querySelector('h1') || document.querySelector('h1');
+		const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
 
-			const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
-				document.querySelector('[class*="font-bold"][class*="text"]');
-			let productPrice = '';
-			if (priceEl) {
-				const match = priceEl.textContent.match(/\$\s*\d+(?:\.\d+)?/);
-				productPrice = match ? match[0] : priceEl.textContent.trim();
-			}
+		const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
+			document.querySelector('[class*="font-bold"][class*="text"]');
 
-			// ✅ FIXED IMAGE SELECTOR
-			const productImage = document.getElementById('mainImg')?.src || '';
-
-			const qtyInput = document.getElementById('qty');
-			const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
-
-			const selectedWeightEl =
-				document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
-				document.querySelector('[class*="weight-option"].active') ||
-				document.querySelector('.weight-option');
-			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
-
-			const product = {
-				name: productName,
-				price: productPrice,
-				image: productImage,
-				quantity: quantity,
-				weight: selectedWeight
-			};
-
-			let cart = [];
-			try {
-				cart = JSON.parse(localStorage.getItem('cart')) || [];
-			} catch (e) {
-				cart = [];
-			}
-
-			const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
-			if (existing) {
-				existing.quantity += product.quantity;
-			} else {
-				cart.push(product);
-			}
-
-			localStorage.setItem('cart', JSON.stringify(cart));
-			localStorage.setItem('cart', JSON.stringify(cart));
-			console.log("cart///////", cart);
-
-			updateCartCount();
-			showNotification('Item added to cart');
+		let productPrice = 0;
+		if (priceEl) {
+			// remove everything except numbers and dot
+			productPrice = parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0;
 		}
 
-	</script>
+		// Image
+		const productImage = document.getElementById('mainImg')?.src || '';
+
+		// Quantity
+		const qtyInput = document.getElementById('qty');
+		const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
+
+		// Selected Weight
+		const selectedWeightEl =
+			document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
+			document.querySelector('[class*="weight-option"].active') ||
+			document.querySelector('.weight-option');
+
+		const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
+
+		// ⭐ Weight Multiplier
+		let weightMultiplier = 1;
+
+		if (selectedWeight.includes("500")) weightMultiplier = 0.5;
+		else if (selectedWeight.includes("1 Kg")) weightMultiplier = 1;
+		else if (selectedWeight.includes("2 Kg")) weightMultiplier = 2;
+		else if (selectedWeight.includes("5 Kg")) weightMultiplier = 5;
+
+		// ⭐ FINAL PRICE = Base Price × Weight
+		const finalPrice = (productPrice * weightMultiplier).toFixed(2);
+
+		const product = {
+			name: productName,
+			price: finalPrice,      // ⭐ FINAL PRICE
+			image: productImage,
+			quantity: quantity,
+			weight: selectedWeight
+		};
+
+		let cart = [];
+		try {
+			cart = JSON.parse(localStorage.getItem('cart')) || [];
+		} catch (e) {
+			cart = [];
+		}
+
+		// If same product & same weight → increase qty
+		const existing = cart.find(item =>
+			item.name === product.name && item.weight === product.weight
+		);
+
+		if (existing) {
+			existing.quantity += product.quantity;
+		} else {
+			cart.push(product);
+		}
+
+		localStorage.setItem('cart', JSON.stringify(cart));
+
+		updateCartCount();
+		showNotification('Item added to cart');
+	}
+</script>
 
 
 
@@ -457,6 +471,72 @@
 		});
 
 	</script>
+	<script>
+		document.getElementById("reviewFormContent").addEventListener("submit", async function (e) {
+			e.preventDefault();
+
+			const name = e.target.querySelector("input[type=text]").value;
+			const rating = e.target.querySelector("select").value;
+			const review = e.target.querySelector("textarea").value;
+			const imageFile = document.getElementById("reviewImage").files[0];
+
+			if (!name || !rating || !review) {
+				alert("Please fill all fields");
+				return;
+			}
+
+			let imageBase64 = "";
+
+			if (imageFile) {
+				imageBase64 = await compressImage(imageFile);
+			}
+
+			let reviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
+
+			reviews.push({
+				name,
+				rating,
+				review,
+				image: imageBase64 || "https://randomuser.me/api/portraits/women/10.jpg"
+			});
+
+			localStorage.setItem("customerReviews", JSON.stringify(reviews));
+
+			alert("Review Submitted Successfully!");
+			e.target.reset();
+		});
+
+
+		// ✔ Compress + auto-crop high-quality image
+		function compressImage(file) {
+			return new Promise((resolve) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = (event) => {
+					const img = new Image();
+					img.src = event.target.result;
+
+					img.onload = () => {
+						const canvas = document.createElement("canvas");
+						const ctx = canvas.getContext("2d");
+
+						const size = 400; // high quality square crop
+						canvas.width = size;
+						canvas.height = size;
+
+						const minSize = Math.min(img.width, img.height);
+						const sx = (img.width - minSize) / 2;
+						const sy = (img.height - minSize) / 2;
+
+						ctx.drawImage(img, sx, sy, minSize, minSize, 0, 0, size, size);
+
+						resolve(canvas.toDataURL("image/jpeg", 0.9));
+					};
+				};
+			});
+		}
+	</script>
+
 </body>
 
 </html>

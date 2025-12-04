@@ -1,28 +1,37 @@
 // ========== Update Cart Count ==========
 function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0); // Count total items, not just products
-    const cartCountElement = document.getElementById('cart-count');
-    console.log("cartCountElement?//////////////", cartCountElement);
+  const cartCount = document.getElementById('cart-count');
+  if (!cartCount) return;
 
-    if (cartCountElement) {
-        cartCountElement.textContent = count;
-    }
+  const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  
+  // Count unique cart items
+  const totalUniqueItems = cartData.length;
+
+  // Set count
+  cartCount.textContent = totalUniqueItems;
 }
 
 // ========== Add to Cart ==========
 function addToCart(button) {
     const productInfo = button.closest('.product-info');
+    const productCard = button.closest('.product-card');
+
+    // Get product name
+    const productName = productInfo.querySelector('.product-name')?.textContent.trim() || '';
 
     const product = {
-        name: productInfo.querySelector('.product-name')?.textContent.trim() || '',
+        id: productName, // ✅ NOW EVERY PRODUCT GETS AN ID
+        name: productName,
         price: productInfo.querySelector('.current-price')?.textContent.trim() || '',
-        image: productInfo.closest('.product-card')?.querySelector('.product-image')?.src || '',
+        image: productCard?.querySelector('.product-image')?.src || '',
         quantity: 1
     };
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existing = cart.find(item => item.name === product.name);
+    
+    // ✅ Find existing product by ID (more reliable than name)
+    const existing = cart.find(item => item.id === product.id);
     console.log("cart>>>>", cart);
     
     if (existing) {
@@ -48,6 +57,9 @@ function loadCartItems() {
             <div class="px-6 py-12 text-center text-gray-500">
                 <i class="fas fa-shopping-cart text-5xl mb-4"></i>
                 <p class="text-lg">Your cart is empty</p>
+                <button class="bg-[#02B290] text-white mt-2 px-3 py-2 rounded-lg text-sm hover:bg-[#4dc9b1] transition">
+                    <a href="./Shop.html">Shop Now</a>
+                </button>
             </div>
         `;
         updateCartSummary();
@@ -55,7 +67,7 @@ function loadCartItems() {
     }
 
     container.innerHTML = cart.map((item, index) => `
-        <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center" data-index="${index}">
+        <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center" data-index="${index}" data-id="${item.id || ''}">
             <div class="col-span-1">
                 <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer" onclick="removeFromCart(${index})"></i>
             </div>
@@ -114,17 +126,23 @@ function updateCartSummary() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     let subtotal = 0;
 
-    // Calculate subtotal
-    cart.forEach(item => {
-        const price = parseFloat(item.price.replace('$', '').trim());
-        subtotal += price * item.quantity;
-    });
+    // Check if cart is empty
+    const isCartEmpty = cart.length === 0;
 
-    // Get shipping from global variable or default
-    const shippingCost = typeof shipping !== 'undefined' ? shipping : 22.00;
+    // Calculate subtotal only if cart has items
+    if (!isCartEmpty) {
+        cart.forEach(item => {
+            const price = parseFloat(item.price.replace('$', '').trim());
+            subtotal += price * item.quantity;
+        });
+    }
+
+    // SHIPPING LOGIC
+    const shippingCost = isCartEmpty ? 0 : 22.00;
+
     const total = subtotal + shippingCost;
 
-    // Update all possible elements (for different pages)
+    // Update elements
     const subtotalEl = document.getElementById('subtotal') || document.getElementById('cartSubtotal');
     const shippingEl = document.getElementById('shippingCost');
     const totalEl = document.getElementById('total') || document.getElementById('cartTotal');
@@ -133,6 +151,9 @@ function updateCartSummary() {
     if (shippingEl) shippingEl.textContent = `$${shippingCost.toFixed(2)}`;
     if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
 }
+
+// ⭐ Run automatically when page loads — no refresh needed
+document.addEventListener("DOMContentLoaded", updateCartSummary);
 
 // ========== Show Notification ==========
 function showNotification(message, type = 'success') {
