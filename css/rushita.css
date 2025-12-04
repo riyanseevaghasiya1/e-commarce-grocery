@@ -1,7 +1,7 @@
-select option:checked {
+/* select option:checked {
   background-color: #14b8a6;
   color: white;
-}
+} */
   select option:hover {
     background-color: #14b8a6; 
     color: white;

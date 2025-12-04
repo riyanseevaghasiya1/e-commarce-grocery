@@ -2,7 +2,24 @@ $(document).ready(function () {
     // ==========================================
     // CATEGORY SLIDER INITIALIZATION
     // ==========================================
-    initializeCategorySlider();
+    $(document).ready(function () {
+        $(".shop-categories-track").owlCarousel({
+            loop: false,
+            margin: 20,
+            nav: false,
+            dots: true,
+            autoplay: false,
+            smartSpeed: 600,
+            responsive: {
+                0: { items: 2 },
+                480: { items: 3 },
+                768: { items: 4 },
+                992: { items: 5 },
+                1200: { items: 7 }
+            }
+        });
+    });
+
 
     // ==========================================
     // BEST SELLERS CAROUSEL
@@ -39,14 +56,14 @@ $(document).ready(function () {
             1200: { items: 5 }
 
         }
-    });
+    })
 
     var testimonialSlider = $('#testimonialSlider').owlCarousel({
         loop: true,
         // margin: 20,
         center: true,
         dots: true,
-        autoplay: false,
+        autoplay: true,
         autoplayTimeout: 3500,
         smartSpeed: 800,
         responsive: {
@@ -605,99 +622,7 @@ $(document).ready(function () {
         }
     }
 
-    // ==========================================
-    // CATEGORY SLIDER CUSTOM IMPLEMENTATION
-    // ==========================================
-    function initializeCategorySlider() {
-        const track = document.getElementById('shopCategoriesTrack');
-        const dotsContainer = document.getElementById('categoryDots');
-        if (!track || !dotsContainer) return;
 
-        const items = track.querySelectorAll('.shop-category-item');
-        if (items.length === 0) return;
-
-        let itemsPerView = getItemsPerView();
-        const totalItems = items.length;
-        let totalPages = Math.ceil(totalItems / itemsPerView);
-        let currentPage = 0;
-        let autoPlayInterval = null;
-
-        function getItemsPerView() {
-            const width = window.innerWidth;
-            if (width >= 1200) return 8;
-            if (width >= 992) return 6;
-            if (width >= 768) return 5;
-            if (width >= 576) return 4;
-            if (width >= 481) return 3;
-            return 2;
-        }
-
-        function updateSlider() {
-            itemsPerView = getItemsPerView();
-            totalPages = Math.ceil(totalItems / itemsPerView);
-            if (currentPage >= totalPages) currentPage = Math.max(0, totalPages - 1);
-
-            const itemWidth = 100 / itemsPerView;
-            items.forEach(item => {
-                item.style.flex = `0 0 ${itemWidth}%`;
-            });
-
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < totalPages; i++) {
-                const dot = document.createElement('button');
-                dot.className = 'category-dot' + (i === currentPage ? ' active' : '');
-                dot.setAttribute('data-page', i);
-                dot.setAttribute('aria-label', `Go to page ${i + 1}`);
-                dot.addEventListener('click', () => goToPage(i));
-                dotsContainer.appendChild(dot);
-            }
-
-            goToPage(currentPage);
-        }
-
-        function goToPage(page) {
-            currentPage = Math.max(0, Math.min(page, totalPages - 1));
-            const offset = -(currentPage * (100 / itemsPerView));
-            track.style.transform = `translateX(${offset}%)`;
-
-            dotsContainer.querySelectorAll('.category-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentPage);
-            });
-        }
-
-        function startAutoPlay() {
-            if (autoPlayInterval) clearInterval(autoPlayInterval);
-            autoPlayInterval = setInterval(() => {
-                const nextPage = (currentPage + 1) % totalPages;
-                goToPage(nextPage);
-            }, 4000);
-        }
-
-        function stopAutoPlay() {
-            if (autoPlayInterval) {
-                clearInterval(autoPlayInterval);
-                autoPlayInterval = null;
-            }
-        }
-
-        updateSlider();
-        startAutoPlay();
-
-        const wrapper = track.closest('.shop-category-wrapper');
-        if (wrapper) {
-            wrapper.addEventListener('mouseenter', stopAutoPlay);
-            wrapper.addEventListener('mouseleave', startAutoPlay);
-        }
-
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                updateSlider();
-                startAutoPlay();
-            }, 250);
-        });
-    }
 
     // ==========================================
     // SCROLL PRODUCTS FUNCTION
@@ -740,3 +665,17 @@ $(document).ready(function () {
     console.log('✅ Home.js loaded successfully!');
     console.log('✅ Grocery Store - Owl Carousel Version Loaded Successfully!');
 });
+
+// UNIVERSAL SCROLL FUNCTION FOR ALL PRODUCT SLIDERS
+function scrollProducts(id, direction) {
+    var carousel = $("#" + id).data('owl.carousel');
+
+    if (!carousel) return;
+
+    if (direction === 1) {
+        $("#" + id).trigger('next.owl.carousel');
+    } else {
+        $("#" + id).trigger('prev.owl.carousel');
+    }
+}
+

@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store - Free Delivery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/home.css">
+    <!-- Styles & fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="./css/home.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- jQuery and Owl Carousel -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+
+    <!-- Owl Carousel CSS -->
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
 
 </head>
 
@@ -30,7 +31,7 @@
                         <p class="hero-label">GROCERY STORE</p>
                         <h1 class="hero-title">Free Delivery from your area</h1>
                         <p class="hero-description">Get ready for spring as soon as today with $0 delivery fees.</p>
-                        <button class="hero-btn">Explore More</button>
+                        <a href="./Shop.html" class="hero-btn">Explore More</a>
                     </div>
                 </div>
                 <div class="hero-card" style="background-image: url('./images/2.png');">
@@ -38,7 +39,7 @@
                         <p class="hero-label">BREAKFAST FOOD</p>
                         <h1 class="hero-title">Fresh Healthy breakfast food</h1>
                         <p class="hero-description">Get ready for spring as soon as today with $0 delivery fees.</p>
-                        <button class="hero-btn">Explore More</button>
+                        <a href="./Shop.html" class="hero-btn">Explore More</a>
                     </div>
                 </div>
             </section>
@@ -51,7 +52,8 @@
                     </div>
                     <div class="feature-text">
                         <h3 class="feature-title">Refer friends & get 10% Discount on all item.</h3>
-                        <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                        <a href="./Terms&condition.html" class="feature-link">LEARN MORE <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="feature-card" style="background: linear-gradient(135deg, #E3F5FF 0%, #B3E5FC 100%);">
@@ -60,7 +62,7 @@
                     </div>
                     <div class="feature-text">
                         <h3 class="feature-title">Fastest delivery system that we ever built.</h3>
-                        <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                        <a href="./FAQ.html" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="feature-card" style="background: linear-gradient(135deg, #E8F8F5 0%, #A7F3D0 100%);">
@@ -69,7 +71,8 @@
                     </div>
                     <div class="feature-text">
                         <h3 class="feature-title">Join inner cycle to help us improve our system.</h3>
-                        <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                        <a href="./ContactUs.html" class="feature-link">LEARN MORE <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="feature-card" style="background: linear-gradient(135deg, #FFE8F0 0%, #FECDD3 100%);">
@@ -78,7 +81,8 @@
                     </div>
                     <div class="feature-text">
                         <h3 class="feature-title">Share your thoughts with us and get prize.</h3>
-                        <a href="#" class="feature-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+                        <a href="./Terms&condition.html" class="feature-link">LEARN MORE <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </section>
@@ -90,141 +94,145 @@
                 </div>
 
                 <div class="shop-categories-container">
-                    <div class="shop-categories-track" id="shopCategoriesTrack">
+                    <div class="shop-categories-track owl-carousel">
+
                         <!-- Fresh Produce -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Fresh Produce">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-1.jpg" alt="Dry Fruits">
+                                    <img src="./images/c-1.jpg" alt="Fresh Produce">
                                 </div>
                                 <h3 class="shop-category-name">Fresh Produce</h3>
                             </div>
                         </a>
 
                         <!-- Bakery & Dairy -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Bakery & Dairy">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-2.jpg" alt="Fresh Fruits">
+                                    <img src="./images/c-2.jpg" alt="Bakery & Dairy">
                                 </div>
                                 <h3 class="shop-category-name">Bakery & Dairy</h3>
                             </div>
                         </a>
 
                         <!-- Staples & Grains -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Staples & Grains">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-3.webp" alt="Vegetables">
+                                    <img src="./images/c-3.webp" alt="Staples & Grains">
                                 </div>
                                 <h3 class="shop-category-name">Staples & Grains</h3>
                             </div>
                         </a>
 
                         <!-- Masala & Spices -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Masala & Spices">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-4.jpg" alt="Sweet Corn">
+                                    <img src="./images/c-4.jpg" alt="Masala & Spices">
                                 </div>
                                 <h3 class="shop-category-name">Masala & Spices</h3>
                             </div>
                         </a>
 
                         <!-- Snacks & Branded Foods -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Snacks & Branded Foods">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-5.jpg" alt="Organic Juice">
+                                    <img src="./images/c-5.jpg" alt="Snacks & Branded Foods">
                                 </div>
                                 <h3 class="shop-category-name">Snacks & Branded Foods</h3>
                             </div>
                         </a>
 
                         <!-- Packaged & Canned Foods -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Packaged & Canned Foods">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-6.jpg" alt="Cookies">
+                                    <img src="./images/c-6.jpg" alt="Packaged & Canned Foods">
                                 </div>
                                 <h3 class="shop-category-name">Packaged & Canned Foods</h3>
                             </div>
                         </a>
 
                         <!-- Beverages -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Beverages">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-7.jpg" alt="Dairy">
+                                    <img src="./images/c-7.jpg" alt="Beverages">
                                 </div>
                                 <h3 class="shop-category-name">Beverages</h3>
                             </div>
                         </a>
 
                         <!-- Household Essentials -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Household Essentials">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-8.webp" alt="Organic Food">
+                                    <img src="./images/c-8.webp" alt="Household Essentials">
                                 </div>
                                 <h3 class="shop-category-name">Household Essentials</h3>
                             </div>
                         </a>
 
                         <!-- Personal Care -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Personal Care">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-9.webp" alt="Dairy">
+                                    <img src="./images/c-9.webp" alt="Personal Care">
                                 </div>
                                 <h3 class="shop-category-name">Personal Care</h3>
                             </div>
                         </a>
 
                         <!-- Pet Care -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Pet Care">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-10.jpeg" alt="Organic Food">
+                                    <img src="./images/c-10.jpeg" alt="Pet Care">
                                 </div>
                                 <h3 class="shop-category-name">Pet Care</h3>
                             </div>
                         </a>
 
                         <!-- Baby Care -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Baby Care">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-11.jpg" alt="Organic Food">
+                                    <img src="./images/c-11.jpg" alt="Baby Care">
                                 </div>
                                 <h3 class="shop-category-name">Baby Care</h3>
                             </div>
                         </a>
 
                         <!-- Organic & Health Products -->
-                        <a href="./Shop.html">
+                        <a href="./Shop.html" class="category-link" data-category="Organic & Health Products">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-12.jpg" alt="Dairy">
+                                    <img src="./images/c-12.jpg" alt="Organic & Health Products">
                                 </div>
                                 <h3 class="shop-category-name">Organic & Health Products</h3>
                             </div>
                         </a>
 
-                        <!-- Organic Food -->
-                        <a href="./Shop.html">
+                        <!-- Frozen Foods -->
+                        <a href="./Shop.html" class="category-link" data-category="Frozen Foods">
                             <div class="shop-category-item">
                                 <div class="shop-category-circle">
-                                    <img src="./images/c-13.webp" alt="Organic Food">
+                                    <img src="./images/c-13.webp" alt="Frozen Foods">
                                 </div>
                                 <h3 class="shop-category-name">Frozen Foods</h3>
                             </div>
                         </a>
+
                     </div>
 
-                    <!-- Dots Navigation Below Categories -->
+                    <!-- Dots Navigation -->
                     <div class="shop-category-dots" id="categoryDots"></div>
+                </div>
             </section>
+
 
             <!-- Best Sellers -->
             <section class="products-slider-container">
@@ -832,7 +840,10 @@
     </main>
 
     <div id="footer_add"></div>
-
+    <!-- jQuery FIRST -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Owl Carousel AFTER jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="./js/home.js"></script>
     <script src="./js/ViewProduct.js"></script>
     <script src="./js/wishlist.js"></script>
@@ -840,38 +851,110 @@
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
     <script src="./js/Search.js"></script>
-    <!-- Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<script>
-    function addToCartFromModal() {
-        const productName = document.getElementById('modalProductName')?.textContent.trim();
-        const productPrice = document.getElementById('modalProductPrice')?.textContent.trim();
-        const productImage = document.getElementById('modalProductImage')?.src;
-        const quantity = parseInt(document.getElementById('quantityInput')?.value || 1);
 
-        if (!productName || !productPrice || !productImage) {
-            console.error("Modal product data missing!");
-            return;
-        }
 
-        // ---------------------------
-        // GET CART FROM localStorage
-        // ---------------------------
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
-        // check if product already in cart
-        let existing = cart.find(item => item.name === productName);
+            const slider = document.getElementById("testimonialSlider");
 
-        if (existing) {
-            existing.quantity += quantity;
-        } else {
-            cart.push({
-                name: productName,
-                price: productPrice,
-                image: productImage,
-                quantity: quantity
+            let reviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
+
+            if (reviews.length === 0) return;
+
+            slider.innerHTML = ""; // remove old slides
+
+            reviews.forEach(r => {
+                slider.innerHTML += `
+        <div class="h_slider-item">
+            <div class="h_slider-card bg-white shadow-xl rounded-xl p-6 lg:p-8 xl:p-10 text-center relative mx-auto">
+
+                <img src="${r.image}" 
+                     class="h_slider-img w-20 h-20 rounded-full object-cover mx-auto absolute -top-10 left-1/2 transform -translate-x-1/2 shadow-md border-4 border-white" />
+
+                <h3 class="h_slider-name text-xl font-semibold mt-8">${r.name}</h3>
+                <p class="h_slider-role text-gray-500 text-sm mb-4">Verified Buyer</p>
+
+                <p class="h_slider-text text-gray-700 italic">
+                    ${r.review}
+                </p>
+            </div>
+        </div>
+        `;
             });
+
+            // Re-init Owl Carousel
+            $("#testimonialSlider").owlCarousel({
+                loop: true,
+                margin: 20,
+                center: true,
+                items: 3,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                responsive: {
+                    0: { items: 1 },
+                    768: { items: 2 },
+                    1024: { items: 3 }
+                }
+            });
+
+        });
+    </script>
+
+
+    <script>
+        function addToCartFromModal() {
+            const productName = document.getElementById('modalProductName')?.textContent.trim();
+            const productPrice = document.getElementById('modalProductPrice')?.textContent.trim();
+            const productImage = document.getElementById('modalProductImage')?.src;
+            const quantity = parseInt(document.getElementById('quantityInput')?.value || 1);
+
+            if (!productName || !productPrice || !productImage) {
+                console.error("Modal product data missing!");
+                return;
+            }
+
+            // ---------------------------
+            // GET CART FROM localStorage
+            // ---------------------------
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // check if product already in cart
+            let existing = cart.find(item => item.name === productName);
+
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    quantity: quantity
+                });
+            }
+
+            // save back to localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            // update cart count
+            updateCartCount();
+
+            // ---------------------------
+            // ADD BUTTON ANIMATION
+            // ---------------------------
+            const btn = document.querySelector(".modal-add-to-cart");
+            const originalText = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+            btn.style.background = "#02B290";
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = "";
+            }, 1200);
+
+            // close modal after animation
+            setTimeout(closeQuickView, 1300);
         }
 
         // save back to localStorage
@@ -909,6 +992,17 @@
     //     if (cartCount) cartCount.textContent = count;
     // }
 </script>
+        // ------------------------------------
+        // Update cart count in header
+        // ------------------------------------
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            const cartCount = document.getElementById("cart-count");
+            if (cartCount) cartCount.textContent = count;
+        }
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

@@ -246,7 +246,7 @@
 			<div class="border-t pt-4 mt-6">
 				<h3 class="font-medium mb-2">Minimum Rating</h3>
 				<select id="ratingDesktop" class="w-full border rounded px-3 py-2">
-					<option value="0">Any</option>
+					<option value="0">Select</option>
 					<option value="3">3+ stars</option>
 					<option value="4">4+ stars</option>
 					<option value="5">5 stars</option>
@@ -268,6 +268,9 @@
 		<div id="productArea" class="w-full lg:w-4/5 flex flex-col">
 			<div id="productGrid" class="grid product-grids gap-6">
 				<!-- Products will be dynamically loaded here -->
+			</div>
+			<div id="noResultMessage" class="text-center text-gray-500 font-semibold mt-6" style="display: none;">
+				Result not found
 			</div>
 		</div>
 	</div>
@@ -305,7 +308,7 @@
 		<div class="mt-6 border-t pt-4">
 			<h3 class="font-medium mb-2">Minimum Rating</h3>
 			<select id="ratingMobile" class="w-full border rounded px-3 py-2">
-				<option value="0">Any</option>
+				<option value="0">Select</option>
 				<option value="3">3+ stars</option>
 				<option value="4">4+ stars</option>
 				<option value="5">5 stars</option>
@@ -431,14 +434,22 @@
 	<script>
 		window.addEventListener("DOMContentLoaded", () => {
 			const selectedCategory = localStorage.getItem("selectedCategory");
+
 			if (selectedCategory) {
 				const checkReady = setInterval(() => {
+
 					if (typeof state !== "undefined" && typeof renderProducts === "function") {
+
 						clearInterval(checkReady);
+
+						// APPLY FILTER
 						state.categories = new Set([selectedCategory]);
+
 						document.querySelectorAll('input[data-group="category"]').forEach(chk => {
-							chk.checked = chk.value.trim().toLowerCase() === selectedCategory.trim().toLowerCase();
+							chk.checked =
+								chk.value.trim().toLowerCase() === selectedCategory.trim().toLowerCase();
 						});
+
 						renderProducts();
 					}
 				}, 300);
@@ -532,6 +543,72 @@
     //     if (cartCount) cartCount.textContent = count;
     // }
 </script>
+	<script>
+		function addToCartFromModal() {
+			const productName = document.getElementById('modalProductName')?.textContent.trim();
+			const productPrice = document.getElementById('modalProductPrice')?.textContent.trim();
+			const productImage = document.getElementById('modalProductImage')?.src;
+			const quantity = parseInt(document.getElementById('quantityInput')?.value || 1);
+
+			if (!productName || !productPrice || !productImage) {
+				console.error("Modal product data missing!");
+				return;
+			}
+
+			// ---------------------------
+			// GET CART FROM localStorage
+			// ---------------------------
+			let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+			// check if product already in cart
+			let existing = cart.find(item => item.name === productName);
+
+			if (existing) {
+				existing.quantity += quantity;
+			} else {
+				cart.push({
+					name: productName,
+					price: productPrice,
+					image: productImage,
+					quantity: quantity
+				});
+			}
+
+			// save back to localStorage
+			localStorage.setItem("cart", JSON.stringify(cart));
+
+			// update cart count
+			updateCartCount();
+
+			// ---------------------------
+			// ADD BUTTON ANIMATION
+			// ---------------------------
+			const btn = document.querySelector(".modal-add-to-cart");
+			const originalText = btn.innerHTML;
+
+			btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+			btn.style.background = "#02B290";
+
+			setTimeout(() => {
+				btn.innerHTML = originalText;
+				btn.style.background = "";
+			}, 1200);
+
+			// close modal after animation
+			setTimeout(closeQuickView, 1300);
+		}
+
+		// ------------------------------------
+		// Update cart count in header
+		// ------------------------------------
+		function updateCartCount() {
+			let cart = JSON.parse(localStorage.getItem("cart")) || [];
+			const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+			const cartCount = document.getElementById("cart-count");
+			if (cartCount) cartCount.textContent = count;
+		}
+	</script>
 	<script>
 		// Offcanvas filter controls (keep behavior)
 		function openFilter() {
@@ -668,6 +745,15 @@
 			if (state.currentPage > totalPages) state.currentPage = 1;
 			const start = (state.currentPage - 1) * state.perPage;
 			const pageItems = filtered.slice(start, start + state.perPage);
+
+			// Show "Result not found" if no products match
+			const noResultEl = document.getElementById('noResultMessage');
+			if (filtered.length === 0) {
+				noResultEl.style.display = 'block';
+			} else {
+				noResultEl.style.display = 'none';
+			}
+			
 
 			productGrid.innerHTML = pageItems.map((p, idx) => {
 				const globalIndex = products.indexOf(p);

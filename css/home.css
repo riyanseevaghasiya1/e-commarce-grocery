@@ -217,6 +217,12 @@ body {
 /* ============================================
    SHOP BY CATEGORY - OWL CAROUSEL
    ============================================ */
+.shop-categories-container .owl-item {
+    height: auto !important;
+    display: block !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
 .shop-category-wrapper {
     margin-bottom: 60px;
     position: relative;
@@ -231,6 +237,7 @@ body {
     display: flex;
     transition: transform 0.5s ease;
     will-change: transform;
+     width: 100%;
 }
 
 .shop-category-item {
@@ -241,7 +248,8 @@ body {
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 10px;
+    /* padding: 10px; */
+     box-sizing: border-box;
 }
 
 .shop-category-dots {
@@ -290,7 +298,7 @@ body {
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .shop-category-item:hover {
@@ -307,14 +315,14 @@ body {
     justify-content: center;
     overflow: hidden;
     margin-bottom: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
     transition: all 0.3s ease;
     border: 5px solid #f8f9fa;
 }
 
 .shop-category-item:hover .shop-category-circle {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transform: scale(1.05);
+    /* box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); */
+    transform: scale(0.9);
 }
 
 .shop-category-circle img {
@@ -451,7 +459,7 @@ body {
 /* ============================================
    PRODUCTS SLIDER - OWL CAROUSEL
    ============================================ */
-.products-slider-container {
+ .products-slider-container {
     position: relative;
     margin-bottom: 50px;
 }
@@ -620,6 +628,7 @@ body {
     color: white;
     border-color: var(--primary-color);
 }
+
 
 /* ============================================
    CURATED COLLECTIONS
@@ -1171,3 +1180,5 @@ body {
     height: 36px;
     font-size: 12px;
 }
+
+
