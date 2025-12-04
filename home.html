@@ -979,7 +979,7 @@
 
         // close modal after animation
         setTimeout(closeQuickView, 1300);
-    }
+    
 
     // ------------------------------------
     // Update cart count in header
@@ -992,9 +992,10 @@
     //     if (cartCount) cartCount.textContent = count;
     // }
 </script>
-        // ------------------------------------
+<script>
+         // ------------------------------------
         // Update cart count in header
-        // ------------------------------------
+        // ------------------------------------ -->
         function updateCartCount() {
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
             const count = cart.reduce((sum, item) => sum + item.quantity, 0);
