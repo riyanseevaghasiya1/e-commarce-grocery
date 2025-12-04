@@ -274,7 +274,7 @@
 
 	<!-- Offcanvas Filter (Mobile) -->
 	<div id="filterOverlay" class="fixed inset-0 bg-black/40 z-[140] hidden" onclick="closeFilter()"></div>
-	<div id="mobileFilter" class="p-6 overflow-y-auto fixed left-0 top-0 h-full bg-white w-72 z-[150] "
+	<div id="mobileFilter" class="p-6 overflow-y-auto fixed left-0 top-[81px] h-full bg-white w-72 z-[150] "
 		style="transform: translateX(-100%); transition: transform 300ms;">
 		<div class="flex justify-between items-center mb-4">
 			<h2 class="text-lg font-semibold">Filters</h2>
@@ -767,22 +767,38 @@
 		}
 
 		function applyFiltersFromUI() {
-			// search
-			const s = (document.getElementById('searchDesktop').value || document.getElementById('searchMobile').value || '').toLowerCase().trim();
-			state.search = s;
-			syncSearch(s);
 			// price
-			const px = Number(priceRangeDesktop.value);
+			const px = Number(priceRangeDesktop.value || priceRangeMobile.value);
 			state.maxPrice = px;
 			syncPrice(px);
+
 			// rating
 			const rt = Number(document.getElementById('ratingDesktop').value || 0);
 			state.minRating = rt;
 			syncRating(rt);
+
 			// categories
 			state.categories = new Set(Array.from(document.querySelectorAll('input[type="checkbox"][data-group="category"]:checked')).map(i => i.value));
+
 			// badges
 			state.badges = new Set(Array.from(document.querySelectorAll('input[type="checkbox"][data-group="badge"]:checked')).map(i => i.value));
+
+			state.currentPage = 1;
+			renderProducts();
+		}
+
+		// SEPARATE search handler - DO NOT call applyFiltersFromUI inside it
+		function updateSearch(e) {
+			const inputValue = e.target.value.toLowerCase();
+			state.search = inputValue;
+
+			// Sync the OTHER search box (not the one being typed in)
+			if (e.target.id === 'searchDesktop') {
+				document.getElementById('searchMobile').value = inputValue;
+			} else {
+				document.getElementById('searchDesktop').value = inputValue;
+			}
+
 			state.currentPage = 1;
 			renderProducts();
 		}
@@ -803,22 +819,28 @@
 		}
 
 		// Wire inputs
-		document.getElementById('applyDesktop').onclick = applyFiltersFromUI;
-		document.getElementById('applyMobile').onclick = applyFiltersFromUI;
-		document.getElementById('resetDesktop').onclick = resetFilters;
-		document.getElementById('resetMobile').onclick = resetFilters;
-		document.getElementById('searchDesktop').addEventListener('input', applyFiltersFromUI);
-		document.getElementById('searchMobile').addEventListener('input', applyFiltersFromUI);
+
+		document.getElementById('searchDesktop').addEventListener('input', updateSearch);
+		document.getElementById('searchMobile').addEventListener('input', updateSearch);
+
 		priceRangeDesktop.addEventListener('input', () => {
 			priceValueDesktop.textContent = `$${priceRangeDesktop.value}`;
 			applyFiltersFromUI();
 		});
+
 		priceRangeMobile.addEventListener('input', () => {
-			priceValueMobile.textContent = `$${priceRangeMobile.value}`;
-			applyFiltersFromUI();
+			const val = Number(priceRangeMobile.value);
+			state.maxPrice = val;
+			priceValueMobile.textContent = `$${val}`;
+			priceRangeDesktop.value = val;
+			priceValueDesktop.textContent = `$${val}`;
+			state.currentPage = 1;
+			renderProducts();
 		});
+
 		document.getElementById('ratingDesktop').addEventListener('change', applyFiltersFromUI);
 		document.getElementById('ratingMobile').addEventListener('change', applyFiltersFromUI);
+
 		Array.from(document.querySelectorAll('input[type="checkbox"][data-group="category"], input[type="checkbox"][data-group="badge"]')).forEach(i => {
 			i.addEventListener('change', applyFiltersFromUI);
 		});

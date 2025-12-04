@@ -24,6 +24,10 @@
 			border-left: 4px solid #02B290;
 			color: #02B290;
 		}
+
+		body::-webkit-scrollbar {
+			display: none;
+		}
 	</style>
 </head>
 
@@ -53,7 +57,7 @@
 			</aside>
 
 			<!-- Main Content -->
-			<section class="w- md:w-4/6 lg:w-3/4 bg-white shadow rounded-lg p-6">
+			<section class="md:w-4/6 lg:w-3/4 bg-white shadow rounded-lg p-6">
 
 				<!-- Account Details -->
 				<div id="details" class="tab-content">
@@ -84,23 +88,28 @@
 						<div>
 							<label class="block font-medium mb-1">Full Name</label>
 							<input type="text" id="fullName" placeholder="John Doe"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-700" disabled>
+								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
+								disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Email Address</label>
 							<input type="email" id="email" placeholder="john@example.com"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-700" disabled>
+								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
+								disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Phone Number</label>
 							<input type="text" id="phone" placeholder="+91 98765 43210"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-700" disabled>
+								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
+								disabled>
 						</div>
 						<div>
-							<label class="block font-medium mb-1">Password</label>
-							<input type="password" id="password" placeholder="********"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-700" disabled>
+							<label id="passwordLabel" class="block font-medium mb-1">Password</label>
+							<input type="password" id="password"
+								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
+								disabled>
 						</div>
+
 						<div class="md:col-span-2 flex gap-3 mt-3">
 							<button id="editBtn" type="button"
 								class="bg-[#02B290] text-white px-4 py-2 rounded hover:bg-[#4dc9b1]">Edit</button>
@@ -232,9 +241,8 @@
 	<script src="./js/wishlist.js"></script>
 	<script src="./js/addtocart.js"></script>
 	<script src="./js/checkout.js"></script>
-	
 
-	
+
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
 
@@ -298,61 +306,109 @@
 
 	<!-- Account Edit Script -->
 	<script>
-		const profileImage = document.getElementById('profileImage');
-		const uploadImage = document.getElementById('uploadImage');
-		const formFields = ['fullName', 'email', 'phone', 'password'];
-		const editBtn = document.getElementById('editBtn');
-		const saveBtn = document.getElementById('saveBtn');
+		document.addEventListener("DOMContentLoaded", () => {
 
-		// Load stored details
-		window.addEventListener('DOMContentLoaded', () => {
-			const savedData = JSON.parse(localStorage.getItem('accountDetails')) || {};
-			if (savedData.image) profileImage.src = savedData.image;
-			formFields.forEach(id => {
-				document.getElementById(id).value = savedData[id] || '';
-			});
-		});
+			const profileImage = document.getElementById("profileImage");
+			const uploadImage = document.getElementById("uploadImage");
 
-		// Enable editing
-		editBtn.addEventListener('click', () => {
-			formFields.forEach(id => document.getElementById(id).disabled = false);
-			uploadImage.disabled = false;
-			editBtn.classList.add('hidden');
-			saveBtn.classList.remove('hidden');
+			const formFields = ["fullName", "email", "phone"];
+			const passwordField = document.getElementById("password");
+			const passwordLabel = document.getElementById("passwordLabel");
 
-			// Show camera icon only in edit mode
-			document.querySelector('label[for="uploadImage"]').classList.remove('hidden');
-		});
+			const editBtn = document.getElementById("editBtn");
+			const saveBtn = document.getElementById("saveBtn");
 
-		// Preview Image
-		uploadImage.addEventListener('change', (e) => {
-			const file = e.target.files[0];
-			if (file) {
-				const reader = new FileReader();
-				reader.onload = (event) => {
-					profileImage.src = event.target.result;
-				};
-				reader.readAsDataURL(file);
+			let originalPassword = "";
+
+			// 🔥 RANDOM VALUE GENERATORS
+			function randomName() {
+				const names = ["Hasti", "Rohan", "Neha", "Dhruv", "Aarav", "Kavya", "Viraj", "Mihir"];
+				const surnames = ["Patel", "Shah", "Trivedi", "Mehta", "Joshi", "Desai", "Kapadia"];
+				return names[Math.floor(Math.random() * names.length)] + " " +
+					surnames[Math.floor(Math.random() * surnames.length)];
 			}
-		});
 
-		// Save Data
-		saveBtn.addEventListener('click', () => {
-			const data = {};
-			formFields.forEach(id => data[id] = document.getElementById(id).value);
-			data.image = profileImage.src;
-			localStorage.setItem('accountDetails', JSON.stringify(data));
+			function randomEmail() {
+				const prefix = "user" + Math.floor(Math.random() * 9000 + 1000);
+				const domains = ["gmail.com", "yahoo.com", "outlook.com"];
+				return prefix + "@" + domains[Math.floor(Math.random() * domains.length)];
+			}
 
-			formFields.forEach(id => document.getElementById(id).disabled = true);
-			uploadImage.disabled = true;
-			saveBtn.classList.add('hidden');
-			editBtn.classList.remove('hidden');
-			alert('Account details saved successfully!');
+			function randomPhone() {
+				let num = "+91 00000 00000";
+				num = num.replace(/0/g, () => Math.floor(Math.random() * 10));
+				return num;
+			}
 
-			// Hide camera icon again after saving
-			document.querySelector('label[for="uploadImage"]').classList.add('hidden');
+			// 👉 Load Saved Data
+			const savedData = JSON.parse(localStorage.getItem("accountDetails")) || {};
+
+			// 👉 Load image
+			if (savedData.image) {
+				profileImage.src = savedData.image;
+			}
+
+			// 👉 Load Fields + random values if empty
+			document.getElementById("fullName").value = savedData.fullName || randomName();
+			document.getElementById("email").value = savedData.email || randomEmail();
+			document.getElementById("phone").value = savedData.phone || randomPhone();
+
+			// 👉 Load Password (SHOW REAL PASSWORD)
+			originalPassword = savedData.password || "User@123";
+			passwordField.type = "text";
+			passwordField.value = originalPassword;
+
+			// 👉 EDIT BUTTON CLICK
+			editBtn.addEventListener("click", () => {
+				formFields.forEach(id => document.getElementById(id).disabled = false);
+
+				uploadImage.disabled = false;
+
+				passwordLabel.textContent = "Change Password";
+
+				passwordField.disabled = false;
+				// passwordField.type = "password";
+				passwordField.value = originalPassword;
+
+				editBtn.classList.add("hidden");
+				saveBtn.classList.remove("hidden");
+
+				document.querySelector('label[for="uploadImage"]').classList.remove("hidden");
+			});
+
+			// 👉 SAVE BUTTON CLICK
+			saveBtn.addEventListener("click", () => {
+
+				const data = {};
+
+				formFields.forEach(id => {
+					data[id] = document.getElementById(id).value.trim();
+				});
+
+				data.password = passwordField.value;
+				data.image = profileImage.src;
+
+				localStorage.setItem("accountDetails", JSON.stringify(data));
+
+				formFields.forEach(id => document.getElementById(id).disabled = true);
+
+				passwordLabel.textContent = "Password";
+
+				passwordField.disabled = true;
+				passwordField.type = "text";
+				passwordField.value = data.password;
+
+				saveBtn.classList.add("hidden");
+				editBtn.classList.remove("hidden");
+
+				document.querySelector('label[for="uploadImage"]').classList.add("hidden");
+
+				alert("Account details saved successfully!");
+			});
+
 		});
 	</script>
+
 
 	<script>
 		const ordersTableBody = document.getElementById('ordersTableBody');
@@ -683,7 +739,7 @@
 			}
 		});
 	</script>
-	
+
 </body>
 
 </html>
