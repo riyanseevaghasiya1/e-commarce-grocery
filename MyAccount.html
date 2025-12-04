@@ -1,22 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>My Account - Grocery Store</title>
-
-	<!-- External Styles -->
 	<link rel="stylesheet" href="./css/h_style.css">
 	<link rel="stylesheet" href="./index.css">
-
-	<!-- Tailwind CSS -->
 	<script src="https://cdn.tailwindcss.com"></script>
-
-	<!-- Google Fonts & Font Awesome -->
-	<link
-		href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap"
-		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	<style>
 		.active-tab {
@@ -24,60 +15,37 @@
 			border-left: 4px solid #02B290;
 			color: #02B290;
 		}
-
 		body::-webkit-scrollbar {
 			display: none;
 		}
 	</style>
 </head>
-
 <body class="inter-font">
-
-	<!-- Header -->
 	<div id="header-placeholder"></div>
-
-	<!-- Main Container -->
 	<div class="a_header_container">
-
 		<main class="flex flex-col md:flex-row gap-6 flex-grow py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
-
-			<!-- Sidebar -->
 			<aside class="w md:w-2/6 lg:w-1/4 bg-white shadow rounded-lg p-5">
 				<h2 class="text-lg font-semibold mb-4">My Account</h2>
 				<ul class="space-y-3">
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02B290] active-tab"
-							data-tab="details">Account Details</button></li>
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02B290]"
-							data-tab="orders">Order List</button></li>
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02B290]"
-							data-tab="shipping">Shipping Address</button></li>
-					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02B290]"
-							data-tab="logout">Logout</button></li>
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02B290] active-tab" data-tab="details">Account Details</button></li>
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02B290]" data-tab="orders">Order List</button></li>
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02B290]" data-tab="shipping">Shipping Address</button></li>
+					<li><button class="tab-btn w-full text-left py-2 px-3 rounded hover:text-[#02B290]" data-tab="logout">Logout</button></li>
 				</ul>
 			</aside>
 
-			<!-- Main Content -->
 			<section class="md:w-4/6 lg:w-3/4 bg-white shadow rounded-lg p-6">
-
 				<!-- Account Details -->
 				<div id="details" class="tab-content">
 					<h2 class="text-2xl font-semibold mb-4 text-[#02B290]">Account Details</h2>
-
-					<!-- Profile Image Section -->
-					<div
-						class="flex flex-col sm:flex-row items-center gap-6 bg-white shadow-md p-6 mb-6 rounded-xl border border-gray-100">
+					<div class="flex flex-col sm:flex-row items-center gap-6 bg-white shadow-md p-6 mb-6 rounded-xl border border-gray-100">
 						<div class="relative">
-							<img id="profileImage"
-								src="https://i.pinimg.com/1200x/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg"
-								class="w-28 h-28 rounded-full object-cover border-4 border-[#d3d3d3] shadow-md"
-								alt="Profile Image">
-							<label for="uploadImage"
-								class="absolute bottom-0 right-0 bg-[#02B290] text-white py-[6px] px-[10px] rounded-full cursor-pointer shadow hover:bg-[#02997c] transition hidden">
+							<img id="profileImage" src="https://i.pinimg.com/1200x/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg" class="w-28 h-28 rounded-full object-cover border-4 border-[#d3d3d3] shadow-md" alt="Profile Image">
+							<label for="uploadImage" class="absolute bottom-0 right-0 bg-[#02B290] text-white py-[6px] px-[10px] rounded-full cursor-pointer shadow hover:bg-[#02997c] transition hidden">
 								<i class="fa-solid fa-camera text-sm"></i>
 							</label>
 							<input type="file" id="uploadImage" accept="image/*" class="hidden">
 						</div>
-
 						<div class="text-center sm:text-left">
 							<h3 class="text-lg font-semibold text-gray-800">Profile Picture</h3>
 							<p class="text-sm text-gray-500 mb-2">Upload a clear image of yourself</p>
@@ -87,35 +55,23 @@
 					<form id="accountForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<label class="block font-medium mb-1">Full Name</label>
-							<input type="text" id="fullName" placeholder="John Doe"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
-								disabled>
+							<input type="text" id="fullName" placeholder="John Doe" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Email Address</label>
-							<input type="email" id="email" placeholder="john@example.com"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
-								disabled>
+							<input type="email" id="email" placeholder="john@example.com" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500" disabled>
 						</div>
 						<div>
 							<label class="block font-medium mb-1">Phone Number</label>
-							<input type="text" id="phone" placeholder="+91 98765 43210"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
-								disabled>
+							<input type="text" id="phone" placeholder="+91 98765 43210" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500" disabled>
 						</div>
 						<div>
 							<label id="passwordLabel" class="block font-medium mb-1">Password</label>
-							<input type="password" id="password"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
-								disabled>
+							<input type="password" id="password" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500" disabled>
 						</div>
-
 						<div class="md:col-span-2 flex gap-3 mt-3">
-							<button id="editBtn" type="button"
-								class="bg-[#02B290] text-white px-4 py-2 rounded hover:bg-[#4dc9b1]">Edit</button>
-							<button id="saveBtn" type="button"
-								class="bg-[#02B290] text-white px-4 py-2 rounded hover:bg-[#4dc9b1] hidden">Save
-								Changes</button>
+							<button id="editBtn" type="button" class="bg-[#02B290] text-white px-4 py-2 rounded hover:bg-[#4dc9b1]">Edit</button>
+							<button id="saveBtn" type="button" class="bg-[#02B290] text-white px-4 py-2 rounded hover:bg-[#4dc9b1] hidden">Save Changes</button>
 						</div>
 					</form>
 				</div>
@@ -134,8 +90,7 @@
 									<th class="py-2 px-3 text-left">Action</th>
 								</tr>
 							</thead>
-							<tbody id="ordersTableBody">
-							</tbody>
+							<tbody id="ordersTableBody"></tbody>
 						</table>
 						<div id="ordersEmptyState" class="hidden py-10 text-center text-gray-500">
 							No orders yet. Start shopping to see your orders here.
@@ -145,81 +100,53 @@
 
 				<!-- Shipping Address -->
 				<div id="shipping" class="tab-content hidden">
-					<h2
-						class="text-2xl font-semibold mb-6 text-[#02B290] flex flex-wrap justify-between items-center gap-2">
+					<h2 class="text-2xl font-semibold mb-6 text-[#02B290] flex flex-wrap justify-between items-center gap-2">
 						<span>Shipping Address</span>
-						<button id="toggleEdit"
-							class="bg-[#02B290] text-white text-base px-5 py-2 rounded-lg shadow hover:bg-[#4dc9b1] transition-all">
-							Add address
-						</button>
+						<button id="toggleEdit" class="bg-[#02B290] text-white text-base px-5 py-2 rounded-lg shadow hover:bg-[#4dc9b1] transition-all">Add address</button>
 					</h2>
 
-					<!-- Display Address Card -->
-					<div id="addressList"
-						class="relative bg-black/5 border border-[#02B290]/20 rounded-2xl p-3 sm:p-6 shadow-sm transition-all ">
-						<div class="absolute top-3 right-3 bg-[#02B290]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium"
-							style="margin-bottom: 10px !important;">
-							Current Address
-						</div>
-						<h3 class="text-lg font-semibold text-gray-800 mb-2">John Doe</h3>
-						<p class="text-gray-600">456 Garden Ave</p>
-						<p class="text-gray-600">Los Angeles, CA 90001</p>
-						<p class="text-gray-600 mb-2">United States</p>
-						<p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
-					</div>
+					<div id="addressList"></div>
 
-					<form id="shippingForm"
-						class="hidden bg-white border border-gray-200 rounded-2xl p-6 shadow-md grid grid-cols-1 md:grid-cols-2 gap-4">
+					<form id="shippingForm" class="hidden bg-white border border-gray-200 rounded-2xl p-6 shadow-md grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">First Name</label>
-							<input type="text" id="shipfname" placeholder="456 Garden Ave"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
+							<input type="text" id="shipfname" placeholder="First Name" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">Last Name</label>
-							<input type="text" id="shiplname" placeholder="456 Garden Ave"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
+							<input type="text" id="shiplname" placeholder="Last Name" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">Street Address</label>
-							<input type="text" id="shipStreet" placeholder="456 Garden Ave"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
+							<input type="text" id="shipStreet" placeholder="456 Garden Ave" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">City</label>
-							<input type="text" id="shipCity" placeholder="Los Angeles"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
+							<input type="text" id="shipCity" placeholder="Los Angeles" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">State</label>
-							<input type="text" id="shipState" placeholder="CA"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
+							<input type="text" id="shipState" placeholder="CA" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">ZIP Code</label>
-							<input type="text" id="shipZip" placeholder="90001"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
+							<input type="text" id="shipZip" placeholder="90001" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">Country</label>
-							<input type="text" id="shipCountry" placeholder="United States"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
+							<input type="text" id="shipCountry" placeholder="United States" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
 						</div>
 						<div>
 							<label class="block font-medium mb-1 text-gray-700">Phone Number</label>
-							<input type="text" id="shipPhone" placeholder="+91 98765 43210"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
+							<input type="text" id="shipPhone" placeholder="+91 98765 43210" class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none">
 						</div>
-
 						<div class="md:col-span-2 flex justify-end gap-3 mt-4">
-							<button type="button" id="cancelAddressBtn"
-								class="bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 transition">Cancel</button>
-							<button type="button" id="saveAddressBtn"
-								class="bg-[#02B290] text-white px-5 py-2 rounded-lg hover:bg-[#4dc9b1] transition">Save
-								Address</button>
+							<button type="button" id="cancelAddressBtn" class="bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 transition">Cancel</button>
+							<button type="button" id="saveAddressBtn" class="bg-[#02B290] text-white px-5 py-2 rounded-lg hover:bg-[#4dc9b1] transition">Save Address</button>
 						</div>
 					</form>
 				</div>
+
 				<!-- Logout -->
 				<div id="logout" class="tab-content hidden text-center py-10">
 					<h2 class="text-2xl font-semibold text-[#02B290] mb-4">Ready to Leave?</h2>
@@ -228,12 +155,10 @@
 						<button class="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">Logout</button>
 					</a>
 				</div>
-
 			</section>
 		</main>
 	</div>
 
-	<!-- Footer -->
 	<div id="footer_add" class="mt-12"></div>
 
 	<script src="./js/rushita.js"></script>
@@ -242,90 +167,50 @@
 	<script src="./js/addtocart.js"></script>
 	<script src="./js/checkout.js"></script>
 
-
+	<!-- CONSOLIDATED SCRIPTS -->
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
+			// ========== TAB SWITCHING ==========
+			const tabButtons = document.querySelectorAll('.tab-btn');
+			const tabContents = document.querySelectorAll('.tab-content');
 
-			const toggleEditBtn = document.getElementById('toggleEdit');
-			const addressCard = document.getElementById('addressCard');
-			const shippingForm = document.getElementById('shippingForm');
-			const cancelAddressBtn = document.getElementById('cancelAddressBtn');
-			const saveAddressBtn = document.getElementById('saveAddressBtn');
-
-			const addressFields = ['shipStreet', 'shipCity', 'shipState', 'shipZip', 'shipCountry', 'shipPhone'];
-
-			// Toggle Edit → Show Form
-			toggleEditBtn.addEventListener('click', () => {
-				addressCard.classList.add('hidden');
-				shippingForm.classList.remove('hidden');
+			tabButtons.forEach(btn => {
+				btn.addEventListener('click', () => {
+					tabButtons.forEach(b => b.classList.remove('active-tab'));
+					tabContents.forEach(c => c.classList.add('hidden'));
+					btn.classList.add('active-tab');
+					document.getElementById(btn.dataset.tab).classList.remove('hidden');
+				});
 			});
 
-			// Cancel → Show Card Again
-			cancelAddressBtn.addEventListener('click', () => {
-				shippingForm.classList.add('hidden');
-				addressCard.classList.remove('hidden');
-			});
-
-			// Load Saved Address
-			const savedAddress = JSON.parse(localStorage.getItem('shippingAddress'));
-			if (savedAddress) renderAddress(savedAddress);
-
-			function renderAddress(addr) {
-				addressCard.innerHTML = `
-			<div class="absolute top-3 right-3 bg-[#02B290]/10 px-3 py-1 rounded-full text-sm text-[#02B290] font-medium">
-				Current Address
-			</div>
-			<p class="text-gray-600">${addr.shipStreet}</p>
-			<p class="text-gray-600">${addr.shipCity}, ${addr.shipState} ${addr.shipZip}</p>
-			<p class="text-gray-600 mb-2">${addr.shipCountry}</p>
-			<p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> ${addr.shipPhone}</p>
-			`;
-
-				// Re-bind edit button because innerHTML removed old reference
-				document.getElementById('toggleEdit').onclick = () => {
-					addressCard.classList.add('hidden');
-					shippingForm.classList.remove('hidden');
-				};
+			// Check URL params for tab
+			const params = new URLSearchParams(window.location.search);
+			const tabParam = params.get("tab");
+			if (tabParam) {
+				const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabParam}"]`);
+				const targetContent = document.getElementById(tabParam);
+				if (targetBtn && targetContent) {
+					tabButtons.forEach(b => b.classList.remove('active-tab'));
+					tabContents.forEach(c => c.classList.add('hidden'));
+					targetBtn.classList.add('active-tab');
+					targetContent.classList.remove('hidden');
+				}
 			}
 
-			// Save Address
-			saveAddressBtn.addEventListener('click', () => {
-				const data = {};
-				addressFields.forEach(id => data[id] = document.getElementById(id).value.trim());
-
-				localStorage.setItem('shippingAddress', JSON.stringify(data));
-				renderAddress(data);
-
-				shippingForm.classList.add('hidden');
-				addressCard.classList.remove('hidden');
-				alert('Shipping address saved successfully!');
-			});
-
-		});
-	</script>
-
-	<!-- Account Edit Script -->
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-
+			// ========== ACCOUNT DETAILS ==========
 			const profileImage = document.getElementById("profileImage");
 			const uploadImage = document.getElementById("uploadImage");
-
 			const formFields = ["fullName", "email", "phone"];
 			const passwordField = document.getElementById("password");
 			const passwordLabel = document.getElementById("passwordLabel");
-
 			const editBtn = document.getElementById("editBtn");
 			const saveBtn = document.getElementById("saveBtn");
-
 			let originalPassword = "";
 
-			// 🔥 RANDOM VALUE GENERATORS
 			function randomName() {
 				const names = ["Hasti", "Rohan", "Neha", "Dhruv", "Aarav", "Kavya", "Viraj", "Mihir"];
 				const surnames = ["Patel", "Shah", "Trivedi", "Mehta", "Joshi", "Desai", "Kapadia"];
-				return names[Math.floor(Math.random() * names.length)] + " " +
-					surnames[Math.floor(Math.random() * surnames.length)];
+				return names[Math.floor(Math.random() * names.length)] + " " + surnames[Math.floor(Math.random() * surnames.length)];
 			}
 
 			function randomEmail() {
@@ -336,517 +221,293 @@
 
 			function randomPhone() {
 				let num = "+91 00000 00000";
-				num = num.replace(/0/g, () => Math.floor(Math.random() * 10));
-				return num;
+				return num.replace(/0/g, () => Math.floor(Math.random() * 10));
 			}
 
-			// 👉 Load Saved Data
+			// Load saved account data
 			const savedData = JSON.parse(localStorage.getItem("accountDetails")) || {};
-
-			// 👉 Load image
-			if (savedData.image) {
-				profileImage.src = savedData.image;
-			}
-
-			// 👉 Load Fields + random values if empty
+			if (savedData.image) profileImage.src = savedData.image;
 			document.getElementById("fullName").value = savedData.fullName || randomName();
 			document.getElementById("email").value = savedData.email || randomEmail();
 			document.getElementById("phone").value = savedData.phone || randomPhone();
-
-			// 👉 Load Password (SHOW REAL PASSWORD)
 			originalPassword = savedData.password || "User@123";
 			passwordField.type = "text";
 			passwordField.value = originalPassword;
 
-			// 👉 EDIT BUTTON CLICK
+			// Upload image
+			uploadImage.addEventListener("change", (e) => {
+				const file = e.target.files[0];
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = (event) => {
+						profileImage.src = event.target.result;
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+
+			// Edit button
 			editBtn.addEventListener("click", () => {
 				formFields.forEach(id => document.getElementById(id).disabled = false);
-
-				uploadImage.disabled = false;
-
-				passwordLabel.textContent = "Change Password";
-
 				passwordField.disabled = false;
-				// passwordField.type = "password";
-				passwordField.value = originalPassword;
-
+				passwordLabel.textContent = "Change Password";
 				editBtn.classList.add("hidden");
 				saveBtn.classList.remove("hidden");
-
 				document.querySelector('label[for="uploadImage"]').classList.remove("hidden");
 			});
 
-			// 👉 SAVE BUTTON CLICK
+			// Save button
 			saveBtn.addEventListener("click", () => {
-
 				const data = {};
-
 				formFields.forEach(id => {
 					data[id] = document.getElementById(id).value.trim();
 				});
-
 				data.password = passwordField.value;
 				data.image = profileImage.src;
-
 				localStorage.setItem("accountDetails", JSON.stringify(data));
 
 				formFields.forEach(id => document.getElementById(id).disabled = true);
-
-				passwordLabel.textContent = "Password";
-
 				passwordField.disabled = true;
-				passwordField.type = "text";
-				passwordField.value = data.password;
-
+				passwordLabel.textContent = "Password";
 				saveBtn.classList.add("hidden");
 				editBtn.classList.remove("hidden");
-
 				document.querySelector('label[for="uploadImage"]').classList.add("hidden");
-
 				alert("Account details saved successfully!");
 			});
 
-		});
-	</script>
+			// ========== ORDERS ==========
+			const ordersTableBody = document.getElementById('ordersTableBody');
+			const ordersEmptyState = document.getElementById('ordersEmptyState');
 
-
-	<script>
-		const ordersTableBody = document.getElementById('ordersTableBody');
-		const ordersEmptyState = document.getElementById('ordersEmptyState');
-
-		function getStatusClass(status = '') {
-			const normalized = status.toLowerCase();
-			if (normalized.includes('deliver')) return 'text-[#02B290]';
-			if (normalized.includes('cancel')) return 'text-red-500';
-			if (normalized.includes('pending')) return 'text-yellow-600';
-			return 'text-blue-500';
-		}
-
-		function formatCurrency(amount) {
-			const numeric = Number(amount);
-			if (Number.isNaN(numeric)) return '$0.00';
-			return `$${numeric.toFixed(2)}`;
-		}
-
-		function renderOrders() {
-			let orders = [];
-			try {
-				orders = JSON.parse(localStorage.getItem('orders')) || [];
-			} catch (error) {
-				console.error('Unable to read orders from storage', error);
+			function getStatusClass(status = '') {
+				const normalized = status.toLowerCase();
+				if (normalized.includes('deliver')) return 'text-[#02B290]';
+				if (normalized.includes('cancel')) return 'text-red-500';
+				if (normalized.includes('pending')) return 'text-yellow-600';
+				return 'text-blue-500';
 			}
 
-			ordersTableBody.innerHTML = '';
-
-			if (!orders.length) {
-				ordersEmptyState.classList.remove('hidden');
-				return;
+			function formatCurrency(amount) {
+				const numeric = Number(amount);
+				return Number.isNaN(numeric) ? '$0.00' : `$${numeric.toFixed(2)}`;
 			}
 
-			ordersEmptyState.classList.add('hidden');
-
-			orders.forEach((order) => {
-				const row = document.createElement('tr');
-				row.className = 'border-b';
-
-				row.innerHTML = `
-				<td class="py-2 px-3">#${order.orderId}</td>
-				<td class="py-2 px-3">${order.orderDate}</td>
-				<td class="py-2 px-3">${formatCurrency(order.total)}</td>
-				<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
-				<td class="py-2 px-3 flex gap-2">
-					<button
-						class="view-btn bg-[#02B290] text-white px-3 py-1 rounded hover:bg-[#4dc9b1]"
-						data-order-id="${order.orderId}">
-						View
-					</button>
-					<button
-						class="cancel-btn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-						data-order-id="${order.orderId}">
-						Cancel
-					</button>
-				</td>
-				`;
-
-				const viewButton = row.querySelector('.view-btn');
-				viewButton.addEventListener('click', () => {
-					try {
-						localStorage.setItem('selectedOrderId', order.orderId);
-					} catch (storageError) {
-						console.error('Unable to set selected order id', storageError);
-					}
-					window.location.href = './ordertarcking.html';
-				});
-
-				ordersTableBody.appendChild(row);
-
-
-				const cancelButton = row.querySelector('.cancel-btn');
-				cancelButton.addEventListener('click', () => {
-					if (order.status && order.status.toLowerCase().includes('cancel')) {
-						alert('This order is already canceled.');
-						return;
-					}
-
-					if (!confirm('Are you sure you want to cancel this order?')) return;
-
-					order.status = 'Canceled';
-					// Update order timeline for tracking page
-					order.timeline = [
-						{ label: 'Order Placed', state: 'completed', timestamp: new Date().toISOString() },
-						{ label: 'Canceled', state: 'current', timestamp: new Date().toISOString() }
-					];
-
-					// Save updated orders list
-					const updatedOrders = JSON.parse(localStorage.getItem('orders')) || [];
-					const index = updatedOrders.findIndex(o => o.orderId === order.orderId);
-					if (index !== -1) updatedOrders[index] = order;
-					localStorage.setItem('orders', JSON.stringify(updatedOrders));
-
-					alert(`Order #${order.orderId} has been canceled.`);
-					renderOrders();
-				});
-
-			});
-		}
-
-		window.addEventListener('DOMContentLoaded', renderOrders);
-	</script>
-
-	<!-- Tabs -->
-	<script>
-		const tabButtons = document.querySelectorAll('.tab-btn');
-		const tabContents = document.querySelectorAll('.tab-content');
-
-		tabButtons.forEach(btn => {
-			btn.addEventListener('click', () => {
-				tabButtons.forEach(b => b.classList.remove('active-tab'));
-				tabContents.forEach(c => c.classList.add('hidden'));
-				btn.classList.add('active-tab');
-				document.getElementById(btn.dataset.tab).classList.remove('hidden');
-			});
-			document.addEventListener("DOMContentLoaded", () => {
-				const params = new URLSearchParams(window.location.search);
-				const tabParam = params.get("tab");
-
-				if (tabParam) {
-					const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabParam}"]`);
-					const targetContent = document.getElementById(tabParam);
-
-					if (targetBtn && targetContent) {
-						// Remove active and hide other tabs
-						document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
-						document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-
-						// Activate correct tab
-						targetBtn.classList.add('active-tab');
-						targetContent.classList.remove('hidden');
-					}
+			function renderOrders() {
+				let orders = [];
+				try {
+					orders = JSON.parse(localStorage.getItem('orders')) || [];
+				} catch (error) {
+					console.error('Unable to read orders', error);
 				}
-			});
-		});
-	</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
 
-    // Elements
-    const addressList = document.getElementById("addressList");
-    const shippingForm = document.getElementById("shippingForm");
-    const toggleEditBtn = document.getElementById("toggleEdit");
-    const cancelAddressBtn = document.getElementById("cancelAddressBtn");
-    const saveAddressBtn = document.getElementById("saveAddressBtn");
+				ordersTableBody.innerHTML = '';
 
-    // Load addresses
-    let savedAddresses = JSON.parse(localStorage.getItem("userAddresses")) || [];
+				if (!orders.length) {
+					ordersEmptyState.classList.remove('hidden');
+					return;
+				}
 
-    // ----------- RENDER ADDRESS LIST -----------
-    function renderAddresses() {
-        addressList.innerHTML = "";
+				ordersEmptyState.classList.add('hidden');
 
-        if (savedAddresses.length === 0) {
-            addressList.innerHTML = `<p class="text-gray-600 italic">No saved addresses yet.</p>`;
-            return;
-        }
+				orders.forEach((order) => {
+					const row = document.createElement('tr');
+					row.className = 'border-b';
+					row.innerHTML = `
+						<td class="py-2 px-3">#${order.orderId}</td>
+						<td class="py-2 px-3">${order.orderDate}</td>
+						<td class="py-2 px-3">${formatCurrency(order.total)}</td>
+						<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
+						<td class="py-2 px-3 flex gap-2">
+							<button class="view-btn bg-[#02B290] text-white px-3 py-1 rounded hover:bg-[#4dc9b1]" data-order-id="${order.orderId}">View</button>
+							<button class="cancel-btn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" data-order-id="${order.orderId}">Cancel</button>
+						</td>
+					`;
 
-        savedAddresses.forEach((addr, index) => {
-            const card = document.createElement("div");
-            card.className =
-                "relative bg-black/5 border border-[#02B290]/20 rounded-2xl p-4 sm:p-6 shadow-sm mb-4";
+					row.querySelector('.view-btn').addEventListener('click', () => {
+						localStorage.setItem('selectedOrderId', order.orderId);
+						window.location.href = './ordertarcking.html';
+					});
 
-            card.innerHTML = `
-                <p class="text-gray-800 font-semibold mb-1">${addr.firstName} ${addr.lastName}</p>
-                <p class="text-gray-600">${addr.address1}</p>
-                <p class="text-gray-600">${addr.city}, ${addr.state} ${addr.zipcode}</p>
-                <p class="text-gray-600 mb-2">${addr.country}</p>
-                <p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> ${addr.phone}</p>
+					row.querySelector('.cancel-btn').addEventListener('click', () => {
+						if (order.status && order.status.toLowerCase().includes('cancel')) {
+							alert('This order is already canceled.');
+							return;
+						}
+						if (!confirm('Are you sure you want to cancel this order?')) return;
 
-                <div class="mt-3 flex gap-2">
-                    <button class="edit-btn bg-[#02B290] text-white text-sm px-3 py-1 rounded" data-index="${index}">
-                        Edit
-                    </button>
-                    <button class="delete-btn bg-red-500 text-white text-sm px-3 py-1 rounded" data-index="${index}">
-                        Delete
-                    </button>
-                </div>
-            `;
+						order.status = 'Canceled';
+						order.timeline = [
+							{ label: 'Order Placed', state: 'completed', timestamp: new Date().toISOString() },
+							{ label: 'Canceled', state: 'current', timestamp: new Date().toISOString() }
+						];
 
-            addressList.appendChild(card);
-        });
+						const updatedOrders = JSON.parse(localStorage.getItem('orders')) || [];
+						const index = updatedOrders.findIndex(o => o.orderId === order.orderId);
+						if (index !== -1) updatedOrders[index] = order;
+						localStorage.setItem('orders', JSON.stringify(updatedOrders));
+						alert(`Order #${order.orderId} has been canceled.`);
+						renderOrders();
+					});
 
-        // Assign button events
-        document.querySelectorAll(".edit-btn").forEach(btn =>
-            btn.addEventListener("click", e => editAddress(e.target.dataset.index))
-        );
-        document.querySelectorAll(".delete-btn").forEach(btn =>
-            btn.addEventListener("click", e => deleteAddress(e.target.dataset.index))
-        );
-    }
+					ordersTableBody.appendChild(row);
+				});
+			}
 
-    renderAddresses();
+			renderOrders();
 
-    // ----------- SHOW ADD ADDRESS FORM -----------
-    toggleEditBtn.addEventListener("click", () => {
-        shippingForm.reset();
-        shippingForm.dataset.editIndex = ""; // new entry
-        shippingForm.classList.remove("hidden");
-        addressList.classList.add("hidden");
-        toggleEditBtn.classList.add("hidden");
-    });
+			// ========== SHIPPING ADDRESS ==========
+			const addressList = document.getElementById("addressList");
+			const shippingForm = document.getElementById("shippingForm");
+			const toggleEditBtn = document.getElementById("toggleEdit");
+			const cancelAddressBtn = document.getElementById("cancelAddressBtn");
+			const saveAddressBtn = document.getElementById("saveAddressBtn");
 
-    // ----------- CANCEL BUTTON -----------
-    cancelAddressBtn.addEventListener("click", () => {
-        shippingForm.classList.add("hidden");
-        addressList.classList.remove("hidden");
-        toggleEditBtn.classList.remove("hidden");
-    });
+			let savedAddresses = JSON.parse(localStorage.getItem("userAddresses")) || [];
 
-    // ----------- VALIDATION FUNCTION -----------
-    function validateFields() {
-        const fields = {
-            firstName: document.getElementById("shipfname"),
-            lastName: document.getElementById("shiplname"),
-            address1: document.getElementById("shipStreet"),
-            city: document.getElementById("shipCity"),
-            state: document.getElementById("shipState"),
-            zipcode: document.getElementById("shipZip"),
-            country: document.getElementById("shipCountry"),
-            phone: document.getElementById("shipPhone")
-        };
+			function renderAddresses() {
+				addressList.innerHTML = "";
 
-        const alphaRegex = /^[A-Za-z\s]+$/;
-        const numericRegex = /^[0-9]+$/;
-        const phoneRegex = /^[0-9]{7,15}$/;
+				if (savedAddresses.length === 0) {
+					addressList.innerHTML = `<p class="text-gray-600 italic">No saved addresses yet.</p>`;
+					return;
+				}
 
-        let isValid = true;
-
-        // remove previous red borders
-        Object.values(fields).forEach(input => input.classList.remove("border-red-500"));
-
-        // required check
-        Object.values(fields).forEach(input => {
-            if (input.value.trim() === "") {
-                input.classList.add("border-red-500");
-                isValid = false;
-            }
-        });
-
-        // alphabet check
-        ["firstName", "lastName", "city", "state"].forEach(key => {
-            if (!alphaRegex.test(fields[key].value.trim())) {
-                fields[key].classList.add("border-red-500");
-                isValid = false;
-            }
-        });
-
-        // ZIP check
-        if (!numericRegex.test(fields.zipcode.value.trim())) {
-            fields.zipcode.classList.add("border-red-500");
-            isValid = false;
-        }
-
-        // phone check
-        if (!phoneRegex.test(fields.phone.value.trim())) {
-            fields.phone.classList.add("border-red-500");
-            isValid = false;
-        }
-
-        return { isValid, fields };
-    }
-
-    // ----------- SAVE ADDRESS -----------
-    saveAddressBtn.addEventListener("click", () => {
-
-        const { isValid, fields } = validateFields();
-        if (!isValid) {
-            alert("Please correct highlighted fields.");
-            return; // STOP saving
-        }
-
-        const newAddress = {
-            firstName: fields.firstName.value.trim(),
-            lastName: fields.lastName.value.trim(),
-            address1: fields.address1.value.trim(),
-            city: fields.city.value.trim(),
-            state: fields.state.value.trim(),
-            zipcode: fields.zipcode.value.trim(),
-            country: fields.country.value.trim(),
-            phone: fields.phone.value.trim()
-        };
-
-        const editIndex = shippingForm.dataset.editIndex;
-
-        if (editIndex !== "") {
-            savedAddresses[editIndex] = newAddress;  // EDIT
-        } else {
-            savedAddresses.push(newAddress); // NEW
-        }
-
-        localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
-
-        alert("Address saved successfully!");
-
-        // Refresh UI
-        shippingForm.classList.add("hidden");
-        addressList.classList.remove("hidden");
-        toggleEditBtn.classList.remove("hidden");
-        renderAddresses();
-    });
-
-    // ----------- EDIT ADDRESS -----------
-    function editAddress(index) {
-        const a = savedAddresses[index];
-
-        document.getElementById("shipfname").value = a.firstName;
-        document.getElementById("shiplname").value = a.lastName;
-        document.getElementById("shipStreet").value = a.address1;
-        document.getElementById("shipCity").value = a.city;
-        document.getElementById("shipState").value = a.state;
-        document.getElementById("shipZip").value = a.zipcode;
-        document.getElementById("shipCountry").value = a.country;
-        document.getElementById("shipPhone").value = a.phone;
-
-        shippingForm.dataset.editIndex = index;
-        shippingForm.classList.remove("hidden");
-        addressList.classList.add("hidden");
-        toggleEditBtn.classList.add("hidden");
-    }
-
-    // ----------- DELETE ADDRESS -----------
-    function deleteAddress(index) {
-        if (confirm("Are you sure you want to delete this address?")) {
-            savedAddresses.splice(index, 1);
-            localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
-            renderAddresses();
-        }
-    }
-
-});
-</script>
-
-
-
-	
-<!-- 
-   <div class="absolute top-3 right-3 bg-[#02B290]/10 px-3 py-1 rounded-full text-sm text-[#02B290] font-medium">
-          Address ${index + 1}
-        </div> -->
-        </div>
-        <p class="text-gray-800 font-semibold mb-1">${addr.firstName || ""} ${addr.lastName || ""}</p>
-        <p class="text-gray-600">${addr.address1 || ""}</p>
-        <p class="text-gray-600">${addr.city || ""}, ${addr.state || ""} ${addr.zipcode || ""}</p>
-        <p class="text-gray-600 mb-2">${addr.country || ""}</p>
-        <p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> ${addr.phone || ""}</p>
-        <div class="mt-3 flex gap-2">
-          <button class="edit-btn bg-[#02B290] text-white text-sm px-3 py-1 rounded hover:bg-[#4dc9b1]" data-index="${index}">
-            Edit
-          </button>
-          <button class="delete-btn bg-red-500 text-white text-sm px-3 py-1 rounded hover:bg-red-600" data-index="${index}">
-            Delete
-          </button>
-        </div>
-      `;
+				savedAddresses.forEach((addr, index) => {
+					const card = document.createElement("div");
+					card.className = "relative bg-black/5 border border-[#02B290]/20 rounded-2xl p-4 sm:p-6 shadow-sm mb-4";
+					card.innerHTML = `
+						<div class="absolute top-3 right-3 bg-[#02B290]/10 px-3 py-1 rounded-full text-sm text-[#02B290] font-medium">
+							Address ${index + 1}
+						</div>
+						<p class="text-gray-800 font-semibold mb-1">${addr.firstName || ""} ${addr.lastName || ""}</p>
+						<p class="text-gray-600">${addr.address1 || ""}</p>
+						<p class="text-gray-600">${addr.city || ""}, ${addr.state || ""} ${addr.zipcode || ""}</p>
+						<p class="text-gray-600 mb-2">${addr.country || ""}</p>
+						<p class="text-gray-700 font-medium"><i class="fa-solid fa-phone"></i> ${addr.phone || ""}</p>
+						<div class="mt-3 flex gap-2">
+							<button class="edit-btn bg-[#02B290] text-white text-sm px-3 py-1 rounded hover:bg-[#4dc9b1]" data-index="${index}">Edit</button>
+							<button class="delete-btn bg-red-500 text-white text-sm px-3 py-1 rounded hover:bg-red-600" data-index="${index}">Delete</button>
+						</div>
+					`;
 					addressList.appendChild(card);
 				});
 
-				// Attach event listeners
-				document.querySelectorAll(".edit-btn").forEach((btn) => {
-					btn.addEventListener("click", (e) => editAddress(e.target.dataset.index));
-				});
-
-				document.querySelectorAll(".delete-btn").forEach((btn) => {
-					btn.addEventListener("click", (e) => deleteAddress(e.target.dataset.index));
-				});
-
-				console.log("📦 Current Addresses:", savedAddresses);
+				document.querySelectorAll(".edit-btn").forEach(btn =>
+					btn.addEventListener("click", e => editAddress(e.target.dataset.index))
+				);
+				document.querySelectorAll(".delete-btn").forEach(btn =>
+					btn.addEventListener("click", e => deleteAddress(e.target.dataset.index))
+				);
 			}
 
 			renderAddresses();
 
-			// ===== Add New Address =====
 			toggleEditBtn.addEventListener("click", () => {
 				shippingForm.reset();
+				shippingForm.dataset.editIndex = "";
 				shippingForm.classList.remove("hidden");
 				addressList.classList.add("hidden");
 				toggleEditBtn.classList.add("hidden");
-				shippingForm.dataset.editIndex = "";
 			});
 
-			// ===== Cancel =====
 			cancelAddressBtn.addEventListener("click", () => {
 				shippingForm.classList.add("hidden");
 				addressList.classList.remove("hidden");
 				toggleEditBtn.classList.remove("hidden");
 			});
 
-			// ===== Save Address =====
-			saveAddressBtn.addEventListener("click", () => {
-				const newAddress = {
-					firstName: document.getElementById("shipfname").value.trim(),
-					lastName: document.getElementById("shiplname").value.trim(),
-					address1: document.getElementById("shipStreet").value.trim(),
-					city: document.getElementById("shipCity").value.trim(),
-					state: document.getElementById("shipState").value.trim(),
-					zipcode: document.getElementById("shipZip").value.trim(),
-					country: document.getElementById("shipCountry").value.trim(),
-					phone: document.getElementById("shipPhone").value.trim(),
+			function validateFields() {
+				const fields = {
+					firstName: document.getElementById("shipfname"),
+					lastName: document.getElementById("shiplname"),
+					address1: document.getElementById("shipStreet"),
+					city: document.getElementById("shipCity"),
+					state: document.getElementById("shipState"),
+					zipcode: document.getElementById("shipZip"),
+					country: document.getElementById("shipCountry"),
+					phone: document.getElementById("shipPhone")
 				};
 
-				// Validate
-				if (!newAddress.firstName || !newAddress.address1 || !newAddress.phone) {
-					alert("Please fill all required fields!");
+				const alphaRegex = /^[A-Za-z\s]+$/;
+				const numericRegex = /^[0-9]+$/;
+				const phoneRegex = /^[\+0-9\s\-\(\)]+$/; // Allow +, spaces, dashes, parentheses
+				let isValid = true;
+
+				Object.values(fields).forEach(input => input.classList.remove("border-red-500"));
+
+				Object.values(fields).forEach(input => {
+					if (input.value.trim() === "") {
+						input.classList.add("border-red-500");
+						isValid = false;
+					}
+				});
+
+				["firstName", "lastName", "city", "state"].forEach(key => {
+					if (fields[key].value.trim() !== "" && !alphaRegex.test(fields[key].value.trim())) {
+						fields[key].classList.add("border-red-500");
+						isValid = false;
+					}
+				});
+
+				if (fields.zipcode.value.trim() !== "" && !numericRegex.test(fields.zipcode.value.trim())) {
+					fields.zipcode.classList.add("border-red-500");
+					isValid = false;
+				}
+
+				// Check phone: must have at least 7 digits (excluding formatting characters)
+				const phoneDigits = fields.phone.value.replace(/[^\d]/g, '');
+				if (fields.phone.value.trim() !== "" && (phoneDigits.length < 7 || !phoneRegex.test(fields.phone.value.trim()))) {
+					fields.phone.classList.add("border-red-500");
+					isValid = false;
+				}
+
+				return { isValid, fields };
+			}
+
+			saveAddressBtn.addEventListener("click", () => {
+				const { isValid, fields } = validateFields();
+				if (!isValid) {
+					alert("Please correct highlighted fields.");
 					return;
 				}
+
+				const newAddress = {
+					firstName: fields.firstName.value.trim(),
+					lastName: fields.lastName.value.trim(),
+					address1: fields.address1.value.trim(),
+					city: fields.city.value.trim(),
+					state: fields.state.value.trim(),
+					zipcode: fields.zipcode.value.trim(),
+					country: fields.country.value.trim(),
+					phone: fields.phone.value.trim()
+				};
 
 				const editIndex = shippingForm.dataset.editIndex;
 				if (editIndex !== "") {
 					savedAddresses[editIndex] = newAddress;
-					console.log("✏️ Edited address:", newAddress);
 				} else {
 					savedAddresses.push(newAddress);
-					console.log("➕ Added new address:", newAddress);
 				}
 
 				localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
-				console.log(" Saved to localStorage:", savedAddresses);
+				alert("Address saved successfully!");
 
-				renderAddresses();
 				shippingForm.classList.add("hidden");
 				addressList.classList.remove("hidden");
 				toggleEditBtn.classList.remove("hidden");
-				alert("Address saved successfully!");
+				renderAddresses();
 			});
 
-			// ===== Edit Address =====
 			function editAddress(index) {
-				const addr = savedAddresses[index];
-				document.getElementById("shipfname").value = addr.firstName;
-				document.getElementById("shiplname").value = addr.lastName;
-				document.getElementById("shipStreet").value = addr.address1;
-				document.getElementById("shipCity").value = addr.city;
-				document.getElementById("shipState").value = addr.state;
-				document.getElementById("shipZip").value = addr.zipcode;
-				document.getElementById("shipCountry").value = addr.country;
-				document.getElementById("shipPhone").value = addr.phone;
+				const a = savedAddresses[index];
+				document.getElementById("shipfname").value = a.firstName;
+				document.getElementById("shiplname").value = a.lastName;
+				document.getElementById("shipStreet").value = a.address1;
+				document.getElementById("shipCity").value = a.city;
+				document.getElementById("shipState").value = a.state;
+				document.getElementById("shipZip").value = a.zipcode;
+				document.getElementById("shipCountry").value = a.country;
+				document.getElementById("shipPhone").value = a.phone;
 
 				shippingForm.dataset.editIndex = index;
 				shippingForm.classList.remove("hidden");
@@ -854,52 +515,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				toggleEditBtn.classList.add("hidden");
 			}
 
-			// ===== Delete Address =====
 			function deleteAddress(index) {
 				if (confirm("Are you sure you want to delete this address?")) {
 					savedAddresses.splice(index, 1);
 					localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
-					console.log(" Deleted address index:", index);
 					renderAddresses();
 				}
 			}
 		});
 	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			// Match the same key used in checkout.js
-			const savedAddress = JSON.parse(localStorage.getItem("userAddress")) || null;
-
-			if (savedAddress) {
-				const addressCard = document.getElementById("addressCard");
-
-				if (addressCard) {
-					addressCard.innerHTML = `
-					<div
-					class="absolute top-3 right-3 bg-[#02B290]/10 px-3 py-1 rounded-full text-sm text-[#006c58] font-medium">
-					Current Address
-					</div>
-					<h3 class="text-lg font-semibold text-gray-800 mb-2">
-					${savedAddress.firstName || ""} ${savedAddress.lastName || ""}
-					</h3>
-					<p class="text-gray-600">${savedAddress.address1 || ""}</p>
-					<p class="text-gray-600">
-					${savedAddress.city || ""}, ${savedAddress.state || ""} ${savedAddress.zipcode || ""}
-					</p>
-					<p class="text-gray-600 mb-2">${savedAddress.country || ""}</p>
-					<p class="text-gray-700 font-medium">
-					<i class="fa-solid fa-phone"></i> ${savedAddress.phone || ""}
-					</p>
-				`;
-				} else {
-					console.error("❌ #addressCard not found in DOM");
-				}
-			} else {
-				console.warn("⚠️ No address found in localStorage with key 'userAddress'");
-			}
-		});
-	</script>
-
 </body>
-
 </html>
