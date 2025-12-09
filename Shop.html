@@ -320,7 +320,7 @@
 			<ul id="badgeListMobile" class="space-y-2"></ul>
 		</div>
 		<!-- Actions -->
-		<div class="border-t pt-4 mt-6 flex gap-2">
+		<div class="border-t pt-4 mt-6 flex gap-2 mb-[70px]">
 			<button id="applyMobile" class="bg-[#02B290] text-white px-4 py-2 rounded"
 				onclick="closeFilter()">Apply</button>
 			<button id="resetMobile" class="border px-4 py-2 rounded">Reset</button>
@@ -430,7 +430,6 @@
 		};
 	</script>
 
-
 	<script>
 		window.addEventListener("DOMContentLoaded", () => {
 			const selectedCategory = localStorage.getItem("selectedCategory");
@@ -477,72 +476,72 @@
 	<script src="./js/wishlist.js"></script>
 	<script src="./js/addtocart.js"></script>
 	<script src="./js/Search.js"></script>
-<script>
-    function addToCartFromModal() {
-        const productName = document.getElementById('modalProductName')?.textContent.trim();
-        const productPrice = document.getElementById('modalProductPrice')?.textContent.trim();
-        const productImage = document.getElementById('modalProductImage')?.src;
-        const quantity = parseInt(document.getElementById('quantityInput')?.value || 1);
+	<script>
+		function addToCartFromModal() {
+			const productName = document.getElementById('modalProductName')?.textContent.trim();
+			const productPrice = document.getElementById('modalProductPrice')?.textContent.trim();
+			const productImage = document.getElementById('modalProductImage')?.src;
+			const quantity = parseInt(document.getElementById('quantityInput')?.value || 1);
 
-        if (!productName || !productPrice || !productImage) {
-            console.error("Modal product data missing!");
-            return;
-        }
+			if (!productName || !productPrice || !productImage) {
+				console.error("Modal product data missing!");
+				return;
+			}
 
-        // ---------------------------
-        // GET CART FROM localStorage
-        // ---------------------------
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+			// ---------------------------
+			// GET CART FROM localStorage
+			// ---------------------------
+			let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        // check if product already in cart
-        let existing = cart.find(item => item.name === productName);
+			// check if product already in cart
+			let existing = cart.find(item => item.name === productName);
 
-        if (existing) {
-            existing.quantity += quantity;
-        } else {
-            cart.push({
-                name: productName,
-                price: productPrice,
-                image: productImage,
-                quantity: quantity
-            });
-        }
+			if (existing) {
+				existing.quantity += quantity;
+			} else {
+				cart.push({
+					name: productName,
+					price: productPrice,
+					image: productImage,
+					quantity: quantity
+				});
+			}
 
-        // save back to localStorage
-        localStorage.setItem("cart", JSON.stringify(cart));
+			// save back to localStorage
+			localStorage.setItem("cart", JSON.stringify(cart));
 
-        // update cart count
-        updateCartCount();
+			// update cart count
+			updateCartCount();
 
-        // ---------------------------
-        // ADD BUTTON ANIMATION
-        // ---------------------------
-        const btn = document.querySelector(".modal-add-to-cart");
-        const originalText = btn.innerHTML;
+			// ---------------------------
+			// ADD BUTTON ANIMATION
+			// ---------------------------
+			const btn = document.querySelector(".modal-add-to-cart");
+			const originalText = btn.innerHTML;
 
-        btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-        btn.style.background = "#02B290";
+			btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+			btn.style.background = "#02B290";
 
-        setTimeout(() => {
-            btn.innerHTML = originalText;
-            btn.style.background = "";
-        }, 1200);
+			setTimeout(() => {
+				btn.innerHTML = originalText;
+				btn.style.background = "";
+			}, 1200);
 
-        // close modal after animation
-        setTimeout(closeQuickView, 1300);
-    }
+			// close modal after animation
+			setTimeout(closeQuickView, 1300);
+		}
 
-    // ------------------------------------
-    // Update cart count in header
-    // ------------------------------------
-    // function updateCartCount() {
-    //     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    //     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+		// ------------------------------------
+		// Update cart count in header
+		// ------------------------------------
+		// function updateCartCount() {
+		//     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+		//     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    //     const cartCount = document.getElementById("cart-count");
-    //     if (cartCount) cartCount.textContent = count;
-    // }
-</script>
+		//     const cartCount = document.getElementById("cart-count");
+		//     if (cartCount) cartCount.textContent = count;
+		// }
+	</script>
 	<script>
 		function addToCartFromModal() {
 			const productName = document.getElementById('modalProductName')?.textContent.trim();
@@ -753,7 +752,6 @@
 			} else {
 				noResultEl.style.display = 'none';
 			}
-			
 
 			productGrid.innerHTML = pageItems.map((p, idx) => {
 				const globalIndex = products.indexOf(p);
