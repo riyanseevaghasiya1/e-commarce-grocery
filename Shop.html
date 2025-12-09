@@ -455,17 +455,33 @@
 			}
 
 			const resetBtns = document.querySelectorAll("#resetDesktop, #resetMobile");
+
 			resetBtns.forEach(btn => {
 				btn.addEventListener("click", () => {
+
+					// Remove category saved in localStorage
 					localStorage.removeItem("selectedCategory");
 
-					// NEW FIX ADDED BELOW
-					if (typeof state !== "undefined") {
-						state.categories = new Set();  // Clear category filters
-						renderProducts();              // Reload all products
-					}
+					// Main RESET function
+					resetFilters();
+
+					// Uncheck all checkboxes (category + badge)
+					document.querySelectorAll('input[type="checkbox"][data-group]').forEach(chk => {
+						chk.checked = false;
+					});
+
+					// Reset rating dropdown
+					document.getElementById("ratingDesktop").value = "0";
+					document.getElementById("ratingMobile").value = "0";
+
+					// Reset price filter
+					priceRangeDesktop.value = priceMax;
+					priceValueDesktop.textContent = `$${priceMax}`;
+					priceRangeMobile.value = priceMax;
+					priceValueMobile.textContent = `$${priceMax}`;
 				});
 			});
+
 
 		});
 	</script>
