@@ -208,7 +208,7 @@
 			let originalPassword = "";
 
 			function randomName() {
-				const names = ["Hasti", "Rohan", "Neha", "Dhruv", "Aarav", "Kavya", "Viraj", "Mihir"];
+				const names = ["Kiyan", "Rohan", "Neha", "Dhruv", "Aarav", "Kavya", "Viraj", "Mihir"];
 				const surnames = ["Patel", "Shah", "Trivedi", "Mehta", "Joshi", "Desai", "Kapadia"];
 				return names[Math.floor(Math.random() * names.length)] + " " + surnames[Math.floor(Math.random() * surnames.length)];
 			}
@@ -379,7 +379,7 @@
 						<div class="absolute top-3 right-3 bg-[#02B290]/10 px-3 py-1 rounded-full text-sm text-[#02B290] font-medium">
 							Address ${index + 1}
 						</div>
-						<p class="text-gray-800 font-semibold mb-1">${addr.firstName || ""} ${addr.lastName || ""}</p>
+						<p class="text-gray-800 font-semibold mb-1 max-w-[58%]">${addr.firstName || ""} ${addr.lastName || ""}</p>
 						<p class="text-gray-600">${addr.address1 || ""}</p>
 						<p class="text-gray-600">${addr.city || ""}, ${addr.state || ""} ${addr.zipcode || ""}</p>
 						<p class="text-gray-600 mb-2">${addr.country || ""}</p>
