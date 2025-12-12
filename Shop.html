@@ -266,6 +266,76 @@
 
 		<!-- Product Area: grid + pagination stacked -->
 		<div id="productArea" class="w-full lg:w-4/5 flex flex-col">
+
+			<!-- Skeleton Loader -->
+			<div id="skeletonLoader" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+				<!-- Skeleton Card 1 -->
+				<div class="animate-pulse bg-white rounded-lg shadow p-4">
+					<div class="w-full h-40 bg-gray-200 rounded"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-3/4"></div>
+					<div class="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-1/4"></div>
+				</div>
+
+				<!-- Skeleton Card 2 -->
+				<div class="animate-pulse bg-white rounded-lg shadow p-4">
+					<div class="w-full h-40 bg-gray-200 rounded"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-3/4"></div>
+					<div class="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-1/4"></div>
+				</div>
+
+				<!-- Skeleton Card 3 -->
+				<div class="animate-pulse bg-white rounded-lg shadow p-4">
+					<div class="w-full h-40 bg-gray-200 rounded"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-3/4"></div>
+					<div class="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-1/4"></div>
+				</div>
+
+				<!-- Skeleton Card 4 -->
+				<div class="animate-pulse bg-white rounded-lg shadow p-4">
+					<div class="w-full h-40 bg-gray-200 rounded"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-3/4"></div>
+					<div class="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-1/4"></div>
+				</div>
+
+				<!-- Skeleton Card 5 -->
+				<div class="animate-pulse bg-white rounded-lg shadow p-4">
+					<div class="w-full h-40 bg-gray-200 rounded"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-3/4"></div>
+					<div class="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-1/4"></div>
+				</div>
+
+				<!-- Skeleton Card 6 -->
+				<div class="animate-pulse bg-white rounded-lg shadow p-4">
+					<div class="w-full h-40 bg-gray-200 rounded"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-3/4"></div>
+					<div class="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-1/4"></div>
+				</div>
+
+				<!-- Skeleton Card 7 -->
+				<div class="animate-pulse bg-white rounded-lg shadow p-4">
+					<div class="w-full h-40 bg-gray-200 rounded"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-3/4"></div>
+					<div class="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-1/4"></div>
+				</div>
+
+				<!-- Skeleton Card 8 -->
+				<div class="animate-pulse bg-white rounded-lg shadow p-4">
+					<div class="w-full h-40 bg-gray-200 rounded"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-3/4"></div>
+					<div class="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+					<div class="h-4 bg-gray-200 rounded mt-4 w-1/4"></div>
+				</div>
+
+			</div>
+
 			<div id="productGrid" class="grid product-grids gap-6">
 				<!-- Products will be dynamically loaded here -->
 			</div>
@@ -753,25 +823,42 @@
 			});
 		}
 
+		function showSkeleton() {
+			document.getElementById("skeletonLoader").style.display = "grid";
+			document.getElementById("productGrid").style.display = "none";
+		}
+
+		function hideSkeleton() {
+			document.getElementById("skeletonLoader").style.display = "none";
+			document.getElementById("productGrid").style.display = "grid";
+		}
+
 		function renderProducts() {
-			const filtered = getFilteredProducts();
-			const total = filtered.length;
-			const totalPages = Math.max(1, Math.ceil(total / state.perPage));
-			if (state.currentPage > totalPages) state.currentPage = 1;
-			const start = (state.currentPage - 1) * state.perPage;
-			const pageItems = filtered.slice(start, start + state.perPage);
+			// Show skeleton for 1 second (fake loading)
+			showSkeleton();
 
-			// Show "Result not found" if no products match
-			const noResultEl = document.getElementById('noResultMessage');
-			if (filtered.length === 0) {
-				noResultEl.style.display = 'block';
-			} else {
-				noResultEl.style.display = 'none';
-			}
+			setTimeout(() => {
 
-			productGrid.innerHTML = pageItems.map((p, idx) => {
-				const globalIndex = products.indexOf(p);
-				return `
+				const filtered = getFilteredProducts();
+				const total = filtered.length;
+				const totalPages = Math.max(1, Math.ceil(total / state.perPage));
+
+				if (state.currentPage > totalPages) state.currentPage = 1;
+
+				const start = (state.currentPage - 1) * state.perPage;
+				const pageItems = filtered.slice(start, start + state.perPage);
+
+				// Show "Result not found" if no products match
+				const noResultEl = document.getElementById('noResultMessage');
+				if (filtered.length === 0) {
+					noResultEl.style.display = 'block';
+				} else {
+					noResultEl.style.display = 'none';
+				}
+
+				productGrid.innerHTML = pageItems.map((p, idx) => {
+					const globalIndex = products.indexOf(p);
+					return `
 				<div class="product-card bg-white rounded-lg shadow relative" onclick="viewProductDetails(${globalIndex})" style="cursor: pointer;">
 					<div class="a_image_container rounded-md overflow-hidden relative">
 						${p.badge ? `<span class="absolute top-2 left-2 bg-[#02B290] text-white text-xs px-2 py-1 rounded product-badge">${p.badge}</span>` : ""}
@@ -800,9 +887,14 @@
 						</div>
 					</div>
 				</div>`;
-			}).join("");
+				}).join("");
 
-			renderPagination(totalPages);
+				renderPagination(totalPages);
+
+				// Hide skeleton, show products
+				hideSkeleton();
+
+			}, 800); // adjust loading delay
 		}
 
 		function renderPagination(totalPages) {
