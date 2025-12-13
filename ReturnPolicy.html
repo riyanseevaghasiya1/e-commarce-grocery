@@ -49,34 +49,61 @@
 		</div>
 	</div>
 
-	<!-- Return Policy Section -->
-	<div class="a_header_container">
-		<div class="flex mx-auto py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
-			<!-- Sidebar -->
-			<div class="sidebar hidden md:block md:w-60 lg:w-72 xl:w-80 h-screen sticky top-0 p-6">
-				<ul class="space-y-4">
-					<li><a href="#introduction" class="block cursor-pointer sidebar-link">Introduction</a></li>
-					<li><a href="#eligibility" class="block cursor-pointer sidebar-link">Return Eligibility</a></li>
-					<li><a href="#non-returnable" class="block cursor-pointer sidebar-link">Non-returnable Items</a></li>
-					<li><a href="#process" class="block cursor-pointer sidebar-link">Return Process</a></li>
-					<li><a href="#refunds" class="block cursor-pointer sidebar-link">Refunds</a></li>
-					<li><a href="#contact" class="block cursor-pointer sidebar-link">Contact Support</a></li>
-				</ul>
+	<!-- Return Policy Skeleton Loader -->
+	<div id="ReturnSkeleton" class="a_header_container mx-auto animate-pulse ">
+		<div class=" py-14 md:py-24">
+
+			<!-- Title Skeleton -->
+			<div class="h-7 w-48 bg-gray-300 rounded mb-6"></div>
+
+			<!-- Paragraph Block 1 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-3/6 bg-gray-200 rounded"></div>
 			</div>
+
+			<!-- Paragraph Block 2 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-2/6 bg-gray-200 rounded"></div>
+			</div>
+
+			<!-- Paragraph Block 3 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Return Policy Section -->
+	<div class="a_header_container" style="display:none;" id="ReturnContent">
+
+		<div class="flex mx-auto py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
 
 			<!-- Content -->
 			<div class="flex-1 py-5 md:py-10 space-y-16">
 				<section id="introduction">
 					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Introduction</h2>
-					<p>Thank you for shopping with <strong>Grocery Go</strong>. We strive to ensure you are satisfied
-						with every purchase you make. This Return Policy outlines the conditions under which items can be
-						returned, replaced, or refunded. Please review this policy carefully before initiating a return
+					<p>Thank you for shopping with <strong>Grocery Go</strong>. We strive to ensure you are
+						satisfied
+						with every purchase you make. This Return Policy outlines the conditions under which items
+						can
+						be
+						returned, replaced, or refunded. Please review this policy carefully before initiating a
+						return
 						request.</p>
 				</section>
 
 				<section id="eligibility">
 					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Return Eligibility</h2>
-					<p>We accept returns for most items within <strong>7 days</strong> of delivery, provided that:</p>
+					<p>We accept returns for most items within <strong>7 days</strong> of delivery, provided that:
+					</p>
 					<ul class="list-disc ml-6 mt-3 space-y-2 text-[#595959]">
 						<li>The item is unused, unwashed, and in its original packaging.</li>
 						<li>The product is not damaged, altered, or tampered with in any way.</li>
@@ -103,7 +130,9 @@
 						<li>Go to your <strong>My Orders</strong> page and select the item you wish to return.</li>
 						<li>Click on <strong>Request Return</strong> and fill out the required details.</li>
 						<li>Our team will review your request within 24–48 hours.</li>
-						<li>Once approved, we’ll arrange for pickup or provide instructions for returning the product.</li>
+						<li>Once approved, we’ll arrange for pickup or provide instructions for returning the
+							product.
+						</li>
 					</ul>
 					<p class="mt-3">Please ensure the returned product is securely packed to prevent damage during
 						transit.</p>
@@ -111,9 +140,12 @@
 
 				<section id="refunds">
 					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Refunds</h2>
-					<p>Once your return is received and inspected, we will notify you via email or SMS. Approved refunds
-						will be processed within <strong>5–7 business days</strong> to your original payment method. In
-						case of Cash on Delivery (COD) orders, the refund will be credited to your bank account or as
+					<p>Once your return is received and inspected, we will notify you via email or SMS. Approved
+						refunds
+						will be processed within <strong>5–7 business days</strong> to your original payment method.
+						In
+						case of Cash on Delivery (COD) orders, the refund will be credited to your bank account or
+						as
 						store credit.</p>
 					<p class="mt-3">Please note: Shipping charges are non-refundable unless the return is due to a
 						defective or wrong item delivered.</p>
@@ -121,12 +153,13 @@
 
 				<section id="contact">
 					<h2 class="text-base md:text-lg font-semibold mb-4 md:mb-6 font-body">Contact Support</h2>
-					<p>If you have any questions or concerns about our Return Policy, feel free to contact our support
+					<p>If you have any questions or concerns about our Return Policy, feel free to contact our
+						support
 						team:</p>
 					<ul class="mt-3 space-y-2 text-[#595959]">
 						<li>Email: <a href="mailto:support@grocerygo.com"
 								class="text-[#02B290] underline">support@grocerygo.com</a></li>
-						<li>Phone: +91 98765 43210</li>
+						<li>Phone: +89 5631 564</li>
 						<li>Available: Monday – Saturday, 9 AM to 6 PM</li>
 					</ul>
 				</section>
@@ -159,6 +192,21 @@
 			});
 		});
 	</script>
+
+	<!-- Skeleton loading script -->
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const skeleton = document.getElementById("ReturnSkeleton");
+			const content = document.getElementById("ReturnContent");
+
+			// Fake loading delay (you can increase to 1200ms)
+			setTimeout(() => {
+				skeleton.style.display = "none";
+				content.style.display = "block";
+			}, 600);
+		});
+	</script>
+
 </body>
 
 </html>

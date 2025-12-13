@@ -2,52 +2,51 @@
   background-color: #14b8a6;
   color: white;
 } */
-  select option:hover {
-    background-color: #14b8a6; 
-    color: white;
-  }
-  .r_index{
-    z-index: 9999;
-  }
-  .r_height{
-    height: 400px;
-  }
+select option:hover {
+  background-color: #14b8a6;
+  color: white;
+}
+.r_index {
+  z-index: 9999;
+}
+.r_height {
+  height: 400px;
+}
 
-@media (max-width:425px){
-  .r_cart425{
+@media (max-width: 425px) {
+  .r_cart425 {
     width: auto;
   }
 }
-@media (max-width:425px){
-  .r_375{
+@media (max-width: 425px) {
+  .r_375 {
     flex-wrap: wrap;
   }
 }
 @media (max-width: 360px) {
-  .r_img{
+  .r_img {
     height: 25px;
     width: 25px;
   }
   .r_smnone {
     font-size: 14px;
   }
-  .r_320side{
+  .r_320side {
     width: auto !important;
   }
-
 }
 @media (max-width: 320px) {
-    .r_cart425{
+  .r_cart425 {
     width: 280px !important;
   }
 }
- .addr-select-radio {
+.addr-select-radio {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   width: 18px;
   height: 18px;
-  border: 2px solid #02B290;
+  border: 2px solid #02b290;
   border-radius: 50%;
   position: relative;
   cursor: pointer;
@@ -61,7 +60,7 @@
   left: 50%;
   width: 8px;
   height: 8px;
-  background-color: #02B290;
+  background-color: #02b290;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
@@ -69,33 +68,32 @@
 .addr-select-radio:hover {
   box-shadow: 0 0 0 3px rgba(34, 179, 162, 0.15);
 }
-.header  {
+.header {
   position: sticky;
-  top: 0; 
+  top: 0;
   width: 100%;
   z-index: 1000;
-
 }
 
-  .sticky {
-      position: fixed;
-      top: 0;
-      width: 100%;
-    }
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
 
-    .sticky + .content {
-      padding-top:150px;
-    }
+.sticky + .content {
+  padding-top: 150px;
+}
 
-   /* UNIVERSAL DROPDOWN SCROLL FIX */
+/* UNIVERSAL DROPDOWN SCROLL FIX */
 .dropdown-scroll,
 nav .group:hover > div,
 .mobile-accordion-content,
 .user-dropdown,
 .currency-dropdown {
-    max-height: 320px !important;
-    overflow-y: auto !important;
-    scrollbar-width: thin; /* Firefox */
+  max-height: 336px !important;
+  overflow-y: auto !important;
+  scrollbar-width: thin; /* Firefox */
 }
 
 /* Chrome Scrollbar Styling */
@@ -104,7 +102,7 @@ nav .group:hover > div::-webkit-scrollbar,
 .mobile-accordion-content::-webkit-scrollbar,
 .user-dropdown::-webkit-scrollbar,
 .currency-dropdown::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .dropdown-scroll::-webkit-scrollbar-thumb,
@@ -112,8 +110,8 @@ nav .group:hover > div::-webkit-scrollbar-thumb,
 .mobile-accordion-content::-webkit-scrollbar-thumb,
 .user-dropdown::-webkit-scrollbar-thumb,
 .currency-dropdown::-webkit-scrollbar-thumb {
-    background: #2ecc71;
-    border-radius: 10px;
+  background: #2ecc71;
+  border-radius: 10px;
 }
 
 .dropdown-scroll::-webkit-scrollbar-track,
@@ -121,5 +119,5 @@ nav .group:hover > div::-webkit-scrollbar-track,
 .mobile-accordion-content::-webkit-scrollbar-track,
 .user-dropdown::-webkit-scrollbar-track,
 .currency-dropdown::-webkit-scrollbar-track {
-    background: #eaeaea;
+  background: #eaeaea;
 }
