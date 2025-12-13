@@ -16,6 +16,64 @@
 <body class="inter-font">
 	<div id="header-placeholder"></div>
 
+	<!-- PRODUCT DETAILS SKELETON -->
+	<div id="productSkeleton" class="animate-pulse a_header_container px-4 sm:px-0">
+		<div class="py-8 space-y-8">
+
+			<!-- Top Grid -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-xl shadow p-6">
+				<!-- Image Skeleton -->
+				<div class="space-y-4">
+					<div class="w-full h-[300px] bg-gray-300 rounded"></div>
+					<div class="flex gap-3 justify-center">
+						<div class="w-16 h-16 bg-gray-300 rounded"></div>
+						<div class="w-16 h-16 bg-gray-300 rounded"></div>
+						<div class="w-16 h-16 bg-gray-300 rounded"></div>
+					</div>
+				</div>
+
+				<!-- Text Skeleton -->
+				<div class="space-y-4">
+					<div class="h-6 bg-gray-300 rounded w-3/4"></div>
+					<div class="h-6 bg-gray-300 rounded w-1/2"></div>
+					<div class="h-24 bg-gray-300 rounded"></div>
+					<div class="flex gap-4">
+						<div class="h-10 w-10 bg-gray-300 rounded"></div>
+						<div class="h-10 w-10 bg-gray-300 rounded"></div>
+						<div class="h-10 w-20 bg-gray-300 rounded"></div>
+					</div>
+					<div class="h-10 bg-gray-300 rounded w-40"></div>
+					<div class="h-10 bg-gray-300 rounded w-32"></div>
+				</div>
+			</div>
+
+			<!-- Product Details -->
+			<div class="bg-white rounded-xl shadow p-6 space-y-4">
+				<div class="h-6 bg-gray-300 rounded w-40"></div>
+				<div class="h-24 bg-gray-300 rounded w-full"></div>
+			</div>
+
+			<!-- Delivery Section -->
+			<div class="bg-white rounded-xl shadow p-6 space-y-4">
+				<div class="h-6 bg-gray-300 rounded w-56"></div>
+				<div class="space-y-2">
+					<div class="h-4 bg-gray-300 rounded w-full"></div>
+					<div class="h-4 bg-gray-300 rounded w-full"></div>
+					<div class="h-4 bg-gray-300 rounded w-3/4"></div>
+				</div>
+			</div>
+
+			<!-- Reviews -->
+			<div class="bg-white rounded-xl shadow p-6 space-y-4">
+				<div class="h-6 bg-gray-300 rounded w-52"></div>
+				<div class="h-10 bg-gray-300 rounded w-full"></div>
+				<div class="h-10 bg-gray-300 rounded w-40"></div>
+			</div>
+
+		</div>
+	</div>
+
+
 	<!-- Banner -->
 	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center 
     py-10 sm:py-16 px-4" style="background-image: url('images/pages-hero-bg.webp');">
@@ -33,7 +91,7 @@
 		</div>
 	</div>
 
-	<div class="a_header_container px-4 sm:px-0">
+	<div id="productMainContent" class="a_header_container px-4 sm:px-0" style="display:none;">
 		<div class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
 			<!-- Product Section -->
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-4 sm:p-6">
@@ -336,80 +394,80 @@
 			form.classList.add('transition-all', 'duration-300');
 		}
 	</script>
-<script>
-	function addToCart1(button) {
-		const container = button.closest('.flex.flex-col') || document.body;
+	<script>
+		function addToCart1(button) {
+			const container = button.closest('.flex.flex-col') || document.body;
 
-		const nameEl = container.querySelector('h1') || document.querySelector('h1');
-		const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
+			const nameEl = container.querySelector('h1') || document.querySelector('h1');
+			const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
 
-		const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
-			document.querySelector('[class*="font-bold"][class*="text"]');
+			const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
+				document.querySelector('[class*="font-bold"][class*="text"]');
 
-		let productPrice = 0;
-		if (priceEl) {
-			// remove everything except numbers and dot
-			productPrice = parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+			let productPrice = 0;
+			if (priceEl) {
+				// remove everything except numbers and dot
+				productPrice = parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+			}
+
+			// Image
+			const productImage = document.getElementById('mainImg')?.src || '';
+
+			// Quantity
+			const qtyInput = document.getElementById('qty');
+			const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
+
+			// Selected Weight
+			const selectedWeightEl =
+				document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
+				document.querySelector('[class*="weight-option"].active') ||
+				document.querySelector('.weight-option');
+
+			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
+
+			// ⭐ Weight Multiplier
+			let weightMultiplier = 1;
+
+			if (selectedWeight.includes("500")) weightMultiplier = 0.5;
+			else if (selectedWeight.includes("1 Kg")) weightMultiplier = 1;
+			else if (selectedWeight.includes("2 Kg")) weightMultiplier = 2;
+			else if (selectedWeight.includes("5 Kg")) weightMultiplier = 5;
+
+			// ⭐ FINAL PRICE = Base Price × Weight
+			const finalPrice = (productPrice * weightMultiplier).toFixed(2);
+
+			const product = {
+				name: productName,
+				price: finalPrice,      // ⭐ FINAL PRICE
+				image: productImage,
+				quantity: quantity,
+				weight: selectedWeight
+			};
+
+			let cart = [];
+			try {
+				cart = JSON.parse(localStorage.getItem('cart')) || [];
+			} catch (e) {
+				cart = [];
+			}
+
+			// If same product & same weight → increase qty
+			const existing = cart.find(item =>
+				item.name === product.name && item.weight === product.weight
+			);
+
+			if (existing) {
+				existing.quantity += product.quantity;
+			} else {
+				cart.push(product);
+			}
+
+			localStorage.setItem('cart', JSON.stringify(cart));
+
+			updateCartCount();
+			showNotification('Item added to cart');
 		}
-
-		// Image
-		const productImage = document.getElementById('mainImg')?.src || '';
-
-		// Quantity
-		const qtyInput = document.getElementById('qty');
-		const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
-
-		// Selected Weight
-		const selectedWeightEl =
-			document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
-			document.querySelector('[class*="weight-option"].active') ||
-			document.querySelector('.weight-option');
-
-		const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
-
-		// ⭐ Weight Multiplier
-		let weightMultiplier = 1;
-
-		if (selectedWeight.includes("500")) weightMultiplier = 0.5;
-		else if (selectedWeight.includes("1 Kg")) weightMultiplier = 1;
-		else if (selectedWeight.includes("2 Kg")) weightMultiplier = 2;
-		else if (selectedWeight.includes("5 Kg")) weightMultiplier = 5;
-
-		// ⭐ FINAL PRICE = Base Price × Weight
-		const finalPrice = (productPrice * weightMultiplier).toFixed(2);
-
-		const product = {
-			name: productName,
-			price: finalPrice,      // ⭐ FINAL PRICE
-			image: productImage,
-			quantity: quantity,
-			weight: selectedWeight
-		};
-
-		let cart = [];
-		try {
-			cart = JSON.parse(localStorage.getItem('cart')) || [];
-		} catch (e) {
-			cart = [];
-		}
-
-		// If same product & same weight → increase qty
-		const existing = cart.find(item =>
-			item.name === product.name && item.weight === product.weight
-		);
-
-		if (existing) {
-			existing.quantity += product.quantity;
-		} else {
-			cart.push(product);
-		}
-
-		localStorage.setItem('cart', JSON.stringify(cart));
-
-		updateCartCount();
-		showNotification('Item added to cart');
-	}
-</script>
+	</script>
 
 
 
@@ -537,6 +595,15 @@
 		}
 	</script>
 
+	<!-- Skelenton Loader -->
+	<script>
+		window.addEventListener("load", () => {
+			setTimeout(() => {
+				document.getElementById("productSkeleton").style.display = "none";
+				document.getElementById("productMainContent").style.display = "block";
+			}, 800);
+		});
+	</script>
 </body>
 
 </html>

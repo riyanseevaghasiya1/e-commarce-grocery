@@ -32,8 +32,50 @@
 		</div>
 	</div>
 
+	<!-- About Page Skeleton Loader -->
+	<div id="aboutSkeleton" class="a_header_container mx-auto animate-pulse">
+		<div class="py-12">
+			<!-- Section 1 -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
+				<!-- Text Skeleton -->
+				<div class="space-y-4">
+					<div class="h-4 w-28 bg-gray-300 rounded"></div>
+					<div class="h-7 w-3/4 bg-gray-300 rounded"></div>
+					<div class="h-4 w-full bg-gray-200 rounded"></div>
+					<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+					<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+				</div>
+
+				<!-- Image Skeleton -->
+				<div class="w-full h-60 bg-gray-200 rounded"></div>
+			</div>
+
+			<!-- Section 2 -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+				<!-- Text Skeleton -->
+				<div class="space-y-4">
+					<div class="h-4 w-32 bg-gray-300 rounded"></div>
+					<div class="h-7 w-3/4 bg-gray-300 rounded"></div>
+					<div class="h-4 w-full bg-gray-200 rounded"></div>
+					<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+					<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+				</div>
+
+				<!-- Counter Boxes Skeleton -->
+				<div class="grid grid-cols-2 gap-5">
+					<div class="h-32 bg-gray-200 rounded"></div>
+					<div class="h-32 bg-gray-200 rounded"></div>
+					<div class="h-32 bg-gray-200 rounded"></div>
+					<div class="h-32 bg-gray-200 rounded"></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 	<!-- about Us Section -->
-	<div class="about-us-page a_header_container">
+	<div class="about-us-page a_header_container" id="aboutContent" style="display:none;">
 		<div class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-20">
 				<div class="content-part">
@@ -135,120 +177,6 @@
 				</div>
 			</div>
 		</section>
-		<!-- <section class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
-			<h4 class="text-center text-[22px] font-semibold mb-8">Meet Our Team</h4>
-			<div class="grid gap-4 sm:gap-6 lg:gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-				<div>
-					<div class="overflow-hidden mb-2 sm:mb-4">
-						<div class="member-image flex items-center mouse-move-effect-scale"><img decoding="async"
-								class="w-full aspect-square object-cover mouse-move-effect-el block" height="355"
-								src="https://borobazar.redq.io/wp-content/uploads/2021/10/Mask-Group.png"
-								alt=" Alex Callan " style="--d: 22"></div>
-					</div>
-					<div class="member-info">
-						<h5 class="mt-0 mb-0.5 text-sm sm:text-base font-semibold sm:mb-1.5"> Alex
-							Callan </h5>
-						<div class="content text-xs sm:text-sm"> CEO, Founder </div>
-					</div>
-				</div>
-				<div>
-					<div class="overflow-hidden mb-2 sm:mb-4">
-						<div class="member-image flex items-center mouse-move-effect-scale"><img decoding="async"
-								class="w-full aspect-square object-cover mouse-move-effect-el block" height="355"
-								src="https://borobazar.redq.io/wp-content/uploads/2021/10/Mask-Group-1.png"
-								alt=" Dorian Price " style="--d: 22"></div>
-					</div>
-					<div class="member-info">
-						<h5 class="mt-0 mb-0.5 text-sm sm:text-base font-semibold sm:mb-1.5">
-							Dorian Price </h5>
-						<div class="content text-xs sm:text-sm"> COO, Founder
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="overflow-hidden mb-2 sm:mb-4">
-						<div class="member-image flex items-center mouse-move-effect-scale"><img decoding="async"
-								class="w-full aspect-square object-cover mouse-move-effect-el block" height="355"
-								src="https://borobazar.redq.io/wp-content/uploads/2021/10/Mask-Group-3.png"
-								alt=" Matthew kade " style="--d: 22"></div>
-					</div>
-					<div class="member-info">
-						<h5 class="mt-0 mb-0.5 text-sm sm:text-base font-semibold sm:mb-1.5">
-							Matthew kade </h5>
-						<div class="content text-xs sm:text-sm"> CFO, Accounts
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="overflow-hidden mb-2 sm:mb-4">
-						<div class="member-image flex items-center mouse-move-effect-scale"><img decoding="async"
-								class="w-full aspect-square object-cover mouse-move-effect-el block" height="355"
-								src="https://borobazar.redq.io/wp-content/uploads/2021/10/Mask-Group-5.png"
-								alt=" Hillary Wade " style="--d: 22"></div>
-					</div>
-					<div class="member-info">
-						<h5 class="mt-0 mb-0.5 text-sm sm:text-base font-semibold sm:mb-1.5">
-							Hillary Wade </h5>
-						<div class="content text-xs sm:text-sm"> Head of IT </div>
-					</div>
-				</div>
-				<div>
-					<div class="overflow-hidden mb-2 sm:mb-4">
-						<div class="member-image flex items-center mouse-move-effect-scale"><img decoding="async"
-								class="w-full aspect-square object-cover mouse-move-effect-el block" height="355"
-								src="https://borobazar.redq.io/wp-content/uploads/2021/10/Mask-Group-7.png"
-								alt=" Joseph Wordy " style="--d: 22"></div>
-					</div>
-					<div class="member-info">
-						<h5 class="mt-0 mb-0.5 text-sm sm:text-base font-semibold sm:mb-1.5">
-							Joseph Wordy </h5>
-						<div class="content text-xs sm:text-sm"> Manager Customer
-							Service </div>
-					</div>
-				</div>
-				<div>
-					<div class="overflow-hidden mb-2 sm:mb-4">
-						<div class="member-image flex items-center mouse-move-effect-scale"><img decoding="async"
-								class="w-full aspect-square object-cover mouse-move-effect-el block" height="355"
-								src="https://borobazar.redq.io/wp-content/uploads/2021/10/Mask-Group-2.png"
-								alt=" Cindy Windall " style="--d: 22"></div>
-					</div>
-					<div class="member-info">
-						<h5 class="mt-0 mb-0.5 text-sm sm:text-base font-semibold sm:mb-1.5">
-							Cindy Windall </h5>
-						<div class="content text-xs sm:text-sm"> Director of Sales
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="overflow-hidden mb-2 sm:mb-4">
-						<div class="member-image flex items-center mouse-move-effect-scale"><img decoding="async"
-								class="w-full aspect-square object-cover mouse-move-effect-el block" height="355"
-								src="https://borobazar.redq.io/wp-content/uploads/2021/10/Mask-Group-4.png"
-								alt=" Peldon Cooper " style="--d: 22"></div>
-					</div>
-					<div class="member-info">
-						<h5 class="mt-0 mb-0.5 text-sm sm:text-base font-semibold sm:mb-1.5">
-							Peldon Cooper </h5>
-						<div class="content text-xs sm:text-sm"> Manager, Operation
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="overflow-hidden mb-2 sm:mb-4">
-						<div class="member-image flex items-center mouse-move-effect-scale"><img decoding="async"
-								class="w-full aspect-square object-cover mouse-move-effect-el block" height="355"
-								src="https://borobazar.redq.io/wp-content/uploads/2021/10/Mask-Group-6.png"
-								alt=" Beanie Callen " style="--d: 22"></div>
-					</div>
-					<div class="member-info">
-						<h5 class="mt-0 mb-0.5 text-sm sm:text-base font-semibold sm:mb-1.5">
-							Beanie Callen </h5>
-						<div class="content text-xs sm:text-sm"> Manager, HR </div>
-					</div>
-				</div>
-			</div>
-		</section> -->
 	</div>
 	<div id="footer_add"></div>
 
@@ -256,6 +184,20 @@
 	<script src="./js/wishlist.js"></script>
 	<script src="./js/addtocart.js"></script>
 
+	<!-- about Skeleton loader -->
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const skeleton = document.getElementById("aboutSkeleton");
+			const content = document.getElementById("aboutContent");
+
+			// Show skeleton for 1 second (change if needed)
+			setTimeout(() => {
+				skeleton.style.display = "none";
+				content.style.display = "block";
+			}, 600);
+		});
+	</script>
+
 </body>
 
-</html>    
+</html>

@@ -19,10 +19,12 @@
 		body {
 			scroll-behavior: smooth;
 		}
+
 		.sidebar a.active {
 			color: #02B290;
 			font-weight: 600;
 		}
+
 		p {
 			font-size: 15px;
 			color: #595959;
@@ -47,23 +49,42 @@
 		</div>
 	</div>
 
-	<!-- Privacy Policy Section -->
+	<!-- Privacy Policy Skeleton Loader -->
+	<div id="privacySkeleton" class="a_header_container mx-auto animate-pulse ">
+		<div class=" py-14 md:py-24">
+			<!-- Title Skeleton -->
+			<div class="h-7 w-48 bg-gray-300 rounded mb-6"></div>
 
-	<div class="a_header_container">
+			<!-- Paragraph Block 1 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-3/6 bg-gray-200 rounded"></div>
+			</div>
+
+			<!-- Paragraph Block 2 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-2/6 bg-gray-200 rounded"></div>
+			</div>
+
+			<!-- Paragraph Block 3 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Privacy Policy Section -->
+	<div class="a_header_container" style="display:none;" id="privacyContent">
+
 		<div class="flex mx-auto py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
-			<!-- Sidebar -->
-			<!-- <div class="sidebar hidden md:block md:w-60 lg:w-72 xl:w-80 h-screen sticky top-0 p-6">
-				<ul class="space-y-4">
-					<li><a href="#purpose" class="block cursor-pointer sidebar-link">Purpose</a></li>
-					<li><a href="#disclaimer" class="block cursor-pointer sidebar-link">General Disclaimer</a></li>
-					<li><a href="#personal-info" class="block cursor-pointer sidebar-link">Protecting Personal Info</a>
-					</li>
-					<li><a href="#trademark" class="block cursor-pointer sidebar-link">Trade Mark & Business Names</a>
-					</li>
-					<li><a href="#visit" class="block cursor-pointer sidebar-link">Your Visit To Our Website</a></li>
-					<li><a href="#social" class="block cursor-pointer sidebar-link">Social Media</a></li>
-				</ul>
-			</div> -->
 
 			<!-- Content -->
 			<div class="flex-1 py-5 md:py-10 space-y-16">
@@ -192,6 +213,21 @@
 			});
 		});
 	</script>
+
+	<!-- Skeleton loading script -->
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const skeleton = document.getElementById("privacySkeleton");
+			const content = document.getElementById("privacyContent");
+
+			// Fake loading delay (you can increase to 1200ms)
+			setTimeout(() => {
+				skeleton.style.display = "none";
+				content.style.display = "block";
+			}, 600);
+		});
+	</script>
+
 
 </body>
 

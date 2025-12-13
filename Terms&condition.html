@@ -19,10 +19,12 @@
 		body {
 			scroll-behavior: smooth;
 		}
+
 		.sidebar a.active {
 			color: #02B290;
 			font-weight: 600;
 		}
+
 		p {
 			font-size: 15px;
 			color: #595959;
@@ -46,29 +48,57 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Terms & Conditions Skeleton Loader -->
+	<div id="termsSkeleton" class="a_header_container mx-auto py-12 animate-pulse">
+		<div class=" py-14 md:py-24">
+
+			<!-- Title -->
+			<div class="h-7 w-56 bg-gray-300 rounded mb-8"></div>
+
+			<!-- Paragraph Block 1 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-3/6 bg-gray-200 rounded"></div>
+			</div>
+
+			<!-- Paragraph Block 2 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+			</div>
+
+			<!-- Paragraph Block 3 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-2/6 bg-gray-200 rounded"></div>
+			</div>
+
+			<!-- Paragraph Block 4 -->
+			<div class="space-y-3 mb-10">
+				<div class="h-4 w-full bg-gray-200 rounded"></div>
+				<div class="h-4 w-5/6 bg-gray-200 rounded"></div>
+				<div class="h-4 w-4/6 bg-gray-200 rounded"></div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Terms and Conditions Section -->
-	<div class="a_header_container">
+	<div class="a_header_container" id="termsContent" style="display:none;">
+
 		<div class=" flex mx-auto py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
-			<!-- Sidebar -->
-			<!-- <div class="sidebar hidden md:block md:w-60 lg:w-72 xl:w-80 h-screen sticky top-0 p-6">
-				<ul class="space-y-4">
-					<li><a href="#amendments" class="block cursor-pointer sidebar-link">Amendments</a></li>
-					<li><a href="#product-update" class="block cursor-pointer sidebar-link">Product Updates</a></li>
-					<li><a href="#limits-liabilities" class="block cursor-pointer sidebar-link">Limits and
-							Liabilities</a>
-					</li>
-					<li><a href="#ownership-liabilities" class="block cursor-pointer sidebar-link">Ownership and
-							Liabilities</a></li>
-					<li><a href="#site-content" class="block cursor-pointer sidebar-link">Site Content</a></li>
-					<li><a href="#support-policy" class="block cursor-pointer sidebar-link">Support Policy</a></li>
-				</ul>
-			</div> -->
 
 			<!-- Content -->
 			<div class="flex-1 py-5 md:py-10 space-y-16">
 				<section id="amendments">
 					<h2 class="text-base md:text-lg font-semibold mt-0 mb-4 md:mb-6 font-body">Amendments</h2>
-					<p>“Grocery Go” is a trademark of Grocery Go Private Limited (“Company”), a company incorporated under
+					<p>“Grocery Go” is a trademark of Grocery Go Private Limited (“Company”), a company incorporated
+						under
 						the
 						Companies Act, 2013 with its registered and corporate office at Plot 64H, Sector 18, Gudgeon
 						122001
@@ -214,6 +244,20 @@
 			});
 		});
 	</script>
+
+	<!-- Terms Skeleton Loader -->
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const skeleton = document.getElementById("termsSkeleton");
+			const content = document.getElementById("termsContent");
+
+			setTimeout(() => {
+				skeleton.style.display = "none";
+				content.style.display = "block";
+			}, 600); // you can increase to 1200 if you want longer loading
+		});
+	</script>
+
 </body>
 
 </html>

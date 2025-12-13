@@ -44,6 +44,11 @@
             background-color: #f0fdf4;
             color: #02B290;
         }
+
+        .active-link {
+            color: #0db561 !important;
+            font-weight: 600 !important;
+        }
     </style>
 </head>
 
@@ -254,6 +259,9 @@
                             <a href="./Terms&condition.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Terms
                                 & Condition</a>
+                            <a href="./ReturnPolicy.html"
+                                class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Return
+                                Policy</a>
                             <a href="./AboutUS.html"
                                 class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">About
                                 Us</a>
@@ -378,6 +386,9 @@
                         <a href="./Terms&condition.html"
                             class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">Terms
                             & Condition</a>
+                        <a href="./ReturnPolicy.html"
+                            class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">ReturnPolicy
+                        </a>
                         <a href="./AboutUS.html"
                             class="block px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors last:rounded-b-lg">About
                             Us</a>
@@ -426,6 +437,33 @@
                 </div>
             </div>
         </div>
+
+        <!-- Active Link Script -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+
+                // Get full current URL
+                let currentURL = window.location.href.toLowerCase();
+
+                document.querySelectorAll("a[href]").forEach(link => {
+                    let linkURL = link.href.toLowerCase();
+
+                    // Match only filename (example: AboutUS.html)
+                    if (currentURL.endsWith(linkURL.split("/").pop())) {
+                        link.classList.add("active-link");
+
+                        // Highlight parent dropdown items also
+                        let parent = link.closest(".group");
+                        if (parent) {
+                            parent.querySelector("div:first-child").classList.add("active-link");
+                        }
+                    }
+                });
+
+            });
+        </script>
+
+
         <script src="./js/ViewProduct.js"></script>
         <script src="./js/rushita.js"></script>
         <script src="./js/wishlist.js"></script>
@@ -443,7 +481,6 @@
                 }
             });
         </script>
-
 
 </body>
 
