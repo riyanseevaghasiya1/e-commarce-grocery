@@ -1,3 +1,64 @@
+function showSkeleton(type) {
+    const skel = document.getElementById("skeletonLoader");
+
+    skel.querySelectorAll(".skel").forEach(s => s.style.display = "none");
+    skel.querySelector(".skel-" + type).style.display = "block";
+
+    skel.style.display = "flex";
+    document.querySelector(".auth-container:not(.skeleton)").style.display = "none";
+}
+
+
+function hideSkeleton() {
+    document.getElementById("skeletonLoader").style.display = "none";
+    document.querySelector(".auth-container:not(.skeleton)").style.display = "flex";
+}
+
+
+window.addEventListener("load", () => {
+    showSkeleton("login");
+
+    setTimeout(() => {
+        hideSkeleton();
+    }, 800);
+});
+
+function showPage(pageId) {
+
+    const map = {
+        loginPage: "login",
+        registerPage: "register",
+        forgotPage: "forgot",
+        otpPage: "otp",
+        resetPasswordPage: "reset"
+    };
+
+    // ✅ Step 1: Show skeleton FIRST
+    showSkeleton(map[pageId]);
+
+    // ✅ Step 2: Delay page switch
+    setTimeout(() => {
+
+        // hide all pages
+        document.querySelectorAll(".page").forEach(p => {
+            p.classList.remove("active");
+        });
+
+        // show selected page
+        document.getElementById(pageId).classList.add("active");
+
+        clearAllErrors();
+
+        // ✅ Step 3: NOW hide skeleton
+        hideSkeleton();
+
+    }, 800); // 👈 MUST be >= 800ms
+}
+
+
+
+
+
 // Page Navigation
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
