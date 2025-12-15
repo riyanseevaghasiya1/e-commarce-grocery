@@ -150,59 +150,85 @@ window.addEventListener('storage', (e) => {
 
 function renderWishlistPage() {
   const wishlistContainer = document.getElementById('wishlistContainer');
+  const wishlistSkeleton = document.getElementById('wishlistSkeleton');
+
   if (!wishlistContainer) return;
 
-  wishlistContainer.innerHTML = '';
+  // 1️⃣ Show dynamic skeleton first
+  showWishlistSkeleton(wishlist.length === 0 ? 3 : wishlist.length);
 
-  if (wishlist.length === 0) {
-    wishlistContainer.innerHTML = `
-      <div class="text-center py-16">
-        <h2 class="text-2xl font-semibold text-gray-700">Your wishlist is empty</h2>
-        <p class="text-gray-500 mt-2">Add some products you love!</p>
-      </div>
-    `;
-    return;
-  }
+  // 2️⃣ Simulate loading delay (you can change 600ms)
+  setTimeout(() => {
 
-  wishlist.forEach((item) => {
-    const row = document.createElement('div');
-    row.className = 'p-6 border-b border-gray-100';
-    row.dataset.id = item.id; 
+    // Hide skeleton
+    wishlistSkeleton.classList.add("hidden");
 
-    row.innerHTML = `
-      <div class="grid grid-cols-6 gap-4 items-center">
-        <div>
-          <img src="${item.image}" alt="${item.name}" width="100px" class="rounded-md">
+    // Show content
+    wishlistContainer.classList.remove("hidden");
+    wishlistContainer.innerHTML = '';
+
+    // 3️⃣ Empty wishlist message
+    if (wishlist.length === 0) {
+      wishlistContainer.innerHTML = `
+        <div class="text-center py-16">
+          <h2 class="text-2xl font-semibold text-gray-700">Your wishlist is empty</h2>
+          <p class="text-gray-500 mt-2">Add some products you love!</p>
         </div>
-        <div class="col-span-2 text-left">
-          <h3 class="text-gray-900 font-medium text-lg mb-1">${item.name}</h3>
-          <p class="text-gray-600 text-sm mb-1">${item.badge ? `Badge: ${item.badge}` : ''}</p>
+      `;
+      return;
+    }
+
+    // 4️⃣ Render Wishlist Items
+    wishlist.forEach((item) => {
+      const row = document.createElement('div');
+      row.className = 'p-6 border-b border-gray-100';
+      row.dataset.id = item.id;
+
+      row.innerHTML = `
+        <div class="grid grid-cols-6 gap-4 items-center">
+          <div>
+            <img src="${item.image}" alt="${item.name}" width="100px" class="rounded-md">
+          </div>
+
+          <div class="col-span-2 text-left">
+            <h3 class="text-gray-900 font-medium text-lg mb-1">${item.name}</h3>
+            <p class="text-gray-600 text-sm mb-1">${item.badge ? `Badge: ${item.badge}` : ''}</p>
+          </div>
+
+          <div class="text-left">
+            <p class="text-gray-900 font-medium text-lg current-price">${item.price || '—'}</p>
+          </div>
+
+          <div class="text-left">
+            <span class="inline-block text-[#4dc9b1] font-medium">In Stock</span>
+          </div>
+
+          <div class="flex gap-2 justify-start">
+
+            <button class="add-to-cart bg-[#02B290] hover:bg-[#4dc9b1] text-white p-3 rounded transition-colors"
+              onclick="addToCartFromWishlist(this)">
+              <i class="fas fa-shopping-bag"></i>
+            </button>
+
+            <button onclick="removeFromWishlist('${item.id}')"
+              class="bg-gray-700 hover:bg-gray-800 text-white p-3 rounded transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+
+          </div>
         </div>
-        <div class="text-left">
-          <p class="text-gray-900 font-medium text-lg current-price">${item.price || '—'}</p>
-        </div>
-        <div class="text-left">
-          <span class="inline-block text-[#4dc9b1] font-medium">In Stock</span>
-        </div>
-        <div class="flex gap-2 justify-start">
-         
-          <button class="add-to-cart bg-[#02B290] hover:bg-[#4dc9b1] text-white p-3 rounded transition-colors" onclick="addToCartFromWishlist(this)">
-            <i class="fas fa-shopping-bag"></i>
-          </button>
-          <button onclick="removeFromWishlist('${item.id}')" 
-            class="bg-gray-700 hover:bg-gray-800 text-white p-3 rounded transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-              viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    `;
-    wishlistContainer.appendChild(row);
-  });
+      `;
+
+      wishlistContainer.appendChild(row);
+    });
+
+  }, 600);
 }
+
 
 // Remove item from wishlist
 function removeFromWishlist(productId) {
@@ -316,3 +342,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 200);
 });
+
+
+function showWishlistSkeleton(count = 3) {
+  const skeleton = document.getElementById("wishlistSkeleton");
+  skeleton.innerHTML = "";
+
+  for (let i = 0; i < count; i++) {
+    skeleton.innerHTML += `
+      <div class="grid grid-cols-6 gap-4 p-6 animate-pulse">
+        <div class="h-16 w-16 bg-gray-300 rounded-md"></div>
+
+        <div class="col-span-2">
+          <div class="h-4 w-40 bg-gray-300 mb-2 rounded"></div>
+          <div class="h-4 w-24 bg-gray-200 rounded"></div>
+        </div>
+
+        <div class="h-4 w-20 bg-gray-300 rounded"></div>
+
+        <div class="h-4 w-24 bg-gray-300 rounded"></div>
+
+        <div class="h-10 w-28 bg-gray-300 rounded-md"></div>
+      </div>
+    `;
+  }
+
+  skeleton.classList.remove("hidden");
+}

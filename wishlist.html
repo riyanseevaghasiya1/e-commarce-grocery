@@ -7,14 +7,40 @@
     <title>Wishlist</title>
     <link rel="stylesheet" href="./css/rushita.css">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Skeleton Loader Animation */
+        .skeleton {
+            background: linear-gradient(-90deg, #e8e8e8 0%, #f3f3f3 50%, #e8e8e8 100%);
+            background-size: 400% 400%;
+            animation: shimmer 1.2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+    </style>
+
 </head>
 
-<body>
+<body >
+
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
-    <section class="relative bg-cover bg-center py-16 md:py-24"
+<!-- Skeleton Banner Loader -->
+<div id="bannerSkeleton" class="animate-pulse">
+  <div class="h-64 md:h-80 bg-gray-300 w-full"></div>
+  <!-- <div class="container mx-auto px-4 text-center mt-6">
+      <div class="h-10 bg-gray-300 w-40 mx-auto mb-4 rounded"></div>
+      <div class="h-4 bg-gray-300 w-56 mx-auto rounded"></div>
+  </div> -->
+</div>
+
+    <!-- Wishlist Banner -->
+     
+    <section id="bannerSection" class="hidden  relative bg-cover bg-center py-16 md:py-24"
         style="background-image: url('./images/checkout.webp');">
-
-
         <div class="relative z-10 container mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Wishlist</h1>
 
@@ -32,12 +58,27 @@
             </div>
         </div>
     </section>
+
+    <!-- Wishlist Section -->
     <section class="a_header_container mx-auto px-4">
+
         <div class="bg-white rounded-lg shadow-sm overflow-x-auto py-10">
 
             <div class="min-w-max md:min-w-0">
+<!-- Skeleton for Wishlist Header -->
+<div id="wishlistHeaderSkeleton"
+  class="grid grid-cols-6 gap-4 bg-gray-50 p-6 border-b border-gray-200 animate-pulse">
 
-                <div class="grid grid-cols-6 gap-4 bg-gray-50 p-6 border-b border-gray-200">
+  <div class="h-6 bg-gray-300 rounded"></div>
+  <div class="col-span-2 h-6 bg-gray-300 rounded"></div>
+  <div class="h-6 bg-gray-300 rounded"></div>
+  <div class="h-6 bg-gray-300 rounded"></div>
+  <div class="h-6 bg-gray-300 rounded"></div>
+
+</div>
+
+                <!-- Table Header -->
+                <div id="wishlistHeader" class="hidden  grid grid-cols-6 gap-4 bg-gray-50 p-6 border-b border-gray-200">
                     <div class="font-semibold text-gray-700">Image</div>
                     <div class="font-semibold text-gray-700 col-span-2">Product Name</div>
                     <div class="font-semibold text-gray-700">Price</div>
@@ -45,18 +86,75 @@
                     <div class="font-semibold text-gray-700">Action</div>
                 </div>
 
-                <div class="divide-y divide-gray-200 my-5">
+                <!-- ⭐ Skeleton Loader -->
+                <div id="wishlistSkeleton" class="divide-y divide-gray-200 my-5">
 
-                    <div class="divide-y divide-gray-200 " id="wishlistContainer"></div>
+                    <!-- Skeleton Row 1 -->
+                    <div class="grid grid-cols-6 gap-4 p-6">
+                        <div class="h-16 w-16 skeleton rounded-md"></div>
+                        <div class="col-span-2">
+                            <div class="h-4 w-40 skeleton mb-2"></div>
+                            <div class="h-4 w-24 skeleton"></div>
+                        </div>
+                        <div class="h-4 w-20 skeleton"></div>
+                        <div class="h-4 w-24 skeleton"></div>
+                        <div class="h-10 w-28 skeleton rounded-md"></div>
+                    </div>
+
+                    <!-- Skeleton Row 2 -->
+                    <div class="grid grid-cols-6 gap-4 p-6">
+                        <div class="h-16 w-16 skeleton rounded-md"></div>
+                        <div class="col-span-2">
+                            <div class="h-4 w-40 skeleton mb-2"></div>
+                            <div class="h-4 w-24 skeleton"></div>
+                        </div>
+                        <div class="h-4 w-20 skeleton"></div>
+                        <div class="h-4 w-24 skeleton"></div>
+                        <div class="h-10 w-28 skeleton rounded-md"></div>
+                    </div>
 
                 </div>
+
+                <!-- ⭐ Actual Wishlist Items -->
+                <div class="divide-y divide-gray-200 my-5 hidden" id="wishlistContainer"></div>
+
             </div>
+        </div>
     </section>
+
+    <!-- Footer Placeholder -->
     <div id="footer_add"></div>
+
+    <!-- JS Files -->
     <script src="./js/rushita.js"></script>
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
     <script src="./js/Search.js"></script>
+
+    <!-- ⭐ Hide skeleton, show real wishlist -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                document.getElementById("wishlistSkeleton").style.display = "none";
+                document.getElementById("wishlistContainer").classList.remove("hidden");
+            }, 800);
+        });
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+    // Simulate loading time
+    setTimeout(() => {
+        document.getElementById("bannerSkeleton").style.display = "none";
+        document.getElementById("wishlistHeaderSkeleton").style.display = "none";
+
+        // Show actual content
+        document.getElementById("bannerSection").classList.remove("hidden");
+        document.getElementById("wishlistHeader").classList.remove("hidden");
+    }, 1500);
+});
+
+    </script>
+
 </body>
 
 </html>
