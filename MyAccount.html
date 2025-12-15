@@ -127,6 +127,16 @@
 					</form>
 				</div>
 
+				<div id="ordersSkeleton" class="hidden w-full bg-white shadow rounded-lg p-6 animate-pulse">
+					<div class="h-6 w-32 bg-gray-300 rounded mb-6"></div>
+
+					<div class="space-y-4">
+						<div class="h-10 bg-gray-300 rounded"></div>
+						<div class="h-10 bg-gray-300 rounded"></div>
+						<div class="h-10 bg-gray-300 rounded"></div>
+					</div>
+				</div>
+
 				<!-- Order List -->
 				<div id="orders" class="tab-content hidden">
 					<h2 class="text-2xl font-semibold mb-4 text-[#02B290]">Your Orders</h2>
@@ -146,6 +156,15 @@
 						<div id="ordersEmptyState" class="hidden py-10 text-center text-gray-500">
 							No orders yet. Start shopping to see your orders here.
 						</div>
+					</div>
+				</div>
+
+				<div id="shippingSkeleton" class="hidden w-full bg-white shadow rounded-lg p-6 animate-pulse">
+					<div class="h-6 w-48 bg-gray-300 rounded mb-6"></div>
+
+					<div class="space-y-4">
+						<div class="h-24 bg-gray-300 rounded"></div>
+						<div class="h-24 bg-gray-300 rounded"></div>
 					</div>
 				</div>
 
@@ -213,6 +232,12 @@
 					</form>
 				</div>
 
+				<div id="logoutSkeleton" class="hidden w-full bg-white shadow rounded-lg p-6 animate-pulse text-center">
+					<div class="h-6 w-40 bg-gray-300 rounded mx-auto mb-4"></div>
+					<div class="h-4 w-64 bg-gray-300 rounded mx-auto mb-6"></div>
+					<div class="h-10 w-32 bg-gray-300 rounded mx-auto"></div>
+				</div>
+
 				<!-- Logout -->
 				<div id="logout" class="tab-content hidden text-center py-10">
 					<h2 class="text-2xl font-semibold text-[#02B290] mb-4">Ready to Leave?</h2>
@@ -237,41 +262,70 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
 
-			const skeleton = document.getElementById("accountSkeleton");
+			const params = new URLSearchParams(window.location.search);
+			const tabParam = params.get("tab") || "details";
+
+			const skeletonMap = {
+				details: document.getElementById("accountSkeleton"),
+				orders: document.getElementById("ordersSkeleton"),
+				shipping: document.getElementById("shippingSkeleton"),
+				logout: document.getElementById("logoutSkeleton")
+			};
+
+			const tabButtons = document.querySelectorAll(".tab-btn");
+			const tabContents = document.querySelectorAll(".tab-content");
 			const mainContent = document.getElementById("accountMain");
 
-			// Show skeleton for 900ms
+			// hide all
+			tabContents.forEach(c => c.classList.add("hidden"));
+			Object.values(skeletonMap).forEach(s => s.classList.add("hidden"));
+			tabButtons.forEach(b => b.classList.remove("active-tab"));
+			mainContent.style.display = "none";
+
+			// activate correct tab
+			const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabParam}"]`);
+			if (activeBtn) activeBtn.classList.add("active-tab");
+
+			// show correct skeleton
+			skeletonMap[tabParam].classList.remove("hidden");
+
+			// simulate loading
 			setTimeout(() => {
-				skeleton.style.display = "none";
+				skeletonMap[tabParam].classList.add("hidden");
 				mainContent.style.display = "block";
-			}, 600);
+				document.getElementById(tabParam).classList.remove("hidden");
+			}, 500);
 
 			// ========== TAB SWITCHING ==========
-			const tabButtons = document.querySelectorAll('.tab-btn');
-			const tabContents = document.querySelectorAll('.tab-content');
+
+			function hideAllSkeletons() {
+				Object.values(skeletonMap).forEach(s => s.classList.add("hidden"));
+			}
 
 			tabButtons.forEach(btn => {
-				btn.addEventListener('click', () => {
-					tabButtons.forEach(b => b.classList.remove('active-tab'));
-					tabContents.forEach(c => c.classList.add('hidden'));
-					btn.classList.add('active-tab');
-					document.getElementById(btn.dataset.tab).classList.remove('hidden');
+				btn.addEventListener("click", () => {
+					const tab = btn.dataset.tab;
+
+					// Active state
+					tabButtons.forEach(b => b.classList.remove("active-tab"));
+					btn.classList.add("active-tab");
+
+					// Hide everything
+					tabContents.forEach(c => c.classList.add("hidden"));
+					hideAllSkeletons();
+					mainContent.style.display = "none";
+
+					// Show skeleton
+					skeletonMap[tab].classList.remove("hidden");
+
+					// Simulate loading
+					setTimeout(() => {
+						skeletonMap[tab].classList.add("hidden");
+						mainContent.style.display = "block";
+						document.getElementById(tab).classList.remove("hidden");
+					}, 50);
 				});
 			});
-
-			// Check URL params for tab
-			const params = new URLSearchParams(window.location.search);
-			const tabParam = params.get("tab");
-			if (tabParam) {
-				const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabParam}"]`);
-				const targetContent = document.getElementById(tabParam);
-				if (targetBtn && targetContent) {
-					tabButtons.forEach(b => b.classList.remove('active-tab'));
-					tabContents.forEach(c => c.classList.add('hidden'));
-					targetBtn.classList.add('active-tab');
-					targetContent.classList.remove('hidden');
-				}
-			}
 
 			// ========== ACCOUNT DETAILS ==========
 			const profileImage = document.getElementById("profileImage");
