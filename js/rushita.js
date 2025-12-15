@@ -59,10 +59,19 @@ if (pagesToHideSearch.includes(currentPage)) {
   .catch(error => console.error('Error loading header:', error));
 
 
+// In your other HTML pages, use this code:
 fetch('./Footer.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('footer_add').innerHTML = data;
+    
+    // After footer is loaded, hide skeleton and show footer
+    setTimeout(function() {
+        const skeleton = document.querySelector('#footer_add #footerSkeleton');
+        const footer = document.querySelector('#footer_add #actualFooter');
+        if (skeleton) skeleton.style.display = 'none';
+        if (footer) footer.style.display = 'block';
+    }, 2000);
   })
   .catch(error => console.error('Error loading footer:', error));
 

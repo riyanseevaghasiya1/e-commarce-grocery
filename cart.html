@@ -8,10 +8,45 @@
     <link rel="stylesheet" href="./css/rushita.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<style>
+@keyframes shimmer {
+  0% { background-position: -800px 0; }
+  100% { background-position: 800px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 25%,
+    #f3f4f6 37%,
+    #e5e7eb 63%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+</style>
 
 <body>
     <div id="header-placeholder"></div>
-    <section class="relative bg-cover bg-center py-16 md:py-24"
+
+    <section id="bannerSkeleton"
+  class="relative py-16 md:py-24 bg-gray-200">
+
+  <div class="container mx-auto px-4 text-center">
+
+    <!-- Title skeleton -->
+    <div class="h-10 md:h-12 w-40 mx-auto mb-4 skeleton rounded"></div>
+
+    <!-- Breadcrumb skeleton -->
+    <div class="flex justify-center space-x-2">
+      <div class="h-4 w-12 skeleton rounded"></div>
+      <div class="h-4 w-4 skeleton rounded"></div>
+      <div class="h-4 w-12 skeleton rounded"></div>
+    </div>
+
+  </div>
+</section>
+    <section  id="bannerSection" class="hidden  relative bg-cover bg-center py-16 md:py-24"
         style="background-image: url('./images/checkout.webp');">
 
 
@@ -32,12 +67,41 @@
             </div>
         </div>
     </section>
+
+    <!-- Cart Header Skeleton -->
+<!-- Cart Header Skeleton -->
+<div id="wishlistHeaderSkeleton"
+  class="grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b">
+
+  <div class="col-span-1">
+    <div class="h-4 w-4 rounded skeleton"></div>
+  </div>
+
+  <div class="col-span-4">
+    <div class="h-4 w-32 rounded skeleton"></div>
+  </div>
+
+  <div class="col-span-2 flex justify-center">
+    <div class="h-4 w-16 rounded skeleton"></div>
+  </div>
+
+  <div class="col-span-3 flex justify-center">
+    <div class="h-4 w-20 rounded skeleton"></div>
+  </div>
+
+  <div class="col-span-2 flex justify-end">
+    <div class="h-4 w-20 rounded skeleton"></div>
+  </div>
+</div>
+
+
+
       <section class="a_header_container mx-auto  py-12">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 py-10">
             <div class="lg:col-span-2">
                 <div class="bg-white rounded-lg shadow-sm overflow-x-auto">
                     <div class="min-w-[600px]">
-                        <div class="grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b text-sm font-semibold text-gray-700">
+                        <div id="wishlistHeader" class="hidden grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b text-sm font-semibold text-gray-700">
                             <div class="col-span-1"></div>
                             <div class="col-span-4">Products</div>
                             <div class="col-span-2 text-center">Price</div>
@@ -53,9 +117,44 @@
                     </div>
                 </div>
             </div>
+<!-- Cart Totals Skeleton -->
+<div id="cartTotalsSkeleton"
+     class="bg-white rounded-lg shadow-sm overflow-hidden">
+
+  <!-- Title -->
+  <div class="px-6 py-6 border-b">
+    <div class="h-6 w-32 skeleton rounded"></div>
+  </div>
+
+  <!-- Subtotal -->
+  <div class="flex justify-between items-center px-6 py-5 bg-gray-50 border-b">
+    <div class="h-4 w-24 skeleton rounded"></div>
+    <div class="h-4 w-16 skeleton rounded"></div>
+  </div>
+
+  <!-- Shipping -->
+  <div class="px-6 py-5 border-b">
+    <div class="flex justify-between mb-2">
+      <div class="h-4 w-24 skeleton rounded"></div>
+      <div class="h-4 w-20 skeleton rounded"></div>
+    </div>
+  </div>
+
+  <!-- Total -->
+  <div class="flex justify-between items-center px-6 py-5 bg-gray-50">
+    <div class="h-5 w-20 skeleton rounded"></div>
+    <div class="h-5 w-24 skeleton rounded"></div>
+  </div>
+
+  <!-- Button -->
+  <div class="px-6 py-6">
+    <div class="h-10 w-full skeleton rounded"></div>
+  </div>
+
+</div>
 
             <div class="lg:col-span-1">
-               <div class="bg-white rounded-lg shadow-sm overflow-hidden" id="cartTotals">
+               <div  class="bg-white hidden  rounded-lg shadow-sm overflow-hidden" id="cartTotals">
   <h2 class="text-2xl font-bold text-gray-900 px-6 py-6 border-b">Cart totals</h2>
 
   <div class="flex justify-between items-center px-6 py-5 bg-gray-50 border-b">
@@ -70,14 +169,7 @@
         <p class="text-gray-900 font-medium mb-1">Flat rate:
           <span id="shippingCost" class="font-bold current-price">$0.00</span>
         </p>
-        <!-- <p class="text-gray-600 text-sm mb-2">Shipping to <span id="shippingAddress" class="font-semibold">CA</span></p>
-        <a href="#" id="changeAddress" class="text-gray-900 text-sm underline inline-flex items-center hover:text-green-700">
-          Change address
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-            stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-1">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a> -->
+    
       </div>
     </div>
   </div>
@@ -139,6 +231,77 @@ document.getElementById("checkoutBtn")?.addEventListener("click", (e) => {
 });
 
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const skeleton = document.getElementById('cartHeaderSkeleton');
+  const header = document.getElementById('cartHeader');
+
+  // SAFETY CHECK
+  if (!skeleton || !header) {
+    console.error('Cart header elements not found');
+    return;
+  }
+
+  // Simulate loading
+  setTimeout(() => {
+    skeleton.classList.add('hidden');
+    header.classList.remove('hidden');
+  }, 800);
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const skeleton = document.getElementById("wishlistHeaderSkeleton");
+  const header = document.getElementById("wishlistHeader");
+
+  if (!skeleton || !header) {
+    console.error("Skeleton/Header not found");
+    return;
+  }
+
+  setTimeout(() => {
+    skeleton.classList.add("hidden");
+    header.classList.remove("hidden");
+  }, 800);
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const skeleton = document.getElementById("cartTotalsSkeleton");
+  const cartTotals = document.getElementById("cartTotals");
+
+  if (!skeleton || !cartTotals) return;
+
+  // Simulate loading (replace with real cart load)
+  setTimeout(() => {
+    skeleton.classList.add("hidden");
+    cartTotals.classList.remove("hidden");
+  }, 800);
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const skeleton = document.getElementById("bannerSkeleton");
+  const banner = document.getElementById("bannerSection");
+
+  if (!skeleton || !banner) return;
+
+  setTimeout(() => {
+    skeleton.classList.add("hidden");
+    banner.classList.remove("hidden");
+  }, 800);
+
+});
+</script>
+
 </body>
 
 </html>

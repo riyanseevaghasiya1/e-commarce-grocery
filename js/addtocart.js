@@ -46,50 +46,99 @@ function addToCart(button) {
 }
 
 // ========== Load Cart Items ==========
-function loadCartItems() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+// ============================================
+// SKELETON LOADER - ADD THIS TO YOUR EXISTING addtocart.js
+// ============================================
+
+// Show skeleton loader
+function showCartSkeleton() {
     const container = document.getElementById('cartItemsContainer');
+    if (!container) return;
 
-    if (!container) return; 
-
-    if (cart.length === 0) {
-        container.innerHTML = `
-            <div class="px-6 py-12 text-center text-gray-500">
-                <i class="fas fa-shopping-cart text-5xl mb-4"></i>
-                <p class="text-lg">Your cart is empty</p>
-                <button class="bg-[#02B290] text-white mt-2 px-3 py-2 rounded-lg text-sm hover:bg-[#4dc9b1] transition">
-                    <a href="./Shop.html">Shop Now</a>
-                </button>
-            </div>
-        `;
-        updateCartSummary();
-        return;
-    }
-
-    container.innerHTML = cart.map((item, index) => `
-        <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center" data-index="${index}" data-id="${item.id || ''}">
-            <div class="col-span-1">
-                <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer" onclick="removeFromCart(${index})"></i>
-            </div>
-            <div class="col-span-4 flex items-center space-x-4">
-                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" onerror="this.src='https://via.placeholder.com/100'">
-                <span class="text-sm font-medium text-gray-800">${item.name}</span>
-            </div>
-            <div class="col-span-2 text-center">
-                <span class="text-gray-800 font-semibold current-price">${item.price}</span>
-            </div>
-            <div class="col-span-3 flex justify-center">
-                <div class="flex items-center border border-gray-300 rounded">
-                    <button class="px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="updateQuantity(${index}, -1)">−</button>
-                    <input type="text" value="${item.quantity}" class="w-12 text-center border-x border-gray-300 py-1 focus:outline-none" readonly>
-                    <button class="px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="updateQuantity(${index}, 1)">+</button>
+    container.innerHTML = `
+        ${[1, 2, 3].map(() => `
+            <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center animate-pulse">
+                <div class="col-span-1">
+                    <div class="w-5 h-5 bg-gray-200 rounded"></div>
+                </div>
+                <div class="col-span-4 flex items-center space-x-4">
+                    <div class="w-16 h-16 bg-gray-200 rounded"></div>
+                    <div class="space-y-2 flex-1">
+                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                    </div>
+                </div>
+                <div class="col-span-2 flex justify-center">
+                    <div class="h-5 bg-gray-200 rounded w-16"></div>
+                </div>
+                <div class="col-span-3 flex justify-center">
+                    <div class="flex items-center border border-gray-200 rounded">
+                        <div class="w-8 h-8 bg-gray-200"></div>
+                        <div class="w-12 h-8 bg-gray-100"></div>
+                        <div class="w-8 h-8 bg-gray-200"></div>
+                    </div>
+                </div>
+                <div class="col-span-2 flex justify-end">
+                    <div class="h-5 bg-gray-200 rounded w-20"></div>
                 </div>
             </div>
-            <div class="col-span-2 text-right font-semibold text-gray-800 current-price">$${calculateItemTotal(item)}</div>
-        </div>
-    `).join('');
+        `).join('')}
+    `;
+}
 
-    updateCartSummary();
+// ============================================
+// REPLACE YOUR loadCartItems() WITH THIS:
+// ============================================
+function loadCartItems() {
+    const container = document.getElementById('cartItemsContainer');
+    if (!container) return; 
+
+    // 👉 SHOW SKELETON FIRST
+    showCartSkeleton();
+
+    // 👉 WAIT 800ms THEN SHOW REAL DATA
+    setTimeout(() => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        if (cart.length === 0) {
+            container.innerHTML = `
+                <div class="px-6 py-12 text-center text-gray-500">
+                    <i class="fas fa-shopping-cart text-5xl mb-4"></i>
+                    <p class="text-lg">Your cart is empty</p>
+                    <button class="bg-[#02B290] text-white mt-2 px-3 py-2 rounded-lg text-sm hover:bg-[#4dc9b1] transition">
+                        <a href="./Shop.html">Shop Now</a>
+                    </button>
+                </div>
+            `;
+            updateCartSummary();
+            return;
+        }
+
+        container.innerHTML = cart.map((item, index) => `
+            <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center" data-index="${index}" data-id="${item.id || ''}">
+                <div class="col-span-1">
+                    <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer" onclick="removeFromCart(${index})"></i>
+                </div>
+                <div class="col-span-4 flex items-center space-x-4">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" onerror="this.src='https://via.placeholder.com/100'">
+                    <span class="text-sm font-medium text-gray-800">${item.name}</span>
+                </div>
+                <div class="col-span-2 text-center">
+                    <span class="text-gray-800 font-semibold current-price">${item.price}</span>
+                </div>
+                <div class="col-span-3 flex justify-center">
+                    <div class="flex items-center border border-gray-300 rounded">
+                        <button class="px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="updateQuantity(${index}, -1)">−</button>
+                        <input type="text" value="${item.quantity}" class="w-12 text-center border-x border-gray-300 py-1 focus:outline-none" readonly>
+                        <button class="px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="updateQuantity(${index}, 1)">+</button>
+                    </div>
+                </div>
+                <div class="col-span-2 text-right font-semibold text-gray-800 current-price">$${calculateItemTotal(item)}</div>
+            </div>
+        `).join('');
+
+        updateCartSummary();
+    }, 800); // 👈 Change this number for faster/slower loading
 }
 
 // ========== Calculate Item Total ==========

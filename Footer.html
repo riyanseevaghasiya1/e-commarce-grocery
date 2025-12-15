@@ -7,121 +7,202 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index.css">
+    <style>
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     
-    <!-- Footer -->
-                              
-    <footer class="bg-white py-8">
-        <div class="a_header_container mx-auto max-w-9xl  px-4 sm:px-6 lg:px-8 py-12">
-         
+    <!-- Skeleton Loader (Shows while loading) -->
+    <div id="footerSkeleton" class="bg-white py-8">
+        <div class="mx-auto max-w-9xl px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
                 
                 <div class="lg:col-span-1">
-                   <a href="/home.html">
-                        <div class="flex justify-start items-center gap-1">
-                            <img src="./images/logo1.png" alt="" class="h-9 w-9">
-                            <h5 class="text-[20px] font-bold">Grocery Go</h5>
-                        </div>
-                    </a>
-                    <p class="text-gray-600 text-sm mb-6 pt-2">
-                        We offer high-quality products and the best produce selection, and the ability to get them fresh
-                    </p>
-                    <!-- Social Icons -->
+                    <div class="skeleton h-9 w-40 mb-4"></div>
+                    <div class="skeleton h-4 w-full mb-2"></div>
+                    <div class="skeleton h-4 w-5/6 mb-2"></div>
+                    <div class="skeleton h-4 w-4/6 mb-6"></div>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-blue-600 hover:text-blue-700 transition">
-                            <i class="fab fa-facebook text-xl"></i>
-                        </a>
-                        <a href="#" class="text-sky-500 hover:text-sky-600 transition">
-                            <i class="fab fa-twitter text-xl"></i>
-                        </a>
-                        <a href="#" class="text-red-600 hover:text-red-700 transition">
-                            <i class="fab fa-youtube text-xl"></i>
-                        </a>
-                        <a href="#" class="text-pink-600 hover:text-pink-700 transition">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
+                        <div class="skeleton h-8 w-8 rounded-full"></div>
+                        <div class="skeleton h-8 w-8 rounded-full"></div>
+                        <div class="skeleton h-8 w-8 rounded-full"></div>
+                        <div class="skeleton h-8 w-8 rounded-full"></div>
                     </div>
                 </div>
 
-                <!-- About us -->
                 <div>
-                    <h4 class="text-gray-900 font-semibold mb-4">About us</h4>
-                    <ul class="space-y-3">
-                        <li><a href="./PrivacyPolicy.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Support Center</a></li>
-                  
-                        <li><a href="./AboutUS.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">About Team</a></li>
-                    </ul>
+                    <div class="skeleton h-6 w-24 mb-4"></div>
+                    <div class="skeleton h-4 w-32 mb-3"></div>
+                    <div class="skeleton h-4 w-28 mb-3"></div>
                 </div>
 
-                <!-- Our Information -->
                 <div>
-                    <h4 class="text-gray-900 font-semibold mb-4">Our Information</h4>
-                    <ul class="space-y-3">
-                        <li><a href="./PrivacyPolicy.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Privacy policy update</a></li>
-                        <li><a href="./Terms&condition.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Terms & conditions</a></li>
-                        <li><a href="./Shop.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Shop</a></li>
-                    </ul>
+                    <div class="skeleton h-6 w-32 mb-4"></div>
+                    <div class="skeleton h-4 w-36 mb-3"></div>
+                    <div class="skeleton h-4 w-32 mb-3"></div>
+                    <div class="skeleton h-4 w-24 mb-3"></div>
                 </div>
 
-                <!-- Community -->
                 <div>
-                    <h4 class="text-gray-900 font-semibold mb-4">Community</h4>
-                    <ul class="space-y-3">
-                        <li><a href="./ContactUs.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Answer Center</a></li>
-                        <li><a href="./AboutUS.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Giving Works</a></li>
-                    </ul>
+                    <div class="skeleton h-6 w-28 mb-4"></div>
+                    <div class="skeleton h-4 w-32 mb-3"></div>
+                    <div class="skeleton h-4 w-28 mb-3"></div>
                 </div>
 
-                <!-- Subscribe Now -->
-              <div>
-    <h4 class="text-gray-900 font-semibold mb-4">Subscribe Now</h4>
-    <p class="text-gray-600 text-sm mb-4">
-        Subscribe your email for newsletter and featured news based on your interest
-    </p>
-
-    <div class="relative">
-        <input 
-            id="subscribeEmail"
-            type="email" 
-            placeholder="Email Address" 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none 
-                   focus:border-[#02B290] text-sm pr-12"
-        >
-        
-        <button 
-            onclick="subscribeNow()" 
-            class="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#02B290] hover:text-[#4dc9b1] transition"
-        >
-            <i class="fas fa-paper-plane text-lg"></i>
-        </button>
-    </div>
-
-    <p id="subscribeMessage" class="text-sm mt-2"></p>
-</div>
+                <div>
+                    <div class="skeleton h-6 w-32 mb-4"></div>
+                    <div class="skeleton h-4 w-full mb-2"></div>
+                    <div class="skeleton h-4 w-5/6 mb-4"></div>
+                    <div class="skeleton h-12 w-full"></div>
+                </div>
             </div>
 
-            <!-- Payment Methods & Copyright -->
             <div class="pt-8 border-t border-gray-200">
-                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                    <!-- Payment Methods -->
-                    <!-- <div class="flex  space-x-5  flex-wrap ">
-                        <img src="./images/mastercard.svg" alt="Mastercard" class="h-4">
-                        <img src="./images/visa.svg" alt="Visa" class="h-4">
-                        <img src="./images/paypal.svg" alt="PayPal" class="h-4">
-                        <img src="./images/discover.svg" alt="Discover" class="h-4">
-                        <img src="./images/jcb.svg" alt="JCB" class="h-4">
-                        <img src="./images/skrill.svg" alt="Skrill" class="h-4">
-                    </div> -->
-                    
-                    <!-- Copyright -->
-                    <div class="text-gray-600 text-sm text-center md:text-right">
-                        © Copyright 2025 RedQ, All rights reserved
-                    </div>
-                </div>
+                <div class="skeleton h-4 w-64 mx-auto"></div>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- Actual Footer Content (Hidden initially, shown after fetch) -->
+    <div id="actualFooter" style="display: none;">
+        <!-- Footer -->
+        <footer class="bg-white py-8">
+            <div class="a_header_container mx-auto max-w-9xl  px-4 sm:px-6 lg:px-8 py-12">
+             
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                    
+                    <div class="lg:col-span-1">
+                       <a href="/home.html">
+                            <div class="flex justify-start items-center gap-1">
+                                <img src="./images/logo1.png" alt="" class="h-9 w-9">
+                                <h5 class="text-[20px] font-bold">Grocery Go</h5>
+                            </div>
+                        </a>
+                        <p class="text-gray-600 text-sm mb-6 pt-2">
+                            We offer high-quality products and the best produce selection, and the ability to get them fresh
+                        </p>
+                        <!-- Social Icons -->
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-blue-600 hover:text-blue-700 transition">
+                                <i class="fab fa-facebook text-xl"></i>
+                            </a>
+                            <a href="#" class="text-sky-500 hover:text-sky-600 transition">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                            <a href="#" class="text-red-600 hover:text-red-700 transition">
+                                <i class="fab fa-youtube text-xl"></i>
+                            </a>
+                            <a href="#" class="text-pink-600 hover:text-pink-700 transition">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- About us -->
+                    <div>
+                        <h4 class="text-gray-900 font-semibold mb-4">About us</h4>
+                        <ul class="space-y-3">
+                            <li><a href="./PrivacyPolicy.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Support Center</a></li>
+                      
+                            <li><a href="./AboutUS.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">About Team</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Our Information -->
+                    <div>
+                        <h4 class="text-gray-900 font-semibold mb-4">Our Information</h4>
+                        <ul class="space-y-3">
+                            <li><a href="./PrivacyPolicy.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Privacy policy update</a></li>
+                            <li><a href="./Terms&condition.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Terms & conditions</a></li>
+                            <li><a href="./Shop.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Community -->
+                    <div>
+                        <h4 class="text-gray-900 font-semibold mb-4">Community</h4>
+                        <ul class="space-y-3">
+                            <li><a href="./ContactUs.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Answer Center</a></li>
+                            <li><a href="./AboutUS.html" class="text-gray-600 hover:text-[#0db561] text-sm transition">Giving Works</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Subscribe Now -->
+                  <div>
+        <h4 class="text-gray-900 font-semibold mb-4">Subscribe Now</h4>
+        <p class="text-gray-600 text-sm mb-4">
+            Subscribe your email for newsletter and featured news based on your interest
+        </p>
+
+        <div class="relative">
+            <input 
+                id="subscribeEmail"
+                type="email" 
+                placeholder="Email Address" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none 
+                       focus:border-[#02B290] text-sm pr-12"
+            >
+            
+            <button 
+                onclick="subscribeNow()" 
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#02B290] hover:text-[#4dc9b1] transition"
+            >
+                <i class="fas fa-paper-plane text-lg"></i>
+            </button>
+        </div>
+
+        <p id="subscribeMessage" class="text-sm mt-2"></p>
+    </div>
+                </div>
+
+             
+                <div class="pt-8 border-t border-gray-200">
+                    <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                     
+                        <div class="text-gray-600 text-sm text-center md:text-right">
+                            © Copyright 2025 RedQ, All rights reserved
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function subscribeNow() {
+            const email = document.getElementById('subscribeEmail').value;
+            const message = document.getElementById('subscribeMessage');
+            
+            if (email) {
+                message.textContent = '✓ Successfully subscribed!';
+                message.className = 'text-sm mt-2 text-green-600';
+                document.getElementById('subscribeEmail').value = '';
+            } else {
+                message.textContent = 'Please enter a valid email';
+                message.className = 'text-sm mt-2 text-red-600';
+            }
+        }
+
+        // This function will be called automatically when page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            // Hide skeleton and show actual footer after small delay
+            setTimeout(function() {
+                document.getElementById('footerSkeleton').style.display = 'none';
+                document.getElementById('actualFooter').style.display = 'block';
+            }, 1000);
+        });
+    </script>
 
 </body>
 </html>
