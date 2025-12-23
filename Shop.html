@@ -89,8 +89,8 @@
 		padding: 40px;
 	}
 
-	.modal-image-section {
-		background: var(--light-bg);
+.modal-image-section {
+		background: transparent;
 		border-radius: 12px;
 		padding: 0;
 		/* Full image, no padding */
@@ -407,8 +407,9 @@
 				<i class="fas fa-times"></i>
 			</button>
 			<div class="modal-body">
-				<div class="modal-image-section">
+				<div class="modal-image-section flex flex-col items-center gap-3">
 					<img id="modalProductImage" src="" alt="Product" class="modal-product-image">
+					<div id="shopModalThumbs" class="flex gap-3 mt-1 px-2 pb-2 justify-center w-full"></div>
 				</div>
 				<div class="modal-info-section">
 					<h2 id="modalProductName">Product Name</h2>
@@ -440,6 +441,24 @@
 		/* ============================
 		   QUICK VIEW FUNCTION (SHOP PAGE)
 		   ============================ */
+		function renderShopThumbs(images) {
+			const wrap = document.getElementById("shopModalThumbs");
+			if (!wrap) return;
+			wrap.innerHTML = images.map(src => `
+				<img src="${src}" class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-[#02B290]">
+			`).join("");
+
+			wrap.querySelectorAll("img").forEach(img => {
+				img.addEventListener("click", () => {
+					document.getElementById("modalProductImage").src = img.src;
+					wrap.querySelectorAll("img").forEach(i => i.classList.remove("border-[#02B290]"));
+					img.classList.add("border-[#02B290]");
+				});
+			});
+			const first = wrap.querySelector("img");
+			if (first) first.classList.add("border-[#02B290]");
+		}
+
 		window.openQuickView = function (btn) {
 			const productCard = btn.closest(".product-card");
 			if (!productCard) return;
@@ -451,11 +470,26 @@
 			const desc = `${name} - Fresh and organic product delivered right to your doorstep.`;
 
 			// Insert into modal
-			document.getElementById("modalProductImage").src = img;
+			const indexAttr = btn.getAttribute("data-index");
+			let thumbs = [];
+			if (typeof allProducts !== "undefined" && Array.isArray(allProducts)) {
+				if (indexAttr !== null && !Number.isNaN(Number(indexAttr)) && allProducts[Number(indexAttr)]) {
+					const p = allProducts[Number(indexAttr)];
+					if (Array.isArray(p.images)) thumbs = p.images.filter(Boolean);
+				} else {
+					const match = allProducts.find(p => p.name?.toLowerCase() === name.toLowerCase());
+					if (match && Array.isArray(match.images)) thumbs = match.images.filter(Boolean);
+				}
+			}
+			if (!thumbs.length && img) thumbs = [img];
+
+			document.getElementById("modalProductImage").src = thumbs[0] || img;
 			document.getElementById("modalProductName").textContent = name;
 			document.getElementById("modalProductPrice").textContent = price;
 			document.getElementById("modalProductDescription").textContent = desc;
 			document.getElementById("quantityInput").value = 1;
+
+			renderShopThumbs(thumbs);
 
 			// Show modal with animation
 			const modal = document.getElementById("quickViewModal");
