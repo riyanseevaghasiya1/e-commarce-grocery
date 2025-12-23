@@ -103,7 +103,7 @@
                             <p class="hero-label">GROCERY STORE</p>
                             <h1 class="hero-title">Free Delivery from your area</h1>
                             <p class="hero-description">Get ready for spring as soon as today with $0 delivery fees.</p>
-                            <a href="./Shop.html" class="hero-btn">Explore More</a>
+                            <a href="./Shop.html" class="hero-btn explore-all">Explore More</a>
                         </div>
                     </div>
                     <div class="hero-card" style="background-image: url('./images/2.png');">
@@ -111,7 +111,7 @@
                             <p class="hero-label">BREAKFAST FOOD</p>
                             <h1 class="hero-title">Fresh Healthy breakfast food</h1>
                             <p class="hero-description">Get ready for spring as soon as today with $0 delivery fees.</p>
-                            <a href="./Shop.html" class="hero-btn">Explore More</a>
+                            <a href="./Shop.html" class="hero-btn explore-all">Explore More</a>
                         </div>
                     </div>
                 </section>
@@ -320,40 +320,12 @@
                         </div>
                     </div>
                     <div class="products-slider owl-carousel" id="bestSellers">
-                        <div class="product-card">
-                            <div class="a_image_container">
-                                <img src="./images/allvegatbles.jpg" alt="Product" class="product-image"
-                                    loading="eager">
-                                <div class="product-actions">
-                                    <button class="action-btn"
-                                        onclick="event.stopPropagation(); window.openQuickView(this)">
-                                        <i class="far fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn" onclick="addToWishlist(this)">
-                                        <i class="far fa-heart"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="product-info">
-                                <h4 class="product-name">Fresh Vegetables</h4>
-                                <div class="product-price">
-                                    <span class="current-price">$3.50</span>
-                                </div>
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <div class="product-rating">
-                                        <span class="stars">★★★★★</span>
-                                    </div>
-                                    <button class="add-to-cart" onclick="addToCart(this)">
-                                        <i class="fas fa-shopping-bag"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="product-card">
                             <div class="a_image_container">
                                 <span class="product-badge sale">Sale 50%</span>
-                                <img src="./images/all fruits.png" alt="Product" class="product-image">
+                                <img src="./images/green-grapes.jpg"
+                                    alt="Product" class="product-image">
                                 <div class="product-actions">
                                     <button class="action-btn"
                                         onclick="event.stopPropagation(); window.openQuickView(this)">
@@ -365,9 +337,9 @@
                                 </div>
                             </div>
                             <div class="product-info">
-                                <h4 class="product-name">Fresh Fruits</h4>
+                                <h4 class="product-name">Green Grapes</h4>
                                 <div class="product-price">
-                                    <span class="current-price">$35.00</span>
+                                    <span class="current-price">$28.00</span>
                                 </div>
                                 <div style="display: flex; align-items: center; justify-content: space-between;">
                                     <div class="product-rating">
@@ -382,7 +354,8 @@
 
                         <div class="product-card">
                             <div class="a_image_container">
-                                <img src="./images/amulallproducts.jpg" alt="Product" class="product-image">
+                                <img src="./images/walnut-inshell.jpg"
+                                    alt="Product" class="product-image" loading="eager">
                                 <div class="product-actions">
                                     <button class="action-btn"
                                         onclick="event.stopPropagation(); window.openQuickView(this)">
@@ -394,9 +367,39 @@
                                 </div>
                             </div>
                             <div class="product-info">
-                                <h4 class="product-name">Amul All Products</h4>
+                                <h4 class="product-name">Walnut Inshell</h4>
                                 <div class="product-price">
-                                    <span class="current-price">$3.50</span>
+                                    <span class="current-price">$38.50</span>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <div class="product-rating">
+                                        <span class="stars">★★★★★</span>
+                                    </div>
+                                    <button class="add-to-cart" onclick="addToCart(this)">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="a_image_container">
+                                <img src="https://www.bbassets.com/media/uploads/p/xl/40023472_7-fresho-onion-organically-grown.jpg"
+                                    alt="Product" class="product-image">
+                                <div class="product-actions">
+                                    <button class="action-btn"
+                                        onclick="event.stopPropagation(); window.openQuickView(this)">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="addToWishlist(this)">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-name">Organic Onions</h4>
+                                <div class="product-price">
+                                    <span class="current-price">$42.50</span>
                                 </div>
                                 <div style="display: flex; align-items: center; justify-content: space-between;">
                                     <div class="product-rating">
@@ -412,7 +415,7 @@
                         <div class="product-card">
                             <div class="a_image_container">
                                 <span class="product-badge">On Sale</span>
-                                <img src="./images/kurkure.png" alt="Product" class="product-image">
+                                <img src="./images/croissant.jpg" alt="Product" class="w-full product-image">
                                 <div class="product-actions">
                                     <button class="action-btn"
                                         onclick="event.stopPropagation(); window.openQuickView(this)">
@@ -424,9 +427,9 @@
                                 </div>
                             </div>
                             <div class="product-info">
-                                <h4 class="product-name">Kurkure</h4>
+                                <h4 class="product-name">Baked croissants</h4>
                                 <div class="product-price">
-                                    <span class="current-price">$2.25</span>
+                                    <span class="current-price">$18.25</span>
                                 </div>
                                 <div style="display: flex; align-items: center; justify-content: space-between;">
                                     <div class="product-rating">
@@ -441,7 +444,7 @@
 
                         <div class="product-card">
                             <div class="a_image_container">
-                                <img src="./images/bakery.jpeg" alt="Product" class="product-image">
+                                <img src="./images/carrots.jpg" alt="Product" class="product-image">
                                 <div class="product-actions">
                                     <button class="action-btn"
                                         onclick="event.stopPropagation(); window.openQuickView(this)">
@@ -453,7 +456,7 @@
                                 </div>
                             </div>
                             <div class="product-info">
-                                <h4 class="product-name">All Bakery Products</h4>
+                                <h4 class="product-name">Fresh Organic Carrots</h4>
                                 <div class="product-price">
                                     <span class="current-price">$3.10</span>
                                     <span class="old-price">$7.00</span>
@@ -471,7 +474,7 @@
 
                         <div class="product-card">
                             <div class="a_image_container">
-                                <img src="./images/homeacceries.jpg" alt="Product" class="product-image">
+                                <img src="./images/black-pepper.jpg" alt="Product" class="product-image">
                                 <div class="product-actions">
                                     <button class="action-btn"
                                         onclick="event.stopPropagation(); window.openQuickView(this)">
@@ -483,7 +486,7 @@
                                 </div>
                             </div>
                             <div class="product-info">
-                                <h4 class="product-name">Home Accessories</h4>
+                                <h4 class="product-name">Black Pepper Powder</h4>
                                 <div class="product-price">
                                     <span class="current-price">$3.10</span>
                                     <span class="old-price">$7.00</span>
@@ -855,9 +858,6 @@
                             </p>
 
                             <div class="flex flex-wrap gap-4">
-
-
-
                                 <a href="#" class="inline-block">
                                     <div
                                         class="bg-black text-white px-6 py-2 rounded-lg flex items-center gap-3 hover:bg-gray-800 transition-colors">
@@ -885,6 +885,8 @@
                         <i class="fas fa-times"></i>
                     </button>
                     <div class="modal-body">
+                        <div class="modal-image-section">
+                            <img id="modalProductImage" src="" alt="Product" class="modal-product-image">                        
                         <div class="modal-image-section flex flex-col items-center gap-3" style="background: transparent;">
                             <img id="modalProductImage" src="" alt="Product" class="modal-product-image">
                             <!-- Thumbnail strip -->
@@ -901,6 +903,11 @@
                             <p class="modal-description" id="modalProductDescription">
                                 Fresh and organic product delivered right to your doorstep.
                             </p>
+                            <!-- Weight/Volume/Pieces Selector -->
+                            <div class="quantity-selector" id="modalWeightSection" style="margin-top: 8px;">
+                                <span id="modalWeightLabel" style="font-weight: 600;">Weight:</span>
+                                <div id="modalWeightOptions" class="flex gap-2 flex-wrap"></div>
+                            </div>
                             <div class="quantity-selector">
                                 <span style="font-weight: 600;">Quantity:</span>
                                 <div class="quantity-controls">
@@ -931,6 +938,15 @@
     <script src="./js/wishlist.js"></script>
     <script src="./js/addtocart.js"></script>
     <script src="./js/Search.js"></script>
+
+    <script>
+        document.querySelectorAll(".explore-all").forEach(btn => {
+            btn.addEventListener("click", () => {
+                localStorage.removeItem("selectedCategory");
+            });
+        });
+    </script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -1040,7 +1056,9 @@
             }, 1200);
 
             // close modal after animation
-            setTimeout(closeQuickView, 1300);
+            if (typeof closeQuickView === 'function') {
+                setTimeout(closeQuickView, 1300);
+            }
         }
 
         // save back to localStorage
@@ -1064,7 +1082,9 @@
         }, 1200);
 
         // close modal after animation
-        setTimeout(closeQuickView, 1300);
+        if (typeof closeQuickView === 'function') {
+            setTimeout(closeQuickView, 1300);
+        }
 
 
         // ------------------------------------
@@ -1122,7 +1142,10 @@
                         e.preventDefault();
                         e.stopPropagation();    
 
-                        const productName = this.querySelector('.product-name')?.textContent.trim();
+                        // Card titles often include quantity in parentheses, e.g., "Wheat Flour (10 Kg)"
+                        // Strip any trailing parentheses to match canonical names in ViewProduct.js
+                        const rawName = this.querySelector('.product-name')?.textContent.trim() || '';
+                        const productName = rawName.replace(/\s*\(.*\)\s*$/, '').trim();
                         if (!productName) return;
 
                         console.log('Product clicked:', productName);
@@ -1140,6 +1163,12 @@
                                 window.location.href = './ProductDetails.html';
                             } else {
                                 // Fallback: create product object from card
+                                const heuristics = (function (n) {
+                                    const nameLower = (n || '').toLowerCase();
+                                    if (/(drink|soft|juice|oil|milk)/.test(nameLower)) return { quantity: 1, unit: 'L' };
+                                    if (/(diaper|egg|bread|cookie|kurkure|piece|pcs)/.test(nameLower)) return { quantity: 1, unit: 'pcs' };
+                                    return { quantity: 1, unit: 'Kg' };
+                                })(productName);
                                 const productData = {
                                     name: productName,
                                     price: this.querySelector('.current-price')?.textContent.trim() || '$0.00',
@@ -1149,7 +1178,9 @@
                                     badge: this.querySelector('.product-badge')?.textContent.trim() || '',
                                     category: 'Vegetables',
                                     sku: 'HOME-' + Date.now(),
-                                    description: `${productName} - Fresh and organic product.`
+                                    description: `${productName} - Fresh and organic product.`,
+                                    quantity: heuristics.quantity,
+                                    unit: heuristics.unit
                                 };
                                 sessionStorage.setItem('selectedProductData', JSON.stringify(productData));
                                 window.location.href = './ProductDetails.html';
@@ -1168,11 +1199,13 @@
             }, 500);
 
             // Re-setup when Owl Carousel changes
-            $('.owl-carousel').on('changed.owl.carousel', function () {
-                setTimeout(() => {
-                    setupProductCardClicks();
-                }, 100);
-            });
+            if (typeof $ !== 'undefined' && typeof $.fn?.owlCarousel !== 'undefined') {
+                $('.owl-carousel').on('changed.owl.carousel', function () {
+                    setTimeout(() => {
+                        setupProductCardClicks();
+                    }, 100);
+                });
+            }
         });
     </script>
 
@@ -1186,7 +1219,9 @@
             state.search = searchQuery.toLowerCase().trim();
             renderProducts();
         } else {
-            resetFilters();
+            if (typeof resetFilters === 'function') {
+                resetFilters();
+            }
         }
     </script>
 
@@ -1225,6 +1260,28 @@
             const rating = productCard.querySelector(".stars")?.textContent.trim() || "★★★★★";
             const desc = `${name} - Fresh and organic product delivered right to your home.`;
 
+            // Determine quantity/unit meta
+            let meta = { quantity: 1, unit: 'Kg' };
+            try {
+                if (typeof allProducts !== 'undefined') {
+                    const idx = allProducts.findIndex(p => p.name.toLowerCase() === (name || '').toLowerCase());
+                    if (idx !== -1) {
+                        meta = { quantity: allProducts[idx].quantity || 1, unit: allProducts[idx].unit || 'Kg' };
+                    }
+                }
+            } catch (e) { }
+            // Basic heuristics if not found
+            if (!meta || !meta.unit) {
+                const n = (name || '').toLowerCase();
+                if (/(drink|soft|juice|oil|milk)/.test(n)) meta = { quantity: 1, unit: 'L' };
+                else if (/(diaper|egg|bread|cookie|kurkure|piece|pcs)/.test(n)) meta = { quantity: 1, unit: 'pcs' };
+                else meta = { quantity: 1, unit: 'Kg' };
+            }
+            window.modalProductMeta = meta;
+            // Store base price text for non-compounding calculations
+            window.modalBasePriceText = price || '$0.00';
+            renderModalWeightOptions(meta);
+
             // Fill modal data
             const mainImgEl = document.getElementById("modalProductImage");
             document.getElementById("modalProductName").textContent = name;
@@ -1232,6 +1289,12 @@
             document.getElementById("modalProductDescription").textContent = desc;
             document.getElementById("quantityInput").value = 1;
 
+            // Adjust price for default active weight
+            const activeOpt = document.querySelector('#modalWeightOptions .bg-\\[\\#02B290\\]') || document.querySelector('#modalWeightOptions .active') || document.querySelector('#modalWeightOptions .weight-option');
+            if (activeOpt) {
+                const adjusted = computeWeightedPriceFromText(window.modalBasePriceText, window.modalProductMeta, activeOpt.textContent.trim());
+                setModalDisplayedPrice(adjusted);
+            }
             // Build thumbnails from product data (fallback to main image)
             let thumbs = [];
             if (typeof allProducts !== "undefined" && Array.isArray(allProducts) && name) {
@@ -1287,6 +1350,55 @@
                 input.value = Number(input.value) - 1;
             }
         };
+
+        // ===== Helpers for modal pricing/weights (Home) =====
+        function parsePrice(str) { const m = (str || '').match(/(\d+(?:\.\d+)?)/); return m ? parseFloat(m[1]) : 0; }
+        function qtyToBaseUnits(qty, unit) {
+            const u = (unit || '').toLowerCase();
+            if (u === 'kg' || u === 'l') return qty; if (u === 'g' || u === 'ml') return qty / 1000; if (u === 'pcs') return qty; return 1;
+        }
+        function textToBaseUnits(text) {
+            const t = (text || '').toLowerCase(); const m = t.match(/(\d+(?:\.\d+)?)/); const num = m ? parseFloat(m[1]) : 1;
+            if (t.includes('ml') || t.includes('g')) return num / 1000; if (t.includes('l') || t.includes('kg')) return num; if (t.includes('pcs')) return num; return 1;
+        }
+        function computeWeightedPriceFromText(basePriceText, meta, selectedText) {
+            const basePrice = parsePrice(basePriceText); const baseQty = qtyToBaseUnits(meta.quantity, meta.unit) || 1; const perUnit = basePrice / baseQty; const selectedQty = textToBaseUnits(selectedText) || 1; return perUnit * selectedQty;
+        }
+        function setModalDisplayedPrice(amount) {
+            const el = document.getElementById('modalProductPrice'); if (!el) return; el.textContent = `$${Number(amount).toFixed(2)}`;
+        }
+        function renderModalWeightOptions(meta) {
+            const section = document.getElementById('modalWeightSection'); const label = document.getElementById('modalWeightLabel'); const options = document.getElementById('modalWeightOptions'); if (!section || !label || !options) return; options.innerHTML = '';
+            let values = []; if (meta.unit === 'Kg' || meta.unit === 'g') { label.textContent = 'Weight:'; values = ['500 g', '1 Kg', '2 Kg', '5 Kg']; }
+            else if (meta.unit === 'ml' || meta.unit === 'L') { label.textContent = 'Volume:'; values = ['250 ml', '500 ml', '1 L', '2 L']; }
+            else if (meta.unit === 'pcs') { label.textContent = 'Pieces:'; values = ['1 pcs', '2 pcs', '5 pcs', '10 pcs']; } else { section.style.display = 'none'; return; }
+            values.forEach(v => { const div = document.createElement('div'); div.className = 'weight-option px-3 py-1 border rounded cursor-pointer'; div.textContent = v; div.onclick = function () { Array.from(options.children).forEach(o => o.classList.remove('bg-[#02B290]', 'text-white')); this.classList.add('bg-[#02B290]', 'text-white'); const base = window.modalBasePriceText || '$0.00'; const adj = computeWeightedPriceFromText(base, window.modalProductMeta, this.textContent.trim()); setModalDisplayedPrice(adj); }; options.appendChild(div); });
+            const desired = (meta.unit.toLowerCase() === 'ml' ? `${meta.quantity} ml` : meta.unit.toLowerCase() === 'l' ? `${meta.quantity} L` : meta.unit.toLowerCase() === 'g' ? `${meta.quantity} g` : meta.unit.toLowerCase() === 'pcs' ? `${meta.quantity} pcs` : `${meta.quantity} Kg`).toLowerCase();
+            let match = Array.from(options.children).find(o => o.textContent.trim().toLowerCase() === desired); if (!match && options.children.length) match = options.children[0]; if (match) match.classList.add('bg-[#02B290]', 'text-white');
+        }
+
+        // Override modal add-to-cart to include selected weight and displayed price
+        window.addToCartFromModal = function () {
+            const name = document.getElementById('modalProductName')?.textContent?.trim() || '';
+            const img = document.getElementById('modalProductImage')?.src || '';
+            const qty = Number(document.getElementById('quantityInput')?.value) || 1;
+            const priceText = document.getElementById('modalProductPrice')?.textContent || '$0.00';
+            const unitSel = document.querySelector('#modalWeightOptions .bg-\\[\\#02B290\\]') || document.querySelector('#modalWeightOptions .text-white');
+            const weightText = unitSel ? unitSel.textContent.trim() : null;
+            const finalPrice = parsePrice(priceText);
+
+            const item = { name, img, quantity: qty, unitText: weightText, unitMeta: window.modalProductMeta, price: finalPrice };
+            if (typeof window.addToCart === 'function') {
+                try { window.addToCart(item); } catch (e) { /* fallback below */ }
+            }
+            try {
+                const cart = JSON.parse(localStorage.getItem('cartItems') || '[]'); cart.push(item); localStorage.setItem('cartItems', JSON.stringify(cart));
+            } catch (e) { }
+            alert('Added to cart');
+            window.closeQuickView();
+        };
+
+        // Removed weight annotation on home product cards per request
     </script>
 
     <script>

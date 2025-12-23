@@ -847,16 +847,18 @@ body {
     padding: 0;
     /* ✅ Remove padding */
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
     /* ✅ Ensure image fits cleanly */
 }
 
 .modal-product-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-height: 520px;
+    object-fit: contain;
     /* ✅ Image will fully fill container */
     border-radius: 12px;
     /* keeps smooth corners */
@@ -869,6 +871,29 @@ body {
     justify-content: center;
     overflow: hidden;
     /* ✅ Ensure image fits cleanly */
+}
+
+/* Thumbnails inside modal */
+#modalThumbnails {
+    display: flex;
+    gap: 10px;
+    margin: 12px 12px 20px 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#modalThumbnails img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+#modalThumbnails img.active {
+    border-color: var(--primary-color);
 }
 
 .modal-product-image {

@@ -107,6 +107,29 @@
 		border-radius: 12px;
 	}
 
+	/* Thumbnails below main image */
+	.modal-thumbs {
+		display: flex;
+		gap: 8px;
+		margin-top: 10px;
+		flex-wrap: wrap;
+	}
+	.modal-thumbs img {
+		width: 64px;
+		height: 64px;
+		object-fit: cover;
+		border-radius: 8px;
+		border: 2px solid transparent;
+		cursor: pointer;
+		transition: transform 0.15s ease, border-color 0.15s ease;
+	}
+	.modal-thumbs img:hover {
+		transform: translateY(-2px);
+	}
+	.modal-thumbs img.active {
+		border-color: #02B290;
+	}
+
 	.modal-info-section h2 {
 		font-size: 28px;
 		margin-bottom: 16px;
@@ -259,7 +282,7 @@
 			</div>
 			<!-- Actions -->
 			<div class="border-t pt-4 mt-6 flex gap-2">
-				<button id="applyDesktop" class="bg-[#02B290] text-white px-4 py-2 rounded">Apply</button>
+				<!-- <button id="applyDesktop" class="bg-[#02B290] text-white px-4 py-2 rounded">Apply</button> -->
 				<button id="resetDesktop" class="border px-4 py-2 rounded">Reset</button>
 			</div>
 		</div>
@@ -391,8 +414,8 @@
 		</div>
 		<!-- Actions -->
 		<div class="border-t pt-4 mt-6 flex gap-2 mb-[70px]">
-			<button id="applyMobile" class="bg-[#02B290] text-white px-4 py-2 rounded"
-				onclick="closeFilter()">Apply</button>
+			<!-- <button id="applyMobile" class="bg-[#02B290] text-white px-4 py-2 rounded"
+				onclick="closeFilter()">Apply</button> -->
 			<button id="resetMobile" class="border px-4 py-2 rounded">Reset</button>
 		</div>
 	</div>
@@ -409,6 +432,7 @@
 			<div class="modal-body">
 				<div class="modal-image-section flex flex-col items-center gap-3">
 					<img id="modalProductImage" src="" alt="Product" class="modal-product-image">
+					<div id="modalThumbnails" class="modal-thumbs"></div>
 					<div id="shopModalThumbs" class="flex gap-3 mt-1 px-2 pb-2 justify-center w-full"></div>
 				</div>
 				<div class="modal-info-section">
@@ -489,6 +513,35 @@
 			document.getElementById("modalProductDescription").textContent = desc;
 			document.getElementById("quantityInput").value = 1;
 
+			// Populate up to 3 thumbnails
+			const thumbs = document.getElementById('modalThumbnails');
+			const modalImage = document.getElementById('modalProductImage');
+			if (thumbs) {
+				thumbs.innerHTML = '';
+				try {
+					let sources = [img];
+					if (typeof allProducts !== 'undefined' && name) {
+						const pd = allProducts.find(p => p.name === name);
+						if (pd && Array.isArray(pd.images) && pd.images.length) {
+							sources = pd.images;
+						}
+					}
+					sources.slice(0, 3).forEach((src, idx) => {
+						const t = document.createElement('img');
+						t.src = src;
+						t.alt = `${name} ${idx + 1}`;
+						if (idx === 0) t.classList.add('active');
+						t.addEventListener('click', () => {
+							if (modalImage) modalImage.src = src;
+							thumbs.querySelectorAll('img').forEach(im => im.classList.remove('active'));
+							t.classList.add('active');
+						});
+						thumbs.appendChild(t);
+					});
+				} catch (e) {
+					console.error('Thumbnail population error (Shop):', e);
+				}
+			}
 			renderShopThumbs(thumbs);
 
 			// Show modal with animation
@@ -769,6 +822,7 @@
 
 		// Build dynamic filter options
 		const categories = [
+			"Offers",
 			"Fresh Produce",
 			"Bakery & Dairy",
 			"Staples & Grains",
@@ -846,9 +900,22 @@
 
 		// Filtering logic
 		function getFilteredProducts() {
+			// Helper: product offer check
+			const isOnOffer = (p) => {
+				const hasOld = p.oldPrice && (parsePrice(p.oldPrice) > parsePrice(p.price));
+				const hasSaleBadge = normalizeBadge(p.badge) === 'Sale';
+				return Boolean(hasOld || hasSaleBadge || p.onOffer === true);
+			};
+
 			return products.filter(p => {
 				const nameMatch = p.name.toLowerCase().includes(state.search);
-				const categoryMatch = state.categories.size ? state.categories.has(p.category) : true;
+				let categoryMatch = true;
+				if (state.categories.size) {
+					categoryMatch = (
+						(state.categories.has('Offers') && isOnOffer(p)) ||
+						state.categories.has(p.category)
+					);
+				}
 				const badgeNorm = normalizeBadge(p.badge);
 				const badgeMatch = state.badges.size ? (badgeNorm && state.badges.has(badgeNorm)) : true;
 				const priceMatch = parsePrice(p.price) <= state.maxPrice;
@@ -865,6 +932,14 @@
 		function hideSkeleton() {
 			document.getElementById("skeletonLoader").style.display = "none";
 			document.getElementById("productGrid").style.display = "grid";
+		}
+
+		function formatQuantity(p) {
+			if (p.unit === "Kg") return p.quantity + " Kg";
+			if (p.unit === "g") return p.quantity + " g";
+			if (p.unit === "L") return p.quantity + " L";
+			if (p.unit === "ml") return p.quantity + " ml";
+			return p.quantity + " pcs";
 		}
 
 		function renderProducts() {
@@ -908,7 +983,12 @@
 						</div>
 					</div>
 					<div class="product-info">
-						<h4 class="product-name text-sm font-medium">${p.name}</h4>
+						<h4 class="product-name text-sm font-medium">
+							${p.name}
+							<span class="text-xs text-gray-500">
+								(${formatQuantity(p)})
+							</span>
+						</h4>
 						<div class="product-price">
 							<span class="current-price font-semibold">${p.price}</span>
 							${p.oldPrice ? `<span class="old-price text-sm line-through ml-2 text-gray-400">${p.oldPrice}</span>` : ""}
