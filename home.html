@@ -887,6 +887,11 @@
                     <div class="modal-body">
                         <div class="modal-image-section">
                             <img id="modalProductImage" src="" alt="Product" class="modal-product-image">                        
+                        <div class="modal-image-section flex flex-col items-center gap-3" style="background: transparent;">
+                            <img id="modalProductImage" src="" alt="Product" class="modal-product-image">
+                            <!-- Thumbnail strip -->
+                            <div id="modalThumbs" class="flex gap-3 mt-1 px-2 pb-2 justify-center w-full">
+                            </div>
                         </div>
                         <div class="modal-info-section">
                             <h2 id="modalProductName">Product Name</h2>
@@ -952,6 +957,13 @@
 
             if (reviews.length === 0) return;
 
+            const renderStars = (rating) => {
+                const val = Math.max(0, Math.min(5, parseInt(rating, 10) || 0));
+                const filled = "★".repeat(val || 5); // default 5 filled if missing
+                const empty = val ? "☆".repeat(5 - val) : "";
+                return filled + empty;
+            };
+
             slider.innerHTML = ""; // remove old slides
 
             reviews.forEach(r => {
@@ -963,7 +975,8 @@
                      class="h_slider-img w-20 h-20 rounded-full object-cover mx-auto absolute -top-10 left-1/2 transform -translate-x-1/2 shadow-md border-4 border-white" />
 
                 <h3 class="h_slider-name text-xl font-semibold mt-8">${r.name}</h3>
-                <p class="h_slider-role text-gray-500 text-sm mb-4">Verified Buyer</p>
+                <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: ${r.product || "Product"}</p>
+                <div class="text-yellow-400 text-lg mb-3">${renderStars(r.rating)}</div>
 
                 <p class="h_slider-text text-gray-700 italic">
                     ${r.review}
@@ -1214,6 +1227,27 @@
 
     <script>
         // ⭐ OPEN QUICK VIEW MODAL
+        function renderThumbs(images) {
+            const thumbWrap = document.getElementById("modalThumbs");
+            if (!thumbWrap) return;
+            thumbWrap.innerHTML = images.map((src, idx) => `
+                <img src="${src}" data-idx="${idx}"
+                    class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-[#02B290]">
+            `).join("");
+
+            // click handler
+            thumbWrap.querySelectorAll("img").forEach(img => {
+                img.addEventListener("click", () => {
+                    document.getElementById("modalProductImage").src = img.src;
+                    thumbWrap.querySelectorAll("img").forEach(i => i.classList.remove("border-[#02B290]"));
+                    img.classList.add("border-[#02B290]");
+                });
+            });
+            // mark first as active
+            const first = thumbWrap.querySelector("img");
+            if (first) first.classList.add("border-[#02B290]");
+        }
+
         window.openQuickView = function (btn) {
             const productCard = btn.closest(".product-card");
             if (!productCard) return;
@@ -1249,7 +1283,7 @@
             renderModalWeightOptions(meta);
 
             // Fill modal data
-            document.getElementById("modalProductImage").src = img;
+            const mainImgEl = document.getElementById("modalProductImage");
             document.getElementById("modalProductName").textContent = name;
             document.getElementById("modalProductPrice").textContent = price;
             document.getElementById("modalProductDescription").textContent = desc;
@@ -1261,6 +1295,22 @@
                 const adjusted = computeWeightedPriceFromText(window.modalBasePriceText, window.modalProductMeta, activeOpt.textContent.trim());
                 setModalDisplayedPrice(adjusted);
             }
+            // Build thumbnails from product data (fallback to main image)
+            let thumbs = [];
+            if (typeof allProducts !== "undefined" && Array.isArray(allProducts) && name) {
+                const match = allProducts.find(p => p.name?.toLowerCase() === name.toLowerCase());
+                if (match && Array.isArray(match.images)) {
+                    thumbs = match.images.filter(Boolean);
+                }
+            }
+            if (!thumbs.length && img) thumbs = [img];
+            if (!thumbs.length) thumbs = [];
+
+            const firstImg = thumbs[0] || img || "";
+            if (firstImg) {
+                mainImgEl.src = firstImg;
+            }
+            renderThumbs(thumbs);
 
             // Show modal
             const modal = document.getElementById("quickViewModal");
