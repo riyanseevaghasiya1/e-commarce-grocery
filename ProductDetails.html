@@ -549,12 +549,19 @@
 				imageBase64 = await compressImage(imageFile);
 			}
 
+			// Capture which product was reviewed
+			const productName =
+				document.querySelector(".productname")?.textContent.trim() ||
+				document.querySelector(".mainproductname")?.textContent.trim() ||
+				"Product";
+
 			let reviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
 
 			reviews.push({
 				name,
-				rating,
+				rating: parseInt(rating, 10) || 0,
 				review,
+				product: productName,
 				image: imageBase64 || "https://randomuser.me/api/portraits/women/10.jpg"
 			});
 

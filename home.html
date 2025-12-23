@@ -938,6 +938,13 @@
 
             if (reviews.length === 0) return;
 
+            const renderStars = (rating) => {
+                const val = Math.max(0, Math.min(5, parseInt(rating, 10) || 0));
+                const filled = "★".repeat(val || 5); // default 5 filled if missing
+                const empty = val ? "☆".repeat(5 - val) : "";
+                return filled + empty;
+            };
+
             slider.innerHTML = ""; // remove old slides
 
             reviews.forEach(r => {
@@ -949,7 +956,8 @@
                      class="h_slider-img w-20 h-20 rounded-full object-cover mx-auto absolute -top-10 left-1/2 transform -translate-x-1/2 shadow-md border-4 border-white" />
 
                 <h3 class="h_slider-name text-xl font-semibold mt-8">${r.name}</h3>
-                <p class="h_slider-role text-gray-500 text-sm mb-4">Verified Buyer</p>
+                <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: ${r.product || "Product"}</p>
+                <div class="text-yellow-400 text-lg mb-3">${renderStars(r.rating)}</div>
 
                 <p class="h_slider-text text-gray-700 italic">
                     ${r.review}

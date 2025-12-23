@@ -20,8 +20,10 @@ function addToCart(button) {
     // Get product name
     const productName = productInfo.querySelector('.product-name')?.textContent.trim() || '';
 
+    const normalizedName = productName.toLowerCase();
+
     const product = {
-        id: productName, // ✅ NOW EVERY PRODUCT GETS AN ID
+        id: normalizedName, // ✅ stable id for merging
         name: productName,
         price: productInfo.querySelector('.current-price')?.textContent.trim() || '',
         image: productCard?.querySelector('.product-image')?.src || '',
@@ -30,8 +32,8 @@ function addToCart(button) {
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     
-    // ✅ Find existing product by ID (more reliable than name)
-    const existing = cart.find(item => item.id === product.id);
+    // ✅ Find existing product by ID or name (backward compatible)
+    const existing = cart.find(item => (item.id || '').toLowerCase() === product.id || (item.name || '').toLowerCase() === normalizedName);
     console.log("cart>>>>", cart);
     
     if (existing) {
@@ -120,8 +122,8 @@ function loadCartItems() {
                     <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer" onclick="removeFromCart(${index})"></i>
                 </div>
                 <div class="col-span-4 flex items-center space-x-4">
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" onerror="this.src='https://via.placeholder.com/100'">
-                    <span class="text-sm font-medium text-gray-800">${item.name}</span>
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded cursor-pointer hover:opacity-90 transition" onerror="this.src='https://via.placeholder.com/100'" onclick="openProductDetail(${index})">
+                    <button class="text-left text-sm font-medium text-gray-800 hover:text-[#02B290]" onclick="openProductDetail(${index})">${item.name}</button>
                 </div>
                 <div class="col-span-2 text-center">
                     <span class="text-gray-800 font-semibold current-price">${item.price}</span>
@@ -168,6 +170,27 @@ function removeFromCart(index) {
     loadCartItems();
     updateCartCount();
     showNotification('Item removed from cart');
+}
+
+// ========== Open Product Detail from Cart ==========
+function openProductDetail(index) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const item = cart[index];
+    if (!item) return;
+
+    try {
+        // Save the clicked product for the detail page
+        sessionStorage.setItem('selectedProductData', JSON.stringify({
+            name: item.name || 'Product',
+            price: item.price || '',
+            img: item.image || '',
+            images: item.images || [item.image || '']
+        }));
+    } catch (err) {
+        console.error('Failed to persist product detail', err);
+    }
+
+    window.location.href = './ProductDetails.html';
 }
 
 // ========== Update Cart Summary (Single Function) ==========
