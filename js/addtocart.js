@@ -108,17 +108,21 @@ function showCartSkeleton() {
         `).join('')}
     `;
 }
- 
+ // Function to get product index by name
+function getProductIndexByName(name) {
+  return allProducts.findIndex(p => p.name === name);
+}
+// ========== Load Cart Items ==========
 // ========== Load Cart Items ==========
 function loadCartItems() {
     const container = document.getElementById('cartItemsContainer');
     if (!container) return;
- 
+
     showCartSkeleton();
- 
+
     setTimeout(() => {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
- 
+
         if (cart.length === 0) {
             container.innerHTML = `
                 <div class="px-6 py-12 text-center text-gray-500">
@@ -132,14 +136,14 @@ function loadCartItems() {
             updateCartSummary();
             return;
         }
- 
+
         container.innerHTML = cart.map((item, index) => `
             <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center" data-index="${index}" data-id="${item.id || ''}">
                 <div class="col-span-1">
                     <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer" onclick="removeFromCart(${index})"></i>
                 </div>
                 <div class="col-span-4 flex items-center space-x-4">
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" onerror="this.src='https://via.placeholder.com/100'">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded cursor-pointer" onclick="viewProductDetails(getProductIndexByName('${item.name}'))" onerror="this.src='https://via.placeholder.com/100'">
                     <span class="text-sm font-medium text-gray-800">${item.name}</span>
                 </div>
                 <div class="col-span-2 text-center">
@@ -155,7 +159,7 @@ function loadCartItems() {
                 <div class="col-span-2 text-right font-semibold text-gray-800 current-price">$${calculateItemTotal(item)}</div>
             </div>
         `).join('');
- 
+
         updateCartSummary();
     }, 800);
 }
