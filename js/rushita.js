@@ -1,6 +1,5 @@
 let discount = 0;
 
-
 function initializeEverything() {
   initializeHeader();
   initializeCurrency();
@@ -34,26 +33,26 @@ fetch('./header.html')
       // ==============================
       // HIDE SEARCH BAR ON MyAccount.html
       // ==============================
-const pagesToHideSearch = [
-  "MyAccount.html",
-  "FAQ.html",
-  "PrivacyPolicy.html",
-  "Terms&condition.html",
-  "AboutUS.html",
-  "ContactUs.html",
-  "Blog.html",
-  "ReturnPolicy.html"
-];
+      const pagesToHideSearch = [
+        "MyAccount.html",
+        "FAQ.html",
+        "PrivacyPolicy.html",
+        "Terms&condition.html",
+        "AboutUS.html",
+        "ContactUs.html",
+        "Blog.html",
+        "ReturnPolicy.html"
+      ];
 
-const currentPage = window.location.pathname.split("/").pop();
+      const currentPage = window.location.pathname.split("/").pop();
 
-if (pagesToHideSearch.includes(currentPage)) {
-  const searchBar = document.querySelector("#headerSearchDesktop");
-  if (searchBar) {
-    const container = searchBar.closest(".lg\\:flex");
-    if (container) container.style.display = "none";
-  }
-}
+      if (pagesToHideSearch.includes(currentPage)) {
+        const searchBar = document.querySelector("#headerSearchDesktop");
+        if (searchBar) {
+          const container = searchBar.closest(".lg\\:flex");
+          if (container) container.style.display = "none";
+        }
+      }
 
     }, 0);
   })
@@ -65,13 +64,13 @@ fetch('./Footer.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('footer_add').innerHTML = data;
-    
+
     // After footer is loaded, hide skeleton and show footer
-    setTimeout(function() {
-        const skeleton = document.querySelector('#footer_add #footerSkeleton');
-        const footer = document.querySelector('#footer_add #actualFooter');
-        if (skeleton) skeleton.style.display = 'none';
-        if (footer) footer.style.display = 'block';
+    setTimeout(function () {
+      const skeleton = document.querySelector('#footer_add #footerSkeleton');
+      const footer = document.querySelector('#footer_add #actualFooter');
+      if (skeleton) skeleton.style.display = 'none';
+      if (footer) footer.style.display = 'block';
     }, 2000);
   })
   .catch(error => console.error('Error loading footer:', error));
@@ -152,33 +151,33 @@ function initializeHeader() {
 
 
   // Hide mobile search bar only on MyAccount page
-const pagesToHideSearch = [
- "MyAccount.html",
-  "FAQ.html",
-  "PrivacyPolicy.html",
-  "Terms&condition.html",
-  "AboutUS.html",
-  "ContactUs.html",
-  "Blog.html",
-   "ReturnPolicy.html"
-];
+  const pagesToHideSearch = [
+    "MyAccount.html",
+    "FAQ.html",
+    "PrivacyPolicy.html",
+    "Terms&condition.html",
+    "AboutUS.html",
+    "ContactUs.html",
+    "Blog.html",
+    "ReturnPolicy.html"
+  ];
 
-const currentPage = window.location.pathname.split("/").pop();
+  const currentPage = window.location.pathname.split("/").pop();
 
-if (pagesToHideSearch.includes(currentPage)) {
-  const mobileSearch = document.getElementById("headerSearchMobile");
-  if (mobileSearch) {
-    const wrapper = mobileSearch.closest(".p-4");
-    if (wrapper) wrapper.style.display = "none";
+  if (pagesToHideSearch.includes(currentPage)) {
+    const mobileSearch = document.getElementById("headerSearchMobile");
+    if (mobileSearch) {
+      const wrapper = mobileSearch.closest(".p-4");
+      if (wrapper) wrapper.style.display = "none";
+    }
   }
-}
 
 }
 
 // ========== Calculate Cart Totals ==========
 function calculateTotals() {
   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
-  
+
   const originalTotal = cartData.reduce((sum, item) => {
     const price = parseFloat(item.price.replace(/[^0-9.]/g, "")) || 0;
     return sum + price * (item.quantity || 1);
@@ -310,7 +309,7 @@ function setupProceedToCheckout() {
       alert("🛒 Your cart is empty!");
       return;
     }
-    
+
     localStorage.setItem("checkoutCart", JSON.stringify(cartData));
     window.location.href = "./checkout.html";
   });
@@ -322,7 +321,7 @@ function updateCartCount() {
   if (!cartCount) return;
 
   const cartData = JSON.parse(localStorage.getItem('cart')) || [];
-  
+
   // Count unique cart items
   const totalUniqueItems = cartData.length;
 
@@ -357,20 +356,20 @@ function changeCurrency(code, symbol, rate) {
   console.log('changeCurrency called:', code, symbol, rate); // Debug
   currentCurrency = { code, symbol, rate };
   localStorage.setItem('selectedCurrency', JSON.stringify(currentCurrency));
-  
+
   const selectedCurrencyEl = document.getElementById('selectedCurrency');
   if (selectedCurrencyEl) {
     selectedCurrencyEl.textContent = code;
   }
-  
+
   const mobileSelect = document.getElementById('mobileCurrencySelect');
   if (mobileSelect) {
     mobileSelect.value = code;
   }
-  
+
   // Dispatch custom event for price updates
   window.dispatchEvent(new CustomEvent('currencyChanged', { detail: currentCurrency }));
-  
+
   // Close dropdown using 'show' class
   const dropdown = document.getElementById('currencyDropdown');
   if (dropdown) {
@@ -382,7 +381,7 @@ function changeCurrency(code, symbol, rate) {
 function initializeCurrency() {
   console.log('initializeCurrency called'); // Debug
   loadCurrency();
-  
+
   // Mobile currency select handler
   const mobileSelect = document.getElementById('mobileCurrencySelect');
   if (mobileSelect) {
@@ -392,107 +391,107 @@ function initializeCurrency() {
       const rate = parseFloat(selected.dataset.rate);
       const symbol = '';
 
-// ========== USER AUTHENTICATION SYSTEM ==========
-let isLoggedIn = false;
+      // ========== USER AUTHENTICATION SYSTEM ==========
+      let isLoggedIn = false;
 
-function checkLoginStatus() {
-  const user = localStorage.getItem('currentUser');
-  if (user) {
-    isLoggedIn = true;
-    showUserMenu();
-  } else {
-    isLoggedIn = false;
-    showLoginButton();
-  }
-}
-
-function showUserMenu() {
-  const loginBtn = document.getElementById('loginBtn');
-  const userMenuContainer = document.getElementById('userMenuContainer');
-  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
-  const mobileUserMenu = document.getElementById('mobileUserMenu');
-  
-  if (loginBtn) loginBtn.classList.add('hidden');
-  if (userMenuContainer) userMenuContainer.classList.remove('hidden');
-  if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
-  if (mobileUserMenu) mobileUserMenu.classList.remove('hidden');
-}
-
-function showLoginButton() {
-  const loginBtn = document.getElementById('loginBtn');
-  const userMenuContainer = document.getElementById('userMenuContainer');
-  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
-  const mobileUserMenu = document.getElementById('mobileUserMenu');
-  
-  if (loginBtn) loginBtn.classList.remove('hidden');
-  if (userMenuContainer) userMenuContainer.classList.add('hidden');
-  if (mobileLoginBtn) mobileLoginBtn.classList.remove('hidden');
-  if (mobileUserMenu) mobileUserMenu.classList.add('hidden');
-}
-
-function handleLogout() {
-  if (confirm('Are you sure you want to logout?')) {
-    localStorage.removeItem('currentUser');
-    isLoggedIn = false;
-    showLoginButton();
-    alert('Logged out successfully!');
-  }
-}
-
-function initializeUserMenu() {
-  checkLoginStatus();
-  
-  // Login button handlers
-  const loginBtn = document.getElementById('loginBtn');
-  if (loginBtn) {
-    loginBtn.addEventListener('click', function () {
-      window.location.href = './login.html';
-    });
-  }
-
-  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
-  if (mobileLoginBtn) {
-    mobileLoginBtn.addEventListener('click', function () {
-      window.location.href = './login.html';
-    });
-  }
-
-  // User dropdown toggle
-  const userMenuBtn = document.getElementById('userMenuBtn');
-  if (userMenuBtn) {
-    userMenuBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      const dropdown = document.getElementById('userDropdown');
-      if (dropdown) {
-        dropdown.classList.toggle('show');
+      function checkLoginStatus() {
+        const user = localStorage.getItem('currentUser');
+        if (user) {
+          isLoggedIn = true;
+          showUserMenu();
+        } else {
+          isLoggedIn = false;
+          showLoginButton();
+        }
       }
-    });
-  }
-  
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function (e) {
-    const userDropdown = document.getElementById('userDropdown');
-    if (userDropdown && !e.target.closest('#userMenuBtn')) {
-      userDropdown.classList.remove('show');
-    }
-  });
-}
 
-// ========== EXPOSE FUNCTIONS GLOBALLY ==========
-window.getCurrentCurrency = function() {
-  return currentCurrency;
-};
+      function showUserMenu() {
+        const loginBtn = document.getElementById('loginBtn');
+        const userMenuContainer = document.getElementById('userMenuContainer');
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        const mobileUserMenu = document.getElementById('mobileUserMenu');
 
-window.convertPrice = function(price) {
-  return (price * currentCurrency.rate).toFixed(2);
-};
+        if (loginBtn) loginBtn.classList.add('hidden');
+        if (userMenuContainer) userMenuContainer.classList.remove('hidden');
+        if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
+        if (mobileUserMenu) mobileUserMenu.classList.remove('hidden');
+      }
 
-window.formatPrice = function(price) {
-  return currentCurrency.symbol + window.convertPrice(price);
-};
+      function showLoginButton() {
+        const loginBtn = document.getElementById('loginBtn');
+        const userMenuContainer = document.getElementById('userMenuContainer');
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        const mobileUserMenu = document.getElementById('mobileUserMenu');
 
-window.handleLogout = handleLogout;
-window.changeCurrency = changeCurrency; // Make it globally accessible for onclick;
+        if (loginBtn) loginBtn.classList.remove('hidden');
+        if (userMenuContainer) userMenuContainer.classList.add('hidden');
+        if (mobileLoginBtn) mobileLoginBtn.classList.remove('hidden');
+        if (mobileUserMenu) mobileUserMenu.classList.add('hidden');
+      }
+
+      function handleLogout() {
+        if (confirm('Are you sure you want to logout?')) {
+          localStorage.removeItem('currentUser');
+          isLoggedIn = false;
+          showLoginButton();
+          alert('Logged out successfully!');
+        }
+      }
+
+      function initializeUserMenu() {
+        checkLoginStatus();
+
+        // Login button handlers
+        const loginBtn = document.getElementById('loginBtn');
+        if (loginBtn) {
+          loginBtn.addEventListener('click', function () {
+            window.location.href = './login.html';
+          });
+        }
+
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        if (mobileLoginBtn) {
+          mobileLoginBtn.addEventListener('click', function () {
+            window.location.href = './login.html';
+          });
+        }
+
+        // User dropdown toggle
+        const userMenuBtn = document.getElementById('userMenuBtn');
+        if (userMenuBtn) {
+          userMenuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('userDropdown');
+            if (dropdown) {
+              dropdown.classList.toggle('show');
+            }
+          });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+          const userDropdown = document.getElementById('userDropdown');
+          if (userDropdown && !e.target.closest('#userMenuBtn')) {
+            userDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // ========== EXPOSE FUNCTIONS GLOBALLY ==========
+      window.getCurrentCurrency = function () {
+        return currentCurrency;
+      };
+
+      window.convertPrice = function (price) {
+        return (price * currentCurrency.rate).toFixed(2);
+      };
+
+      window.formatPrice = function (price) {
+        return currentCurrency.symbol + window.convertPrice(price);
+      };
+
+      window.handleLogout = handleLogout;
+      window.changeCurrency = changeCurrency; // Make it globally accessible for onclick;
       changeCurrency(code, symbol, rate);
     });
   }
@@ -501,22 +500,22 @@ window.changeCurrency = changeCurrency; // Make it globally accessible for oncli
   const currencyBtn = document.getElementById('currencyBtn');
   if (currencyBtn) {
     console.log('Currency button found, attaching listener'); // Debug
-    
+
     // Remove any existing listeners by cloning
     const newCurrencyBtn = currencyBtn.cloneNode(true);
     currencyBtn.parentNode.replaceChild(newCurrencyBtn, currencyBtn);
-    
+
     newCurrencyBtn.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      
+
       const dropdown = document.getElementById('currencyDropdown');
       console.log('Click detected! Dropdown:', dropdown); // Debug
-      
+
       if (dropdown) {
         const isVisible = dropdown.classList.contains('show');
         console.log('Current state - show class:', isVisible); // Debug
-        
+
         if (isVisible) {
           dropdown.classList.remove('show');
           console.log('Removed show class'); // Debug
@@ -524,7 +523,7 @@ window.changeCurrency = changeCurrency; // Make it globally accessible for oncli
           dropdown.classList.add('show');
           console.log('Added show class'); // Debug
         }
-        
+
         // Force inline styles as backup
         if (dropdown.classList.contains('show')) {
           dropdown.style.display = 'block';
@@ -543,12 +542,12 @@ window.changeCurrency = changeCurrency; // Make it globally accessible for oncli
   } else {
     console.log('Currency button not found!'); // Debug
   }
-  
+
   // Close dropdown when clicking outside
   document.addEventListener('click', function (e) {
     const currencyDropdown = document.getElementById('currencyDropdown');
     const currencyBtn = document.getElementById('currencyBtn');
-    
+
     if (currencyDropdown && currencyBtn && !currencyBtn.contains(e.target) && !currencyDropdown.contains(e.target)) {
       currencyDropdown.classList.remove('show');
       currencyDropdown.style.display = 'none';
@@ -577,7 +576,7 @@ function showUserMenu() {
   const userMenuContainer = document.getElementById('userMenuContainer');
   const mobileLoginBtn = document.getElementById('mobileLoginBtn');
   const mobileUserMenu = document.getElementById('mobileUserMenu');
-  
+
   if (loginBtn) loginBtn.classList.add('hidden');
   if (userMenuContainer) userMenuContainer.classList.remove('hidden');
   if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
@@ -589,7 +588,7 @@ function showLoginButton() {
   const userMenuContainer = document.getElementById('userMenuContainer');
   const mobileLoginBtn = document.getElementById('mobileLoginBtn');
   const mobileUserMenu = document.getElementById('mobileUserMenu');
-  
+
   if (loginBtn) loginBtn.classList.remove('hidden');
   if (userMenuContainer) userMenuContainer.classList.add('hidden');
   if (mobileLoginBtn) mobileLoginBtn.classList.remove('hidden');
@@ -607,7 +606,7 @@ function handleLogout() {
 
 function initializeUserMenu() {
   checkLoginStatus();
-  
+
   // Login button handlers
   const loginBtn = document.getElementById('loginBtn');
   if (loginBtn) {
@@ -651,7 +650,7 @@ function initializeUserMenu() {
     //   }
     // }
   }
-  
+
   // Close dropdown when clicking outside
   document.addEventListener('click', function (e) {
     const userDropdown = document.getElementById('userDropdown');
@@ -662,15 +661,15 @@ function initializeUserMenu() {
 }
 
 // ========== EXPOSE FUNCTIONS GLOBALLY ==========
-window.getCurrentCurrency = function() {
+window.getCurrentCurrency = function () {
   return currentCurrency;
 };
 
-window.convertPrice = function(price) {
+window.convertPrice = function (price) {
   return (price * currentCurrency.rate).toFixed(2);
 };
 
-window.formatPrice = function(price) {
+window.formatPrice = function (price) {
   return currentCurrency.symbol + window.convertPrice(price);
 };
 
@@ -686,7 +685,7 @@ window.changeCurrency = changeCurrency; // Make it globally accessible for oncli
 // === GLOBAL PRICE UPDATE LISTENER ===
 window.addEventListener('currencyChanged', function (e) {
   const { symbol, rate } = e.detail;
-  
+
   document.querySelectorAll('.current-price').forEach(priceEl => {
     const basePrice = parseFloat(priceEl.dataset.basePrice || priceEl.textContent.replace(/[^0-9.]/g, ''));
     priceEl.dataset.basePrice = basePrice; // Store original USD price once
@@ -696,13 +695,13 @@ window.addEventListener('currencyChanged', function (e) {
 
 // category filter
 document.addEventListener('click', function (e) {
-    const link = e.target.closest('.category-link');
-    if (link) {
-        e.preventDefault();
-        const category = link.dataset.category;
-        localStorage.setItem('selectedCategory', category);
-        window.location.href = './Shop.html';
-    }
+  const link = e.target.closest('.category-link');
+  if (link) {
+    e.preventDefault();
+    const category = link.dataset.category;
+    localStorage.setItem('selectedCategory', category);
+    window.location.href = './Shop.html';
+  }
 });
 
 //category filter remove
@@ -713,27 +712,27 @@ function clearSelectedCategory() {
 
 
 function subscribeNow() {
-    const email = document.getElementById("subscribeEmail").value;
-    const message = document.getElementById("subscribeMessage");
+  const email = document.getElementById("subscribeEmail").value;
+  const message = document.getElementById("subscribeMessage");
 
-    if (email.trim() === "") {
-        message.textContent = "Please enter your email.";
-        message.style.color = "red";
-        return;
-    }
-
-    // Simple email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        message.textContent = "Enter a valid email address.";
-        message.style.color = "red";
-        return;
-    }
-
-    // Success (you can send the email to backend here)
-    message.textContent = "Subscribed successfully!";
-    message.style.color = "#02B290";
-
-    // Clear input
-    document.getElementById("subscribeEmail").value = "";
+  if (email.trim() === "") {
+    message.textContent = "Please enter your email.";
+    message.style.color = "red";
+    return;
   }
+
+  // Simple email validation
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    message.textContent = "Enter a valid email address.";
+    message.style.color = "red";
+    return;
+  }
+
+  // Success (you can send the email to backend here)
+  message.textContent = "Subscribed successfully!";
+  message.style.color = "#02B290";
+
+  // Clear input
+  document.getElementById("subscribeEmail").value = "";
+}
