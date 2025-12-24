@@ -18,6 +18,7 @@
 
 </head>
 
+
 <body>
     <!-- header -->
     <div id="header-placeholder"></div>
@@ -691,7 +692,7 @@
                                     <div class="product-rating">
                                         <span class="stars">★★★★★</span>
                                     </div>
-                                    <button class="add-to-cart" onclick="addToCart(this)">
+                                    <button class="add-to-cart " onclick="addToCart(this)" >
                                         <i class="fas fa-shopping-bag"></i>
                                     </button>
                                 </div>
@@ -977,109 +978,9 @@
         });
     </script>
 
-    <script>
-        function addToCartFromModal() {
-            const productName = document.getElementById('modalProductName')?.textContent.trim();
-            const productPrice = document.getElementById('modalProductPrice')?.textContent.trim();
-            const productImage = document.getElementById('modalProductImage')?.src;
-            const quantity = parseInt(document.getElementById('quantityInput')?.value || 1);
-
-            if (!productName || !productPrice || !productImage) {
-                console.error("Modal product data missing!");
-                return;
-            }
-
-            // ---------------------------
-            // GET CART FROM localStorage
-            // ---------------------------
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-            // check if product already in cart
-            let existing = cart.find(item => item.name === productName);
-
-            if (existing) {
-                existing.quantity += quantity;
-            } else {
-                cart.push({
-                    name: productName,
-                    price: productPrice,
-                    image: productImage,
-                    quantity: quantity
-                });
-            }
-
-            // save back to localStorage
-            localStorage.setItem("cart", JSON.stringify(cart));
-
-            // update cart count
-            updateCartCount();
-
-            // ---------------------------
-            // ADD BUTTON ANIMATION
-            // ---------------------------
-            const btn = document.querySelector(".modal-add-to-cart");
-            const originalText = btn.innerHTML;
-
-            btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-            btn.style.background = "#02B290";
-
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = "";
-            }, 1200);
-
-            // close modal after animation
-            setTimeout(closeQuickView, 1300);
-        }
-
-        // save back to localStorage
-        localStorage.setItem("cart", JSON.stringify(cart));
-
-        // update cart count
-        updateCartCount();
-
-        // ---------------------------
-        // ADD BUTTON ANIMATION
-        // ---------------------------
-        const btn = document.querySelector(".modal-add-to-cart");
-        const originalText = btn.innerHTML;
-
-        btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-        btn.style.background = "#02B290";
-
-        setTimeout(() => {
-            btn.innerHTML = originalText;
-            btn.style.background = "";
-        }, 1200);
-
-        // close modal after animation
-        setTimeout(closeQuickView, 1300);
+    
 
 
-        // ------------------------------------
-        // Update cart count in header
-        // ------------------------------------
-        // function updateCartCount() {
-        //     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        //     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-        //     const cartCount = document.getElementById("cart-count");
-        //     if (cartCount) cartCount.textContent = count;
-        // }
-    </script>
-
-    <script>
-        // ------------------------------------
-        // Update cart count in header
-        // ------------------------------------ -->
-        function updateCartCount() {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-            const cartCount = document.getElementById("cart-count");
-            if (cartCount) cartCount.textContent = count;
-        }
-    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -1175,6 +1076,7 @@
             state.search = searchQuery.toLowerCase().trim();
             renderProducts();
         } else {
+            //  renderProducts();
             resetFilters();
         }
     </script>

@@ -14,6 +14,7 @@ function updateCartCount() {
 
 // ========== Add to Cart ==========
 function addToCart(button) {
+    
     const productInfo = button.closest('.product-info');
     const productCard = button.closest('.product-card');
 
@@ -21,7 +22,7 @@ function addToCart(button) {
     const productName = productInfo.querySelector('.product-name')?.textContent.trim() || '';
 
     const product = {
-        id: productName, // ✅ NOW EVERY PRODUCT GETS AN ID
+        id: productName,
         name: productName,
         price: productInfo.querySelector('.current-price')?.textContent.trim() || '',
         image: productCard?.querySelector('.product-image')?.src || '',
@@ -30,7 +31,6 @@ function addToCart(button) {
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     
-    // ✅ Find existing product by ID (more reliable than name)
     const existing = cart.find(item => item.id === product.id);
     console.log("cart>>>>", cart);
     
@@ -42,15 +42,38 @@ function addToCart(button) {
 
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
+    updateAddToCartButtons();
     showNotification('Item added to cart');
 }
 
-// ========== Load Cart Items ==========
-// ============================================
-// SKELETON LOADER - ADD THIS TO YOUR EXISTING addtocart.js
-// ============================================
+// ========== Update Add to Cart Buttons ==========
+function updateAddToCartButtons() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    console.log("cart??????????",cart);
+    
 
-// Show skeleton loader
+    document.querySelectorAll('.product-card').forEach(card => {
+        const name = card.querySelector('.product-name')?.textContent.trim();
+        const btn = card.querySelector('.add-to-cart');
+
+        console.log("name",name);
+        if (!btn || !name) return;
+
+        const exists = cart.some(item => item.id === name);
+        console.log("exists",exists);
+        
+
+        if (exists) {
+            btn.classList.add('added');
+            btn.disabled = true;
+        } else {
+            btn.classList.remove('added');
+            btn.disabled = false;
+        }
+    });
+}
+
+// ========== Show Cart Skeleton ==========
 function showCartSkeleton() {
     const container = document.getElementById('cartItemsContainer');
     if (!container) return;
@@ -86,17 +109,13 @@ function showCartSkeleton() {
     `;
 }
 
-// ============================================
-// REPLACE YOUR loadCartItems() WITH THIS:
-// ============================================
+// ========== Load Cart Items ==========
 function loadCartItems() {
     const container = document.getElementById('cartItemsContainer');
     if (!container) return; 
 
-    // 👉 SHOW SKELETON FIRST
     showCartSkeleton();
 
-    // 👉 WAIT 800ms THEN SHOW REAL DATA
     setTimeout(() => {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -138,7 +157,7 @@ function loadCartItems() {
         `).join('');
 
         updateCartSummary();
-    }, 800); // 👈 Change this number for faster/slower loading
+    }, 800);
 }
 
 // ========== Calculate Item Total ==========
@@ -157,6 +176,7 @@ function updateQuantity(index, change) {
         localStorage.setItem('cart', JSON.stringify(cart));
         loadCartItems();
         updateCartCount();
+        updateAddToCartButtons();
     }
 }
 
@@ -167,18 +187,17 @@ function removeFromCart(index) {
     localStorage.setItem('cart', JSON.stringify(cart));
     loadCartItems();
     updateCartCount();
+    updateAddToCartButtons();
     showNotification('Item removed from cart');
 }
 
-// ========== Update Cart Summary (Single Function) ==========
+// ========== Update Cart Summary ==========
 function updateCartSummary() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     let subtotal = 0;
 
-    // Check if cart is empty
     const isCartEmpty = cart.length === 0;
 
-    // Calculate subtotal only if cart has items
     if (!isCartEmpty) {
         cart.forEach(item => {
             const price = parseFloat(item.price.replace('$', '').trim());
@@ -186,12 +205,9 @@ function updateCartSummary() {
         });
     }
 
-    // SHIPPING LOGIC
     const shippingCost = isCartEmpty ? 0 : 22.00;
-
     const total = subtotal + shippingCost;
 
-    // Update elements
     const subtotalEl = document.getElementById('subtotal') || document.getElementById('cartSubtotal');
     const shippingEl = document.getElementById('shippingCost');
     const totalEl = document.getElementById('total') || document.getElementById('cartTotal');
@@ -200,9 +216,6 @@ function updateCartSummary() {
     if (shippingEl) shippingEl.textContent = `$${shippingCost.toFixed(2)}`;
     if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
 }
-
-// ⭐ Run automatically when page loads — no refresh needed
-document.addEventListener("DOMContentLoaded", updateCartSummary);
 
 // ========== Show Notification ==========
 function showNotification(message, type = 'success') {
@@ -242,10 +255,29 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ========== DOM Content Loaded ==========
+// ========== DOM Content Loaded - FIX IS HERE ==========
 document.addEventListener('DOMContentLoaded', function() {
-    loadCartItems();
+    // ✅ THIS RUNS WHEN DOM IS READY
     updateCartCount();
+    loadCartItems();
+    // updateAddToCartButtons();
+    setTimeout(() => {
+        updateAddToCartButtons();
+    }, 700);
+    if (document.getElementById('cartItemsContainer')) {
+        loadCartItems();
+    }
+
+    updateCartSummary();
+});
+
+// ✅ ALSO UPDATE ON PAGE SHOW (handles back/forward navigation)
+window.addEventListener('pageshow', function(event) {
+    updateCartCount();
+    // updateAddToCartButtons();
+    setTimeout(() => {
+        updateAddToCartButtons();
+    }, 100);
 });
 
 // ========== Shipping & Address Modal ==========

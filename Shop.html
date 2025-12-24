@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="./css/h_style.css">
 	<link rel="stylesheet" href="./index.css">
 	<link rel="stylesheet" href="./css/home.css">
+	<link rel="stylesheet" href="./css/rushita.css">
 	<!-- Tailwind CSS -->
 	<script src="https://cdn.tailwindcss.com"></script>
 	<!-- Google Fonts & Font Awesome -->
@@ -562,138 +563,8 @@
 	<script src="./js/wishlist.js"></script>
 	<script src="./js/addtocart.js"></script>
 	<script src="./js/Search.js"></script>
-	<script>
-		function addToCartFromModal() {
-			const productName = document.getElementById('modalProductName')?.textContent.trim();
-			const productPrice = document.getElementById('modalProductPrice')?.textContent.trim();
-			const productImage = document.getElementById('modalProductImage')?.src;
-			const quantity = parseInt(document.getElementById('quantityInput')?.value || 1);
-
-			if (!productName || !productPrice || !productImage) {
-				console.error("Modal product data missing!");
-				return;
-			}
-
-			// ---------------------------
-			// GET CART FROM localStorage
-			// ---------------------------
-			let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-			// check if product already in cart
-			let existing = cart.find(item => item.name === productName);
-
-			if (existing) {
-				existing.quantity += quantity;
-			} else {
-				cart.push({
-					name: productName,
-					price: productPrice,
-					image: productImage,
-					quantity: quantity
-				});
-			}
-
-			// save back to localStorage
-			localStorage.setItem("cart", JSON.stringify(cart));
-
-			// update cart count
-			updateCartCount();
-
-			// ---------------------------
-			// ADD BUTTON ANIMATION
-			// ---------------------------
-			const btn = document.querySelector(".modal-add-to-cart");
-			const originalText = btn.innerHTML;
-
-			btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-			btn.style.background = "#02B290";
-
-			setTimeout(() => {
-				btn.innerHTML = originalText;
-				btn.style.background = "";
-			}, 1200);
-
-			// close modal after animation
-			setTimeout(closeQuickView, 1300);
-		}
-
-		// ------------------------------------
-		// Update cart count in header
-		// ------------------------------------
-		// function updateCartCount() {
-		//     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-		//     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-		//     const cartCount = document.getElementById("cart-count");
-		//     if (cartCount) cartCount.textContent = count;
-		// }
-	</script>
-	<script>
-		function addToCartFromModal() {
-			const productName = document.getElementById('modalProductName')?.textContent.trim();
-			const productPrice = document.getElementById('modalProductPrice')?.textContent.trim();
-			const productImage = document.getElementById('modalProductImage')?.src;
-			const quantity = parseInt(document.getElementById('quantityInput')?.value || 1);
-
-			if (!productName || !productPrice || !productImage) {
-				console.error("Modal product data missing!");
-				return;
-			}
-
-			// ---------------------------
-			// GET CART FROM localStorage
-			// ---------------------------
-			let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-			// check if product already in cart
-			let existing = cart.find(item => item.name === productName);
-
-			if (existing) {
-				existing.quantity += quantity;
-			} else {
-				cart.push({
-					name: productName,
-					price: productPrice,
-					image: productImage,
-					quantity: quantity
-				});
-			}
-
-			// save back to localStorage
-			localStorage.setItem("cart", JSON.stringify(cart));
-
-			// update cart count
-			updateCartCount();
-
-			// ---------------------------
-			// ADD BUTTON ANIMATION
-			// ---------------------------
-			const btn = document.querySelector(".modal-add-to-cart");
-			const originalText = btn.innerHTML;
-
-			btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-			btn.style.background = "#02B290";
-
-			setTimeout(() => {
-				btn.innerHTML = originalText;
-				btn.style.background = "";
-			}, 1200);
-
-			// close modal after animation
-			setTimeout(closeQuickView, 1300);
-		}
-
-		// ------------------------------------
-		// Update cart count in header
-		// ------------------------------------
-		function updateCartCount() {
-			let cart = JSON.parse(localStorage.getItem("cart")) || [];
-			const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-			const cartCount = document.getElementById("cart-count");
-			if (cartCount) cartCount.textContent = count;
-		}
-	</script>
+	
+	
 	<script>
 		// Offcanvas filter controls (keep behavior)
 		function openFilter() {
@@ -881,8 +752,8 @@
 						</div>
 						<div class="flex items-center justify-between">
 							<div class="product-rating text-yellow-500">${p.rating}</div>
-							<button class="add-to-cart bg-[#02B290] text-white px-3 py-1 rounded-md" onclick="event.stopPropagation(); addToCart(this)" data-index="${globalIndex}">
-							<i class="fas fa-shopping-bag"></i>
+							<button class="add-to-cart r_cart  text-white px-3 py-1 rounded-md" style="color:#02B290;" onclick="event.stopPropagation(); addToCart(this)" data-index="${globalIndex}">
+							<i class="fas fa-shopping-bag"></i> 
 							</button>
 						</div>
 					</div>
@@ -893,8 +764,9 @@
 
 				// Hide skeleton, show products
 				hideSkeleton();
+				checkWishlistStatus();
 
-			}, 600); // adjust loading delay
+			}, 100); // adjust loading delay
 		}
 
 		function renderPagination(totalPages) {

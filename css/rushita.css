@@ -84,7 +84,21 @@ select option:hover {
 .sticky + .content {
   padding-top: 150px;
 }
+.r_cart:hover {
+  background-color: #02B290;
+  color: white !important;
+  cursor: pointer;
+  padding: 6px 12px;
+  font-size: 14px;
 
+}
+.add-to-cart.added {
+    background-color: #02B290;
+    color: white !important;
+    cursor: not-allowed;
+    padding: 6px 12px;
+    font-size: 14px;
+}
 /* UNIVERSAL DROPDOWN SCROLL FIX */
 .dropdown-scroll,
 nav .group:hover > div,
