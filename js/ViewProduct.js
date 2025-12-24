@@ -563,7 +563,7 @@ const allProducts = [
   },
   {
     name: "Organic Onions",
-    basePrice: 2.5,
+    basePrice: 28.5,
     baseUnit: "kg",
     rating: "★★★★☆",
     img: "./images/onion.jpg",
@@ -639,6 +639,146 @@ const allProducts = [
       { label: "500g", multiplier: 0.5 },
       { label: "1 Kg", multiplier: 1 },
       { label: "2 Kg", multiplier: 2 }
+    ]
+  },
+  {
+    name: "Mix Dryfruits",
+    basePrice: 45.0,
+    baseUnit: "kg",
+    rating: "★★★★★",
+    img: "./images/dryfruits.jpg",
+    badge: "New",
+    category: "Snacks & Branded Foods",
+    quantity: 250,
+    unit: "g",
+    sku: "SB-004",
+    description: "Healthy mix of assorted dry fruits.",
+    images: ["./images/dryfruits.jpg", "./images/dryfruits1.jpg", "./images/dryfruits2.jpg"],
+    options: [
+      { label: "250g", multiplier: 0.25 },
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 }
+    ]
+  },
+  {
+    name: "Packed Green Beans",
+    basePrice: 12.0,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/green-beans.jpg",
+    badge: "Fresh",
+    category: "Frozen Foods",
+    quantity: 500,
+    unit: "g",
+    sku: "FF-003",
+    description: "Fresh green beans packed for convenience.",
+    images: ["./images/green-beans.jpg", "./images/green-beans1.jpg", "./images/green-beans2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Sparkling Soft Drinks",
+    basePrice: 20.00,
+    baseUnit: "l",
+    rating: "★★★★☆",
+    img: "./images/soft-drinks.jpg",
+    badge: "Cold",
+    category: "Beverages",
+    quantity: 1,
+    unit: "bottle",
+    sku: "BV-004",
+    description: "Refreshing sparkling soft drinks.",
+    images: ["./images/soft-drinks.jpg", "./images/soft-drinks1.jpg", "./images/soft-drinks2.jpg"],
+    options: [
+      { label: "1 bottle", multiplier: 1 },
+      { label: "2 bottles", multiplier: 2 },
+      { label: "6 bottles", multiplier: 6 },
+      { label: "12 bottles", multiplier: 12 }
+    ]
+  },
+  {
+    name: "Organic Orange",
+    basePrice: 8.80,
+    baseUnit: "kg",
+    rating: "★★★★★",
+    img: "./images/orange.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-006",
+    description: "Fresh and organic orange for cooking.",
+    images: ["./images/orange.jpg", "./images/orange1.jpg", "./images/orange2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Organic Green Cabbage",
+    basePrice: 3.50,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/green-cabbage.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-007",
+    description: "Fresh and organic green cabbage for cooking.",
+    images: ["./images/green-cabbage.jpg", "./images/green-cabbage1.jpg", "./images/green-cabbage2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Organic Fresh Strawberry",
+    basePrice: 7.50,
+    baseUnit: "kg",
+    rating: "★★★★★",
+    img: "./images/strawberry.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-008",
+    description: "Fresh and organic strawberry for cooking.",
+    images: ["./images/strawberry.jpg", "./images/strawberry1.jpg", "./images/strawberry2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Organic Broccoli",
+    basePrice: 8.00,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/broccoli.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-009",
+    description: "Fresh and organic broccoli for cooking.",
+    images: ["./images/broccoli.jpg", "./images/broccoli1.jpg", "./images/broccoli2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
     ]
   }
 ];
