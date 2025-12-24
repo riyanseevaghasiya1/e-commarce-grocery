@@ -227,6 +227,16 @@
       document.getElementById("displayOrderDate").textContent = today;
       document.getElementById("displayPaymentMethod").textContent = paymentMethod;
       document.getElementById("displayPaymentMethod2").textContent = paymentMethod;
+      const fullAddress = `
+  ${addressData.firstName} ${addressData.lastName},
+  ${addressData.address1},
+  ${addressData.city} - ${addressData.zipcode},
+  ${document.getElementById("selectedCountry1")?.textContent?.trim() || ""},
+  ${document.getElementById("selectedCountry")?.textContent?.trim() || ""}
+`.replace(/\s+/g, " ").trim();
+      document.getElementById("displayAddress").textContent = fullAddress;
+      document.getElementById("displayOrderNote").textContent = addressData.notes || "N/A";
+      
 
       // Build confirmation table
       const tbody = confirmationSection.querySelector("tbody");

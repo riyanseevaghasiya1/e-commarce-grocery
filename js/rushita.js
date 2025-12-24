@@ -41,7 +41,8 @@ const pagesToHideSearch = [
   "Terms&condition.html",
   "AboutUS.html",
   "ContactUs.html",
-  "Blog.html"
+  "Blog.html",
+  "ReturnPolicy.html"
 ];
 
 const currentPage = window.location.pathname.split("/").pop();
@@ -158,7 +159,8 @@ const pagesToHideSearch = [
   "Terms&condition.html",
   "AboutUS.html",
   "ContactUs.html",
-  "Blog.html"
+  "Blog.html",
+   "ReturnPolicy.html"
 ];
 
 const currentPage = window.location.pathname.split("/").pop();
