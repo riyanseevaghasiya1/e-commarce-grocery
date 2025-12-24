@@ -652,7 +652,10 @@
 		productArea.appendChild(paginationEl);
 
 		// Helpers
-		const parsePrice = (p) => Number(p.replace('$', '')) || 0;
+		const parsePrice = (p) => {
+			if (typeof p === 'number') return p;
+			return Number(String(p || '').replace('$', '').trim()) || 0;
+		};
 		const ratingToNum = (r) => (r.match(/★/g) || []).length;
 		const normalizeBadge = (b) => {
 			if (!b) return '';
@@ -664,6 +667,25 @@
 			if (x.includes('vegan')) return 'Vegan';
 			return b;
 		};
+		function qtyToBaseUnits(qty, unit) {
+			if (!qty || !unit) return 1;
+			const u = String(unit).toLowerCase();
+			if (u === 'kg' || u === 'l') return qty;
+			if (u === 'g' || u === 'ml') return qty / 1000;
+			if (u === 'pcs') return qty;
+			return 1;
+		}
+		function getCardPriceNumber(p) {
+			if (typeof p.basePrice === 'number') {
+				const mult = qtyToBaseUnits(p.quantity, p.unit) || 1;
+				return Number((p.basePrice * mult).toFixed(2));
+			}
+			return parsePrice(p.price);
+		}
+		function formatPriceForCard(p) {
+			const num = getCardPriceNumber(p);
+			return `$${Number(num).toFixed(2)}`;
+		}
 
 		// Build dynamic filter options
 		const categories = [
@@ -683,7 +705,7 @@
 			"Frozen Foods"
 		];
 		const badges = Array.from(new Set(products.map(p => normalizeBadge(p.badge)).filter(Boolean)));
-		const priceMax = Math.ceil(Math.max(...products.map(p => parsePrice(p.price))) || 500);
+		const priceMax = Math.ceil(Math.max(...products.map(p => getCardPriceNumber(p))) || 500);
 
 		function renderCheckboxList(containerId, items, group) {
 			const container = document.getElementById(containerId);
@@ -763,7 +785,7 @@
 				}
 				const badgeNorm = normalizeBadge(p.badge);
 				const badgeMatch = state.badges.size ? (badgeNorm && state.badges.has(badgeNorm)) : true;
-				const priceMatch = parsePrice(p.price) <= state.maxPrice;
+				const priceMatch = getCardPriceNumber(p) <= state.maxPrice;
 				const ratingMatch = ratingToNum(p.rating) >= state.minRating;
 				return nameMatch && categoryMatch && badgeMatch && priceMatch && ratingMatch;
 			});
@@ -835,7 +857,7 @@
 							</span>
 						</h4>
 						<div class="product-price">
-							<span class="current-price font-semibold">${p.price}</span>
+							<span class="current-price font-semibold">${formatPriceForCard(p)}</span>
 							${p.oldPrice ? `<span class="old-price text-sm line-through ml-2 text-gray-400">${p.oldPrice}</span>` : ""}
 						</div>
 						<div class="flex items-center justify-between">
