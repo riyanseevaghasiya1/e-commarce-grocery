@@ -73,7 +73,6 @@
 		</div>
 	</div>
 
-
 	<!-- Banner -->
 	<div class="relative w-full h-auto bg-cover bg-center flex items-center justify-center 
     py-10 sm:py-16 px-4" style="background-image: url('images/pages-hero-bg.webp');">
@@ -129,30 +128,29 @@
 							class="bg-[#02B290] text-white w-8 h-8 rounded-md text-[22px]">+</button>
 					</div>
 
-					<div class="flex flex-wrap items-center gap-3 mb-6">
-						<h4 class="w-full sm:w-auto">Weight :</h4>
+					<div class="flex flex-wrap items-center gap-3 mb-6" id="weightSection">
+						<h4 class="w-full sm:w-auto" id="weightLabel">Weight :</h4>
 
-						<div onclick="selectWeight(this)"
-							class="weight-option rounded-full px-4 py-1 cursor-pointer transition">
+						<div class="weight-option rounded-full px-4 py-1 cursor-pointer transition"
+							onclick="selectWeight(this)">
 							500g
 						</div>
 
-						<div onclick="selectWeight(this)"
-							class="weight-option rounded-full px-4 py-1 cursor-pointer transition bg-[#02B290] text-white">
+						<div class="weight-option rounded-full px-4 py-1 cursor-pointer transition bg-[#02B290] text-white"
+							onclick="selectWeight(this)">
 							1 Kg
 						</div>
 
-						<div onclick="selectWeight(this)"
-							class="weight-option rounded-full px-4 py-1 cursor-pointer transition">
+						<div class="weight-option rounded-full px-4 py-1 cursor-pointer transition"
+							onclick="selectWeight(this)">
 							2 Kg
 						</div>
 
-						<div onclick="selectWeight(this)"
-							class="weight-option rounded-full px-4 py-1 cursor-pointer transition">
+						<div class="weight-option rounded-full px-4 py-1 cursor-pointer transition"
+							onclick="selectWeight(this)">
 							5 Kg
 						</div>
 					</div>
-
 
 					<button
 						class="bg-[#02B290] hover:bg-[#4dc9b1] text-white py-2 text-[18px] rounded-lg font-medium transition mb-3"
@@ -275,12 +273,132 @@
 
 	<div id="footer_add"></div>
 
-	<script src="./js/viewproduct.js"></script>
+    <script src="./js/ViewProduct.js"></script>
 	<script src="./js/rushita.js"></script>
 	<script src="./js/wishlist.js"></script>
 	<script src="./js/addtocart.js"></script>
+
+	<script>
+		function renderWeightOptions(product) {
+			const section = document.getElementById("weightSection");
+			const label = document.getElementById("weightLabel");
+
+			if (!section) return;
+
+			const weightDivs = section.querySelectorAll(".weight-option");
+
+			//  SOLID (Kg / g)
+			if (product.unit === "Kg" || product.unit === "g") {
+				label.innerText = "Weight :";
+
+				const solidValues = ["500g", "1 Kg", "2 Kg", "5 Kg"];
+
+				weightDivs.forEach((div, i) => {
+					div.innerText = solidValues[i];
+					div.style.display = "inline-block";
+				});
+			}
+
+			//  LIQUID (ml / L)
+			else if (product.unit === "ml" || product.unit === "L") {
+				label.innerText = "Volume :";
+
+				const liquidValues = ["250 ml", "500 ml", "1 L", "2 L"];
+
+				weightDivs.forEach((div, i) => {
+					if (liquidValues[i]) {
+						div.innerText = liquidValues[i];
+						div.style.display = "inline-block";
+					} else {
+						div.style.display = "none";
+					}
+				});
+			}
+
+			//  BAKERY / PCS
+			else if (product.unit === "pcs") {
+				label.innerText = "Pieces :";
+
+				const pieceValues = ["1 pcs", "2 pcs", "5 pcs", "10 pcs"];
+
+				weightDivs.forEach((div, i) => {
+					div.innerText = pieceValues[i] || "";
+					div.style.display = pieceValues[i] ? "inline-block" : "none";
+				});
+			}
+
+			// Unknown unit → hide selector
+			else {
+				section.style.display = "none";
+			}
+		}
+
+	</script>
+
 	<!-- JS -->
 	<script>
+		// Helpers for price calculation
+		function parsePrice(str) {
+			const m = (str || '').match(/(\d+(?:\.\d+)?)/);
+			return m ? parseFloat(m[1]) : 0;
+		}
+
+		function qtyToBaseUnits(qty, unit) {
+			if (!qty || !unit) return 1;
+			const u = unit.toLowerCase();
+			if (u === 'kg' || u === 'l') return qty;
+			if (u === 'g' || u === 'ml') return qty / 1000;
+			if (u === 'pcs') return qty;
+			return 1;
+		}
+
+		function textToBaseUnits(text) {
+			if (!text) return 1;
+			const t = text.toLowerCase();
+			const m = t.match(/(\d+(?:\.\d+)?)/);
+			const num = m ? parseFloat(m[1]) : 1;
+			if (t.includes('ml') || t.includes('g')) return num / 1000;
+			if (t.includes('l') || t.includes('kg')) return num;
+			if (t.includes('pcs')) return num;
+			return 1;
+		}
+
+        // Weighted price: prefer cached numeric base-per-unit to avoid drift across navigations
+        function computeWeightedPriceFromText(basePriceText, product, selectedText) {
+            const cachedBasePrice = typeof window.basePrice === 'number' ? window.basePrice : parsePrice(product?.price);
+            const basePrice = basePriceText ? parsePrice(basePriceText) : cachedBasePrice;
+            const cachedBaseQty = typeof window.baseUnitQty === 'number' ? window.baseUnitQty : qtyToBaseUnits(product?.quantity, product?.unit) || 1;
+            const perUnit = typeof window.basePerUnit === 'number' ? window.basePerUnit : (basePrice / cachedBaseQty);
+            const selectedQty = textToBaseUnits(selectedText) || 1;
+            return perUnit * selectedQty;
+        }
+
+		function setDisplayedPrice(amount) {
+			const priceContainer = document.getElementById('currentPrice');
+			if (!priceContainer) return;
+			const oldSpan = priceContainer.querySelector('#price');
+			const newMain = `$${Number(amount).toFixed(2)}`;
+			priceContainer.innerHTML = oldSpan ? `${newMain} <span id="price" class="line-through text-gray-400 text-lg ml-2">${oldSpan.textContent}</span>` : newMain;
+		}
+
+		function setDefaultActiveWeight(product) {
+			const opts = Array.from(document.querySelectorAll('.weight-option'));
+			if (!opts.length) return;
+			const desired = (product.unit === 'ml' ? `${product.quantity} ml` :
+				product.unit === 'L' ? `${product.quantity} L` :
+				product.unit === 'g' ? `${product.quantity} g` :
+				product.unit === 'pcs' ? `${product.quantity} pcs` : `${product.quantity} Kg`).toLowerCase();
+			let match = opts.find(o => o.textContent.trim().toLowerCase() === desired);
+			if (!match) {
+				// If not present, override the first option to product's base qty
+				opts[0].textContent = desired.replace('kg', 'Kg').replace('l', 'L').replace('ml', 'ml').replace('g', 'g');
+				match = opts[0];
+			}
+			opts.forEach(o => o.classList.remove('bg-[#02B290]', 'text-white'));
+			match.classList.add('bg-[#02B290]', 'text-white');
+			// Do NOT recompute price here — keep card price as-is by default
+		}
+
 		// Load product data on page load
 		document.addEventListener('DOMContentLoaded', function () {
 			let product = null;
@@ -304,6 +422,8 @@
 			}
 
 			if (product) {
+				// expose globally for handlers
+				window.currentProduct = product;
 				// Update main image
 				const mainImg = document.getElementById('mainImg');
 				if (mainImg) {
@@ -338,15 +458,17 @@
 					mainProductName.textContent = product.name;
 				}
 
-
-				// Update price - find the price div by looking for the parent div containing price
-				const detailsDiv = document.querySelector('.flex.flex-col.justify-center');
-				if (detailsDiv) {
-					const priceDiv = detailsDiv.querySelector('.text-\\[\\#02B290\\]');
-					if (priceDiv && product.price) {
-						priceDiv.innerHTML = product.price + (product.oldPrice ? `<span class="line-through text-gray-400 text-lg ml-2">${product.oldPrice}</span>` : '');
-					}
-				}
+                // Update price using the canonical product card price
+                const priceContainer = document.getElementById('currentPrice');
+                if (priceContainer && product.price) {
+                    const oldMarkup = product.oldPrice ? `<span id="price" class="line-through text-gray-400 text-lg ml-2">${product.oldPrice}</span>` : '';
+                    priceContainer.innerHTML = `${product.price}${oldMarkup}`;
+                    // Cache numeric base references for stable recalculations on weight changes
+                    window.basePrice = parsePrice(product.price);
+                    window.baseUnitQty = qtyToBaseUnits(product.quantity, product.unit) || 1;
+                    window.basePerUnit = window.basePrice / window.baseUnitQty;
+                    window.basePriceText = product.price; // textual fallback if needed
+                }
 
 				// Update description
 				const description = document.querySelector('.text-gray-600.mb-4');
@@ -362,14 +484,30 @@
 
 				// Update SKU if there's a section for it
 				// You can add SKU display in the product info section if needed
+
+				// Render dynamic weight/volume options based on unit
+				renderWeightOptions(product);
+				// Set default active weight from product's array data and update price
+				setDefaultActiveWeight(product);
+
+				// Show content and hide skeleton after product resolves
+				const mainContent = document.getElementById('productMainContent');
+				if (mainContent) mainContent.style.display = 'block';
+				const skeleton = document.getElementById('productSkeleton');
+				if (skeleton) skeleton.style.display = 'none';
 			}
 		});
 
 		function selectWeight(el) {
-			document.querySelectorAll('.weight-option').forEach(opt => {
-				opt.classList.remove('bg-[#02B290]', 'text-white');
+			document.querySelectorAll(".weight-option").forEach(opt => {
+				opt.classList.remove("bg-[#02B290]", "text-white");
 			});
-			el.classList.add('bg-[#02B290]', 'text-white');
+			el.classList.add("bg-[#02B290]", "text-white");
+            // Update displayed price on weight change using cached per-unit
+            if (window.currentProduct) {
+                const price = computeWeightedPriceFromText(null, window.currentProduct, el.textContent.trim());
+                setDisplayedPrice(price);
+            }
 		}
 		document.querySelectorAll('div[onclick="selectWeight(this)"]').forEach(opt => {
 			opt.classList.add('weight-option');
@@ -395,6 +533,18 @@
 		}
 	</script>
 	<script>
+		function computeWeightMultiplier(selectedWeight) {
+			if (!selectedWeight) return 1;
+			const text = selectedWeight.toLowerCase();
+			const numMatch = text.match(/(\d+(?:\.\d+)?)/);
+			const num = numMatch ? parseFloat(numMatch[1]) : 1;
+			if (text.includes('ml')) return num / 1000;
+			if (text.includes('l')) return num;
+			if (text.includes('kg')) return num;
+			if (text.includes('g')) return num / 1000;
+			return 1;
+		}
+
 		function addToCart1(button) {
 			const container = button.closest('.flex.flex-col') || document.body;
 
@@ -425,20 +575,15 @@
 
 			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
 
-			// ⭐ Weight Multiplier
-			let weightMultiplier = 1;
+			// Weight/Volume multiplier for Kg/g/L/ml
+			const weightMultiplier = computeWeightMultiplier(selectedWeight);
 
-			if (selectedWeight.includes("500")) weightMultiplier = 0.5;
-			else if (selectedWeight.includes("1 Kg")) weightMultiplier = 1;
-			else if (selectedWeight.includes("2 Kg")) weightMultiplier = 2;
-			else if (selectedWeight.includes("5 Kg")) weightMultiplier = 5;
-
-			// ⭐ FINAL PRICE = Base Price × Weight
-			const finalPrice = (productPrice * weightMultiplier).toFixed(2);
+			// Price already reflects selected weight in UI; use it directly
+			const finalPrice = Number(productPrice).toFixed(2);
 
 			const product = {
 				name: productName,
-				price: finalPrice,      // ⭐ FINAL PRICE
+				price: finalPrice,      // FINAL PRICE
 				image: productImage,
 				quantity: quantity,
 				weight: selectedWeight
@@ -468,8 +613,6 @@
 			showNotification('Item added to cart');
 		}
 	</script>
-
-
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
@@ -549,12 +692,19 @@
 				imageBase64 = await compressImage(imageFile);
 			}
 
+			// Capture which product was reviewed
+			const productName =
+				document.querySelector(".productname")?.textContent.trim() ||
+				document.querySelector(".mainproductname")?.textContent.trim() ||
+				"Product";
+
 			let reviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
 
 			reviews.push({
 				name,
-				rating,
+				rating: parseInt(rating, 10) || 0,
 				review,
+				product: productName,
 				image: imageBase64 || "https://randomuser.me/api/portraits/women/10.jpg"
 			});
 
@@ -563,7 +713,6 @@
 			alert("Review Submitted Successfully!");
 			e.target.reset();
 		});
-
 
 		// ✔ Compress + auto-crop high-quality image
 		function compressImage(file) {

@@ -35,7 +35,7 @@ $(document).ready(function () {
             480: { items: 2 },
             768: { items: 3 },
             992: { items: 4 },
-            1200: { items: 4 }
+            1200: { items: 5 }
         }
     });
 
@@ -559,10 +559,13 @@ $(document).ready(function () {
         const productNameElement = cardElement.querySelector('.product-name');
         if (!productNameElement) return;
 
-        const productName = productNameElement.textContent.trim();
+        // Card titles may include weight in parentheses, e.g., "Wheat Flour (10 Kg)"
+        // Strip trailing parentheses to match canonical names in ViewProduct.js
+        const rawName = productNameElement.textContent.trim();
+        const productName = rawName.replace(/\s*\(.*\)\s*$/, '').trim();
 
         if (typeof allProducts !== 'undefined' && allProducts.length > 0) {
-            let productIndex = allProducts.findIndex(p => p.name === productName);
+            let productIndex = allProducts.findIndex(p => p.name.toLowerCase() === productName.toLowerCase());
             if (productIndex === -1) {
                 productIndex = allProducts.findIndex(p =>
                     p.name.toLowerCase().includes(productName.toLowerCase()) ||
@@ -576,6 +579,14 @@ $(document).ready(function () {
                 const oldPriceElement = cardElement.querySelector('.old-price');
                 const ratingElement = cardElement.querySelector('.stars');
 
+                // Heuristics for quantity/unit when card does not map to allProducts
+                const heuristics = (function (n) {
+                    const nameLower = (n || '').toLowerCase();
+                    if (/(drink|soft|juice|oil|milk)/.test(nameLower)) return { quantity: 1, unit: 'L' };
+                    if (/(diaper|egg|bread|cookie|kurkure|piece|pcs)/.test(nameLower)) return { quantity: 1, unit: 'pcs' };
+                    return { quantity: 1, unit: 'Kg' };
+                })(productName);
+
                 const productData = {
                     name: productName,
                     price: productPrice ? productPrice.textContent.trim() : '$0.00',
@@ -585,7 +596,9 @@ $(document).ready(function () {
                     badge: '',
                     category: 'Vegetables',
                     sku: 'HOME-' + Date.now(),
-                    description: `${productName} - Fresh and organic product delivered right to your doorstep.`
+                    description: `${productName} - Fresh and organic product delivered right to your doorstep.`,
+                    quantity: heuristics.quantity,
+                    unit: heuristics.unit
                 };
 
                 sessionStorage.setItem('selectedProductData', JSON.stringify(productData));
