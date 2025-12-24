@@ -194,68 +194,79 @@ function calculateTotals() {
 function renderCartItems() {
   const cartItemsContainer = document.getElementById("cartItems");
   if (!cartItemsContainer) return;
-  
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
   cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {
-    cartItemsContainer.innerHTML = `<p class="text-gray-500 text-center py-4">Your cart is empty 🛒</p>`;
-  } else {
-    cart.forEach((item, index) => {
-      const itemDiv = document.createElement("div");
-      itemDiv.classList.add("flex", "items-center", "justify-between", "mb-4");
-
-      itemDiv.innerHTML = `
-        <div class="flex items-center space-x-4">
-          <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg border">
-          <div>
-            <h3 class="font-semibold text-gray-800">${item.name}</h3>
-            <p class="text-sm text-gray-600 current-price">${item.price}</p>
-          </div>
-        </div>
-        <div class="flex items-center">
-          <button class="decrement bg-gray-200 px-2 py-1 rounded" data-index="${index}">−</button>
-          <span class="mx-2">${item.quantity}</span>
-          <button class="increment bg-gray-200 px-2 py-1 rounded" data-index="${index}">+</button>
-        </div>
-      `;
-      cartItemsContainer.appendChild(itemDiv);
-    });
+    cartItemsContainer.innerHTML =
+      `<p class="text-gray-500 text-center py-4">Your cart is empty 🛒</p>`;
+    return;
   }
+
+  cart.forEach((item, index) => {
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "flex items-center justify-between mb-4";
+
+    // ✅ FIX: "$3.50" → 3.50
+    const unitPrice = parseFloat(item.price.replace("$", ""));
+    const totalPrice = (unitPrice * item.quantity).toFixed(2);
+
+    itemDiv.innerHTML = `
+      <div class="flex items-center space-x-4">
+        <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg border">
+        <div>
+          <h3 class="font-semibold text-gray-800">${item.name}</h3>
+          <p class="text-sm text-gray-600">$${totalPrice}</p>
+        </div>
+      </div>
+
+      <div class="flex items-center">
+        <button class="decrement bg-gray-200 px-2 py-1 rounded" data-index="${index}">−</button>
+        <span class="mx-2">${item.quantity}</span>
+        <button class="increment bg-gray-200 px-2 py-1 rounded" data-index="${index}">+</button>
+      </div>
+    `;
+
+    cartItemsContainer.appendChild(itemDiv);
+  });
 
   attachQuantityHandlers();
   updateCartSummary();
 }
 
+
+
 // ========== Quantity Handlers ==========
 function attachQuantityHandlers() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
   document.querySelectorAll(".increment").forEach(btn => {
     btn.addEventListener("click", () => {
       const index = btn.dataset.index;
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart[index].quantity++;
+      cart[index].quantity += 1;
       localStorage.setItem("cart", JSON.stringify(cart));
       renderCartItems();
-      updateCartCount();
     });
   });
 
   document.querySelectorAll(".decrement").forEach(btn => {
     btn.addEventListener("click", () => {
       const index = btn.dataset.index;
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
       if (cart[index].quantity > 1) {
-        cart[index].quantity--;
+        cart[index].quantity -= 1;
       } else {
         cart.splice(index, 1);
       }
+
       localStorage.setItem("cart", JSON.stringify(cart));
       renderCartItems();
-      updateCartCount();
     });
   });
 }
+
+
 
 // ========== Update Cart Summary ==========
 function updateCartSummary() {
