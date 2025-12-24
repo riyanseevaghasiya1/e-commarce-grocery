@@ -749,7 +749,8 @@
                                         class="h_slider-img w-20 h-20 rounded-full object-cover mx-auto absolute -top-10 left-1/2 transform -translate-x-1/2 shadow-md border-4 border-white" />
 
                                     <h3 class="h_slider-name text-xl font-semibold mt-8">Priya Shah</h3>
-                                    <p class="h_slider-role text-gray-500 text-sm mb-4">Daily Customer</p>
+                                    <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: Organic Spinach</p>
+                                    <div class="text-yellow-400 text-lg mb-3">★★★★★</div>
                                     <p class="h_slider-text text-gray-700 italic">
                                         Fresh vegetables and fruits always arrive on time. Quality is so good that now I
                                         trust this
@@ -766,7 +767,8 @@
                                         class="h_slider-img w-20 h-20 rounded-full object-cover mx-auto absolute -top-10 left-1/2 transform -translate-x-1/2 shadow-md border-4 border-white" />
 
                                     <h3 class="h_slider-name text-xl font-semibold mt-8">Rohan Mehta</h3>
-                                    <p class="h_slider-role text-gray-500 text-sm mb-4">Working Professional</p>
+                                    <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: Farm Fresh Tomatoes</p>
+                                    <div class="text-yellow-400 text-lg mb-3">★★★★☆</div>
                                     <p class="h_slider-text text-gray-700 italic">
                                         Super fast delivery! Ordering daily essentials has become so easy. Prices are
                                         affordable and
@@ -783,7 +785,8 @@
                                         class="h_slider-img w-20 h-20 rounded-full object-cover mx-auto absolute -top-10 left-1/2 transform -translate-x-1/2 shadow-md border-4 border-white" />
 
                                     <h3 class="h_slider-name text-xl font-semibold mt-8">Nisha Patel</h3>
-                                    <p class="h_slider-role text-gray-500 text-sm mb-4">Home Maker</p>
+                                    <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: Farm Fresh Milk</p>
+                                    <div class="text-yellow-400 text-lg mb-3">★★★★★</div>
                                     <p class="h_slider-text text-gray-700 italic">
                                         I love the hygiene and packaging. Even dairy & bakery items are always fresh.
                                         This
@@ -885,8 +888,6 @@
                         <i class="fas fa-times"></i>
                     </button>
                     <div class="modal-body">
-                        <div class="modal-image-section">
-                            <img id="modalProductImage" src="" alt="Product" class="modal-product-image">                        
                         <div class="modal-image-section flex flex-col items-center gap-3" style="background: transparent;">
                             <img id="modalProductImage" src="" alt="Product" class="modal-product-image">
                             <!-- Thumbnail strip -->
@@ -1304,7 +1305,7 @@
                 }
             }
             if (!thumbs.length && img) thumbs = [img];
-            if (!thumbs.length) thumbs = [];
+            thumbs = thumbs.slice(0, 3); // limit to 3 thumbs
 
             const firstImg = thumbs[0] || img || "";
             if (firstImg) {
@@ -1411,5 +1412,4 @@
     </script>
 
 </body>
-
 </html>

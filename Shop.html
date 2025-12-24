@@ -433,7 +433,6 @@
 				<div class="modal-image-section flex flex-col items-center gap-3">
 					<img id="modalProductImage" src="" alt="Product" class="modal-product-image">
 					<div id="modalThumbnails" class="modal-thumbs"></div>
-					<div id="shopModalThumbs" class="flex gap-3 mt-1 px-2 pb-2 justify-center w-full"></div>
 				</div>
 				<div class="modal-info-section">
 					<h2 id="modalProductName">Product Name</h2>
@@ -465,24 +464,6 @@
 		/* ============================
 		   QUICK VIEW FUNCTION (SHOP PAGE)
 		   ============================ */
-		function renderShopThumbs(images) {
-			const wrap = document.getElementById("shopModalThumbs");
-			if (!wrap) return;
-			wrap.innerHTML = images.map(src => `
-				<img src="${src}" class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-[#02B290]">
-			`).join("");
-
-			wrap.querySelectorAll("img").forEach(img => {
-				img.addEventListener("click", () => {
-					document.getElementById("modalProductImage").src = img.src;
-					wrap.querySelectorAll("img").forEach(i => i.classList.remove("border-[#02B290]"));
-					img.classList.add("border-[#02B290]");
-				});
-			});
-			const first = wrap.querySelector("img");
-			if (first) first.classList.add("border-[#02B290]");
-		}
-
 		window.openQuickView = function (btn) {
 			const productCard = btn.closest(".product-card");
 			if (!productCard) return;
@@ -495,19 +476,20 @@
 
 			// Insert into modal
 			const indexAttr = btn.getAttribute("data-index");
-			let thumbs = [];
+			let thumbSources = [];
 			if (typeof allProducts !== "undefined" && Array.isArray(allProducts)) {
 				if (indexAttr !== null && !Number.isNaN(Number(indexAttr)) && allProducts[Number(indexAttr)]) {
 					const p = allProducts[Number(indexAttr)];
-					if (Array.isArray(p.images)) thumbs = p.images.filter(Boolean);
+					if (Array.isArray(p.images)) thumbSources = p.images.filter(Boolean);
 				} else {
 					const match = allProducts.find(p => p.name?.toLowerCase() === name.toLowerCase());
-					if (match && Array.isArray(match.images)) thumbs = match.images.filter(Boolean);
+					if (match && Array.isArray(match.images)) thumbSources = match.images.filter(Boolean);
 				}
 			}
-			if (!thumbs.length && img) thumbs = [img];
+			if (!thumbSources.length && img) thumbSources = [img];
+			thumbSources = thumbSources.slice(0, 3);
 
-			document.getElementById("modalProductImage").src = thumbs[0] || img;
+			document.getElementById("modalProductImage").src = thumbSources[0] || img;
 			document.getElementById("modalProductName").textContent = name;
 			document.getElementById("modalProductPrice").textContent = price;
 			document.getElementById("modalProductDescription").textContent = desc;
@@ -519,14 +501,7 @@
 			if (thumbs) {
 				thumbs.innerHTML = '';
 				try {
-					let sources = [img];
-					if (typeof allProducts !== 'undefined' && name) {
-						const pd = allProducts.find(p => p.name === name);
-						if (pd && Array.isArray(pd.images) && pd.images.length) {
-							sources = pd.images;
-						}
-					}
-					sources.slice(0, 3).forEach((src, idx) => {
+					thumbSources.forEach((src, idx) => {
 						const t = document.createElement('img');
 						t.src = src;
 						t.alt = `${name} ${idx + 1}`;
@@ -542,7 +517,6 @@
 					console.error('Thumbnail population error (Shop):', e);
 				}
 			}
-			renderShopThumbs(thumbs);
 
 			// Show modal with animation
 			const modal = document.getElementById("quickViewModal");
