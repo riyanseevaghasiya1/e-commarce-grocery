@@ -19,6 +19,24 @@ function formatTimestamp(timestamp) {
 	});
 }
 
+function renderDeliveryAddress(address) {
+	const addressBox = document.getElementById('deliveryAddressBox');
+
+	if (!address) {
+		addressBox.innerHTML = `<p class="text-gray-500">Address not available</p>`;
+		return;
+	}
+
+	addressBox.innerHTML = `
+		<p class="font-medium text-gray-800">${address.name || ''}</p>
+		<p>${address.phone || ''}</p>
+		<p>${address.line1 || ''}</p>
+		${address.line2 ? `<p>${address.line2}</p>` : ''}
+		<p>${address.city || ''}, ${address.state || ''} ${address.zip || address.pincode || ''}</p>
+		<p>${address.country || ''}</p>
+	`;
+}
+
 function getDefaultTimeline(orderDate) {
 	const baseTimestamp = orderDate ? new Date(orderDate).toISOString() : new Date().toISOString();
 	return [
@@ -176,6 +194,7 @@ function renderOrderDetails(order) {
 	} else {
 		estimatedDeliveryEl.textContent = 'To be updated';
 	}
+
 	const items = Array.isArray(order.items) ? order.items : [];
 	if (!items.length) {
 		itemsListEl.innerHTML = '<p class="text-gray-500">No items found in this order.</p>';
@@ -203,6 +222,10 @@ function renderOrderDetails(order) {
 	summaryPaymentEl.textContent = order.paymentMethod || '—';
 	summaryTotalEl.textContent = formatCurrency(order.total || 0);
 
+	// ✅ સૌ પહેલાં ADDRESS RENDER કરો (cancel check પહેલાં!)
+	renderDeliveryAddress(order.address);
+
+	// હવે cancel check કરો
 	if (order.status && order.status.toLowerCase().includes('cancel')) {
 		const cancelHTML = `
 		<div class="flex flex-col items-center justify-center text-center text-red-600 py-10 w-full">
@@ -219,13 +242,12 @@ function renderOrderDetails(order) {
 		if (desktopTimeline) desktopTimeline.innerHTML = cancelHTML;
 		if (mobileTimeline) mobileTimeline.innerHTML = cancelHTML;
 
-		return; // Stop here (don’t render normal timeline)
+		return; // Stop here (don't render normal timeline)
 	}
 
+	// Normal orders માટે timeline render કરો
 	const timeline = order.timeline && order.timeline.length ? order.timeline : getDefaultTimeline(order.orderDate);
 	renderTimeline(timeline);
-
-
 }
 
 document.addEventListener('DOMContentLoaded', () => {
