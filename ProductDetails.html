@@ -287,49 +287,51 @@
 
 			const weightDivs = section.querySelectorAll(".weight-option");
 
-			//  SOLID (Kg / g)
-			if (product.unit === "Kg" || product.unit === "g") {
-				label.innerText = "Weight :";
-
-				const solidValues = ["500g", "1 Kg", "2 Kg", "5 Kg"];
-
-				weightDivs.forEach((div, i) => {
-					div.innerText = solidValues[i];
-					div.style.display = "inline-block";
-				});
-			}
-
-			//  LIQUID (ml / L)
-			else if (product.unit === "ml" || product.unit === "L") {
-				label.innerText = "Volume :";
-
-				const liquidValues = ["250 ml", "500 ml", "1 L", "2 L"];
+			if (Array.isArray(product.options) && product.options.length) {
+				const base = (product.baseUnit || '').toLowerCase();
+				if (base === 'kg') label.innerText = "Weight :";
+				else if (base === 'l') label.innerText = "Volume :";
+				else if (base === 'pcs') label.innerText = "Pieces :";
+				else label.innerText = "Weight :";
 
 				weightDivs.forEach((div, i) => {
-					if (liquidValues[i]) {
-						div.innerText = liquidValues[i];
+					const opt = product.options[i];
+					if (opt) {
+						div.innerText = opt.label;
 						div.style.display = "inline-block";
 					} else {
 						div.style.display = "none";
 					}
 				});
-			}
-
-			//  BAKERY / PCS
-			else if (product.unit === "pcs") {
-				label.innerText = "Pieces :";
-
-				const pieceValues = ["1 pcs", "2 pcs", "5 pcs", "10 pcs"];
-
-				weightDivs.forEach((div, i) => {
-					div.innerText = pieceValues[i] || "";
-					div.style.display = pieceValues[i] ? "inline-block" : "none";
-				});
-			}
-
-			// Unknown unit → hide selector
-			else {
-				section.style.display = "none";
+			} else {
+				if (product.unit === "Kg" || product.unit === "g") {
+					label.innerText = "Weight :";
+					const solidValues = ["500g", "1 Kg", "2 Kg", "5 Kg"];
+					weightDivs.forEach((div, i) => {
+						div.innerText = solidValues[i];
+						div.style.display = "inline-block";
+					});
+				} else if (product.unit === "ml" || product.unit === "L") {
+					label.innerText = "Volume :";
+					const liquidValues = ["250 ml", "500 ml", "1 L", "2 L"];
+					weightDivs.forEach((div, i) => {
+						if (liquidValues[i]) {
+							div.innerText = liquidValues[i];
+							div.style.display = "inline-block";
+						} else {
+							div.style.display = "none";
+						}
+					});
+				} else if (product.unit === "pcs") {
+					label.innerText = "Pieces :";
+					const pieceValues = ["1 pcs", "2 pcs", "5 pcs", "10 pcs"];
+					weightDivs.forEach((div, i) => {
+						div.innerText = pieceValues[i] || "";
+						div.style.display = pieceValues[i] ? "inline-block" : "none";
+					});
+				} else {
+					section.style.display = "none";
+				}
 			}
 		}
 
@@ -384,19 +386,37 @@
 		function setDefaultActiveWeight(product) {
 			const opts = Array.from(document.querySelectorAll('.weight-option'));
 			if (!opts.length) return;
-			const desired = (product.unit === 'ml' ? `${product.quantity} ml` :
-				product.unit === 'L' ? `${product.quantity} L` :
-				product.unit === 'g' ? `${product.quantity} g` :
-				product.unit === 'pcs' ? `${product.quantity} pcs` : `${product.quantity} Kg`).toLowerCase();
+			let desired;
+			if (Array.isArray(product.options) && product.options.length) {
+				const u = (product.unit || '').toLowerCase();
+				if (u === 'g') desired = `${product.quantity}g`.toLowerCase();
+				else if (u === 'kg') desired = `${product.quantity} Kg`.toLowerCase();
+				else if (u === 'ml') desired = `${product.quantity} ml`.toLowerCase();
+				else if (u === 'l') desired = `${product.quantity} L`.toLowerCase();
+				else if (u === 'pcs') desired = `${product.quantity} pcs`.toLowerCase();
+				else desired = `${product.quantity} Kg`.toLowerCase();
+			} else {
+				desired = (product.unit === 'ml' ? `${product.quantity} ml` :
+					product.unit === 'L' ? `${product.quantity} L` :
+					product.unit === 'g' ? `${product.quantity} g` :
+					product.unit === 'pcs' ? `${product.quantity} pcs` : `${product.quantity} Kg`).toLowerCase();
+			}
 			let match = opts.find(o => o.textContent.trim().toLowerCase() === desired);
 			if (!match) {
-				// If not present, override the first option to product's base qty
-				opts[0].textContent = desired.replace('kg', 'Kg').replace('l', 'L').replace('ml', 'ml').replace('g', 'g');
 				match = opts[0];
 			}
 			opts.forEach(o => o.classList.remove('bg-[#02B290]', 'text-white'));
 			match.classList.add('bg-[#02B290]', 'text-white');
-			// Do NOT recompute price here — keep card price as-is by default
+			if (typeof product.basePrice === 'number' && Array.isArray(product.options)) {
+				const lbl = match.textContent.trim();
+				const opt = product.options.find(o => (o.label || '').toLowerCase() === lbl.toLowerCase());
+				const multiplier = opt ? Number(opt.multiplier) || 1 : textToBaseUnits(lbl) || 1;
+				const price = product.basePrice * multiplier;
+				window.basePrice = product.basePrice;
+				window.baseUnitQty = 1;
+				window.basePerUnit = product.basePrice;
+				setDisplayedPrice(price);
+			}
 		}
 
 		// Load product data on page load
@@ -458,16 +478,21 @@
 					mainProductName.textContent = product.name;
 				}
 
-                // Update price using the canonical product card price
                 const priceContainer = document.getElementById('currentPrice');
-                if (priceContainer && product.price) {
-                    const oldMarkup = product.oldPrice ? `<span id="price" class="line-through text-gray-400 text-lg ml-2">${product.oldPrice}</span>` : '';
-                    priceContainer.innerHTML = `${product.price}${oldMarkup}`;
-                    // Cache numeric base references for stable recalculations on weight changes
-                    window.basePrice = parsePrice(product.price);
-                    window.baseUnitQty = qtyToBaseUnits(product.quantity, product.unit) || 1;
-                    window.basePerUnit = window.basePrice / window.baseUnitQty;
-                    window.basePriceText = product.price; // textual fallback if needed
+                if (priceContainer) {
+                    if (typeof product.basePrice === 'number') {
+                        window.basePrice = product.basePrice;
+                        window.baseUnitQty = 1;
+                        window.basePerUnit = product.basePrice;
+                        window.basePriceText = `$${Number(product.basePrice).toFixed(2)}`;
+                    } else if (product.price) {
+                        const oldMarkup = product.oldPrice ? `<span id="price" class="line-through text-gray-400 text-lg ml-2">${product.oldPrice}</span>` : '';
+                        priceContainer.innerHTML = `${product.price}${oldMarkup}`;
+                        window.basePrice = parsePrice(product.price);
+                        window.baseUnitQty = qtyToBaseUnits(product.quantity, product.unit) || 1;
+                        window.basePerUnit = window.basePrice / window.baseUnitQty;
+                        window.basePriceText = product.price;
+                    }
                 }
 
 				// Update description
@@ -503,10 +528,17 @@
 				opt.classList.remove("bg-[#02B290]", "text-white");
 			});
 			el.classList.add("bg-[#02B290]", "text-white");
-            // Update displayed price on weight change using cached per-unit
             if (window.currentProduct) {
-                const price = computeWeightedPriceFromText(null, window.currentProduct, el.textContent.trim());
-                setDisplayedPrice(price);
+				const lbl = el.textContent.trim();
+				if (typeof window.currentProduct.basePrice === 'number' && Array.isArray(window.currentProduct.options)) {
+					const opt = window.currentProduct.options.find(o => (o.label || '').toLowerCase() === lbl.toLowerCase());
+					const multiplier = opt ? Number(opt.multiplier) || 1 : textToBaseUnits(lbl) || 1;
+					const price = window.currentProduct.basePrice * multiplier;
+					setDisplayedPrice(price);
+				} else {
+					const price = computeWeightedPriceFromText(null, window.currentProduct, lbl);
+					setDisplayedPrice(price);
+				}
             }
 		}
 		document.querySelectorAll('div[onclick="selectWeight(this)"]').forEach(opt => {
