@@ -288,11 +288,11 @@
 			const weightDivs = section.querySelectorAll(".weight-option");
 
 			if (Array.isArray(product.options) && product.options.length) {
-				const base = (product.baseUnit || '').toLowerCase();
-				if (base === 'kg') label.innerText = "Weight :";
-				else if (base === 'l') label.innerText = "Volume :";
-				else if (base === 'pcs') label.innerText = "Pieces :";
-				else label.innerText = "Weight :";
+				// const base = (product.baseUnit || '').toLowerCase();
+				// if (base === 'kg') label.innerText = "Weight :";
+				// else if (base === 'l') label.innerText = "Volume :";
+				// else if (base === 'pcs') label.innerText = "Pieces :";
+				// else label.innerText = "Weight :";
 
 				weightDivs.forEach((div, i) => {
 					const opt = product.options[i];

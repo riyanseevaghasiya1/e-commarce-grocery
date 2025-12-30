@@ -682,23 +682,23 @@ const allProducts = [
     ]
   },
   {
-    name: "Sparkling Soft Drinks",
-    basePrice: 20.00,
+    name: "Coca Cola Soft Drink",
+    basePrice: 6.00,
     baseUnit: "l",
     rating: "★★★★☆",
-    img: "./images/soft-drinks.jpg",
+    img: "./images/cocacola.jpg",
     badge: "Cold",
     category: "Beverages",
     quantity: 1,
     unit: "bottle",
     sku: "BV-004",
-    description: "Refreshing sparkling soft drinks.",
-    images: ["./images/soft-drinks.jpg", "./images/soft-drinks1.jpg", "./images/soft-drinks2.jpg"],
+    description: "Refreshing Coca Cola Soft Drink.",
+    images: ["./images/cocacola.jpg", "./images/cocacola1.jpg", "./images/cocacola2.jpg"],
     options: [
-      { label: "1 bottle", multiplier: 1 },
-      { label: "2 bottles", multiplier: 2 },
-      { label: "6 bottles", multiplier: 6 },
-      { label: "12 bottles", multiplier: 12 }
+      { label: "250 ml", multiplier: 1 },
+      { label: "500 ml", multiplier: 2 },
+      { label: "1 L", multiplier: 4 },
+      { label: "2 L", multiplier: 8 }
     ]
   },
   {
