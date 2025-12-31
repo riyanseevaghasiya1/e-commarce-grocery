@@ -38,47 +38,71 @@ function updateWishlistCount() {
 function updateCartCount() {
   const countElement = document.getElementById('cartCount');
   if (!countElement) return;
-  
+
   const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
   countElement.textContent = totalQty;
   countElement.style.display = totalQty > 0 ? 'flex' : 'none';
 }
 
 function addToWishlist(button) {
-  const productCard = button.closest('.product-card');
-  if (!productCard) return;
-
-  const productId =
-    productCard.dataset.id ||
-    productCard.querySelector('.product-name').textContent.trim();
-
-  const productData = {
-    id: productId,
-    image: productCard.querySelector('.product-image')?.src || '',
-    name: productCard.querySelector('.product-name')?.textContent.trim() || '',
-    price: productCard.querySelector('.current-price')?.textContent.trim() || '',
-    rating: productCard.querySelector('.stars')?.textContent.trim() || '',
-    badge: productCard.querySelector('.product-badge')?.textContent.trim() || '',
-  };
-
+  const card = button.closest('.product-card');
+  let productId = '';
+  let productData = null;
+  if (card) {
+    productId = card.dataset.id || card.querySelector('.product-name').textContent.trim();
+    productData = {
+      id: productId,
+      image: card.querySelector('.product-image')?.src || '',
+      name: card.querySelector('.product-name')?.textContent.trim() || '',
+      price: card.querySelector('.current-price')?.textContent.trim() || '',
+      rating: card.querySelector('.stars')?.textContent.trim() || '',
+      badge: card.querySelector('.product-badge')?.textContent.trim() || '',
+    };
+  } else {
+    const nameEl = document.querySelector('.mainproductname') || document.querySelector('.productname') || document.querySelector('h1');
+    const name = (nameEl?.textContent || '').trim();
+    const sel =
+      document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
+      document.querySelector('[class*="weight-option"].active') ||
+      document.querySelector('.weight-option');
+    const weight = sel ? sel.textContent.trim() : '';
+    productId = weight ? `${name}::${weight}` : name;
+    const img = document.getElementById('mainImg')?.src || '';
+    let price = '$0.00';
+    const pc = document.getElementById('currentPrice');
+    if (pc) {
+      const t = pc.textContent.trim();
+      const m = t.match(/\$?\d+(?:\.\d+)?/);
+      if (m) price = m[0].includes('$') ? m[0] : `$${m[0]}`;
+    }
+    productData = {
+      id: productId,
+      image: img,
+      name,
+      price,
+      rating: '',
+      badge: ''
+    };
+  }
   const existingIndex = wishlist.findIndex((item) => item.id === productId);
   const heartIcon = button.querySelector('i');
 
   if (existingIndex === -1) {
-    // Add to wishlist
     wishlist.push(productData);
-    heartIcon.classList.remove('far');
-    heartIcon.classList.add('fas');
+    if (heartIcon) {
+      heartIcon.classList.remove('far');
+      heartIcon.classList.add('fas');
+    }
     button.style.backgroundColor = '#ef4444';
     button.style.color = '#ffffff';
-    button.style.borderRadius = '50%';
     button.style.padding = '8px';
     showNotification('✓ Added to wishlist!');
   } else {
-    // Remove from wishlist
     wishlist.splice(existingIndex, 1);
-    heartIcon.classList.remove('fas');
-    heartIcon.classList.add('far');
+    if (heartIcon) {
+      heartIcon.classList.remove('fas');
+      heartIcon.classList.add('far');
+    }
     button.style.backgroundColor = '';
     button.style.color = '';
     button.style.borderRadius = '';
