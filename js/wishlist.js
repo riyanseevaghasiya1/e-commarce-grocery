@@ -11,8 +11,31 @@ try {
 console.log("wishlist????????", wishlist);
 console.log('cart>>>>>>>>>', cart);
 
+function uniqueById(items) {
+  const map = new Map();
+  items.forEach(it => {
+    if (it && typeof it.id !== 'undefined') {
+      if (!map.has(String(it.id))) map.set(String(it.id), it);
+    }
+  });
+  return Array.from(map.values());
+}
+wishlist = uniqueById(wishlist);
+
+function normalizeId(text) {
+  const t = String(text || '').trim();
+  if (!t) return '';
+  const noParen = t.replace(/\s*\([^)]*\)\s*$/, '').trim();
+  return noParen;
+}
+
+// Normalize existing wishlist IDs on load for cross-page consistency
+wishlist = wishlist.map(it => Object.assign({}, it, { id: normalizeId(it.id), name: normalizeId(it.name) }));
+wishlist = uniqueById(wishlist);
+
 function saveWishlistToStorage() {
   try {
+    wishlist = uniqueById(wishlist);
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   } catch (e) {
     console.warn('Could not save to localStorage');
@@ -49,24 +72,20 @@ function addToWishlist(button) {
   let productId = '';
   let productData = null;
   if (card) {
-    productId = card.dataset.id || card.querySelector('.product-name').textContent.trim();
+    const rawName = card.querySelector('.product-name')?.textContent.trim() || card.dataset.id || '';
+    productId = normalizeId(rawName);
     productData = {
       id: productId,
       image: card.querySelector('.product-image')?.src || '',
-      name: card.querySelector('.product-name')?.textContent.trim() || '',
+      name: normalizeId(rawName),
       price: card.querySelector('.current-price')?.textContent.trim() || '',
       rating: card.querySelector('.stars')?.textContent.trim() || '',
       badge: card.querySelector('.product-badge')?.textContent.trim() || '',
     };
   } else {
     const nameEl = document.querySelector('.mainproductname') || document.querySelector('.productname') || document.querySelector('h1');
-    const name = (nameEl?.textContent || '').trim();
-    const sel =
-      document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
-      document.querySelector('[class*="weight-option"].active') ||
-      document.querySelector('.weight-option');
-    const weight = sel ? sel.textContent.trim() : '';
-    productId = weight ? `${name}::${weight}` : name;
+    const name = normalizeId((nameEl?.textContent || '').trim());
+    productId = name;
     const img = document.getElementById('mainImg')?.src || '';
     let price = '$0.00';
     const pc = document.getElementById('currentPrice');
@@ -96,18 +115,24 @@ function addToWishlist(button) {
     button.style.backgroundColor = '#ef4444';
     button.style.color = '#ffffff';
     button.style.padding = '8px';
-    showNotification('✓ Added to wishlist!');
-  } else {
-    wishlist.splice(existingIndex, 1);
-    if (heartIcon) {
-      heartIcon.classList.remove('fas');
-      heartIcon.classList.add('far');
+    if (button.textContent && button.textContent.trim().toLowerCase().includes('add to wishlist')) {
+      button.textContent = 'Already in Wishlist';
+      button.disabled = true;
     }
-    button.style.backgroundColor = '';
-    button.style.color = '';
-    button.style.borderRadius = '';
-    button.style.padding = '';
-    showNotification('✗ Removed from wishlist!');
+    showNotification('✓ Already in Wishlist!');
+  } else {
+    if (heartIcon) {
+      heartIcon.classList.remove('far');
+      heartIcon.classList.add('fas');
+    }
+    button.style.backgroundColor = '#ef4444';
+    button.style.color = '#ffffff';
+    button.style.padding = '8px';
+    if (button.textContent && button.textContent.trim().toLowerCase().includes('add to wishlist')) {
+      button.textContent = 'Already in Wishlist';
+      button.disabled = true;
+    }
+    showNotification('Already in wishlist');
   }
 
   saveWishlistToStorage();
@@ -117,16 +142,17 @@ function addToWishlist(button) {
 function checkWishlistStatus() {
   // ✅ FIXED: Find ALL buttons with heart icons, not just .wishlist-btn
   const productCards = document.querySelectorAll('.product-card');
-  
+
   productCards.forEach((productCard) => {
     // Find the button with onclick="addToWishlist(this)"
     const button = productCard.querySelector('button[onclick*="addToWishlist"]');
     if (!button) return;
 
-    const productId =
-      productCard.dataset.id ||
-      productCard.querySelector('.product-name')?.textContent.trim();
-    
+    const rawName =
+      productCard.querySelector('.product-name')?.textContent.trim() ||
+      productCard.dataset.id || '';
+    const productId = normalizeId(rawName);
+
     if (!productId) return;
 
     const isInWishlist = wishlist.some((item) => item.id === productId);
@@ -141,6 +167,7 @@ function checkWishlistStatus() {
       button.style.color = '#ffffff';
       button.style.borderRadius = '50%';
       button.style.padding = '8px';
+      button.style.cursor = 'not-allowed';
     } else {
       // Product NOT in wishlist - REMOVE BACKGROUND
       heartIcon.classList.remove('fas');
@@ -151,6 +178,51 @@ function checkWishlistStatus() {
       button.style.padding = '';
     }
   });
+}
+
+function checkProductDetailWishlistStatus() {
+  const detailButton = Array.from(document.querySelectorAll('button[onclick*="addToWishlist"]'))
+    .find(btn => !btn.closest('.product-card'));
+  if (!detailButton) return;
+
+  const nameEl = document.querySelector('.mainproductname') || document.querySelector('.productname') || document.querySelector('h1');
+  const name = normalizeId((nameEl?.textContent || '').trim());
+  const productId = name;
+
+  if (!productId) return;
+
+  const isInWishlist = wishlist.some((item) => item.id === productId);
+  detailButton.style.transition = 'background-color 0.3s ease';
+
+  if (isInWishlist) {
+    detailButton.textContent = 'Added to Wishlist';
+    detailButton.disabled = true;
+    detailButton.style.backgroundColor = '#ef4444';
+    detailButton.style.color = '#ffffff';
+    detailButton.style.cursor = 'not-allowed';
+
+    // Hover effect
+    detailButton.onmouseenter = () => {
+      detailButton.style.backgroundColor = '#dc2626';
+    };
+    detailButton.onmouseleave = () => {
+      detailButton.style.backgroundColor = '#ef4444';
+    };
+
+  } else {
+    detailButton.textContent = 'Add to Wishlist';
+    detailButton.disabled = false;
+    detailButton.style.backgroundColor = '#02B290';
+    detailButton.style.color = '#ffffff';
+
+    // Hover effect
+    detailButton.onmouseenter = () => {
+      detailButton.style.backgroundColor = '#4dc9b1';
+    };
+    detailButton.onmouseleave = () => {
+      detailButton.style.backgroundColor = '#02B290';
+    };
+  }
 }
 
 function showNotification(message) {
@@ -179,8 +251,11 @@ function showNotification(message) {
 window.addEventListener('storage', (e) => {
   if (e.key === 'wishlist') {
     wishlist = JSON.parse(e.newValue) || [];
+    wishlist = wishlist.map(it => Object.assign({}, it, { id: normalizeId(it.id), name: normalizeId(it.name) }));
+    wishlist = uniqueById(wishlist);
     updateWishlistCount();
     checkWishlistStatus();
+    checkProductDetailWishlistStatus();
   }
   if (e.key === 'cart') {
     cart = JSON.parse(e.newValue) || [];
@@ -342,6 +417,7 @@ function addToCart(button) {
 
 document.addEventListener('DOMContentLoaded', () => {
   checkWishlistStatus();
+  checkProductDetailWishlistStatus();
   renderWishlistPage();
   updateCartCount();
   updateWishlistCount();
@@ -353,12 +429,18 @@ document.addEventListener('DOMContentLoaded', () => {
       clearInterval(checkHeaderLoaded);
     }
   }, 100);
+  let tries = 0;
+  const iv = setInterval(() => {
+    checkProductDetailWishlistStatus();
+    tries += 1;
+    if (tries >= 10) clearInterval(iv);
+  }, 200);
 });
 
 function showWishlistSkeleton(count = 3) {
   const skeleton = document.getElementById("wishlistSkeleton");
   if (!skeleton) return;
-  
+
   skeleton.innerHTML = "";
 
   for (let i = 0; i < count; i++) {
