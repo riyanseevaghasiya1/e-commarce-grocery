@@ -166,7 +166,7 @@
     // Check if stored coupon is valid AND meets minimum amount requirement
     if (storedDiscountPercent > 0 && storedCouponCode && validCoupons[storedCouponCode]) {
       const minRequired = validCoupons[storedCouponCode].minAmount;
-      
+
       if (subtotal >= minRequired) {
         // ✅ Subtotal meets minimum - apply discount
         finalDiscount = subtotal * (storedDiscountPercent / 100);
@@ -244,7 +244,7 @@
 `.replace(/\s+/g, " ").trim();
       document.getElementById("displayAddress").textContent = fullAddress;
       document.getElementById("displayOrderNote").textContent = addressData.notes || "N/A";
-      
+
 
       // Build confirmation table
       const tbody = confirmationSection.querySelector("tbody");
@@ -326,6 +326,8 @@
         paymentMethod,
         status: "Processing",
         statusIndex: 1,
+        orderTime: new Date().toISOString(), 
+        deliveryMinutes: 60,
         subtotal: parseFloat(subtotal.toFixed(2)),
         discountPercent: discountPercentForRecord,
         discountAmount: parseFloat(discountAmountForRecord.toFixed(2)),
@@ -404,7 +406,7 @@
 
       if (validCoupons[enteredCode]) {
         const { discount, minAmount } = validCoupons[enteredCode];
-        
+
         // ✅ ONLY apply discount if subtotal meets minimum requirement
         if (subtotal >= minAmount) {
           const discountAmountLocal = subtotal * (discount / 100);
@@ -473,7 +475,7 @@
       const zipcode = userAddress.zipcode || "";
       const phone = userAddress.phone || "";
       const email = userAddress.email || "";
-      
+
       // Get state and country from dropdowns
       const state = document.getElementById("selectedCountry1")?.textContent?.trim() || "";
       const country = document.getElementById("selectedCountry")?.textContent?.trim() || "";
@@ -501,7 +503,7 @@
 
       // Draw address box
       doc.rect(14, y, 180, 35); // x, y, width, height
-      
+
       let ay = y + 8;
       doc.setFontSize(11);
       doc.text(`${firstName} ${lastName}`, 20, ay);

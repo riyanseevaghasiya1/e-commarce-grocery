@@ -34,43 +34,42 @@
                             <h2 class="text-2xl font-semibold ">Billing details</h2>
                         </div>
                         <div>
-                            <button id="viewAddressBtn"
-                                class="bg-[#02B290] text-white px-3 py-2 rounded-lg text-sm">
+                            <button id="viewAddressBtn" class="bg-[#02B290] text-white px-3 py-2 rounded-lg text-sm">
                                 View Address
                             </button>
                         </div>
                     </div>
-               <div id="addressModal"
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" style="z-index: 9999;">
-    <div class="bg-white w-full max-w-md rounded-lg shadow-lg">
+                    <div id="addressModal"
+                        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+                        style="z-index: 9999;">
+                        <div class="bg-white w-full max-w-md rounded-lg shadow-lg">
 
-        <!-- Header -->
-        <div class="flex justify-between items-center border-b px-5 py-3">
-            <h3 class="text-lg font-semibold">Billing Address</h3>
-            <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-        </div>
+                            <!-- Header -->
+                            <div class="flex justify-between items-center border-b px-5 py-3">
+                                <h3 class="text-lg font-semibold">Billing Address</h3>
+                                <button id="closeModal"
+                                    class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                            </div>
 
-        <!-- Address List -->
-        <div id="addressList"
-             class="p-5 overflow-y-auto"
-             style="max-height: 450px;">
-        </div>
+                            <!-- Address List -->
+                            <div id="addressList" class="p-5 overflow-y-auto" style="max-height: 450px;">
+                            </div>
 
-        <!-- Buttons (fixed at bottom, NOT scrolling) -->
-        <div class="flex r_375 gap-4 justify-center px-5 pb-4 mt-2">
-            <button id="useaddress"
-                class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">
-                Use Selected Address
-            </button>
+                            <!-- Buttons (fixed at bottom, NOT scrolling) -->
+                            <div class="flex r_375 gap-4 justify-center px-5 pb-4 mt-2">
+                                <button id="useaddress"
+                                    class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">
+                                    Use Selected Address
+                                </button>
 
-            <button id="addNewAddress"
-                class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">
-                Add New Address
-            </button>
-        </div>
+                                <button id="addNewAddress"
+                                    class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">
+                                    Add New Address
+                                </button>
+                            </div>
 
-    </div>
-</div>
+                        </div>
+                    </div>
 
 
 
@@ -92,7 +91,7 @@
                             </div>
                         </div>
 
-                       
+
                         <div class="relative">
                             <button id="countryBtn"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md text-left flex justify-between items-center">
@@ -202,7 +201,7 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
                         </div>
 
-                    
+
                         <div>
                             <label class="block text-sm font-medium mb-2">
                                 Order notes (optional)
@@ -440,72 +439,72 @@
     <script src="./js/ViewProduct.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("addressModal");
-    const openBtn = document.getElementById("viewAddressBtn");
-    const closeIcon = document.getElementById("closeModal");
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById("addressModal");
+            const openBtn = document.getElementById("viewAddressBtn");
+            const closeIcon = document.getElementById("closeModal");
 
-    // Open modal
-    openBtn.addEventListener("click", () => {
-        modal.classList.remove("hidden");
-        document.body.classList.add("overflow-hidden");
-    });
+            // Open modal
+            openBtn.addEventListener("click", () => {
+                modal.classList.remove("hidden");
+                document.body.classList.add("overflow-hidden");
+            });
 
-    // Close modal
-    function closeModal() {
-        modal.classList.add("hidden");
-        document.body.classList.remove("overflow-hidden");
-    }
+            // Close modal
+            function closeModal() {
+                modal.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
+            }
 
-    closeIcon.addEventListener("click", closeModal);
+            closeIcon.addEventListener("click", closeModal);
 
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-    });
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) closeModal();
+            });
 
-    // Redirect to MyAccount shipping tab
-    document.addEventListener("click", (e) => {
-        if (e.target && e.target.id === "addNewAddress") {
-            window.location.href = "./MyAccount.html?tab=shipping";
-        }
-    });
-});
-</script>
+            // Redirect to MyAccount shipping tab
+            document.addEventListener("click", (e) => {
+                if (e.target && e.target.id === "addNewAddress") {
+                    window.location.href = "./MyAccount.html?tab=shipping";
+                }
+            });
+        });
+    </script>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-    const addressList = document.getElementById("addressList");
-    const addBtn = document.getElementById("addNewAddress");
-    const useBtn = document.getElementById("useaddress");
+            const addressList = document.getElementById("addressList");
+            const addBtn = document.getElementById("addNewAddress");
+            const useBtn = document.getElementById("useaddress");
 
-    let savedAddresses = JSON.parse(localStorage.getItem("userAddresses")) || [];
+            let savedAddresses = JSON.parse(localStorage.getItem("userAddresses")) || [];
 
-    function renderAddresses() {
+            function renderAddresses() {
 
-        addressList.innerHTML = "";
+                addressList.innerHTML = "";
 
-        // Auto height
-        if (savedAddresses.length <= 1) {
-            addressList.style.maxHeight = "auto";
-        } else {
-            addressList.style.maxHeight = "450px";
-        }
+                // Auto height
+                if (savedAddresses.length <= 1) {
+                    addressList.style.maxHeight = "auto";
+                } else {
+                    addressList.style.maxHeight = "450px";
+                }
 
-        if (savedAddresses.length === 0) {
-            addressList.innerHTML = `
+                if (savedAddresses.length === 0) {
+                    addressList.innerHTML = `
                 <p class="text-gray-600 mb-4">No addresses found.</p>
             `;
-            return;
-        }
+                    return;
+                }
 
-        savedAddresses.forEach((addr, index) => {
-            const card = document.createElement("div");
-            card.className = "bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4";
+                savedAddresses.forEach((addr, index) => {
+                    const card = document.createElement("div");
+                    card.className = "bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4";
 
-            card.innerHTML = `
+                    card.innerHTML = `
                 <p class="font-semibold text-gray-800 mb-1">
                     ${addr.firstName} ${addr.lastName}
                 </p>
@@ -522,191 +521,191 @@ document.addEventListener("DOMContentLoaded", () => {
                 </button>
             `;
 
-            addressList.appendChild(card);
-        });
+                    addressList.appendChild(card);
+                });
 
-        // Delete
-        document.querySelectorAll(".delete-btn").forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-                const index = e.target.dataset.index;
-                savedAddresses.splice(index, 1);
-                localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
-                renderAddresses();
+                // Delete
+                document.querySelectorAll(".delete-btn").forEach((btn) => {
+                    btn.addEventListener("click", (e) => {
+                        const index = e.target.dataset.index;
+                        savedAddresses.splice(index, 1);
+                        localStorage.setItem("userAddresses", JSON.stringify(savedAddresses));
+                        renderAddresses();
+                    });
+                });
+            }
+
+            //  FIXED — NO auto address adding
+            addBtn.addEventListener("click", () => {
+                // now ONLY redirect will happen from script #1
             });
+
+            // Use selected first address
+            useBtn.addEventListener("click", () => {
+                if (!savedAddresses.length) {
+                    alert("No address found!");
+                    return;
+                }
+
+                const selected = savedAddresses[0];
+
+                document.getElementById("firstName").value = selected.firstName;
+                document.getElementById("lastName").value = selected.lastName;
+                document.getElementById("address1").value = selected.address1;
+                document.getElementById("city").value = selected.city;
+                document.getElementById("zipcode").value = selected.zipcode;
+                document.getElementById("phone").value = selected.phone;
+
+                document.getElementById("selectedCountry").textContent = selected.country;
+                document.getElementById("selectedCountry1").textContent = selected.state;
+
+                document.getElementById("addressModal").classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
+            });
+
+            renderAddresses();
         });
-    }
-
-    //  FIXED — NO auto address adding
-    addBtn.addEventListener("click", () => {
-        // now ONLY redirect will happen from script #1
-    });
-
-    // Use selected first address
-    useBtn.addEventListener("click", () => {
-        if (!savedAddresses.length) {
-            alert("No address found!");
-            return;
-        }
-
-        const selected = savedAddresses[0];
-
-        document.getElementById("firstName").value = selected.firstName;
-        document.getElementById("lastName").value = selected.lastName;
-        document.getElementById("address1").value = selected.address1;
-        document.getElementById("city").value = selected.city;
-        document.getElementById("zipcode").value = selected.zipcode;
-        document.getElementById("phone").value = selected.phone;
-
-        document.getElementById("selectedCountry").textContent = selected.country;
-        document.getElementById("selectedCountry1").textContent = selected.state;
-
-        document.getElementById("addressModal").classList.add("hidden");
-        document.body.classList.remove("overflow-hidden");
-    });
-
-    renderAddresses();
-});
-</script>
+    </script>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const addressList = document.getElementById("addressList");
-  let selectedIndex = null;
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const addressList = document.getElementById("addressList");
+            let selectedIndex = null;
 
-  function attachSelectableToCards() {
-    const children = Array.from(addressList.children);
+            function attachSelectableToCards() {
+                const children = Array.from(addressList.children);
 
-    children.forEach((child) => {
-      if (child.querySelector && (child.querySelector("#useaddress") || child.querySelector("#addNewAddress"))) {
-        return;
-      }
+                children.forEach((child) => {
+                    if (child.querySelector && (child.querySelector("#useaddress") || child.querySelector("#addNewAddress"))) {
+                        return;
+                    }
 
-      const delBtn = child.querySelector(".delete-btn");
-      if (!delBtn) return;
+                    const delBtn = child.querySelector(".delete-btn");
+                    if (!delBtn) return;
 
-      const idx = Number(delBtn.dataset.index);
-      child.dataset.addrIndex = idx;
+                    const idx = Number(delBtn.dataset.index);
+                    child.dataset.addrIndex = idx;
 
-      if (child.querySelector(".addr-select-radio")) {
-        updateCardSelectionVisual(child, idx === selectedIndex);
-        return;
-      }
-      const radioWrapper = document.createElement("div");
-      radioWrapper.className = "addr-radio-wrapper";
-      radioWrapper.style.cssText = `
+                    if (child.querySelector(".addr-select-radio")) {
+                        updateCardSelectionVisual(child, idx === selectedIndex);
+                        return;
+                    }
+                    const radioWrapper = document.createElement("div");
+                    radioWrapper.className = "addr-radio-wrapper";
+                    radioWrapper.style.cssText = `
         position: absolute;
         top: 10%;
         right: 12px;
 
         transform: translateY(-50%);
       `;
-          const radio = document.createElement("input");
-      radio.type = "radio";
-      radio.name = "selectedAddress";
-      radio.className = "addr-select-radio ";
-      radio.dataset.index = idx;
-      radio.style.cssText = "width:18px; height:18px; cursor:pointer;";
+                    const radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = "selectedAddress";
+                    radio.className = "addr-select-radio ";
+                    radio.dataset.index = idx;
+                    radio.style.cssText = "width:18px; height:18px; cursor:pointer;";
 
-      radioWrapper.appendChild(radio);
-      child.style.position = "relative";
-      child.style.paddingRight = "40px"; 
-      child.insertBefore(radioWrapper, child.firstChild);
+                    radioWrapper.appendChild(radio);
+                    child.style.position = "relative";
+                    child.style.paddingRight = "40px";
+                    child.insertBefore(radioWrapper, child.firstChild);
 
-      radio.addEventListener("click", (ev) => {
-        ev.stopPropagation();
-        setSelectedIndex(idx);
-      });
+                    radio.addEventListener("click", (ev) => {
+                        ev.stopPropagation();
+                        setSelectedIndex(idx);
+                    });
 
-      child.addEventListener("click", () => {
-        setSelectedIndex(idx);
-      });
+                    child.addEventListener("click", () => {
+                        setSelectedIndex(idx);
+                    });
 
-      updateCardSelectionVisual(child, idx === selectedIndex);
-    });
-  }
+                    updateCardSelectionVisual(child, idx === selectedIndex);
+                });
+            }
 
-  function updateCardSelectionVisual(cardElement, isSelected) {
-    if (isSelected) {
-      cardElement.classList.add("selected-address");
-      cardElement.style.boxShadow = "0 0 0 2px rgba(2,178,144,0.15)";
-      cardElement.style.borderColor = " #02B290";
-      const r = cardElement.querySelector(".addr-select-radio");
-      if (r) r.checked = true;
-    } else {
-      cardElement.classList.remove("selected-address");
-      cardElement.style.boxShadow = "";
-      cardElement.style.borderColor = "";
-      const r = cardElement.querySelector(".addr-select-radio");
-      if (r) r.checked = false;
-    }
-  }
+            function updateCardSelectionVisual(cardElement, isSelected) {
+                if (isSelected) {
+                    cardElement.classList.add("selected-address");
+                    cardElement.style.boxShadow = "0 0 0 2px rgba(2,178,144,0.15)";
+                    cardElement.style.borderColor = " #02B290";
+                    const r = cardElement.querySelector(".addr-select-radio");
+                    if (r) r.checked = true;
+                } else {
+                    cardElement.classList.remove("selected-address");
+                    cardElement.style.boxShadow = "";
+                    cardElement.style.borderColor = "";
+                    const r = cardElement.querySelector(".addr-select-radio");
+                    if (r) r.checked = false;
+                }
+            }
 
-  function setSelectedIndex(idx) {
-    const prevSelected = addressList.querySelector("[data-addr-index='" + selectedIndex + "']");
-    if (prevSelected) updateCardSelectionVisual(prevSelected, false);
+            function setSelectedIndex(idx) {
+                const prevSelected = addressList.querySelector("[data-addr-index='" + selectedIndex + "']");
+                if (prevSelected) updateCardSelectionVisual(prevSelected, false);
 
-    selectedIndex = Number(idx);
-    const newCard = addressList.querySelector("[data-addr-index='" + selectedIndex + "']");
-    if (newCard) updateCardSelectionVisual(newCard, true);
+                selectedIndex = Number(idx);
+                const newCard = addressList.querySelector("[data-addr-index='" + selectedIndex + "']");
+                if (newCard) updateCardSelectionVisual(newCard, true);
 
-    const useBtn = addressList.querySelector("#useaddress");
-    if (useBtn) useBtn.dataset.selected = String(selectedIndex);
-  }
+                const useBtn = addressList.querySelector("#useaddress");
+                if (useBtn) useBtn.dataset.selected = String(selectedIndex);
+            }
 
-  function handleUseSelectedAddress() {
-    const useBtn = addressList.querySelector("#useaddress");
-    if (!useBtn) return;
+            function handleUseSelectedAddress() {
+                const useBtn = addressList.querySelector("#useaddress");
+                if (!useBtn) return;
 
-    useBtn.addEventListener("click", (e) => {
-      e.preventDefault();
+                useBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
 
-      const chosen = (typeof selectedIndex === "number" && !Number.isNaN(selectedIndex))
-        ? selectedIndex
-        : (useBtn.dataset.selected ? Number(useBtn.dataset.selected) : null);
+                    const chosen = (typeof selectedIndex === "number" && !Number.isNaN(selectedIndex))
+                        ? selectedIndex
+                        : (useBtn.dataset.selected ? Number(useBtn.dataset.selected) : null);
 
-      const savedAddresses = JSON.parse(localStorage.getItem("userAddresses")) || [];
-      if (savedAddresses.length === 0) {
-        alert("No address available to use!");
-        return;
-      }
+                    const savedAddresses = JSON.parse(localStorage.getItem("userAddresses")) || [];
+                    if (savedAddresses.length === 0) {
+                        alert("No address available to use!");
+                        return;
+                    }
 
-      const indexToUse = (chosen !== null && chosen >= 0 && chosen < savedAddresses.length) ? chosen : 0;
-      const selected = savedAddresses[indexToUse];
+                    const indexToUse = (chosen !== null && chosen >= 0 && chosen < savedAddresses.length) ? chosen : 0;
+                    const selected = savedAddresses[indexToUse];
 
-      document.getElementById("firstName").value = selected.firstName || "";
-      document.getElementById("lastName").value = selected.lastName || "";
-      document.getElementById("address1").value = selected.address1 || "";
-      document.getElementById("city").value = selected.city || "";
-      document.getElementById("zipcode").value = selected.zipcode || "";
-      document.getElementById("phone").value = selected.phone || "";
-      document.getElementById("email").value = selected.email || "";
+                    document.getElementById("firstName").value = selected.firstName || "";
+                    document.getElementById("lastName").value = selected.lastName || "";
+                    document.getElementById("address1").value = selected.address1 || "";
+                    document.getElementById("city").value = selected.city || "";
+                    document.getElementById("zipcode").value = selected.zipcode || "";
+                    document.getElementById("phone").value = selected.phone || "";
+                    document.getElementById("email").value = selected.email || "";
 
-      const selCountry = document.getElementById("selectedCountry");
-      const selState = document.getElementById("selectedCountry1");
-      if (selCountry) selCountry.textContent = selected.country || "Select a country";
-      if (selState) selState.textContent = selected.state || "Select a State";
+                    const selCountry = document.getElementById("selectedCountry");
+                    const selState = document.getElementById("selectedCountry1");
+                    if (selCountry) selCountry.textContent = selected.country || "Select a country";
+                    if (selState) selState.textContent = selected.state || "Select a State";
 
-      const modal = document.getElementById("addressModal");
-      if (modal) {
-        modal.classList.add("hidden");
-        document.body.classList.remove("overflow-hidden");
-      }
+                    const modal = document.getElementById("addressModal");
+                    if (modal) {
+                        modal.classList.add("hidden");
+                        document.body.classList.remove("overflow-hidden");
+                    }
 
-      console.log(" Address filled into checkout form (index " + indexToUse + "):", selected);
-    });
-  }
+                    console.log(" Address filled into checkout form (index " + indexToUse + "):", selected);
+                });
+            }
 
-  const observer = new MutationObserver(() => {
-    setTimeout(() => attachSelectableToCards(), 0);
-  });
+            const observer = new MutationObserver(() => {
+                setTimeout(() => attachSelectableToCards(), 0);
+            });
 
-  observer.observe(addressList, { childList: true, subtree: false });
+            observer.observe(addressList, { childList: true, subtree: false });
 
-  attachSelectableToCards();
-  handleUseSelectedAddress();
-});
-</script>
+            attachSelectableToCards();
+            handleUseSelectedAddress();
+        });
+    </script>
 
 
 

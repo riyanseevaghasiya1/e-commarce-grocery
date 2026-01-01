@@ -411,6 +411,7 @@
 
 			function getStatusClass(status = '') {
 				const normalized = status.toLowerCase();
+				if (normalized.includes('replaced')) return 'text-orange-600';
 				if (normalized.includes('deliver')) return 'text-[#02B290]';
 				if (normalized.includes('cancel')) return 'text-red-500';
 				if (normalized.includes('pending')) return 'text-yellow-600';
@@ -446,7 +447,7 @@
 						<td class="py-2 px-3">#${order.orderId}</td>
 						<td class="py-2 px-3">${order.orderDate}</td>
 						<td class="py-2 px-3">${formatCurrency(order.total)}</td>
-						<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status || 'Processing'}</td>
+						<td class="py-2 px-3 font-medium ${getStatusClass(order.status)}">${order.status?.includes('Replaced') ? 'Replaced' : (order.status || 'Processing')}</td>
 						<td class="py-2 px-3 flex gap-2">
 							<button class="view-btn bg-[#02B290] text-white px-3 py-1 rounded hover:bg-[#4dc9b1]" data-order-id="${order.orderId}">View</button>
 							<button class="cancel-btn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" data-order-id="${order.orderId}">Cancel</button>
@@ -459,7 +460,11 @@
 					});
 
 					row.querySelector('.cancel-btn').addEventListener('click', () => {
-						if (order.status && order.status.toLowerCase().includes('cancel')) {
+						if (
+							order.status &&
+							order.status.toLowerCase().includes('cancel') &&
+							!order.status.toLowerCase().includes('replace')
+						) {
 							alert('This order is already canceled.');
 							return;
 						}
