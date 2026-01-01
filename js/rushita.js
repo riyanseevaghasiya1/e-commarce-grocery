@@ -205,7 +205,7 @@ function renderCartItems() {
 
   cart.forEach((item, index) => {
     const itemDiv = document.createElement("div");
-    itemDiv.className = "flex items-center justify-between mb-4";
+    itemDiv.className = "flex items-center justify-between mb-4 gap-2";
 
     // ✅ FIX: "$3.50" → 3.50
     const unitPrice = parseFloat(item.price.replace("$", ""));
