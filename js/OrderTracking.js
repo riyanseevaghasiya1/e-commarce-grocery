@@ -1,5 +1,7 @@
 const PRIMARY_COLOR_CLASS = 'text-primary';
 
+
+
 function formatCurrency(amount) {
 	const numeric = Number(amount);
 	if (Number.isNaN(numeric)) return '$0.00';
@@ -37,8 +39,9 @@ function renderDeliveryAddress(address) {
 	`;
 }
 
-function getDefaultTimeline(orderDate) {
-	const baseTimestamp = orderDate ? new Date(orderDate).toISOString() : new Date().toISOString();
+function getDefaultTimeline(orderTime) {
+	const baseTimestamp = orderTime ? new Date(orderTime).toISOString() : null;
+
 	return [
 		{ label: 'Order Placed', state: 'completed', timestamp: baseTimestamp },
 		{ label: 'Processing', state: 'current', timestamp: baseTimestamp },
@@ -46,6 +49,7 @@ function getDefaultTimeline(orderDate) {
 		{ label: 'Delivered', state: 'pending', timestamp: null }
 	];
 }
+
 
 function descriptionForStep(label) {
 	const lower = (label || '').toLowerCase();
@@ -181,19 +185,18 @@ function renderOrderDetails(order) {
 	orderIdEl.textContent = `#${order.orderId}`;
 	orderDateEl.textContent = order.orderDate || '—';
 
-	// Calculate estimated delivery (1 day after order date)
-	if (order.orderDate) {
-		const date = new Date(order.orderDate);
-		date.setDate(date.getDate() + 1); // +1 day for grocery delivery
-		const formatted = date.toLocaleDateString('en-US', {
-			month: 'short',
-			day: 'numeric',
-			year: 'numeric'
+	// 🔴 1 HOUR DELIVERY LOGIC
+	if (order.orderTime) {
+		const date = new Date(order.orderTime);
+		date.setMinutes(date.getMinutes() + 60); // +1 hour
+		estimatedDeliveryEl.textContent = date.toLocaleTimeString('en-US', {
+			hour: 'numeric',
+			minute: '2-digit'
 		});
-		estimatedDeliveryEl.textContent = formatted;
 	} else {
 		estimatedDeliveryEl.textContent = 'To be updated';
 	}
+
 
 	const items = Array.isArray(order.items) ? order.items : [];
 	if (!items.length) {
@@ -223,31 +226,136 @@ function renderOrderDetails(order) {
 	summaryTotalEl.textContent = formatCurrency(order.total || 0);
 
 	// ✅ સૌ પહેલાં ADDRESS RENDER કરો (cancel check પહેલાં!)
-	renderDeliveryAddress(order.address);
+	renderDeliveryAddress({
+		name: order.customer?.name,
+		phone: order.customer?.phone,
+		line1: order.customer?.address?.line1,
+		city: order.customer?.address?.city,
+		state: order.customer?.address?.state,
+		zip: order.customer?.address?.zip,
+		country: order.customer?.address?.country
+	});
 
-	// હવે cancel check કરો
-	if (order.status && order.status.toLowerCase().includes('cancel')) {
+	if (order.status === 'Replaced') {
+		statusText = 'Replaced';
+		statusClass = 'text-orange-600';
+	}
+	// 🔁 REPLACED ORDER CASE
+	if (order.status === 'Replaced') {
+		// Treat replaced order like new delivery
+		renderTimeline(order.timeline);
+
+		const estimatedDeliveryEl = document.getElementById('trackingEstimatedDelivery');
+		if (order.replacedAt) {
+			const d = new Date(order.replacedAt);
+			d.setMinutes(d.getMinutes() + 60); // 1 hour delivery
+			estimatedDeliveryEl.textContent = d.toLocaleTimeString('en-US', {
+				hour: 'numeric',
+				minute: '2-digit'
+			});
+		}
+	}
+
+
+	// ❌ Cancel UI ONLY when order is actually canceled
+	if (order.status === 'Canceled') {
+
 		const cancelHTML = `
 		<div class="flex flex-col items-center justify-center text-center text-red-600 py-10 w-full">
 			<i class="fa-solid fa-circle-xmark text-5xl mb-4"></i>
 			<h2 class="text-2xl font-semibold mb-2">Order Canceled</h2>
-			<p class="text-gray-600">This order was canceled and will not be delivered.</p>
+			<p class="text-gray-600">
+				This order was canceled and will not be delivered.
+			</p>
 		</div>
 	`;
 
-		// Apply same message to both desktop and mobile timelines
-		const desktopTimeline = document.getElementById('desktopTimeline');
-		const mobileTimeline = document.getElementById('mobileTimeline');
+		document.getElementById('desktopTimeline').innerHTML = cancelHTML;
+		document.getElementById('mobileTimeline').innerHTML = cancelHTML;
 
-		if (desktopTimeline) desktopTimeline.innerHTML = cancelHTML;
-		if (mobileTimeline) mobileTimeline.innerHTML = cancelHTML;
-
-		return; // Stop here (don't render normal timeline)
+		return; // ⛔ stop further execution
 	}
+
 
 	// Normal orders માટે timeline render કરો
 	const timeline = order.timeline && order.timeline.length ? order.timeline : getDefaultTimeline(order.orderDate);
 	renderTimeline(timeline);
+
+	// 🔁 EXCHANGE OPTION (ONLY AFTER DELIVERY + 5 HOURS)
+	const exchangeBox = document.getElementById('exchangeBox');
+
+	if (exchangeBox) {
+		exchangeBox.innerHTML = ''; // reset
+	}
+
+	if (order.status === 'Delivered' && isExchangeAllowed(order)) {
+		exchangeBox.innerHTML = `
+		<div class="mt-6 p-5 border rounded-lg bg-yellow-50">
+			<h3 class="text-lg font-semibold mb-2">Exchange Product</h3>
+			<p class="text-sm text-gray-600 mb-3">
+				You can exchange this product within 5 hours after delivery.
+			</p>
+
+			<select id="exchangeReason" class="w-full border rounded p-2 mb-3">
+				<option value="">Select reason</option>
+				<option value="Damaged">Damaged Product</option>
+				<option value="Wrong Item">Wrong Item Delivered</option>
+				<option value="Quality Issue">Quality Issue</option>
+			</select>
+
+			<button id="exchangeBtn"
+				class="bg-primary text-white px-4 py-2 rounded">
+				Request Exchange
+			</button>
+		</div>
+	`;
+
+		bindExchangeEvent(order);
+	}
+	else if (order.status === 'Delivered' && !isExchangeAllowed(order)) {
+		exchangeBox.innerHTML = `
+		<div class="mt-6 p-4 border border-red-200 rounded-lg bg-red-50 text-red-600">
+			⏱️ Exchange period expired.  
+			Exchange was available only for 5 hours after delivery.
+		</div>
+	`;
+	}
+
+
+
+
+	// 🔴 AUTO MARK AS DELIVERED (ORDER / REPLACED)
+	const baseTime = order.replacedAt || order.orderTime;
+
+	if (baseTime && order.status !== 'Delivered') {
+
+		const endTime = new Date(baseTime);
+		endTime.setMinutes(endTime.getMinutes() + 60); // 1 hour
+
+		if (new Date() >= endTime) {
+
+			order.status = 'Delivered';
+			order.deliveredAt = new Date().toISOString();
+
+			if (order.timeline && order.timeline.length >= 4) {
+				order.timeline[2].state = 'completed';
+				order.timeline[2].timestamp = endTime.toISOString();
+
+				order.timeline[3].state = 'completed';
+				order.timeline[3].timestamp = endTime.toISOString();
+			}
+
+			let orders = JSON.parse(localStorage.getItem('orders')) || [];
+			const idx = orders.findIndex(o => o.orderId === order.orderId);
+
+			if (idx !== -1) {
+				orders[idx] = order;
+				localStorage.setItem('orders', JSON.stringify(orders));
+			}
+		}
+	}
+
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -275,3 +383,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	renderOrderDetails(order);
 });
+
+
+function isExchangeAllowed(order) {
+	if (!order.deliveredAt) return false;
+
+	const deliveredTime = new Date(order.deliveredAt);
+	const now = new Date();
+
+	const diffMs = now - deliveredTime;
+	const diffHours = diffMs / (1000 * 60 * 60);
+
+	return diffHours <= 5; // ✅ only 5 hours allowed
+}
+
+function bindExchangeEvent(order) {
+	const btn = document.getElementById('exchangeBtn');
+	if (!btn) return;
+
+	btn.onclick = () => {
+		const reason = document.getElementById('exchangeReason').value;
+		if (!reason) {
+			alert('Please select exchange reason');
+			return;
+		}
+
+		if (!isExchangeAllowed(order)) {
+			alert('Exchange time expired');
+			return;
+		}
+
+		let orders = JSON.parse(localStorage.getItem('orders')) || [];
+		const idx = orders.findIndex(o => o.orderId === order.orderId);
+
+		if (idx === -1) return;
+
+		if (!orders[idx].exchangeRequests) {
+			orders[idx].exchangeRequests = [];
+		}
+
+		// 🔴 ADD EXCHANGE REQUEST
+		orders[idx].exchangeRequests.push({
+			reason,
+			requestedAt: new Date().toISOString(),
+			status: 'Requested'
+		});
+
+		const replaceTime = new Date().toISOString();
+
+		orders[idx].status = 'Replaced';
+		orders[idx].replacedAt = replaceTime;
+
+		// 🔁 RESET DELIVERY PROCESS
+		orders[idx].timeline = [
+			{ label: 'Order Replaced', state: 'completed', timestamp: replaceTime },
+			{ label: 'Processing', state: 'current', timestamp: replaceTime },
+			{ label: 'Out for Delivery', state: 'pending', timestamp: null },
+			{ label: 'Delivered', state: 'pending', timestamp: null }
+		];
+
+		// ❌ Old delivered data remove
+		delete orders[idx].deliveredAt;
+
+
+		localStorage.setItem('orders', JSON.stringify(orders));
+
+
+
+		localStorage.setItem('orders', JSON.stringify(orders));
+
+		alert('Exchange request submitted successfully ✅');
+	};
+}
