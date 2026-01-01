@@ -91,7 +91,13 @@
 	</div>
 
 	<div id="productMainContent" class="a_header_container px-4 sm:px-0" style="display:none;">
-		<div class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:py-18">
+
+		<button onclick="window.history.back()" class="inline-flex items-center gap-2 bg-[#02B290]
+		text-white px-4 py-2 rounded-lg shadow-md transition mt-4">
+			<i class="fa-solid fa-arrow-left-long"></i> Back
+		</button>
+
+		<div class="py-8 md:py-10 xl:py-12 2xl:py-14 3xl:pb-18">
 			<!-- Product Section -->
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-4 sm:p-6">
 				<!-- Gallery -->
@@ -131,32 +137,41 @@
 					<div class="flex flex-wrap items-center gap-3 mb-6" id="weightSection">
 						<h4 class="w-full sm:w-auto" id="weightLabel">Weight :</h4>
 
-						<div class="weight-option rounded-full px-4 py-1 cursor-pointer transition"
+						<div class="weight-option rounded-full border px-4 py-1 cursor-pointer transition"
 							onclick="selectWeight(this)">
 							500g
 						</div>
 
-						<div class="weight-option rounded-full px-4 py-1 cursor-pointer transition bg-[#02B290] text-white"
+						<div class="weight-option rounded-full border px-4 py-1 cursor-pointer transition bg-[#02B290] text-white"
 							onclick="selectWeight(this)">
 							1 Kg
 						</div>
 
-						<div class="weight-option rounded-full px-4 py-1 cursor-pointer transition"
+						<div class="weight-option rounded-full border px-4 py-1 cursor-pointer transition"
 							onclick="selectWeight(this)">
 							2 Kg
 						</div>
 
-						<div class="weight-option rounded-full px-4 py-1 cursor-pointer transition"
+						<div class="weight-option rounded-full border px-4 py-1 cursor-pointer transition"
 							onclick="selectWeight(this)">
 							5 Kg
 						</div>
 					</div>
 
-					<button
-						class="bg-[#02B290] hover:bg-[#4dc9b1] text-white py-2 text-[18px] rounded-lg font-medium transition mb-3"
-						onclick="addToCart1(this)">
-						Add to Cart
-					</button>
+					<div class="sm:flex justify-between items-center w-full gap-3 mb-3">
+
+						<button
+							class="bg-[#02B290] hover:bg-[#4dc9b1] text-white py-2 text-[18px] rounded-lg font-medium transition sm:flex-1 w-full mb-3 sm:mb-0"
+							onclick="addToCart1(this)">
+							Add to Cart
+						</button>
+
+						<button class="text-white py-2 text-[18px] rounded-lg font-medium transition sm:flex-1 w-full"
+							onclick="addToWishlist(this)">
+							Add to Wishlist
+						</button>
+
+					</div>
 
 					<button
 						class="hover:bg-[#02B290] border border-[#02B290] text-[#02B290] hover:text-white py-2 text-[18px] rounded-lg font-medium transition mb-3 buy-now-btn">
@@ -273,7 +288,7 @@
 
 	<div id="footer_add"></div>
 
-    <script src="./js/ViewProduct.js"></script>
+	<script src="./js/ViewProduct.js"></script>
 	<script src="./js/rushita.js"></script>
 	<script src="./js/wishlist.js"></script>
 	<script src="./js/addtocart.js"></script>
@@ -288,11 +303,11 @@
 			const weightDivs = section.querySelectorAll(".weight-option");
 
 			if (Array.isArray(product.options) && product.options.length) {
-				const base = (product.baseUnit || '').toLowerCase();
-				if (base === 'kg') label.innerText = "Weight :";
-				else if (base === 'l') label.innerText = "Volume :";
-				else if (base === 'pcs') label.innerText = "Pieces :";
-				else label.innerText = "Weight :";
+				// const base = (product.baseUnit || '').toLowerCase();
+				// if (base === 'kg') label.innerText = "Weight :";
+				// else if (base === 'l') label.innerText = "Volume :";
+				// else if (base === 'pcs') label.innerText = "Pieces :";
+				// else label.innerText = "Weight :";
 
 				weightDivs.forEach((div, i) => {
 					const opt = product.options[i];
@@ -365,15 +380,15 @@
 			return 1;
 		}
 
-        // Weighted price: prefer cached numeric base-per-unit to avoid drift across navigations
-        function computeWeightedPriceFromText(basePriceText, product, selectedText) {
-            const cachedBasePrice = typeof window.basePrice === 'number' ? window.basePrice : parsePrice(product?.price);
-            const basePrice = basePriceText ? parsePrice(basePriceText) : cachedBasePrice;
-            const cachedBaseQty = typeof window.baseUnitQty === 'number' ? window.baseUnitQty : qtyToBaseUnits(product?.quantity, product?.unit) || 1;
-            const perUnit = typeof window.basePerUnit === 'number' ? window.basePerUnit : (basePrice / cachedBaseQty);
-            const selectedQty = textToBaseUnits(selectedText) || 1;
-            return perUnit * selectedQty;
-        }
+		// Weighted price: prefer cached numeric base-per-unit to avoid drift across navigations
+		function computeWeightedPriceFromText(basePriceText, product, selectedText) {
+			const cachedBasePrice = typeof window.basePrice === 'number' ? window.basePrice : parsePrice(product?.price);
+			const basePrice = basePriceText ? parsePrice(basePriceText) : cachedBasePrice;
+			const cachedBaseQty = typeof window.baseUnitQty === 'number' ? window.baseUnitQty : qtyToBaseUnits(product?.quantity, product?.unit) || 1;
+			const perUnit = typeof window.basePerUnit === 'number' ? window.basePerUnit : (basePrice / cachedBaseQty);
+			const selectedQty = textToBaseUnits(selectedText) || 1;
+			return perUnit * selectedQty;
+		}
 
 		function setDisplayedPrice(amount) {
 			const priceContainer = document.getElementById('currentPrice');
@@ -398,8 +413,8 @@
 			} else {
 				desired = (product.unit === 'ml' ? `${product.quantity} ml` :
 					product.unit === 'L' ? `${product.quantity} L` :
-					product.unit === 'g' ? `${product.quantity} g` :
-					product.unit === 'pcs' ? `${product.quantity} pcs` : `${product.quantity} Kg`).toLowerCase();
+						product.unit === 'g' ? `${product.quantity} g` :
+							product.unit === 'pcs' ? `${product.quantity} pcs` : `${product.quantity} Kg`).toLowerCase();
 			}
 			let match = opts.find(o => o.textContent.trim().toLowerCase() === desired);
 			if (!match) {
@@ -478,22 +493,22 @@
 					mainProductName.textContent = product.name;
 				}
 
-                const priceContainer = document.getElementById('currentPrice');
-                if (priceContainer) {
-                    if (typeof product.basePrice === 'number') {
-                        window.basePrice = product.basePrice;
-                        window.baseUnitQty = 1;
-                        window.basePerUnit = product.basePrice;
-                        window.basePriceText = `$${Number(product.basePrice).toFixed(2)}`;
-                    } else if (product.price) {
-                        const oldMarkup = product.oldPrice ? `<span id="price" class="line-through text-gray-400 text-lg ml-2">${product.oldPrice}</span>` : '';
-                        priceContainer.innerHTML = `${product.price}${oldMarkup}`;
-                        window.basePrice = parsePrice(product.price);
-                        window.baseUnitQty = qtyToBaseUnits(product.quantity, product.unit) || 1;
-                        window.basePerUnit = window.basePrice / window.baseUnitQty;
-                        window.basePriceText = product.price;
-                    }
-                }
+				const priceContainer = document.getElementById('currentPrice');
+				if (priceContainer) {
+					if (typeof product.basePrice === 'number') {
+						window.basePrice = product.basePrice;
+						window.baseUnitQty = 1;
+						window.basePerUnit = product.basePrice;
+						window.basePriceText = `$${Number(product.basePrice).toFixed(2)}`;
+					} else if (product.price) {
+						const oldMarkup = product.oldPrice ? `<span id="price" class="line-through text-gray-400 text-lg ml-2">${product.oldPrice}</span>` : '';
+						priceContainer.innerHTML = `${product.price}${oldMarkup}`;
+						window.basePrice = parsePrice(product.price);
+						window.baseUnitQty = qtyToBaseUnits(product.quantity, product.unit) || 1;
+						window.basePerUnit = window.basePrice / window.baseUnitQty;
+						window.basePriceText = product.price;
+					}
+				}
 
 				// Update description
 				const description = document.querySelector('.text-gray-600.mb-4');
@@ -528,7 +543,7 @@
 				opt.classList.remove("bg-[#02B290]", "text-white");
 			});
 			el.classList.add("bg-[#02B290]", "text-white");
-            if (window.currentProduct) {
+			if (window.currentProduct) {
 				const lbl = el.textContent.trim();
 				if (typeof window.currentProduct.basePrice === 'number' && Array.isArray(window.currentProduct.options)) {
 					const opt = window.currentProduct.options.find(o => (o.label || '').toLowerCase() === lbl.toLowerCase());
@@ -539,7 +554,7 @@
 					const price = computeWeightedPriceFromText(null, window.currentProduct, lbl);
 					setDisplayedPrice(price);
 				}
-            }
+			}
 		}
 		document.querySelectorAll('div[onclick="selectWeight(this)"]').forEach(opt => {
 			opt.classList.add('weight-option');
