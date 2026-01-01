@@ -68,6 +68,32 @@ function updateCartCount() {
 }
 
 function addToWishlist(button) {
+  const productCard = button.closest('.product-card');
+  if (!productCard) return;
+
+  // Get product name - search within productCard, not productInfo
+  const productNameElement = productCard.querySelector('.product-name');
+  const productName = productNameElement 
+    ? productNameElement.childNodes[0]?.textContent.trim() || productNameElement.textContent.trim()
+    : '';
+  
+  // Clean up the name
+  const cleanName = productName.replace(/\s+/g, ' ').trim();
+  const weightText = productCard.querySelector('.weight')?.textContent.trim() || '';
+  const weight = weightText.replace(/[()]/g, '').trim();
+
+  const productData = {
+    id: cleanName,
+    image: productCard.querySelector('.product-image')?.src || '',
+    name: cleanName || '',
+    price: productCard.querySelector('.current-price')?.textContent.trim() || '',
+    rating: productCard.querySelector('.stars')?.textContent.trim() || '',
+    badge: productCard.querySelector('.product-badge')?.textContent.trim() || '',
+    weight: weight || '',
+  };
+
+  // Use cleanName as productId (since you set id: cleanName above)
+  const existingIndex = wishlist.findIndex((item) => item.id === cleanName);
   const card = button.closest('.product-card');
   let productId = '';
   let productData = null;
@@ -294,6 +320,7 @@ function renderWishlistPage() {
       const row = document.createElement('div');
       row.className = 'p-6 border-b border-gray-100';
       row.dataset.id = item.id;
+console.log("item,,,,,,,,,,,",item);
 
       row.innerHTML = `
         <div class="grid grid-cols-6 gap-4 items-center">
@@ -302,7 +329,7 @@ function renderWishlistPage() {
           </div>
 
           <div class="col-span-2 text-left">
-            <h3 class="text-gray-900 font-medium text-lg mb-1">${item.name}</h3>
+                      <h3 class="text-gray-900 font-medium text-lg mb-1 product-name1">${item.name}  <span class="text-xs text-gray-500 weight1">(${item.weight})</span> </h3>
             <p class="text-gray-600 text-sm mb-1">${item.badge ? `Badge: ${item.badge}` : ''}</p>
           </div>
 
@@ -345,35 +372,42 @@ function removeFromWishlist(productId) {
   checkWishlistStatus();
   showNotification('✗ Removed from wishlist!');
 }
+function removeItemFromWishlistById(productId) {
+  const index = wishlist.findIndex(item => item.id === productId);
+  if (index === -1) return;
+
+  wishlist.splice(index, 1);
+  saveWishlistToStorage();
+  updateWishlistCount();
+  checkWishlistStatus();
+}
 
 function addToCartFromWishlist(button) {
   const row = button.closest('.p-6.border-b');
-  if (!row) {
-    console.error('Could not find product row');
-    return;
-  }
+  if (!row) return;
 
   const productId = row.dataset.id;
-  if (!productId) {
-    console.error('Product ID not found');
-    return;
-  }
+  if (!productId) return;
 
+  // 🔹 Get product directly from wishlist
   const wishlistItem = wishlist.find(item => item.id === productId);
-  if (!wishlistItem) {
-    console.error('Product not found in wishlist');
-    return;
-  }
+  if (!wishlistItem) return;
+  console.log(wishlistItem);
+  
 
+  // 🔹 Create cart product using wishlist data
   const product = {
     id: wishlistItem.id,
     name: wishlistItem.name,
+    weight: wishlistItem.weight || '',   
     price: wishlistItem.price,
     image: wishlistItem.image,
-    quantity: 1,
+    quantity: 1
   };
 
-  const existingIndex = cart.findIndex((item) => item.id === product.id);
+  // 🔹 Check if product already in cart
+  const existingIndex = cart.findIndex(item => item.id === product.id);
+
   if (existingIndex !== -1) {
     cart[existingIndex].quantity += 1;
     showNotification('🛒 Quantity updated in cart!');
@@ -384,36 +418,49 @@ function addToCartFromWishlist(button) {
 
   saveCartToStorage();
   updateCartCount();
+
+  // 🔹 Remove from wishlist after adding to cart
+  removeItemFromWishlistById(productId);
+  renderWishlistPage();
 }
 
-function addToCart(button) {
-  const productCard = button.closest('.product-card') || button.closest('.product-info');
-  if (!productCard) return;
 
-  const productId =
-    productCard.dataset.id ||
-    productCard.querySelector('.product-name')?.textContent.trim();
 
-  const product = {
-    id: productId,
-    name: productCard.querySelector('.product-name')?.textContent.trim() || '',
-    price: productCard.querySelector('.current-price')?.textContent.trim() || '',
-    image: productCard.querySelector('.product-image')?.src || '',
-    quantity: 1,
-  };
+// function addToCart(button) {
+//   const productCard = button.closest('.product-card') || button.closest('.product-info');
+//   if (!productCard) return;
 
-  const existingIndex = cart.findIndex((item) => item.id === product.id);
-  if (existingIndex !== -1) {
-    cart[existingIndex].quantity += 1;
-    showNotification('🛒 Quantity updated in cart!');
-  } else {
-    cart.push(product);
-    showNotification('✓ Added to cart!');
-  }
+//   const productId =
+//     productCard.dataset.id ||
+//     productCard.querySelector('.product-name')?.textContent.trim();
 
-  saveCartToStorage();
-  updateCartCount();
-}
+//   if (!productId) return;
+
+//   const product = {
+//     id: productId,
+//     name: productCard.querySelector('.product-name')?.textContent.trim() || '',
+//     price: productCard.querySelector('.current-price')?.textContent.trim() || '',
+//     image: productCard.querySelector('.product-image')?.src || '',
+//     quantity: 1,
+//   };
+
+//   const existingIndex = cart.findIndex(item => item.id === product.id);
+
+//   if (existingIndex !== -1) {
+//     cart[existingIndex].quantity += 1;
+//     showNotification('🛒 Quantity updated in cart!');
+//   } else {
+//     cart.push(product);
+//     showNotification('✓ Added to cart!');
+//   }
+
+//   saveCartToStorage();
+//   updateCartCount();
+
+  
+//   removeItemFromWishlistById(productId);
+// }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   checkWishlistStatus();
