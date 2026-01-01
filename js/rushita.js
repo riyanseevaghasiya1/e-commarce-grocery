@@ -197,6 +197,8 @@ function renderCartItems() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   cartItemsContainer.innerHTML = "";
 
+  console.log("cart>",cart);
+  
   if (cart.length === 0) {
     cartItemsContainer.innerHTML =
       `<p class="text-gray-500 text-center py-4">Your cart is empty 🛒</p>`;
@@ -215,7 +217,8 @@ function renderCartItems() {
       <div class="flex items-center space-x-4">
         <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg border">
         <div>
-          <h3 class="font-semibold text-gray-800">${item.name}</h3>
+          <h3 class="font-semibold text-gray-800"> ${item.name}
+          <span class="text-xs text-gray-500">(${item.weight})</span></h3>
           <p class="text-sm text-gray-600">$${totalPrice}</p>
         </div>
       </div>

@@ -26,7 +26,7 @@ $(document).ready(function () {
     // ==========================================
     var bestSellersCarousel = $('#bestSellers').owlCarousel({
         loop: false,
-        margin: 20,
+         margin: 20,
         nav: false,
         dots: false,
         autoplay: false,

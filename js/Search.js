@@ -1,14 +1,20 @@
-// Search functionality for header search bar
+// Search functionality for header search bar with enhanced suggestions
 (function() {
     'use strict';
 
     // Wait for DOM, inputs are discovered dynamically even if header loads later
     function initSearch() {
-        // Get search input elements (desktop and mobile)
+        // Get search input elements (desktop and mobile) - MORE FLEXIBLE SELECTORS
         const desktopSearchInput = document.getElementById('headerSearchDesktop') || 
-            document.querySelector('header input[type="text"][placeholder*="looking for"]');
+            document.querySelector('header input[type="text"][placeholder*="looking for"]') ||
+            document.querySelector('header input[type="search"]') ||
+            document.querySelector('header .search-input') ||
+            document.querySelector('nav input[type="text"]');
+            
         const mobileSearchInput = document.getElementById('headerSearchMobile') || 
-            document.querySelector('#offcanvas input[type="text"][placeholder*="looking for"]');
+            document.querySelector('#offcanvas input[type="text"][placeholder*="looking for"]') ||
+            document.querySelector('#offcanvas input[type="search"]') ||
+            document.querySelector('.mobile-menu input[type="text"]');
 
         if (!desktopSearchInput && !mobileSearchInput) {
             setTimeout(initSearch, 300);
@@ -54,11 +60,31 @@
                 __key: normalizeId(it.id || it.name)
             }));
         }
+         function mapcheckoutItems() {
+            let items = [];
+            try { items = JSON.parse(localStorage.getItem('checkout') || '[]'); } catch (e) { items = []; }
+            return items.map(it => ({
+                name: it.name || 'Product',
+                img: it.image || it.img || '',
+                price: it.price || '$0.00',
+                oldPrice: '',
+                rating: '★★★★★',
+                badge: 'Checkout',
+                __source: 'checkout',
+                __key: normalizeId(it.id || it.name)
+            }));
+        }
         function getSearchDataset() {
+            // ALWAYS return all products for search - same as home page
+            return (typeof allProducts !== 'undefined' && allProducts ? allProducts : []).map(p => Object.assign({ __source: 'all', __key: normalizeId(p.name) }, p));
+        }
+        function getPageItemsDataset() {
+            // Only for reordering page items
             const page = getCurrentPage();
             if (page === 'cart.html') return mapCartItems();
             if (page === 'wishlist.html') return mapWishlistItems();
-            return (allProducts || []).map(p => Object.assign({ __source: 'all', __key: normalizeId(p.name) }, p));
+            if (page === 'checkout.html') return mapcheckoutItems();
+            return [];
         }
         function reorderContainer(containerSelector, query) {
             const container = document.querySelector(containerSelector);
@@ -73,13 +99,23 @@
                     try { renderWishlistPage(); } catch (e) {}
                     return;
                 }
+                if (typeof renderCheckoutItems === 'function' && containerSelector === '#checkoutItemsContainer') {
+                    try { renderCheckoutItems(); } catch (e) {}
+                }
+                return;
             }
             const rows = Array.from(container.children).filter(el => el && el.nodeType === 1);
             const readName = (row) => {
                 const h3 = row.querySelector('h3');
                 if (h3) return h3.textContent.trim();
+                const h4 = row.querySelector('h4');
+                if (h4) return h4.textContent.trim();
+                const h5 = row.querySelector('h5');
+                if (h5) return h5.textContent.trim();
                 const btn = row.querySelector('button.text-left');
                 if (btn) return btn.textContent.trim();
+                const productName = row.querySelector('.product-name, [class*="product-name"], [class*="item-name"]');
+                if (productName) return productName.textContent.trim();
                 return (row.textContent || '').trim();
             };
             const matched = [];
@@ -93,8 +129,17 @@
         }
         function reorderPageList(query) {
             const page = getCurrentPage();
-            if (page === 'cart.html') reorderContainer('#cartItemsContainer', query);
-            else if (page === 'wishlist.html') reorderContainer('#wishlistContainer', query);
+            if (page === 'cart.html') {
+                reorderContainer('#cartItemsContainer', query);
+            } else if (page === 'wishlist.html') {
+                // Try multiple possible container selectors for wishlist
+                reorderContainer('#wishlistContainer', query);
+                reorderContainer('#wishlist-container', query);
+                reorderContainer('.wishlist-container', query);
+                reorderContainer('[id*="wishlist"]', query);
+            }else if (page === 'checkout.html') {
+                reorderContainer('#checkoutItemsContainer', query);
+            }
         }
 
         // Function to create search results container
@@ -139,19 +184,39 @@
             }
 
             const searchTerm = query.toLowerCase().trim();
-            const dataset = getSearchDataset();
+            const dataset = getSearchDataset(); // ALWAYS search all products
+            
+            if (!dataset || dataset.length === 0) {
+                console.warn('No products available for search');
+                return [];
+            }
+            
             return dataset.filter(product => {
                 const nameMatch = (product.name || '').toLowerCase().includes(searchTerm);
-                if (product.__source === 'all') {
-                    const categoryMatch = (product.category || '').toLowerCase().includes(searchTerm);
-                    const descriptionMatch = (product.description || '').toLowerCase().includes(searchTerm);
-                    return nameMatch || categoryMatch || descriptionMatch;
-                }
-                return nameMatch;
+                const categoryMatch = (product.category || '').toLowerCase().includes(searchTerm);
+                const descriptionMatch = (product.description || '').toLowerCase().includes(searchTerm);
+                return nameMatch || categoryMatch || descriptionMatch;
             });
         }
 
-        // Function to render product card
+        // ENHANCED: Function to navigate to product details page
+        function navigateToProductDetails(product, productIndex) {
+            try {
+                // Store product data in sessionStorage for ProductDetails page
+                sessionStorage.setItem('selectedProductData', JSON.stringify(product));
+                sessionStorage.setItem('selectedProductIndex', productIndex);
+                
+                // Hide all search results
+                hideAllSearchResults();
+                
+                // Navigate to ProductDetails page
+                window.location.href = './ProductDetails.html';
+            } catch (e) {
+                console.error('Error navigating to product details:', e);
+            }
+        }
+
+        // ENHANCED: Function to render product card with proper click handling
         function renderProductCard(product, index) {
             return `
                 <div class="search-product-card" data-index="${index}" style="
@@ -166,14 +231,14 @@
                             height: 80px;
                             object-fit: cover;
                             border-radius: 8px;
-                        ">
+                        " class="search-product-image">
                         <div style="flex: 1;">
                             <h4 style="
                                 font-size: 16px;
                                 font-weight: 600;
                                 color: #111827;
                                 margin: 0 0 8px 0;
-                            ">${product.name}</h4>
+                            " class="search-product-name">${product.name}</h4>
                             <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                                 <span style="
                                     font-size: 18px;
@@ -200,13 +265,11 @@
             `;
         }
 
-        // Function to show search results
+        // ENHANCED: Function to show search results with proper click handlers
         function showSearchResults(query, searchInput) {
-            const results = searchProducts(query);
-            const isMobile = searchInput.id === 'headerSearchMobile';
+            const results = searchProducts(query); // Search all products
+            const isMobile = searchInput.id === 'headerSearchMobile' || searchInput.closest('#offcanvas') !== null;
             const container = createSearchResultsContainer(isMobile);
-            const dataset = getSearchDataset();
-            const isAll = dataset.length && dataset[0].__source === 'all';
 
             // Clear previous results
             container.innerHTML = '';
@@ -232,50 +295,56 @@
                 header.textContent = `Found ${results.length} product${results.length !== 1 ? 's' : ''}`;
                 container.appendChild(header);
 
-                // Add product cards
+                // Add product cards with enhanced click handling
                 results.forEach((product, idx) => {
-                    const productIndex = product.__source === 'all' ? allProducts.indexOf(product) : idx;
+                    // Find the actual index in allProducts array
+                    let productIndex = idx;
+                    if (typeof allProducts !== 'undefined' && allProducts) {
+                        const foundIndex = allProducts.findIndex(p => 
+                            normalizeId(p.name) === normalizeId(product.name)
+                        );
+                        if (foundIndex !== -1) {
+                            productIndex = foundIndex;
+                        }
+                    }
+
                     const cardDiv = document.createElement('div');
                     cardDiv.innerHTML = renderProductCard(product, productIndex);
                     
-                    // Add click handler
                     const cardElement = cardDiv.firstElementChild;
+                    
+                    // ENHANCED: Add click handler to entire card
                     cardElement.addEventListener('click', function(e) {
+                        e.preventDefault();
                         e.stopPropagation();
-                        if (product.__source === 'all') {
-                            if (typeof viewProductDetails === 'function') {
-                                viewProductDetails(productIndex);
-                            } else {
-                                sessionStorage.setItem('selectedProductData', JSON.stringify(product));
-                                sessionStorage.setItem('selectedProductIndex', productIndex);
-                                window.location.href = './ProductDetails.html';
-                            }
-                        } else if (product.__source === 'cart') {
-                            const key = product.__key;
-                            const row = document.querySelector(`#cartItemsContainer [data-id="${key}"]`) || Array.from(document.querySelectorAll('#cartItemsContainer .grid')).find(el => (el.textContent || '').toLowerCase().includes(product.name.toLowerCase()));
-                            if (row) {
-                                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                row.style.transition = 'background-color 0.3s';
-                                row.style.backgroundColor = '#f0fdf4';
-                                setTimeout(() => { row.style.backgroundColor = ''; }, 1200);
-                            }
-                        } else if (product.__source === 'wishlist') {
-                            const key = product.__key;
-                            const row = document.querySelector(`#wishlistContainer [data-id="${key}"]`) || Array.from(document.querySelectorAll('#wishlistContainer .p-6')).find(el => (el.textContent || '').toLowerCase().includes(product.name.toLowerCase()));
-                            if (row) {
-                                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                row.style.transition = 'background-color 0.3s';
-                                row.style.backgroundColor = '#f0fdf4';
-                                setTimeout(() => { row.style.backgroundColor = ''; }, 1200);
-                            }
-                        }
-                        hideAllSearchResults();
+                        navigateToProductDetails(product, productIndex);
                     });
 
-                    container.appendChild(cardDiv);
+                    // ENHANCED: Add click handler to image specifically
+                    const imageElement = cardElement.querySelector('.search-product-image');
+                    if (imageElement) {
+                        imageElement.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            navigateToProductDetails(product, productIndex);
+                        });
+                    }
+
+                    // ENHANCED: Add click handler to product name specifically
+                    const nameElement = cardElement.querySelector('.search-product-name');
+                    if (nameElement) {
+                        nameElement.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            navigateToProductDetails(product, productIndex);
+                        });
+                    }
+
+                    container.appendChild(cardElement);
                 });
 
-                if (isAll && results.length > 5) {
+                // Add "View All" link if more than 5 results
+                if (results.length > 5) {
                     const viewAllDiv = document.createElement('div');
                     viewAllDiv.style.cssText = `
                         padding: 12px 16px;
@@ -291,13 +360,19 @@
                         font-weight: 600;
                         text-decoration: none;
                     `;
+                    viewAllLink.addEventListener('click', function(e) {
+                        hideAllSearchResults();
+                    });
                     viewAllDiv.appendChild(viewAllLink);
                     container.appendChild(viewAllDiv);
                 }
             }
 
-            // Position and show container
-            const searchWrapper = searchInput.closest('.relative') || searchInput.parentElement;
+            // Position and show container - MORE FLEXIBLE POSITIONING
+            const searchWrapper = searchInput.closest('.relative') || 
+                                searchInput.closest('.search-wrapper') || 
+                                searchInput.closest('form') ||
+                                searchInput.parentElement;
             if (searchWrapper) {
                 searchWrapper.style.position = 'relative';
                 if (!searchWrapper.contains(container)) {
@@ -339,7 +414,7 @@
                     return;
                 }
 
-                // Debounce search
+                // Debounce search - show suggestions after typing
                 searchTimeout = setTimeout(() => {
                     showSearchResults(query, desktopSearchInput);
                     reorderPageList(query);
@@ -376,7 +451,7 @@
                     return;
                 }
 
-                // Debounce search
+                // Debounce search - show suggestions after typing
                 mobileSearchTimeout = setTimeout(() => {
                     showSearchResults(query, mobileSearchInput);
                     reorderPageList(query);
@@ -406,14 +481,8 @@
                     const query = e.target.value.trim();
                     if (query.length > 0) {
                         e.preventDefault();
-                        const dataset = getSearchDataset();
-                        const isAll = dataset.length && dataset[0].__source === 'all';
-                        if (isAll) {
-                            window.location.href = `./Shop.html?search=${encodeURIComponent(query)}`;
-                        } else {
-                            showSearchResults(query, input);
-                            reorderPageList(query);
-                        }
+                        hideAllSearchResults();
+                        window.location.href = `./Shop.html?search=${encodeURIComponent(query)}`;
                     }
                 }
             });
@@ -432,5 +501,6 @@
 
     // Also try to initialize after a short delay in case scripts load in different order
     setTimeout(initSearch, 500);
+    setTimeout(initSearch, 1000); // Try again after 1 second
+    setTimeout(initSearch, 2000); // Try again after 2 seconds for slow-loading pages
 })();
-

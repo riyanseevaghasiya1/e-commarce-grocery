@@ -782,7 +782,271 @@ const allProducts = [
     ]
   }
 ];
-
+const homeproduct=[
+  {
+      name: "Green Grapes",
+    basePrice: 8.0,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/green-grapes.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 500,
+    unit: "g",
+    sku: "FP-003",
+    description: "Fresh and juicy green grapes.",
+    images: ["./images/green-grapes.jpg", "./images/green-grapes1.jpg", "./images/green-grapes2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Walnut Inshell",
+    basePrice: 48.0,
+    baseUnit: "kg",
+    rating: "★★★★★",
+    img: "./images/walnut-inshell.jpg",
+    badge: "New",
+    category: "Snacks & Branded Foods",
+    quantity: 250,
+    unit: "g",
+    sku: "SB-003",
+    description: "Crunchy and nutritious walnut inshell.",
+    images: ["./images/walnut-inshell.jpg", "./images/walnut-inshell1.jpg", "./images/walnut-inshell2.jpg"],
+    options: [
+      { label: "250g", multiplier: 0.25 },
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 }
+    ]
+  },
+  {
+    name: "Organic Onions",
+    basePrice: 28.5,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/onion.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-004",
+    description: "Fresh organic onions for cooking.",
+    images: ["./images/onion.jpg", "./images/onion1.jpg", "./images/onion2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Baked croissants",
+    basePrice: 1.25,
+    baseUnit: "pcs",
+    rating: "★★★★★",
+    img: "./images/croissant.jpg",
+    badge: "Fresh",
+    category: "Bakery & Dairy",
+    quantity: 4,
+    unit: "pcs",
+    sku: "BD-003",
+    description: "Buttery and flaky baked croissants.",
+    images: ["./images/croissant.jpg", "./images/croissant1.jpg", "./images/croissant2.jpg"],
+    options: [
+      { label: "1 pcs", multiplier: 1 },
+      { label: "4 pcs", multiplier: 4 },
+      { label: "8 pcs", multiplier: 8 },
+      { label: "12 pcs", multiplier: 12 }
+    ]
+  },
+  {
+    name: "Fresh Organic Carrots",
+    basePrice: 3.0,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/carrots.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-005",
+    description: "Fresh and organic carrots for cooking.",
+    images: ["./images/carrots.jpg", "./images/carrots1.jpg", "./images/carrots2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Black Pepper Powder",
+    basePrice: 30.0,
+    baseUnit: "kg",
+    rating: "★★★★★",
+    img: "./images/black-pepper.jpg",
+    badge: "Hot",
+    category: "Masala & Spices",
+    quantity: 200,
+    unit: "g",
+    sku: "MS-003",
+    description: "Aromatic black pepper powder for enhanced flavor.",
+    images: ["./images/black-pepper.jpg", "./images/black-pepper1.jpg", "./images/black-pepper2.jpg"],
+    options: [
+      { label: "200g", multiplier: 0.2 },
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 }
+    ]
+  },
+  {
+    name: "Mix Dryfruits",
+    basePrice: 45.0,
+    baseUnit: "kg",
+    rating: "★★★★★",
+    img: "./images/dryfruits.jpg",
+    badge: "New",
+    category: "Snacks & Branded Foods",
+    quantity: 250,
+    unit: "g",
+    sku: "SB-004",
+    description: "Healthy mix of assorted dry fruits.",
+    images: ["./images/dryfruits.jpg", "./images/dryfruits1.jpg", "./images/dryfruits2.jpg"],
+    options: [
+      { label: "250g", multiplier: 0.25 },
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 }
+    ]
+  },
+  
+]
+const homeproduct1=[
+   {
+    name: "Packed Green Beans",
+    basePrice: 12.0,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/green-beans.jpg",
+    badge: "Fresh",
+    category: "Frozen Foods",
+    quantity: 500,
+    unit: "g",
+    sku: "FF-003",
+    description: "Fresh green beans packed for convenience.",
+    images: ["./images/green-beans.jpg", "./images/green-beans1.jpg", "./images/green-beans2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Sparkling Soft Drinks",
+    basePrice: 20.00,
+    baseUnit: "l",
+    rating: "★★★★☆",
+    img: "./images/soft-drinks.jpg",
+    badge: "Cold",
+    category: "Beverages",
+    quantity: 1,
+    unit: "bottle",
+    sku: "BV-004",
+    description: "Refreshing sparkling soft drinks.",
+    images: ["./images/soft-drinks.jpg", "./images/soft-drinks1.jpg", "./images/soft-drinks2.jpg"],
+    options: [
+      { label: "1 bottle", multiplier: 1 },
+      { label: "2 bottles", multiplier: 2 },
+      { label: "6 bottles", multiplier: 6 },
+      { label: "12 bottles", multiplier: 12 }
+    ]
+  },
+  {
+    name: "Organic Orange",
+    basePrice: 8.80,
+    baseUnit: "kg",
+    rating: "★★★★★",
+    img: "./images/orange.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-006",
+    description: "Fresh and organic orange for cooking.",
+    images: ["./images/orange.jpg", "./images/orange1.jpg", "./images/orange2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Organic Green Cabbage",
+    basePrice: 3.50,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/green-cabbage.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-007",
+    description: "Fresh and organic green cabbage for cooking.",
+    images: ["./images/green-cabbage.jpg", "./images/green-cabbage1.jpg", "./images/green-cabbage2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Organic Fresh Strawberry",
+    basePrice: 7.50,
+    baseUnit: "kg",
+    rating: "★★★★★",
+    img: "./images/strawberry.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-008",
+    description: "Fresh and organic strawberry for cooking.",
+    images: ["./images/strawberry.jpg", "./images/strawberry1.jpg", "./images/strawberry2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  },
+  {
+    name: "Organic Broccoli",
+    basePrice: 8.00,
+    baseUnit: "kg",
+    rating: "★★★★☆",
+    img: "./images/broccoli.jpg",
+    badge: "Fresh",
+    category: "Fresh Produce",
+    quantity: 1,
+    unit: "Kg",
+    sku: "FP-009",
+    description: "Fresh and organic broccoli for cooking.",
+    images: ["./images/broccoli.jpg", "./images/broccoli1.jpg", "./images/broccoli2.jpg"],
+    options: [
+      { label: "500g", multiplier: 0.5 },
+      { label: "1 Kg", multiplier: 1 },
+      { label: "2 Kg", multiplier: 2 },
+      { label: "5 Kg", multiplier: 5 }
+    ]
+  }
+]
 // Function to navigate to ProductDetails page with product index
 function viewProductDetails(productIndex) {
   if (productIndex >= 0 && productIndex < allProducts.length) {
@@ -811,3 +1075,91 @@ function getProductBySKU(sku) {
   return allProducts.find(p => p.sku === sku);
 }
 
+const bestSellers = document.getElementById("bestSellers");
+
+bestSellers.innerHTML = homeproduct.map((p, index) => `
+  <div class="item">
+    <div class="product-card bg-white rounded-lg shadow relative"
+         onclick="viewProductDetails(${index})"
+         style="cursor:pointer;">
+
+      <div class="a_image_container relative overflow-hidden rounded-md">
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ""}
+
+        <img src="${p.img}" class="product-image w-full  object-cover">
+
+        <div class="product-actions absolute top-2 right-2 flex flex-col gap-2">
+          <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
+            <i class="far fa-eye"></i>
+          </button>
+          <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="product-info p-2">
+        <h4 class="product-name text-sm font-medium">
+          ${p.name}
+          <span class="text-xs text-gray-500 weight">(${p.quantity}${p.unit})</span>
+        </h4>
+
+        <div class="product-price">
+          <span class="current-price font-semibold">$${p.basePrice.toFixed(2)}</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="product-rating text-yellow-500">${p.rating}</div>
+          <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
+            <i class="fas fa-shopping-bag"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+`).join("");
+
+
+const freshVeg = document.getElementById("freshVeg");
+
+freshVeg.innerHTML = homeproduct1.map((p, index) => `
+  <div class="item">
+    <div class="product-card bg-white rounded-lg shadow relative"
+         onclick="viewProductDetails(${index})"
+         style="cursor:pointer;">
+
+      <div class="a_image_container relative overflow-hidden rounded-md">
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ""}
+
+        <img src="${p.img}" class="product-image w-full  object-cover">
+
+        <div class="product-actions absolute top-2 right-2 flex flex-col gap-2">
+          <button class="action-btn" onclick="event.stopPropagation(); openQuickView(this)">
+            <i class="far fa-eye"></i>
+          </button>
+          <button class="action-btn" onclick="event.stopPropagation(); addToWishlist(this)">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="product-info p-2">
+        <h4 class="product-name text-sm font-medium">
+          ${p.name}
+          <span class="text-xs text-gray-500 weight">(${p.quantity}${p.unit})</span>
+        </h4>
+
+        <div class="product-price">
+          <span class="current-price font-semibold">$${p.basePrice.toFixed(2)}</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="product-rating text-yellow-500">${p.rating}</div>
+          <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(this)">
+            <i class="fas fa-shopping-bag"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+`).join("");

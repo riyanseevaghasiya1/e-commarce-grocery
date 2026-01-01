@@ -76,9 +76,17 @@
     // Load products
     const checkoutCart = JSON.parse(localStorage.getItem("checkoutCart")) || [];
     const buyNowProduct = JSON.parse(localStorage.getItem("buyNowProduct"));
+    console.log("checkout",checkoutCart);
+    console.log(" buyproduct",buyNowProduct);
+    
+    
     let products = [];
-    if (checkoutCart.length > 0) products = [...checkoutCart];
-    if (buyNowProduct) products.push(buyNowProduct);
+    // if (checkoutCart.length > 0) products = [...checkoutCart];
+    if (buyNowProduct){
+        products.push(buyNowProduct);
+      }  else   if (checkoutCart.length > 0) {
+        products = [...checkoutCart]
+      }
 
     if (products.length === 0) {
       checkoutContainer.innerHTML = `<p class="text-center text-gray-500 py-10">No products found in checkout.</p>`;

@@ -624,6 +624,8 @@
 			let cart = [];
 			try {
 				cart = JSON.parse(localStorage.getItem('cart')) || [];
+				console.log("cart>>>",cart);
+				
 			} catch (e) {
 				cart = [];
 			}
@@ -632,6 +634,7 @@
 			const existing = cart.find(item =>
 				item.name === product.name && item.weight === product.weight
 			);
+console.log("existing",existing);
 
 			if (existing) {
 				existing.quantity += product.quantity;
