@@ -68,38 +68,18 @@ function updateCartCount() {
 }
 
 function addToWishlist(button) {
-  const productCard = button.closest('.product-card');
-  if (!productCard) return;
-
-  // Get product name - search within productCard, not productInfo
-  const productNameElement = productCard.querySelector('.product-name');
-  const productName = productNameElement 
-    ? productNameElement.childNodes[0]?.textContent.trim() || productNameElement.textContent.trim()
-    : '';
-  
-  // Clean up the name
-  const cleanName = productName.replace(/\s+/g, ' ').trim();
-  const weightText = productCard.querySelector('.weight')?.textContent.trim() || '';
-  const weight = weightText.replace(/[()]/g, '').trim();
-
-  const productData = {
-    id: cleanName,
-    image: productCard.querySelector('.product-image')?.src || '',
-    name: cleanName || '',
-    price: productCard.querySelector('.current-price')?.textContent.trim() || '',
-    rating: productCard.querySelector('.stars')?.textContent.trim() || '',
-    badge: productCard.querySelector('.product-badge')?.textContent.trim() || '',
-    weight: weight || '',
-  };
-
-  // Use cleanName as productId (since you set id: cleanName above)
-  const existingIndex = wishlist.findIndex((item) => item.id === cleanName);
   const card = button.closest('.product-card');
   let productId = '';
   let productData = null;
+
   if (card) {
     const rawName = card.querySelector('.product-name')?.textContent.trim() || card.dataset.id || '';
     productId = normalizeId(rawName);
+    
+    // Extract weight
+    const weightText = card.querySelector('.weight')?.textContent.trim() || '';
+    const weight = weightText.replace(/[()]/g, '').trim();
+
     productData = {
       id: productId,
       image: card.querySelector('.product-image')?.src || '',
@@ -107,6 +87,7 @@ function addToWishlist(button) {
       price: card.querySelector('.current-price')?.textContent.trim() || '',
       rating: card.querySelector('.stars')?.textContent.trim() || '',
       badge: card.querySelector('.product-badge')?.textContent.trim() || '',
+      weight: weight
     };
   } else {
     const nameEl = document.querySelector('.mainproductname') || document.querySelector('.productname') || document.querySelector('h1');
@@ -126,9 +107,11 @@ function addToWishlist(button) {
       name,
       price,
       rating: '',
-      badge: ''
+      badge: '',
+      weight: ''
     };
   }
+
   const existingIndex = wishlist.findIndex((item) => item.id === productId);
   const heartIcon = button.querySelector('i');
 
@@ -138,25 +121,34 @@ function addToWishlist(button) {
       heartIcon.classList.remove('far');
       heartIcon.classList.add('fas');
     }
-    button.style.backgroundColor = '#ef4444';
-    button.style.color = '#ffffff';
-    button.style.padding = '8px';
+    
     if (button.textContent && button.textContent.trim().toLowerCase().includes('add to wishlist')) {
-      button.textContent = 'Already in Wishlist';
-      button.disabled = true;
+       button.textContent = 'Added to Wishlist';
+       button.disabled = true;
+       button.style.backgroundColor = '#ef4444';
+       button.style.color = '#ffffff';
+    } else {
+       button.style.backgroundColor = '#ef4444';
+       button.style.color = '#ffffff';
+       button.style.borderRadius = '50%';
+       button.style.padding = '8px';
     }
-    showNotification('✓ Already in Wishlist!');
+    showNotification('✓ Added to Wishlist!');
   } else {
     if (heartIcon) {
       heartIcon.classList.remove('far');
       heartIcon.classList.add('fas');
     }
-    button.style.backgroundColor = '#ef4444';
-    button.style.color = '#ffffff';
-    button.style.padding = '8px';
     if (button.textContent && button.textContent.trim().toLowerCase().includes('add to wishlist')) {
-      button.textContent = 'Already in Wishlist';
-      button.disabled = true;
+       button.textContent = 'Added to Wishlist';
+       button.disabled = true;
+       button.style.backgroundColor = '#ef4444';
+       button.style.color = '#ffffff';
+    } else {
+       button.style.backgroundColor = '#ef4444';
+       button.style.color = '#ffffff';
+       button.style.borderRadius = '50%';
+       button.style.padding = '8px';
     }
     showNotification('Already in wishlist');
   }
@@ -329,7 +321,7 @@ console.log("item,,,,,,,,,,,",item);
           </div>
 
           <div class="col-span-2 text-left">
-                      <h3 class="text-gray-900 font-medium text-lg mb-1 product-name1">${item.name}  <span class="text-xs text-gray-500 weight1">(${item.weight})</span> </h3>
+            <h3 class="text-gray-900 font-medium text-lg mb-1 product-name1">${item.name} ${item.weight ? `<span class="text-xs text-gray-500 weight1">(${item.weight})</span>` : ''}</h3>
             <p class="text-gray-600 text-sm mb-1">${item.badge ? `Badge: ${item.badge}` : ''}</p>
           </div>
 
