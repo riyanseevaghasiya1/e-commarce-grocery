@@ -75,7 +75,7 @@ function addToWishlist(button) {
   if (card) {
     const rawName = card.querySelector('.product-name')?.textContent.trim() || card.dataset.id || '';
     productId = normalizeId(rawName);
-    
+
     // Extract weight
     const weightText = card.querySelector('.weight')?.textContent.trim() || '';
     const weight = weightText.replace(/[()]/g, '').trim();
@@ -121,40 +121,42 @@ function addToWishlist(button) {
       heartIcon.classList.remove('far');
       heartIcon.classList.add('fas');
     }
-    
-    if (button.textContent && button.textContent.trim().toLowerCase().includes('add to wishlist')) {
-       button.textContent = 'Added to Wishlist';
-       button.disabled = true;
-       button.style.backgroundColor = '#ef4444';
-       button.style.color = '#ffffff';
+    if (card) {
+      button.style.backgroundColor = '#ef4444';
+      button.style.color = '#ffffff';
+      button.style.borderRadius = '50%';
+      button.style.padding = '8px';
     } else {
-       button.style.backgroundColor = '#ef4444';
-       button.style.color = '#ffffff';
-       button.style.borderRadius = '50%';
-       button.style.padding = '8px';
+      button.textContent = 'Remove from Wishlist';
+      button.disabled = false;
+      button.style.backgroundColor = '#ef4444';
+      button.style.color = '#ffffff';
     }
     showNotification('✓ Added to Wishlist!');
   } else {
+    wishlist.splice(existingIndex, 1);
     if (heartIcon) {
-      heartIcon.classList.remove('far');
-      heartIcon.classList.add('fas');
+      heartIcon.classList.remove('fas');
+      heartIcon.classList.add('far');
     }
-    if (button.textContent && button.textContent.trim().toLowerCase().includes('add to wishlist')) {
-       button.textContent = 'Added to Wishlist';
-       button.disabled = true;
-       button.style.backgroundColor = '#ef4444';
-       button.style.color = '#ffffff';
+    if (card) {
+      button.style.backgroundColor = '';
+      button.style.color = '';
+      button.style.borderRadius = '';
+      button.style.padding = '';
     } else {
-       button.style.backgroundColor = '#ef4444';
-       button.style.color = '#ffffff';
-       button.style.borderRadius = '50%';
-       button.style.padding = '8px';
+      button.textContent = 'Add to Wishlist';
+      button.disabled = false;
+      button.style.backgroundColor = '#02B290';
+      button.style.color = '#ffffff';
     }
-    showNotification('Already in wishlist');
+    showNotification('✗ Removed from wishlist!');
   }
 
   saveWishlistToStorage();
   updateWishlistCount();
+  checkWishlistStatus();
+  checkProductDetailWishlistStatus();
 }
 
 function checkWishlistStatus() {
@@ -178,16 +180,13 @@ function checkWishlistStatus() {
     if (!heartIcon) return;
 
     if (isInWishlist) {
-      // Product IN wishlist - RED BACKGROUND
       heartIcon.classList.remove('far');
       heartIcon.classList.add('fas');
       button.style.backgroundColor = '#ef4444';
       button.style.color = '#ffffff';
       button.style.borderRadius = '50%';
       button.style.padding = '8px';
-      button.style.cursor = 'not-allowed';
     } else {
-      // Product NOT in wishlist - REMOVE BACKGROUND
       heartIcon.classList.remove('fas');
       heartIcon.classList.add('far');
       button.style.backgroundColor = '';
@@ -213,27 +212,21 @@ function checkProductDetailWishlistStatus() {
   detailButton.style.transition = 'background-color 0.3s ease';
 
   if (isInWishlist) {
-    detailButton.textContent = 'Added to Wishlist';
-    detailButton.disabled = true;
+    detailButton.textContent = 'Remove from Wishlist';
+    detailButton.disabled = false;
     detailButton.style.backgroundColor = '#ef4444';
     detailButton.style.color = '#ffffff';
-    detailButton.style.cursor = 'not-allowed';
-
-    // Hover effect
     detailButton.onmouseenter = () => {
       detailButton.style.backgroundColor = '#dc2626';
     };
     detailButton.onmouseleave = () => {
       detailButton.style.backgroundColor = '#ef4444';
     };
-
   } else {
     detailButton.textContent = 'Add to Wishlist';
     detailButton.disabled = false;
     detailButton.style.backgroundColor = '#02B290';
     detailButton.style.color = '#ffffff';
-
-    // Hover effect
     detailButton.onmouseenter = () => {
       detailButton.style.backgroundColor = '#4dc9b1';
     };
@@ -312,7 +305,7 @@ function renderWishlistPage() {
       const row = document.createElement('div');
       row.className = 'p-6 border-b border-gray-100';
       row.dataset.id = item.id;
-console.log("item,,,,,,,,,,,",item);
+      console.log("item,,,,,,,,,,,", item);
 
       row.innerHTML = `
         <div class="grid grid-cols-6 gap-4 items-center">
@@ -385,13 +378,13 @@ function addToCartFromWishlist(button) {
   const wishlistItem = wishlist.find(item => item.id === productId);
   if (!wishlistItem) return;
   console.log(wishlistItem);
-  
+
 
   // 🔹 Create cart product using wishlist data
   const product = {
     id: wishlistItem.id,
     name: wishlistItem.name,
-    weight: wishlistItem.weight || '',   
+    weight: wishlistItem.weight || '',
     price: wishlistItem.price,
     image: wishlistItem.image,
     quantity: 1
@@ -449,7 +442,7 @@ function addToCartFromWishlist(button) {
 //   saveCartToStorage();
 //   updateCartCount();
 
-  
+
 //   removeItemFromWishlistById(productId);
 // }
 
