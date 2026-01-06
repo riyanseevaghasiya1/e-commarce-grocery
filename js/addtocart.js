@@ -58,28 +58,18 @@ function updateCartCount() {
 
 // ========== Add to Cart ==========
 function addToCart(button) {
-    console.log("burrton",button);
-    
     const productInfo = button.closest('.product-info');
     const productCard = button.closest('.product-card');
-    
-    
 
     // Get product name
     const productNameElement = productInfo.querySelector('.product-name');
-    console.log("produ",productNameElement);
-    
     const productName = productNameElement 
         ? productNameElement.childNodes[0]?.textContent.trim() || productNameElement.textContent.trim()
         : '';
-    console.log("produnama",productName);
     
     // Clean up the name
     const cleanName = cleanProductName(productName.replace(/\s+/g, ' ').trim());
     const weightText = productInfo.querySelector('.weight')?.textContent.trim() || '';
-    const weight = weightText.replace(/[()]/g, '').trim();
-    console.log("qweight",weight);
-    
     const weight = canonicalWeight(weightText);
 
     const product = {
@@ -91,20 +81,6 @@ function addToCart(button) {
         quantity: 1
     };
 
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    console.log("cart>>>>>>>>>>>>??",cart);
-    
-    const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
-
-    console.log("exicfgg",existing);
-    
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cart.push(product); 
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
     const result = upsertCart(product);
     updateCartCount();
     updateAddToCartButtons();
@@ -158,7 +134,6 @@ function addToCart(button) {
 
 function updateAddToCartButtons() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    console.log("Cart items:", cart);
 
     document.querySelectorAll('.product-card').forEach(card => {
         // Extract and clean the name the SAME way as in addToCart
@@ -170,25 +145,12 @@ function updateAddToCartButtons() {
         const cleanName = cleanProductName(productName.replace(/\s+/g, ' ').trim());
         
         const weightText = card.querySelector('.weight')?.textContent.trim() || '';
-        const weight = weightText.replace(/[()]/g, '').trim();
+        const weight = canonicalWeight(weightText);
         
         const btn = card.querySelector('.add-to-cart');
 
         if (!btn || !cleanName) return;
 
-        // ✅ FIX: Match using the ID (which is cleanName) for consistency
-        // Also ensure weight comparison handles empty strings properly
-        const exists = cart.some(item => {
-            const nameMatch = item.name === cleanName || item.id === cleanName;
-            // const weightMatch = item.weight === weight;
-            
-            // console.log(`Checking: "${cleanName}" (${weight}) vs "${item.name}" (${item.weight})`, 
-            //            { nameMatch, weightMatch });
-            
-            return nameMatch ;
-        });
-
-        console.log(`Product: "${cleanName}" - Exists: ${exists}`);
         // Check if product exists in cart (match both name AND weight)
         const exists = cart.some(item => normalizeKey(item.name, item.weight) === normalizeKey(cleanName, weight));
 
