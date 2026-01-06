@@ -17,8 +17,8 @@ const allProducts = [
     options: [
       { label: "250g", multiplier: 0.25 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   {
@@ -36,9 +36,9 @@ const allProducts = [
     images: ["./images/fresh-tamato.jpg", "./images/fresh-tamato1.jpg", "./images/fresh-tamato2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -56,9 +56,9 @@ const allProducts = [
     images: ["./images/bread.jpg", "./images/bread1.jpg", "./images/bread2.jpg"],
     options: [
       { label: "1 pcs", multiplier: 1 },
-      { label: "2 pcs", multiplier: 2 },
-      { label: "5 pcs", multiplier: 5 },
-      { label: "10 pcs", multiplier: 10 }
+      { label: "2pcs", multiplier: 2 },
+      { label: "5pcs", multiplier: 5 },
+      { label: "10pcs", multiplier: 10 }
     ]
   },
   {
@@ -77,8 +77,8 @@ const allProducts = [
     options: [
       { label: "250 ml", multiplier: 0.25 },
       { label: "500 ml", multiplier: 0.5 },
-      { label: "1 L", multiplier: 1 },
-      { label: "2 L", multiplier: 2 }
+      { label: "1L", multiplier: 1 },
+      { label: "2L", multiplier: 2 }
     ]
   },
   {
@@ -96,9 +96,9 @@ const allProducts = [
     images: ["./images/basmati-rice.webp", "./images/basmati-rice1.jpg", "./images/basmati-rice2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -116,9 +116,9 @@ const allProducts = [
     images: ["./images/Wheat-Flour.jpg", "./images/Wheat-Flour1.png", "./images/Wheat-Flour2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -138,7 +138,7 @@ const allProducts = [
       { label: "100g", multiplier: 0.1 },
       { label: "200g", multiplier: 0.2 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 }
+      { label: "1Kg", multiplier: 1 }
     ]
   },
   {
@@ -157,8 +157,8 @@ const allProducts = [
     options: [
       { label: "250g", multiplier: 0.25 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   {
@@ -175,10 +175,10 @@ const allProducts = [
     description: "Crispy and salty chips for perfect snacking.",
     images: ["./images/potatochipssalted.png", "./images/potatochipssalted1.jpg", "./images/potatochipssalted2.jpg"],
     options: [
-      { label: "1 pcs", multiplier: 1 },
-      { label: "2 pcs", multiplier: 2 },
-      { label: "5 pcs", multiplier: 5 },
-      { label: "10 pcs", multiplier: 10 }
+      { label: "1pcs", multiplier: 1 },
+      { label: "2pcs", multiplier: 2 },
+      { label: "5pcs", multiplier: 5 },
+      { label: "10pcs", multiplier: 10 }
     ]
   },
   {
@@ -197,8 +197,8 @@ const allProducts = [
     options: [
       { label: "250g", multiplier: 0.25 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   {
@@ -216,9 +216,9 @@ const allProducts = [
     images: ["./images/masoordal.png", "./images/masoordal1.jpg", "./images/masoordal2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -236,9 +236,9 @@ const allProducts = [
     images: ["./images/sweetcorn.webp", "./images/sweetcorn1.jpg", "./images/sweetcorn2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -255,10 +255,10 @@ const allProducts = [
     description: "Refreshing orange juice with no preservatives.",
     images: ["./images/orangejuice.webp", "./images/orangejuice1.jpg", "./images/orangejuice2.jpg"],
     options: [
-      { label: "250 ml", multiplier: 0.25 },
-      { label: "500 ml", multiplier: 0.5 },
-      { label: "1 L", multiplier: 1 },
-      { label: "2 L", multiplier: 2 }
+      { label: "250ml", multiplier: 0.25 },
+      { label: "500ml", multiplier: 0.5 },
+      { label: "1L", multiplier: 1 },
+      { label: "2L", multiplier: 2 }
     ]
   },
   {
@@ -275,10 +275,10 @@ const allProducts = [
     description: "Ready-to-drink cold coffee with rich taste.",
     images: ["./images/coldcoffee.jpg", "./images/coldcoffee1.jpg", "./images/coldcoffee2.avif"],
     options: [
-      { label: "250 ml", multiplier: 0.25 },
-      { label: "500 ml", multiplier: 0.5 },
-      { label: "1 L", multiplier: 1 },
-      { label: "2 L", multiplier: 2 }
+      { label: "250ml", multiplier: 0.25 },
+      { label: "500ml", multiplier: 0.5 },
+      { label: "1L", multiplier: 1 },
+      { label: "2L", multiplier: 2 }
     ]
   },
   {
@@ -295,10 +295,10 @@ const allProducts = [
     description: "Powerful cleaner for all surfaces.",
     images: ["./images/MultipurposeCleaner.jpg", "./images/MultipurposeCleaner1.jpg", "./images/MultipurposeCleaner2.png"],
     options: [
-      { label: "250 ml", multiplier: 0.25 },
-      { label: "500 ml", multiplier: 0.5 },
-      { label: "1 L", multiplier: 1 },
-      { label: "2 L", multiplier: 2 }
+      { label: "250ml", multiplier: 0.25 },
+      { label: "500ml", multiplier: 0.5 },
+      { label: "1L", multiplier: 1 },
+      { label: "2L", multiplier: 2 }
     ]
   },
   {
@@ -317,8 +317,8 @@ const allProducts = [
     options: [
       { label: "250 ml", multiplier: 0.25 },
       { label: "500 ml", multiplier: 0.5 },
-      { label: "1 L", multiplier: 1 },
-      { label: "2 L", multiplier: 2 }
+      { label: "1L", multiplier: 1 },
+      { label: "2L", multiplier: 2 }
     ]
   },
   {
@@ -335,10 +335,10 @@ const allProducts = [
     description: "Natural herbal shampoo for soft hair.",
     images: ["./images/HerbalShampoo.png", "./images/HerbalShampoo1.jpg", "./images/HerbalShampoo2.jpg"],
     options: [
-      { label: "250 ml", multiplier: 0.25 },
-      { label: "500 ml", multiplier: 0.5 },
-      { label: "1 L", multiplier: 1 },
-      { label: "2 L", multiplier: 2 }
+      { label: "250ml", multiplier: 0.25 },
+      { label: "500ml", multiplier: 0.5 },
+      { label: "1L", multiplier: 1 },
+      { label: "2L", multiplier: 2 }
     ]
   },
   {
@@ -355,10 +355,10 @@ const allProducts = [
     description: "Gentle aloe-based face wash for daily use.",
     images: ["./images/AloeVeraFaceWash.jpg", "./images/AloeVeraFaceWash1.jpg", "./images/AloeVeraFaceWash2.jpg"],
     options: [
-      { label: "250 ml", multiplier: 0.25 },
-      { label: "500 ml", multiplier: 0.5 },
-      { label: "1 L", multiplier: 1 },
-      { label: "2 L", multiplier: 2 }
+      { label: "250ml", multiplier: 0.25 },
+      { label: "500ml", multiplier: 0.5 },
+      { label: "1L", multiplier: 1 },
+      { label: "2L", multiplier: 2 }
     ]
   },
   {
@@ -376,9 +376,9 @@ const allProducts = [
     images: ["./images/Dog Biscuits.jpg", "./images/Dog Biscuits1.jpg", "./images/Dog Biscuits2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -398,7 +398,7 @@ const allProducts = [
       { label: "85g", multiplier: 0.085 },
       { label: "170g", multiplier: 0.17 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 }
+      { label: "1Kg", multiplier: 1 }
     ]
   },
   {
@@ -415,10 +415,10 @@ const allProducts = [
     description: "Gentle baby lotion with natural oils.",
     images: ["./images/BabyLotion.webp", "./images/BabyLotion1.png", "./images/BabyLotion2.jpg"],
     options: [
-      { label: "200 ml", multiplier: 0.2 },
-      { label: "500 ml", multiplier: 0.5 },
-      { label: "1 L", multiplier: 1 },
-      { label: "2 L", multiplier: 2 }
+      { label: "200ml", multiplier: 0.2 },
+      { label: "500ml", multiplier: 0.5 },
+      { label: "1L", multiplier: 1 },
+      { label: "2L", multiplier: 2 }
     ]
   },
   {
@@ -435,10 +435,10 @@ const allProducts = [
     description: "Soft and leak-proof baby diapers.",
     images: ["./images/BabyDiapers.jpg", "./images/BabyDiapers1.png", "./images/BabyDiapers2.png"],
     options: [
-      { label: "10 pcs", multiplier: 10 },
-      { label: "20 pcs", multiplier: 20 },
-      { label: "30 pcs", multiplier: 30 },
-      { label: "40 pcs", multiplier: 40 }
+      { label: "10pcs", multiplier: 10 },
+      { label: "20pcs", multiplier: 20 },
+      { label: "30pcs", multiplier: 30 },
+      { label: "40pcs", multiplier: 40 }
     ]
   },
   {
@@ -536,9 +536,9 @@ const allProducts = [
     images: ["./images/green-grapes.jpg", "./images/green-grapes1.jpg", "./images/green-grapes2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -557,8 +557,8 @@ const allProducts = [
     options: [
       { label: "250g", multiplier: 0.25 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   {
@@ -576,9 +576,9 @@ const allProducts = [
     images: ["./images/onion.jpg", "./images/onion1.jpg", "./images/onion2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -595,10 +595,10 @@ const allProducts = [
     description: "Buttery and flaky baked croissants.",
     images: ["./images/croissant.jpg", "./images/croissant1.jpg", "./images/croissant2.jpg"],
     options: [
-      { label: "1 pcs", multiplier: 1 },
-      { label: "4 pcs", multiplier: 4 },
-      { label: "8 pcs", multiplier: 8 },
-      { label: "12 pcs", multiplier: 12 }
+      { label: "1pcs", multiplier: 1 },
+      { label: "4pcs", multiplier: 4 },
+      { label: "8pcs", multiplier: 8 },
+      { label: "12pcs", multiplier: 12 }
     ]
   },
   {
@@ -616,9 +616,9 @@ const allProducts = [
     images: ["./images/carrots.jpg", "./images/carrots1.jpg", "./images/carrots2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -637,8 +637,8 @@ const allProducts = [
     options: [
       { label: "200g", multiplier: 0.2 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   {
@@ -657,8 +657,8 @@ const allProducts = [
     options: [
       { label: "250g", multiplier: 0.25 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   {
@@ -676,9 +676,9 @@ const allProducts = [
     images: ["./images/green-beans.jpg", "./images/green-beans1.jpg", "./images/green-beans2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -695,10 +695,10 @@ const allProducts = [
     description: "Refreshing Coca Cola Soft Drink.",
     images: ["./images/cocacola.jpg", "./images/cocacola1.jpg", "./images/cocacola2.jpg"],
     options: [
-      { label: "250 ml", multiplier: 1 },
-      { label: "500 ml", multiplier: 2 },
-      { label: "1 L", multiplier: 4 },
-      { label: "2 L", multiplier: 8 }
+      { label: "250ml", multiplier: 1 },
+      { label: "500ml", multiplier: 2 },
+      { label: "1L", multiplier: 4 },
+      { label: "2L", multiplier: 8 }
     ]
   },
   {
@@ -716,9 +716,9 @@ const allProducts = [
     images: ["./images/orange.jpg", "./images/orange1.jpg", "./images/orange2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -736,9 +736,9 @@ const allProducts = [
     images: ["./images/green-cabbage.jpg", "./images/green-cabbage1.jpg", "./images/green-cabbage2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -756,9 +756,9 @@ const allProducts = [
     images: ["./images/strawberry.jpg", "./images/strawberry1.jpg", "./images/strawberry2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -776,9 +776,9 @@ const allProducts = [
     images: ["./images/broccoli.jpg", "./images/broccoli1.jpg", "./images/broccoli2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   }
 ];
@@ -798,9 +798,9 @@ const homeproduct=[
     images: ["./images/green-grapes.jpg", "./images/green-grapes1.jpg", "./images/green-grapes2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -819,8 +819,8 @@ const homeproduct=[
     options: [
       { label: "250g", multiplier: 0.25 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   {
@@ -838,9 +838,9 @@ const homeproduct=[
     images: ["./images/onion.jpg", "./images/onion1.jpg", "./images/onion2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -857,10 +857,10 @@ const homeproduct=[
     description: "Buttery and flaky baked croissants.",
     images: ["./images/croissant.jpg", "./images/croissant1.jpg", "./images/croissant2.jpg"],
     options: [
-      { label: "1 pcs", multiplier: 1 },
-      { label: "4 pcs", multiplier: 4 },
-      { label: "8 pcs", multiplier: 8 },
-      { label: "12 pcs", multiplier: 12 }
+      { label: "1pcs", multiplier: 1 },
+      { label: "4pcs", multiplier: 4 },
+      { label: "8pcs", multiplier: 8 },
+      { label: "12pcs", multiplier: 12 }
     ]
   },
   {
@@ -878,9 +878,9 @@ const homeproduct=[
     images: ["./images/carrots.jpg", "./images/carrots1.jpg", "./images/carrots2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -899,8 +899,8 @@ const homeproduct=[
     options: [
       { label: "200g", multiplier: 0.2 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   {
@@ -919,8 +919,8 @@ const homeproduct=[
     options: [
       { label: "250g", multiplier: 0.25 },
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 }
     ]
   },
   
@@ -941,9 +941,9 @@ const homeproduct1=[
     images: ["./images/green-beans.jpg", "./images/green-beans1.jpg", "./images/green-beans2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
     {
@@ -960,10 +960,10 @@ const homeproduct1=[
     description: "Refreshing Coca Cola Soft Drink.",
     images: ["./images/cocacola.jpg", "./images/cocacola1.jpg", "./images/cocacola2.jpg"],
     options: [
-      { label: "250 ml", multiplier: 1 },
-      { label: "500 ml", multiplier: 2 },
-      { label: "1 L", multiplier: 4 },
-      { label: "2 L", multiplier: 8 }
+      { label: "250ml", multiplier: 1 },
+      { label: "500ml", multiplier: 2 },
+      { label: "1L", multiplier: 4 },
+      { label: "2L", multiplier: 8 }
     ]
   },
   {
@@ -981,9 +981,9 @@ const homeproduct1=[
     images: ["./images/orange.jpg", "./images/orange1.jpg", "./images/orange2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -1001,9 +1001,9 @@ const homeproduct1=[
     images: ["./images/green-cabbage.jpg", "./images/green-cabbage1.jpg", "./images/green-cabbage2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -1021,9 +1021,9 @@ const homeproduct1=[
     images: ["./images/strawberry.jpg", "./images/strawberry1.jpg", "./images/strawberry2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   },
   {
@@ -1041,9 +1041,9 @@ const homeproduct1=[
     images: ["./images/broccoli.jpg", "./images/broccoli1.jpg", "./images/broccoli2.jpg"],
     options: [
       { label: "500g", multiplier: 0.5 },
-      { label: "1 Kg", multiplier: 1 },
-      { label: "2 Kg", multiplier: 2 },
-      { label: "5 Kg", multiplier: 5 }
+      { label: "1Kg", multiplier: 1 },
+      { label: "2Kg", multiplier: 2 },
+      { label: "5Kg", multiplier: 5 }
     ]
   }
 ]

@@ -99,6 +99,8 @@ select option:hover {
     padding: 6px 12px;
     font-size: 14px;
 }
+
+
 /* UNIVERSAL DROPDOWN SCROLL FIX */
 .dropdown-scroll,
 nav .group:hover > div,
@@ -135,3 +137,13 @@ nav .group:hover > div::-webkit-scrollbar-track,
 .currency-dropdown::-webkit-scrollbar-track {
   background: #eaeaea;
 }
+
+.cart-icon {
+    transition: background-color 0.3s ease;
+}
+
+.cart-icon.has-items {
+    background-color: #02B290 !important;
+    color: #fff;
+}
+

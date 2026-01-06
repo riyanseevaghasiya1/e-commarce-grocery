@@ -161,7 +161,7 @@
 					<div class="sm:flex justify-between items-center w-full gap-3 mb-3">
 
 						<button
-							class="bg-[#02B290] hover:bg-[#4dc9b1] text-white py-2 text-[18px] rounded-lg font-medium transition sm:flex-1 w-full mb-3 sm:mb-0"
+							class="bg-[#02B290]  hover:bg-[#4dc9b1] text-white py-2 text-[18px] rounded-lg font-medium transition sm:flex-1 w-full mb-3 sm:mb-0"
 							onclick="addToCart1(this)">
 							Add to Cart
 						</button>
@@ -604,6 +604,8 @@
 		}
 
 		function addToCart1(button) {
+			console.log("btn",button);
+			
 			const container = button.closest('.flex.flex-col') || document.body;
 
 			const nameEl = container.querySelector('h1') || document.querySelector('h1');
@@ -631,17 +633,18 @@
 				document.querySelector('[class*="weight-option"].active') ||
 				document.querySelector('.weight-option');
 
-			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1 Kg';
+			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1Kg';
 
 			// Weight/Volume multiplier for Kg/g/L/ml
 			const weightMultiplier = computeWeightMultiplier(selectedWeight);
 
-			// Calculate unit price (divide displayed price by quantity to get base unit price)
-			const unitPrice = Number(productPrice / quantity).toFixed(2);
+			// Price already reflects selected weight in UI; use it directly
+			const finalPrice = Number(productPrice).toFixed(2);
 
 			const product = {
+				id:productName,
 				name: productName,
-				price: `$${unitPrice}`,      // UNIT PRICE (not total price)
+				price: finalPrice,      // FINAL PRICE
 				image: productImage,
 				quantity: quantity,
 				weight: selectedWeight
@@ -687,22 +690,18 @@ console.log("existing",existing);
 					try {
 						const name = (document.querySelector('h1')?.textContent || '').trim() || 'Unknown Product';
 
-						let totalPrice = '0';
+						let price = '0';
 						const priceContainer = document.getElementById('currentPrice');
 						if (priceContainer) {
 							const priceText = priceContainer.textContent.trim();
 							const priceMatch = priceText.match(/\$?(\d+(?:\.\d{2})?)/);
 							if (priceMatch) {
-								totalPrice = priceMatch[1];
+								price = priceMatch[1];
 							}
 						}
-						console.log("💰 Extracted total price:", totalPrice);
+						console.log("💰 Extracted price:", price);
 						const image = document.getElementById('mainImg')?.src || '';
 						const qty = Math.max(1, parseInt(document.getElementById('qty')?.value || '1', 10));
-
-						// Calculate unit price by dividing total price by quantity
-						const unitPrice = (parseFloat(totalPrice) / qty).toFixed(2);
-						console.log("💰 Calculated unit price:", unitPrice);
 
 						let weight = '1 Kg';
 						const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
@@ -718,7 +717,7 @@ console.log("existing",existing);
 
 						const product = {
 							name,
-							price: unitPrice,  // Store unit price, not total price
+							price,
 							image,
 							quantity: qty,
 							weight
