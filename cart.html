@@ -95,7 +95,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 py-10">
             <div class="lg:col-span-2">
                 <div class="bg-white rounded-lg shadow-sm overflow-x-auto">
-                    <div class="min-w-[600px]">
+                    <div class="min-w-[600px]" id="cart">
                         <div id="wishlistHeader" class="hidden grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b text-sm font-semibold text-gray-700">
                             <div class="col-span-1"></div>
                             <div class="col-span-4">Products</div>
@@ -221,6 +221,7 @@ document.getElementById("checkoutBtn")?.addEventListener("click", (e) => {
         return;
     }
 
+
     // Save cart for checkout page
     localStorage.setItem("checkoutCart", JSON.stringify(cart));
 
@@ -245,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Simulate loading
   setTimeout(() => {
     skeleton.classList.add('hidden');
-    header.classList.remove('hidden');
+    // header.classList.remove('hidden');
   }, 800);
 
 });
@@ -263,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setTimeout(() => {
     skeleton.classList.add("hidden");
-    header.classList.remove("hidden");
+    // header.classList.remove("hidden");
   }, 800);
 
 });

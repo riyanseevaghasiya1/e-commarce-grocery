@@ -120,57 +120,99 @@ function showCartSkeleton() {
 function getProductIndexByName(name) {
     return allProducts.findIndex(p => p.name === name);
 }
+
 // ========== Load Cart Items ==========
 // ========== Load Cart Items ==========
 function loadCartItems() {
     const container = document.getElementById('cartItemsContainer');
-    if (!container) return;
+    const header = document.getElementById('wishlistHeader');
+    const headerSkeleton = document.getElementById('wishlistHeaderSkeleton');
+    const cartWrapper = document.getElementById('cart');
+
+    if (!container || !cartWrapper) return;
+
+    // Initial loading state
+    header?.classList.add('hidden');
+    headerSkeleton?.classList.remove('hidden');
+    cartWrapper.classList.add('min-w-[600px]');
 
     showCartSkeleton();
 
     setTimeout(() => {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+        // 🛒 EMPTY CART
         if (cart.length === 0) {
             container.innerHTML = `
                 <div class="px-6 py-12 text-center text-gray-500">
                     <i class="fas fa-shopping-cart text-5xl mb-4"></i>
                     <p class="text-lg">Your cart is empty</p>
-                    <button class="bg-[#02B290] text-white mt-2 px-3 py-2 rounded-lg text-sm hover:bg-[#4dc9b1] transition">
-                        <a href="./Shop.html">Shop Now</a>
-                    </button>
+                    <a href="./Shop.html"
+                       class="inline-block mt-3 bg-[#02B290] text-white px-4 py-2 rounded-lg text-sm hover:bg-[#4dc9b1] transition">
+                        Shop Now
+                    </a>
                 </div>
             `;
+
+            // Hide header & skeleton
+            header?.classList.add('hidden');
+            headerSkeleton?.classList.add('hidden');
+
+            // 🔥 REMOVE MIN WIDTH
+            cartWrapper.classList.remove('min-w-[600px]');
+
             updateCartSummary();
             return;
         }
 
+        // 🛒 CART HAS ITEMS
+        headerSkeleton?.classList.add('hidden');
+        header?.classList.remove('hidden');
+
+        // 🔥 ADD MIN WIDTH BACK
+        cartWrapper.classList.add('min-w-[600px]');
+
         container.innerHTML = cart.map((item, index) => `
-            <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center" data-index="${index}" data-id="${item.id || ''}">
+            <div class="grid grid-cols-12 gap-4 px-6 py-6 border-b items-center">
                 <div class="col-span-1">
-                    <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer" onclick="removeFromCart(${index})"></i>
+                    <i class="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer"
+                       onclick="removeFromCart(${index})"></i>
                 </div>
+
                 <div class="col-span-4 flex items-center space-x-4">
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded cursor-pointer" onclick="viewProductDetails(getProductIndexByName('${item.name}'))" onerror="this.src='https://via.placeholder.com/100'">
+                    <img src="${item.image}" class="w-16 h-16 object-cover rounded"
+                         onerror="this.src='https://via.placeholder.com/100'">
                     <span class="text-sm font-medium text-gray-800">${item.name}</span>
                 </div>
-                <div class="col-span-2 text-center">
-                    <span class="text-gray-800 font-semibold current-price">${item.price}</span>
+
+                <div class="col-span-2 text-center font-semibold text-gray-800">
+                    ${item.price}
                 </div>
+
                 <div class="col-span-3 flex justify-center">
                     <div class="flex items-center border border-gray-300 rounded">
-                        <button class="px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="updateQuantity(${index}, -1)">−</button>
-                        <input type="text" value="${item.quantity}" class="w-12 text-center border-x border-gray-300 py-1 focus:outline-none" readonly>
-                        <button class="px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="updateQuantity(${index}, 1)">+</button>
+                        <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"
+                                onclick="updateQuantity(${index}, -1)">−</button>
+                        <input type="text"
+                               value="${item.quantity}"
+                               class="w-12 text-center border-x border-gray-300 py-1 focus:outline-none"
+                               readonly>
+                        <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"
+                                onclick="updateQuantity(${index}, 1)">+</button>
                     </div>
                 </div>
-                <div class="col-span-2 text-right font-semibold text-gray-800 current-price">$${calculateItemTotal(item)}</div>
+
+                <div class="col-span-2 text-right font-semibold text-gray-800">
+                    $${calculateItemTotal(item)}
+                </div>
             </div>
         `).join('');
 
         updateCartSummary();
     }, 800);
 }
+
+
 
 // ========== Calculate Item Total ==========
 function calculateItemTotal(item) {

@@ -277,6 +277,7 @@ window.addEventListener('storage', (e) => {
 function renderWishlistPage() {
   const wishlistContainer = document.getElementById('wishlistContainer');
   const wishlistSkeleton = document.getElementById('wishlistSkeleton');
+  const wishlistHeader = document.getElementById('wishlistHeader');
 
   if (!wishlistContainer) return;
 
@@ -287,58 +288,58 @@ function renderWishlistPage() {
     wishlistContainer.classList.remove("hidden");
     wishlistContainer.innerHTML = '';
 
+    // 🔴 HIDE HEADER IF EMPTY
     if (wishlist.length === 0) {
+      wishlistHeader.classList.add("hidden");
+
       wishlistContainer.innerHTML = `
         <div class="text-center py-16">
           <i class="fas fa-heart text-5xl mb-4"></i>
           <p class="text-lg">Your wishlist is empty</p>
           <p class="text-gray-500 mt-2">Add some products you love!</p>
-          <button class="bg-[#02B290] text-white mt-2 px-3 py-2 rounded-lg text-sm hover:bg-[#4dc9b1] transition">
-            <a href="./Shop.html">Shop Now</a>
-          </button>
+          <a href="./Shop.html"
+            class="inline-block bg-[#02B290] text-white mt-4 px-4 py-2 rounded-lg text-sm hover:bg-[#4dc9b1] transition">
+            Shop Now
+          </a>
         </div>
       `;
       return;
     }
 
+    // 🟢 SHOW HEADER IF ITEMS EXIST
+    wishlistHeader.classList.remove("hidden");
+
     wishlist.forEach((item) => {
       const row = document.createElement('div');
       row.className = 'p-6 border-b border-gray-100';
       row.dataset.id = item.id;
-      console.log("item,,,,,,,,,,,", item);
 
       row.innerHTML = `
         <div class="grid grid-cols-6 gap-4 items-center">
           <div>
-            <img src="${item.image}" alt="${item.name}" width="100px" class="rounded-md">
+            <img src="${item.image}" class="w-16 h-16 object-cover rounded"
+              onerror="this.src='https://via.placeholder.com/100'">
           </div>
 
-          <div class="col-span-2 text-left">
-            <h3 class="text-gray-900 font-medium text-lg mb-1 product-name1">${item.name} ${item.weight ? `<span class="text-xs text-gray-500 weight1">(${item.weight})</span>` : ''}</h3>
-            <p class="text-gray-600 text-sm mb-1">${item.badge ? `Badge: ${item.badge}` : ''}</p>
+          <div class="col-span-2">
+            <h3 class="font-medium text-lg">${item.name}
+              ${item.weight ? `<span class="text-xs text-gray-500">(${item.weight})</span>` : ''}
+            </h3>
           </div>
 
-          <div class="text-left">
-            <p class="text-gray-900 font-medium text-lg current-price">${item.price || '—'}</p>
-          </div>
+          <div>${item.price || '—'}</div>
 
-          <div class="text-left">
-            <span class="inline-block text-[#4dc9b1] font-medium">In Stock</span>
-          </div>
+          <div class="text-[#4dc9b1]">In Stock</div>
 
-          <div class="flex gap-2 justify-start">
-            <button class="add-to-cart bg-[#02B290] hover:bg-[#4dc9b1] text-white p-3 rounded transition-colors"
-              onclick="addToCartFromWishlist(this)">
+          <div class="flex gap-2">
+            <button onclick="addToCartFromWishlist(this)"
+              class="bg-[#02B290] text-white p-3 rounded">
               <i class="fas fa-shopping-bag"></i>
             </button>
 
             <button onclick="removeFromWishlist('${item.id}')"
-              class="bg-gray-700 hover:bg-gray-800 text-white p-3 rounded transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
+              class="bg-gray-700 text-white p-3 rounded">
+              <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
@@ -346,7 +347,18 @@ function renderWishlistPage() {
 
       wishlistContainer.appendChild(row);
     });
-  }, 1800);
+  }, 1200);
+}
+
+function openProductDetail(productId) {
+  const product = wishlist.find(item => item.id === productId);
+  if (!product) return;
+
+  // store clicked product
+  localStorage.setItem('selectedProduct', JSON.stringify(product));
+
+  // redirect to product detail page
+  window.location.href = 'ProductDetails.html';
 }
 
 function removeFromWishlist(productId) {

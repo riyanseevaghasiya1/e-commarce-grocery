@@ -139,17 +139,16 @@
         });
 
 
-        document.addEventListener("DOMContentLoaded", () => {
-    // Simulate loading time
-    setTimeout(() => {
-        document.getElementById("bannerSkeleton").style.display = "none";
-        document.getElementById("wishlistHeaderSkeleton").style.display = "none";
+       document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    document.getElementById("bannerSkeleton").style.display = "none";
+    document.getElementById("wishlistHeaderSkeleton").style.display = "none";
 
-        // Show actual content
-        document.getElementById("bannerSection").classList.remove("hidden");
-        document.getElementById("wishlistHeader").classList.remove("hidden");
-    }, 1500);
+    document.getElementById("bannerSection").classList.remove("hidden");
+    // ❌ DO NOT TOUCH wishlistHeader HERE
+  }, 1500);
 });
+
 
     </script>
 
