@@ -607,7 +607,7 @@
 			const container = button.closest('.flex.flex-col') || document.body;
 
 			const nameEl = container.querySelector('h1') || document.querySelector('h1');
-			const productName = nameEl ? nameEl.textContent.trim() : 'Unknown product';
+			const productName = nameEl ? cleanProductName(nameEl.textContent.trim()) : 'Unknown product';
 
 			const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
 				document.querySelector('[class*="font-bold"][class*="text"]');
@@ -641,7 +641,7 @@
 
 			const product = {
 				name: productName,
-				price: `$${unitPrice}`,      // UNIT PRICE (not total price)
+				price: `$${finalPrice}`,      // FINAL PRICE
 				image: productImage,
 				quantity: quantity,
 				weight: selectedWeight
@@ -656,21 +656,23 @@
 				cart = [];
 			}
 
-			// If same product & same weight → increase qty
-			const existing = cart.find(item =>
-				item.name === product.name && item.weight === product.weight
-			);
-console.log("existing",existing);
-
-			if (existing) {
-				existing.quantity += product.quantity;
+			if (typeof window.upsertCart === 'function') {
+				window.upsertCart(product);
 			} else {
-				cart.push(product);
+				// If same product & same weight → increase qty
+				const existing = cart.find(item =>
+					item.name === product.name && item.weight === product.weight
+				);
+				if (existing) {
+					existing.quantity += product.quantity;
+				} else {
+					cart.push(product);
+				}
+				localStorage.setItem('cart', JSON.stringify(cart));
 			}
 
-			localStorage.setItem('cart', JSON.stringify(cart));
-
 			updateCartCount();
+			if (typeof updateAddToCartButtons === 'function') updateAddToCartButtons();
 			showNotification('Item added to cart');
 		}
 	</script>
