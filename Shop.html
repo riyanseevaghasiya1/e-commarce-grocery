@@ -149,9 +149,28 @@
 		line-height: 1.8;
 	}
 
+	.weight-option-btn {
+		padding: 8px 16px;
+		border: 1px solid var(--border-color);
+		border-radius: 6px;
+		background: white;
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+	.weight-option-btn:hover {
+		border-color: var(--primary-color);
+		color: var(--primary-color);
+	}
+	.weight-option-btn.active {
+		background: var(--primary-color);
+		color: white;
+		border-color: var(--primary-color);
+	}
+
 	.quantity-selector {
 		display: flex;
-		align-items: center;
+		flex-direction: column;
+		align-items: flex-start;
 		gap: 16px;
 		margin-bottom: 24px;
 		flex-wrap: wrap;
@@ -446,14 +465,20 @@
 						Fresh and organic product delivered right to your doorstep.
 					</p>
 					<div class="quantity-selector">
-						<span style="font-weight: 600;">Quantity:</span>
-						<div class="quantity-controls">
-							<button class="quantity-btn" onclick="window.decreaseQuantity()">-</button>
-							<input type="number" class="quantity-input" id="quantityInput" value="1" min="1">
-							<button class="quantity-btn" onclick="window.increaseQuantity()">+</button>
+						<div class="weight-selector mb-6" id="modalWeightContainer" style="display: none;">
+							<span class="font-semibold block mb-2">Weight:</span>
+							<div class="flex flex-wrap gap-2" id="modalWeightOptions"></div>
+						</div>
+						<div class="flex items-center gap-4">
+							<span style="font-weight: 600;">Quantity:</span>
+							<div class="quantity-controls">
+								<button class="quantity-btn" onclick="decreaseQty()">-</button>
+								<input type="number" class="quantity-input" id="qty" type="number" value="1" min="1" max="10">
+								<button class="quantity-btn" onclick="increaseQty()">+</button>
+							</div>
 						</div>
 					</div>
-					<button class="modal-add-to-cart" onclick="addToCartFromModal()">
+					<button class="modal-add-to-cart" onclick="addToCartFromShopModal()">
 						<i class="fas fa-shopping-bag"></i> Add to Cart
 					</button>
 				</div>
@@ -462,9 +487,13 @@
 	</div>
 
 	<script>
-		/* ============================
-		   QUICK VIEW FUNCTION (SHOP PAGE)
-		   ============================ */
+		window.qvState = { basePrice: 0, multiplier: 1, qty: 1, unitPrice: 0, weightLabel: '' };
+		function parsePriceLocal(p) { return Number(String(p || '').replace('$', '').trim()) || 0; }
+		function updateModalPriceDisplay() {
+			const total = Number((window.qvState.unitPrice * window.qvState.qty).toFixed(2));
+			const el = document.getElementById("modalProductPrice");
+			if (el) el.textContent = `$${total.toFixed(2)}`;
+		}
 		window.openQuickView = function (btn) {
 			const productCard = btn.closest(".product-card");
 			if (!productCard) return;
@@ -478,13 +507,15 @@
 			// Insert into modal
 			const indexAttr = btn.getAttribute("data-index");
 			let thumbSources = [];
+			let productData = null;
+
 			if (typeof allProducts !== "undefined" && Array.isArray(allProducts)) {
 				if (indexAttr !== null && !Number.isNaN(Number(indexAttr)) && allProducts[Number(indexAttr)]) {
-					const p = allProducts[Number(indexAttr)];
-					if (Array.isArray(p.images)) thumbSources = p.images.filter(Boolean);
+					productData = allProducts[Number(indexAttr)];
+					if (Array.isArray(productData.images)) thumbSources = productData.images.filter(Boolean);
 				} else {
-					const match = allProducts.find(p => p.name?.toLowerCase() === name.toLowerCase());
-					if (match && Array.isArray(match.images)) thumbSources = match.images.filter(Boolean);
+					productData = allProducts.find(p => p.name?.toLowerCase() === name.toLowerCase());
+					if (productData && Array.isArray(productData.images)) thumbSources = productData.images.filter(Boolean);
 				}
 			}
 			if (!thumbSources.length && img) thumbSources = [img];
@@ -492,9 +523,55 @@
 
 			document.getElementById("modalProductImage").src = thumbSources[0] || img;
 			document.getElementById("modalProductName").textContent = name;
-			document.getElementById("modalProductPrice").textContent = price;
 			document.getElementById("modalProductDescription").textContent = desc;
-			document.getElementById("quantityInput").value = 1;
+			document.getElementById("qty").value = 1;
+
+			const base = productData && typeof productData.basePrice === 'number' ? productData.basePrice : parsePriceLocal(price);
+			window.qvState.basePrice = base;
+			window.qvState.qty = 1;
+			window.qvState.multiplier = 1;
+			window.qvState.unitPrice = base;
+			window.qvState.weightLabel = '';
+
+			// Weight Options Logic
+			const weightContainer = document.getElementById('modalWeightContainer');
+			const weightOptionsDiv = document.getElementById('modalWeightOptions');
+			
+			if (productData && productData.options && productData.options.length > 0) {
+				weightContainer.style.display = 'block';
+				weightOptionsDiv.innerHTML = '';
+				
+				productData.options.forEach((opt, idx) => {
+					const btn = document.createElement('button');
+					btn.className = `weight-option-btn ${idx === 0 ? 'active' : ''}`;
+					btn.textContent = opt.label;
+					btn.onclick = () => {
+						// Update active state
+						weightOptionsDiv.querySelectorAll('.weight-option-btn').forEach(b => b.classList.remove('active'));
+						btn.classList.add('active');
+						
+						window.qvState.multiplier = Number(opt.multiplier) || 1;
+						window.qvState.weightLabel = opt.label || '';
+						window.qvState.unitPrice = Number((window.qvState.basePrice * window.qvState.multiplier).toFixed(2));
+						updateModalPriceDisplay();
+					};
+					weightOptionsDiv.appendChild(btn);
+				});
+				
+				// Set initial price based on first option
+				const firstOpt = productData.options[0];
+				window.qvState.multiplier = Number(firstOpt.multiplier) || 1;
+				window.qvState.weightLabel = firstOpt.label || '';
+				window.qvState.unitPrice = Number((window.qvState.basePrice * window.qvState.multiplier).toFixed(2));
+				updateModalPriceDisplay();
+				
+			} else {
+				weightContainer.style.display = 'none';
+				window.qvState.multiplier = 1;
+				window.qvState.weightLabel = '';
+				window.qvState.unitPrice = Number((window.qvState.basePrice).toFixed(2));
+				updateModalPriceDisplay();
+			}
 
 			// Populate up to 3 thumbnails
 			const thumbs = document.getElementById('modalThumbnails');
@@ -549,16 +626,69 @@
 		/* ============================
 		   QUANTITY CONTROLS
 		   ============================ */
-		window.increaseQuantity = function () {
-			const input = document.getElementById("quantityInput");
+		window.increaseQty = function () {
+			const input = document.getElementById("qty");
 			input.value = Number(input.value) + 1;
+			window.qvState.qty = Number(input.value) || 1;
+			updateModalPriceDisplay();
 		};
 
-		window.decreaseQuantity = function () {
-			const input = document.getElementById("quantityInput");
+		window.decreaseQty = function () {
+			const input = document.getElementById("qty");
 			if (Number(input.value) > 1) {
 				input.value = Number(input.value) - 1;
 			}
+			window.qvState.qty = Number(input.value) || 1;
+			updateModalPriceDisplay();
+		};
+
+		window.addToCartFromShopModal = function () {
+			const productName = document.getElementById('modalProductName').textContent;
+			const productImage = document.getElementById('modalProductImage').src;
+			const quantity = parseInt(document.getElementById('qty').value) || 1;
+			
+			// Get selected weight
+			let weight = window.qvState.weightLabel || '';
+			if (!weight) {
+				const activeWeightBtn = document.querySelector('#modalWeightOptions .weight-option-btn.active');
+				if (activeWeightBtn) weight = activeWeightBtn.textContent;
+			}
+			
+			const product = {
+				name: productName,
+				price: `$${Number(window.qvState.unitPrice).toFixed(2)}`,
+				image: productImage,
+				quantity: quantity,
+				weight: weight
+			};
+
+			// Add to cart logic
+			const cart = JSON.parse(localStorage.getItem('cart')) || [];
+			
+			// Check if exists (name AND weight)
+			const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
+
+			if (existing) {
+				existing.quantity += product.quantity;
+			} else {
+				cart.push(product);
+			}
+
+			localStorage.setItem('cart', JSON.stringify(cart));
+			
+			// Update UI
+			if (typeof updateCartCount === 'function') updateCartCount();
+			
+			const btn = document.querySelector('.modal-add-to-cart');
+			const originalContent = btn.innerHTML;
+			btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+			btn.style.background = '#02B290'; 
+			
+			setTimeout(() => {
+				btn.innerHTML = originalContent;
+				btn.style.background = '';
+				window.closeQuickView();
+			}, 1500);
 		};
 	</script>
 
