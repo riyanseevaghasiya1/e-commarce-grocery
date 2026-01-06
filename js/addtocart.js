@@ -152,7 +152,8 @@ function updateAddToCartButtons() {
         if (!btn || !cleanName) return;
 
         // Check if product exists in cart (match both name AND weight)
-        const exists = cart.some(item => normalizeKey(item.name, item.weight) === normalizeKey(cleanName, weight));
+        const exists = cart.some(item => normalizeKey(item.name) === normalizeKey(cleanName));
+        // const exists = cart.some(item => normalizeKey(item.name, item.weight) === normalizeKey(cleanName, weight));
 
         if (exists) {
             btn.classList.add('added');

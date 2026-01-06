@@ -705,9 +705,24 @@ body {
 }
 
 .h_slider-item {
+    min-width: 400px !important;
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
-
+@media (max-width: 1440px) {
+    .h_slider-item {
+        min-width: 320px !important;
+    }    
+}
+@media (max-width: 540px) {
+    .h_slider-item {
+        min-width: 330px !important;
+    }    
+}
+@media (max-width: 422px) {
+    .h_slider-item {
+        min-width: 280px !important;
+    }    
+}
 .owl-item.center .h_slider-card {
     transform: scale(1) !important;
     opacity: 1;
