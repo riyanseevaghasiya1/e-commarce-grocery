@@ -939,10 +939,15 @@
             const qty = Number(document.getElementById('quantityInput')?.value) || 1;
             const weightText = window.qvHomeState.weightLabel || '';
             const unitPrice = Number(window.qvHomeState.unitPriceNum || parsePrice(window.modalBasePriceText || '$0.00'));
+            // Store unit price (not total price) to avoid double multiplication in cart
             const product = { id: name, name, weight: weightText, price: `$${unitPrice.toFixed(2)}`, image: img, quantity: qty };
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
-            if (existing) { existing.quantity += product.quantity; } else { cart.push(product); }
+            if (existing) { 
+                existing.quantity += product.quantity; 
+            } else { 
+                cart.push(product); 
+            }
             localStorage.setItem('cart', JSON.stringify(cart));
             if (typeof updateCartCount === 'function') updateCartCount();
             const btn = document.querySelector('.modal-add-to-cart'); if (btn) { const old = btn.innerHTML; btn.innerHTML = '<i class="fas fa-check"></i> Added!'; btn.style.background = '#02B290'; setTimeout(() => { btn.innerHTML = old; btn.style.background = ''; }, 1200); }
