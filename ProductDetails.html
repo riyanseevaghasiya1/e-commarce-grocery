@@ -636,12 +636,12 @@
 			// Weight/Volume multiplier for Kg/g/L/ml
 			const weightMultiplier = computeWeightMultiplier(selectedWeight);
 
-			// Price already reflects selected weight in UI; use it directly
-			const finalPrice = Number(productPrice).toFixed(2);
+			// Calculate unit price (divide displayed price by quantity to get base unit price)
+			const unitPrice = Number(productPrice / quantity).toFixed(2);
 
 			const product = {
 				name: productName,
-				price: finalPrice,      // FINAL PRICE
+				price: `$${unitPrice}`,      // UNIT PRICE (not total price)
 				image: productImage,
 				quantity: quantity,
 				weight: selectedWeight
@@ -687,18 +687,22 @@ console.log("existing",existing);
 					try {
 						const name = (document.querySelector('h1')?.textContent || '').trim() || 'Unknown Product';
 
-						let price = '0';
+						let totalPrice = '0';
 						const priceContainer = document.getElementById('currentPrice');
 						if (priceContainer) {
 							const priceText = priceContainer.textContent.trim();
 							const priceMatch = priceText.match(/\$?(\d+(?:\.\d{2})?)/);
 							if (priceMatch) {
-								price = priceMatch[1];
+								totalPrice = priceMatch[1];
 							}
 						}
-						console.log("💰 Extracted price:", price);
+						console.log("💰 Extracted total price:", totalPrice);
 						const image = document.getElementById('mainImg')?.src || '';
 						const qty = Math.max(1, parseInt(document.getElementById('qty')?.value || '1', 10));
+
+						// Calculate unit price by dividing total price by quantity
+						const unitPrice = (parseFloat(totalPrice) / qty).toFixed(2);
+						console.log("💰 Calculated unit price:", unitPrice);
 
 						let weight = '1 Kg';
 						const weightOptions = Array.from(document.querySelectorAll('.weight-option'));
@@ -714,7 +718,7 @@ console.log("existing",existing);
 
 						const product = {
 							name,
-							price,
+							price: unitPrice,  // Store unit price, not total price
 							image,
 							quantity: qty,
 							weight

@@ -33,6 +33,37 @@ function normalizeId(text) {
 wishlist = wishlist.map(it => Object.assign({}, it, { id: normalizeId(it.id), name: normalizeId(it.name) }));
 wishlist = uniqueById(wishlist);
 
+function deriveDefaultWeightByName(name) {
+  try {
+    if (typeof allProducts === 'undefined' || !Array.isArray(allProducts)) return '';
+    const p = allProducts.find(q => normalizeId(q.name) === normalizeId(name));
+    if (!p) return '';
+    if (Array.isArray(p.options) && p.options.length) {
+      const u = (p.unit || '').toLowerCase();
+      let desired = '';
+      if (u === 'g') desired = `${p.quantity} g`;
+      else if (u === 'kg') desired = `${p.quantity} Kg`;
+      else if (u === 'ml') desired = `${p.quantity} ml`;
+      else if (u === 'l') desired = `${p.quantity} L`;
+      else if (u === 'pcs') desired = `${p.quantity} pcs`;
+      const match = p.options.find(o => (o.label || '').toLowerCase() === (desired || '').toLowerCase());
+      return match ? match.label : p.options[0].label;
+    } else {
+      const u = p.unit;
+      const q = p.quantity;
+      return u === 'ml' ? `${q} ml` : u === 'L' ? `${q} L` : u === 'g' ? `${q} g` : u === 'pcs' ? `${q} pcs` : `${q} Kg`;
+    }
+  } catch (e) { return ''; }
+}
+
+wishlist = wishlist.map(it => {
+  if (!it.weight || !String(it.weight).trim()) {
+    return Object.assign({}, it, { weight: deriveDefaultWeightByName(it.name) });
+  }
+  return it;
+});
+saveWishlistToStorage();
+
 function saveWishlistToStorage() {
   try {
     wishlist = uniqueById(wishlist);
@@ -78,7 +109,31 @@ function addToWishlist(button) {
 
     // Extract weight
     const weightText = card.querySelector('.weight')?.textContent.trim() || '';
-    const weight = weightText.replace(/[()]/g, '').trim();
+    let weight = weightText.replace(/[()]/g, '').trim();
+    if (!weight) {
+      try {
+        if (typeof allProducts !== 'undefined' && Array.isArray(allProducts)) {
+          const p = allProducts.find(q => normalizeId(q.name) === productId);
+          if (p) {
+            if (Array.isArray(p.options) && p.options.length) {
+              const u = (p.unit || '').toLowerCase();
+              let desired = '';
+              if (u === 'g') desired = `${p.quantity} g`;
+              else if (u === 'kg') desired = `${p.quantity} Kg`;
+              else if (u === 'ml') desired = `${p.quantity} ml`;
+              else if (u === 'l') desired = `${p.quantity} L`;
+              else if (u === 'pcs') desired = `${p.quantity} pcs`;
+              const match = p.options.find(o => (o.label || '').toLowerCase() === (desired || '').toLowerCase());
+              weight = match ? match.label : p.options[0].label;
+            } else {
+              const u = p.unit;
+              const q = p.quantity;
+              weight = u === 'ml' ? `${q} ml` : u === 'L' ? `${q} L` : u === 'g' ? `${q} g` : u === 'pcs' ? `${q} pcs` : `${q} Kg`;
+            }
+          }
+        }
+      } catch (e) {}
+    }
 
     productData = {
       id: productId,
@@ -101,6 +156,12 @@ function addToWishlist(button) {
       const m = t.match(/\$?\d+(?:\.\d+)?/);
       if (m) price = m[0].includes('$') ? m[0] : `$${m[0]}`;
     }
+    const selectedWeightEl =
+      document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
+      document.querySelector('[class*="weight-option"][class*="bg-\\[\\#02B290\\]"]') ||
+      document.querySelector('[class*="weight-option"].active') ||
+      document.querySelector('.weight-option');
+    const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '';
     productData = {
       id: productId,
       image: img,
@@ -108,7 +169,7 @@ function addToWishlist(button) {
       price,
       rating: '',
       badge: '',
-      weight: ''
+      weight: selectedWeight
     };
   }
 
@@ -402,7 +463,7 @@ function addToCartFromWishlist(button) {
   };
 
   // 🔹 Check if product already in cart
-  const existingIndex = cart.findIndex(item => item.id === product.id);
+  const existingIndex = cart.findIndex(item => item.name === product.name && item.weight === product.weight);
 
   if (existingIndex !== -1) {
     cart[existingIndex].quantity += 1;
@@ -414,6 +475,7 @@ function addToCartFromWishlist(button) {
 
   saveCartToStorage();
   updateCartCount();
+  try { if (typeof updateAddToCartButtons === 'function') updateAddToCartButtons(); } catch (e) {}
 
   // 🔹 Remove from wishlist after adding to cart
   removeItemFromWishlistById(productId);
