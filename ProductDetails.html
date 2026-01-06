@@ -813,6 +813,18 @@ console.log("existing",existing);
 				document.getElementById("productMainContent").style.display = "block";
 			}, 800);
 		});
+
+
+		document.addEventListener('DOMContentLoaded', () => {
+  const product = JSON.parse(localStorage.getItem('selectedProduct'));
+  if (!product) return;
+
+  document.getElementById('productName').textContent = product.name;
+  document.getElementById('productImage').src = product.image;
+  document.getElementById('productPrice').textContent = product.price;
+  document.getElementById('productWeight').textContent = product.weight || '';
+});
+
 	</script>
 </body>
 

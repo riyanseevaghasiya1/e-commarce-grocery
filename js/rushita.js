@@ -215,7 +215,10 @@ function renderCartItems() {
 
     itemDiv.innerHTML = `
       <div class="flex items-center space-x-4">
-        <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg border">
+         
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded cursor-pointer" onclick="viewProductDetails(getProductIndexByName('${item.name}'))" onerror="this.src='https://via.placeholder.com/100'">
+                    
+                
         <div>
           <h3 class="font-semibold text-gray-800"> ${item.name}
           <span class="text-xs text-gray-500">(${item.weight})</span></h3>
@@ -308,6 +311,7 @@ function setupProceedToCheckout() {
   newBtn.addEventListener("click", function (e) {
     e.preventDefault();
     const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+    
     if (cartData.length === 0) {
       alert("🛒 Your cart is empty!");
       return;

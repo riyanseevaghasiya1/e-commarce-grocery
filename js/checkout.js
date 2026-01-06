@@ -370,10 +370,18 @@
       confirmationSection?.classList.remove("hidden");
       window.scrollTo({ top: 0, behavior: "smooth" });
 
-      // Clear checkout cart
-      localStorage.removeItem("checkoutCart");
-      localStorage.removeItem("buyNowProduct");
-      localStorage.removeItem("cart");
+      console.log("buy",buyNowProduct);
+      
+      if (buyNowProduct){
+        // Clear 'Buy Now' product after order
+        localStorage.removeItem("buyNowProduct");
+      } else {
+
+        localStorage.removeItem("checkoutCart");
+        // Clear checkout cart
+        localStorage.removeItem("buyNowProduct");
+        localStorage.removeItem("cart");
+      }
     });
 
     // ----- Coupon system -----
