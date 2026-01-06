@@ -317,8 +317,7 @@ function renderWishlistPage() {
       row.innerHTML = `
         <div class="grid grid-cols-6 gap-4 items-center">
           <div>
-            <img src="${item.image}" class="w-16 h-16 object-cover rounded"
-              onerror="this.src='https://via.placeholder.com/100'">
+             <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded cursor-pointer" onclick="viewProductDetails(getProductIndexByName('${item.name}'))" onerror="this.src='https://via.placeholder.com/100'">
           </div>
 
           <div class="col-span-2">
