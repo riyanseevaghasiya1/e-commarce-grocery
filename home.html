@@ -528,7 +528,7 @@
                                     <button class="quantity-btn" onclick="window.increaseQuantity()">+</button>
                                 </div>
                             </div>
-                            <button class="modal-add-to-cart" onclick="addToCartFromModal()">
+                            <button class="modal-add-to-cart add-to-cart" onclick="event.stopPropagation(); addToCartFromModal()">
                                 <i class="fas fa-shopping-bag"></i> Add to Cart
                             </button>
                         </div>
