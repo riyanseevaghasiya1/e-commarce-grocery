@@ -1,3 +1,51 @@
+// ========== Cart Helpers ==========
+function normalizeWeight(weight) {
+    const cleaned = (weight || '').replace(/[()]/g, '').trim();
+    return cleaned || 'default';
+}
+
+function canonicalWeight(weight) {
+    return normalizeWeight(weight)
+        .toLowerCase()
+        .replace(/\s+/g, '')
+        .replace(/kgs?$/, 'kg')
+        .replace(/kilograms?$/, 'kg')
+        .replace(/litres?$/, 'l')
+        .replace(/liter?s?$/, 'l')
+        .replace(/grams?$/, 'g')
+        .replace(/milligrams?$/, 'mg')
+        .replace(/millilit(er|re)s?$/, 'ml');
+}
+
+function cleanProductName(name) {
+    return (name || '').replace(/\s*\(.*?\)\s*$/, '').trim();
+}
+
+function normalizeKey(name, weight) {
+    return `${cleanProductName(name).toLowerCase()}__${canonicalWeight(weight)}`;
+}
+
+function upsertCart(product) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const targetKey = normalizeKey(product.name, product.weight);
+    const existing = cart.find(item => normalizeKey(item.name, item.weight) === targetKey);
+
+    if (existing) {
+        existing.quantity += product.quantity || 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        return { cart, added: true, merged: true };
+    }
+
+    cart.push({
+        ...product,
+        name: cleanProductName(product.name),
+        weight: canonicalWeight(product.weight)
+    });
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    return { cart, added: true, merged: false };
+}
+
 // ========== Update Cart Count ==========
 function updateCartCount() {
     const cartCount = document.getElementById('cart-count');
@@ -20,9 +68,9 @@ function addToCart(button) {
         : '';
     
     // Clean up the name
-    const cleanName = productName.replace(/\s+/g, ' ').trim();
+    const cleanName = cleanProductName(productName.replace(/\s+/g, ' ').trim());
     const weightText = productInfo.querySelector('.weight')?.textContent.trim() || '';
-    const weight = weightText.replace(/[()]/g, '').trim();
+    const weight = canonicalWeight(weightText);
 
     const product = {
         id: cleanName,
@@ -33,19 +81,10 @@ function addToCart(button) {
         quantity: 1
     };
 
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
-
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cart.push(product);
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
+    const result = upsertCart(product);
     updateCartCount();
     updateAddToCartButtons();
-    showNotification('Item added to cart');
+    showNotification(result.added ? 'Item added to cart' : 'Item already in cart');
 }
 
 // ========== Update Add to Cart Buttons ==========
@@ -59,7 +98,7 @@ function updateAddToCartButtons() {
             ? productNameElement.childNodes[0]?.textContent.trim() || productNameElement.textContent.trim()
             : '';
         
-        const cleanName = productName.replace(/\s+/g, ' ').trim();
+        const cleanName = cleanProductName(productName.replace(/\s+/g, ' ').trim());
         
         const weightText = card.querySelector('.weight')?.textContent.trim() || '';
         const weight = weightText.replace(/[()]/g, '').trim();
@@ -69,7 +108,7 @@ function updateAddToCartButtons() {
         if (!btn || !cleanName) return;
 
         // Check if product exists in cart (match both name AND weight)
-        const exists = cart.some(item => item.name === cleanName && item.weight === weight);
+        const exists = cart.some(item => normalizeKey(item.name, item.weight) === normalizeKey(cleanName, weight));
 
         if (exists) {
             btn.classList.add('added');

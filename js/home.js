@@ -215,51 +215,59 @@ $(document).ready(function () {
         }
     };
 
-    window.addToCartFromModal = function () {
-        const productName = document.getElementById('modalProductName');
-        const productPrice = document.getElementById('modalProductPrice');
-        const productImage = document.getElementById('modalProductImage');
-        const quantity = document.getElementById('quantityInput');
+        window.addToCartFromModal = function () {
+            const productName = document.getElementById('modalProductName');
+            const productPrice = document.getElementById('modalProductPrice');
+            const productImage = document.getElementById('modalProductImage');
+            const quantity = document.getElementById('quantityInput');
 
-        if (productName && quantity) {
-            const product = {
-                name: productName.textContent,
-                price: productPrice ? productPrice.textContent : '$0.00',
-                image: productImage ? productImage.src : '',
-                quantity: parseInt(quantity.value) || 1
-            };
+            if (productName && quantity) {
+                const weightText = window.qvHomeState?.weightLabel ||
+                    (window.modalProductMeta ? `${window.modalProductMeta.quantity} ${window.modalProductMeta.unit}` : '');
 
-            console.log(`🛒 Added ${quantity.value}x "${productName.textContent}" to cart!`);
+                const unitPrice = Number(window.qvHomeState?.unitPriceNum || 0) || Number(productPrice?.textContent?.replace(/[^0-9.]/g, '')) || 0;
 
-            // Add to localStorage cart
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const existing = cart.find(item => item.name === product.name);
+                const product = {
+                    name: cleanProductName(productName.textContent),
+                    weight: weightText,
+                    price: `$${unitPrice.toFixed(2)}`,
+                    image: productImage ? productImage.src : '',
+                    quantity: parseInt(quantity.value) || 1
+                };
 
-            if (existing) {
-                existing.quantity += product.quantity;
-            } else {
-                cart.push(product);
-            }
+                console.log(`🛒 Added ${quantity.value}x "${productName.textContent}" (${product.weight || 'default'}) to cart!`);
 
-            localStorage.setItem('cart', JSON.stringify(cart));
+                if (typeof window.upsertCart === 'function') {
+                    window.upsertCart(product);
+                } else {
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
+                    if (existing) {
+                        existing.quantity += product.quantity;
+                    } else {
+                        cart.push(product);
+                    }
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                }
+                if (typeof updateAddToCartButtons === 'function') updateAddToCartButtons();
 
-            const btn = document.querySelector('.modal-add-to-cart');
-            if (btn) {
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-                btn.style.background = '#02B290';
+                const btn = document.querySelector('.modal-add-to-cart');
+                if (btn) {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+                    btn.style.background = '#02B290';
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                    }, 1500);
+                }
 
                 setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
+                    window.closeQuickView();
                 }, 1500);
             }
-
-            setTimeout(() => {
-                window.closeQuickView();
-            }, 1500);
-        }
-    };
+        };
 
     // ==========================================
     // EVENT LISTENERS SETUP
