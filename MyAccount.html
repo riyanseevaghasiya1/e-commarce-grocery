@@ -22,6 +22,11 @@
 		body::-webkit-scrollbar {
 			display: none;
 		}
+		#accountForm.editing input[type="text"],
+		#accountForm.editing input[type="email"] {
+			border-color: #02B290 !important;
+			box-shadow: 0 0 0 2px rgba(2, 178, 144, 0.15);
+		}
 	</style>
 </head>
 
@@ -111,12 +116,6 @@
 								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
 								disabled>
 						</div>
-						<div>
-							<label id="passwordLabel" class="block font-medium mb-1">Password</label>
-							<input type="password" id="password"
-								class="w-full border rounded p-2 focus:border-[#02B290] focus:outline-none placeholder:text-gray-500"
-								disabled>
-						</div>
 						<div class="md:col-span-2 flex gap-3 mt-3">
 							<button id="editBtn" type="button"
 								class="bg-[#02B290] text-white px-4 py-2 rounded hover:bg-[#4dc9b1]">Edit</button>
@@ -139,8 +138,14 @@
 
 				<!-- Order List -->
 				<div id="orders" class="tab-content hidden">
-					<h2 class="text-2xl font-semibold mb-4 text-[#02B290]">Your Orders</h2>
-					<div class="overflow-x-auto">
+					<h2 class="text-2xl font-semibold mb-4 text-[#02B290] sm:flex items-center justify-between">
+						<span>Your Orders</span>
+						<button id="ordersBackBtn" class="flex items-center gap-2 mt-2 sm:mt-0 border px-2 sm:px-3 py-0 sm:py-2 rounded text-[14px] sm:text-[16px] text-gray-700 hover:bg-gray-100">
+							<i class="fa-solid fa-arrow-left"></i>
+							Back to Profile
+						</button>
+					</h2>
+					<div class="overflow-x-auto"> 
 						<table class="min-w-[560px] w-full border rounded">
 							<thead class="bg-[#e5e5e5]">
 								<tr>
@@ -275,6 +280,7 @@
 			const tabButtons = document.querySelectorAll(".tab-btn");
 			const tabContents = document.querySelectorAll(".tab-content");
 			const mainContent = document.getElementById("accountMain");
+			const accountForm = document.getElementById("accountForm");
 
 			// hide all
 			tabContents.forEach(c => c.classList.add("hidden"));
@@ -326,16 +332,22 @@
 					}, 50);
 				});
 			});
+			
+			// Back to Profile (Account Details) from Orders
+			const ordersBackBtn = document.getElementById("ordersBackBtn");
+			if (ordersBackBtn) {
+				ordersBackBtn.addEventListener("click", () => {
+					const detailsBtn = document.querySelector('.tab-btn[data-tab="details"]');
+					if (detailsBtn) detailsBtn.click();
+				});
+			}
 
 			// ========== ACCOUNT DETAILS ==========
 			const profileImage = document.getElementById("profileImage");
 			const uploadImage = document.getElementById("uploadImage");
 			const formFields = ["fullName", "email", "phone"];
-			const passwordField = document.getElementById("password");
-			const passwordLabel = document.getElementById("passwordLabel");
 			const editBtn = document.getElementById("editBtn");
 			const saveBtn = document.getElementById("saveBtn");
-			let originalPassword = "";
 
 			function randomName() {
 				const names = ["Kiyan", "Rohan", "Neha", "Dhruv", "Aarav", "Kavya", "Dhara", "Mihir"];
@@ -360,9 +372,6 @@
 			document.getElementById("fullName").value = savedData.fullName || randomName();
 			document.getElementById("email").value = savedData.email || randomEmail();
 			document.getElementById("phone").value = savedData.phone || randomPhone();
-			originalPassword = savedData.password || "User@123";
-			passwordField.type = "text";
-			passwordField.value = originalPassword;
 
 			// Upload image
 			uploadImage.addEventListener("change", (e) => {
@@ -379,8 +388,7 @@
 			// Edit button
 			editBtn.addEventListener("click", () => {
 				formFields.forEach(id => document.getElementById(id).disabled = false);
-				passwordField.disabled = false;
-				passwordLabel.textContent = "Change Password";
+				if (accountForm) accountForm.classList.add("editing");
 				editBtn.classList.add("hidden");
 				saveBtn.classList.remove("hidden");
 				document.querySelector('label[for="uploadImage"]').classList.remove("hidden");
@@ -392,13 +400,11 @@
 				formFields.forEach(id => {
 					data[id] = document.getElementById(id).value.trim();
 				});
-				data.password = passwordField.value;
 				data.image = profileImage.src;
 				localStorage.setItem("accountDetails", JSON.stringify(data));
 
 				formFields.forEach(id => document.getElementById(id).disabled = true);
-				passwordField.disabled = true;
-				passwordLabel.textContent = "Password";
+				if (accountForm) accountForm.classList.remove("editing");
 				saveBtn.classList.add("hidden");
 				editBtn.classList.remove("hidden");
 				document.querySelector('label[for="uploadImage"]').classList.add("hidden");

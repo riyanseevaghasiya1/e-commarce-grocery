@@ -397,6 +397,25 @@
 			const newMain = `$${Number(amount).toFixed(2)}`;
 			priceContainer.innerHTML = oldSpan ? `${newMain} <span id="price" class="line-through text-gray-400 text-lg ml-2">${oldSpan.textContent}</span>` : newMain;
 		}
+		function updateDetailPrice() {
+			const qtyEl = document.getElementById('qty');
+			const qty = Math.max(1, parseInt(qtyEl?.value || '1', 10));
+			const selectedWeightEl =
+				document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
+				document.querySelector('[class*="weight-option"][class*="bg-\\[\\#02B290\\]"]') ||
+				document.querySelector('[class*="weight-option"].active') ||
+				document.querySelector('.weight-option');
+			const lbl = selectedWeightEl ? selectedWeightEl.textContent.trim() : '';
+			let unitPrice = 0;
+			if (typeof window.currentProduct?.basePrice === 'number' && Array.isArray(window.currentProduct?.options)) {
+				const opt = window.currentProduct.options.find(o => (o.label || '').toLowerCase() === lbl.toLowerCase());
+				const multiplier = opt ? Number(opt.multiplier) || 1 : textToBaseUnits(lbl) || 1;
+				unitPrice = window.currentProduct.basePrice * multiplier;
+			} else {
+				unitPrice = computeWeightedPriceFromText(window.basePriceText || null, window.currentProduct, lbl);
+			}
+			setDisplayedPrice(unitPrice * qty);
+		}
 
 		function setDefaultActiveWeight(product) {
 			const opts = Array.from(document.querySelectorAll('.weight-option'));
@@ -529,6 +548,7 @@
 				renderWeightOptions(product);
 				// Set default active weight from product's array data and update price
 				setDefaultActiveWeight(product);
+				updateDetailPrice();
 
 				// Show content and hide skeleton after product resolves
 				const mainContent = document.getElementById('productMainContent');
@@ -543,18 +563,7 @@
 				opt.classList.remove("bg-[#02B290]", "text-white");
 			});
 			el.classList.add("bg-[#02B290]", "text-white");
-			if (window.currentProduct) {
-				const lbl = el.textContent.trim();
-				if (typeof window.currentProduct.basePrice === 'number' && Array.isArray(window.currentProduct.options)) {
-					const opt = window.currentProduct.options.find(o => (o.label || '').toLowerCase() === lbl.toLowerCase());
-					const multiplier = opt ? Number(opt.multiplier) || 1 : textToBaseUnits(lbl) || 1;
-					const price = window.currentProduct.basePrice * multiplier;
-					setDisplayedPrice(price);
-				} else {
-					const price = computeWeightedPriceFromText(null, window.currentProduct, lbl);
-					setDisplayedPrice(price);
-				}
-			}
+			updateDetailPrice();
 		}
 		document.querySelectorAll('div[onclick="selectWeight(this)"]').forEach(opt => {
 			opt.classList.add('weight-option');
@@ -567,10 +576,12 @@
 		function increaseQty() {
 			const qty = document.getElementById('qty');
 			qty.value = parseInt(qty.value) + 1;
+			updateDetailPrice();
 		}
 		function decreaseQty() {
 			const qty = document.getElementById('qty');
 			if (qty.value > 1) qty.value = parseInt(qty.value) - 1;
+			updateDetailPrice();
 		}
 
 		function toggleReviewForm() {

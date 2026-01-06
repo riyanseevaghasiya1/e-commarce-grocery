@@ -312,7 +312,7 @@
                     <div class="section-header">
                         <h2 class="section-title">Daily Best Sells</h2>
                         <div class="section-navigation">
-                            <button class="slider-nav prev" onclick="scrollProducts('', -1)">
+                            <button class="slider-nav prev" onclick="scrollProducts('bestSellers', -1)">
                                 <i class="fas fa-chevron-left"></i>
                             </button>
                             <button class="slider-nav next" onclick="scrollProducts('bestSellers', 1)">
@@ -760,6 +760,7 @@
             // Extract product details
             const img = productCard.querySelector(".product-image")?.src;
             const name = productCard.querySelector(".product-name")?.textContent.trim();
+            const cleanName = (name || '').replace(/\s*\(.*\)\s*$/, '').trim();
             const price = productCard.querySelector(".current-price")?.textContent.trim();
             const badge = productCard.querySelector(".product-badge")?.textContent.trim() || "";
             const rating = productCard.querySelector(".stars")?.textContent.trim() || "★★★★★";
@@ -785,7 +786,45 @@
             window.modalProductMeta = meta;
             // Store base price text for non-compounding calculations
             window.modalBasePriceText = price || '$0.00';
-            renderModalWeightOptions(meta);
+            // Prefer options from ViewProduct.js if available
+            let productData = null;
+            try {
+                if (typeof allProducts !== 'undefined' && Array.isArray(allProducts)) {
+                    productData = allProducts.find(p => p.name?.toLowerCase() === cleanName.toLowerCase());
+                }
+            } catch (e) { }
+            const section = document.getElementById('modalWeightSection');
+            const optionsEl = document.getElementById('modalWeightOptions');
+            const labelEl = document.getElementById('modalWeightLabel');
+            if (productData && Array.isArray(productData.options) && typeof productData.basePrice === 'number' && section && optionsEl) {
+                section.style.display = 'block';
+                if (labelEl) labelEl.textContent = 'Weight:';
+                optionsEl.innerHTML = '';
+                const base = Number(productData.basePrice);
+                productData.options.forEach((opt, idx) => {
+                    const div = document.createElement('div');
+                    div.className = 'weight-option px-3 py-1 border rounded cursor-pointer';
+                    div.textContent = opt.label;
+                    div.onclick = function () {
+                        Array.from(optionsEl.children).forEach(o => o.classList.remove('bg-[#02B290]', 'text-white'));
+                        this.classList.add('bg-[#02B290]', 'text-white');
+                        const unitPrice = Number((base * (Number(opt.multiplier) || 1)).toFixed(2));
+                        window.qvHomeState.unitPriceNum = unitPrice;
+                        window.qvHomeState.weightLabel = opt.label;
+                        updateHomeModalPrice();
+                    };
+                    if (idx === 0) {
+                        div.classList.add('bg-[#02B290]', 'text-white');
+                        const unitPrice = Number((base * (Number(opt.multiplier) || 1)).toFixed(2));
+                        window.qvHomeState.unitPriceNum = unitPrice;
+                        window.qvHomeState.weightLabel = opt.label;
+                    }
+                    optionsEl.appendChild(div);
+                });
+                updateHomeModalPrice();
+            } else {
+                renderModalWeightOptions(meta);
+            }
 
             // Fill modal data
             const mainImgEl = document.getElementById("modalProductImage");
@@ -793,17 +832,23 @@
             document.getElementById("modalProductPrice").textContent = price;
             document.getElementById("modalProductDescription").textContent = desc;
             document.getElementById("quantityInput").value = 1;
+            window.qvHomeState.qty = 1;
+            const qi = document.getElementById('quantityInput'); if (qi) { qi.oninput = function(){ const v = Number(this.value)||1; window.qvHomeState.qty = v; updateHomeModalPrice(); }; }
 
-            // Adjust price for default active weight
-            const activeOpt = document.querySelector('#modalWeightOptions .bg-\\[\\#02B290\\]') || document.querySelector('#modalWeightOptions .active') || document.querySelector('#modalWeightOptions .weight-option');
-            if (activeOpt) {
-                const adjusted = computeWeightedPriceFromText(window.modalBasePriceText, window.modalProductMeta, activeOpt.textContent.trim());
-                setModalDisplayedPrice(adjusted);
+            // If fallback weight options were used, compute unit price from selection
+            if (!productData || !Array.isArray(productData.options)) {
+                const activeOpt = document.querySelector('#modalWeightOptions .bg-\\[\\#02B290\\]') || document.querySelector('#modalWeightOptions .active') || document.querySelector('#modalWeightOptions .weight-option');
+                if (activeOpt) {
+                    const adjusted = computeWeightedPriceFromText(window.modalBasePriceText, window.modalProductMeta, activeOpt.textContent.trim());
+                    window.qvHomeState.unitPriceNum = Number(adjusted.toFixed(2));
+                    window.qvHomeState.weightLabel = activeOpt.textContent.trim();
+                    updateHomeModalPrice();
+                }
             }
             // Build thumbnails from product data (fallback to main image)
             let thumbs = [];
-            if (typeof allProducts !== "undefined" && Array.isArray(allProducts) && name) {
-                const match = allProducts.find(p => p.name?.toLowerCase() === name.toLowerCase());
+            if (typeof allProducts !== "undefined" && Array.isArray(allProducts) && cleanName) {
+                const match = allProducts.find(p => p.name?.toLowerCase() === cleanName.toLowerCase());
                 if (match && Array.isArray(match.images)) {
                     thumbs = match.images.filter(Boolean);
                 }
@@ -847,6 +892,7 @@
         window.increaseQuantity = function () {
             const input = document.getElementById("quantityInput");
             input.value = Number(input.value) + 1;
+            if (window.qvHomeState) { window.qvHomeState.qty = Number(input.value) || 1; updateHomeModalPrice(); }
         };
 
         window.decreaseQuantity = function () {
@@ -854,9 +900,11 @@
             if (Number(input.value) > 1) {
                 input.value = Number(input.value) - 1;
             }
+            if (window.qvHomeState) { window.qvHomeState.qty = Number(input.value) || 1; updateHomeModalPrice(); }
         };
 
         // ===== Helpers for modal pricing/weights (Home) =====
+        window.qvHomeState = { basePriceNum: 0, qty: 1, unitPriceNum: 0, weightLabel: '' };
         function parsePrice(str) { const m = (str || '').match(/(\d+(?:\.\d+)?)/); return m ? parseFloat(m[1]) : 0; }
         function qtyToBaseUnits(qty, unit) {
             const u = (unit || '').toLowerCase();
@@ -869,17 +917,19 @@
         function computeWeightedPriceFromText(basePriceText, meta, selectedText) {
             const basePrice = parsePrice(basePriceText); const baseQty = qtyToBaseUnits(meta.quantity, meta.unit) || 1; const perUnit = basePrice / baseQty; const selectedQty = textToBaseUnits(selectedText) || 1; return perUnit * selectedQty;
         }
-        function setModalDisplayedPrice(amount) {
-            const el = document.getElementById('modalProductPrice'); if (!el) return; el.textContent = `$${Number(amount).toFixed(2)}`;
+        function updateHomeModalPrice() {
+            const el = document.getElementById('modalProductPrice'); if (!el) return;
+            const total = Number((Number(window.qvHomeState.unitPriceNum || 0) * Number(window.qvHomeState.qty || 1)).toFixed(2));
+            el.textContent = `$${total.toFixed(2)}`;
         }
         function renderModalWeightOptions(meta) {
             const section = document.getElementById('modalWeightSection'); const label = document.getElementById('modalWeightLabel'); const options = document.getElementById('modalWeightOptions'); if (!section || !label || !options) return; options.innerHTML = '';
             let values = []; if (meta.unit === 'Kg' || meta.unit === 'g') { label.textContent = 'Weight:'; values = ['500 g', '1 Kg', '2 Kg', '5 Kg']; }
             else if (meta.unit === 'ml' || meta.unit === 'L') { label.textContent = 'Volume:'; values = ['250 ml', '500 ml', '1 L', '2 L']; }
-            else if (meta.unit === 'pcs') { label.textContent = 'Pieces:'; values = ['1 pcs', '2 pcs', '5 pcs', '10 pcs']; } else { section.style.display = 'none'; return; }
-            values.forEach(v => { const div = document.createElement('div'); div.className = 'weight-option px-3 py-1 border rounded cursor-pointer'; div.textContent = v; div.onclick = function () { Array.from(options.children).forEach(o => o.classList.remove('bg-[#02B290]', 'text-white')); this.classList.add('bg-[#02B290]', 'text-white'); const base = window.modalBasePriceText || '$0.00'; const adj = computeWeightedPriceFromText(base, window.modalProductMeta, this.textContent.trim()); setModalDisplayedPrice(adj); }; options.appendChild(div); });
+            else if (meta.unit === 'pcs') { label.textContent = 'Pieces:'; values = ['1 pcs', '2 pcs', '5 pcs', '10 pcs']; } else { section.style.display = 'none'; window.qvHomeState.weightLabel=''; window.qvHomeState.unitPriceNum=parsePrice(window.modalBasePriceText||'$0.00'); updateHomeModalPrice(); return; }
+            values.forEach(v => { const div = document.createElement('div'); div.className = 'weight-option px-3 py-1 border rounded cursor-pointer'; div.textContent = v; div.onclick = function () { Array.from(options.children).forEach(o => o.classList.remove('bg-[#02B290]', 'text-white')); this.classList.add('bg-[#02B290]', 'text-white'); const base = window.modalBasePriceText || '$0.00'; const adj = computeWeightedPriceFromText(base, window.modalProductMeta, this.textContent.trim()); window.qvHomeState.unitPriceNum = Number(adj.toFixed(2)); window.qvHomeState.weightLabel = this.textContent.trim(); updateHomeModalPrice(); }; options.appendChild(div); });
             const desired = (meta.unit.toLowerCase() === 'ml' ? `${meta.quantity} ml` : meta.unit.toLowerCase() === 'l' ? `${meta.quantity} L` : meta.unit.toLowerCase() === 'g' ? `${meta.quantity} g` : meta.unit.toLowerCase() === 'pcs' ? `${meta.quantity} pcs` : `${meta.quantity} Kg`).toLowerCase();
-            let match = Array.from(options.children).find(o => o.textContent.trim().toLowerCase() === desired); if (!match && options.children.length) match = options.children[0]; if (match) match.classList.add('bg-[#02B290]', 'text-white');
+            let match = Array.from(options.children).find(o => o.textContent.trim().toLowerCase() === desired); if (!match && options.children.length) match = options.children[0]; if (match) { match.classList.add('bg-[#02B290]', 'text-white'); const base = window.modalBasePriceText || '$0.00'; const adj = computeWeightedPriceFromText(base, window.modalProductMeta, match.textContent.trim()); window.qvHomeState.unitPriceNum = Number(adj.toFixed(2)); window.qvHomeState.weightLabel = match.textContent.trim(); updateHomeModalPrice(); }
         }
 
         // Override modal add-to-cart to include selected weight and displayed price
@@ -887,19 +937,15 @@
             const name = document.getElementById('modalProductName')?.textContent?.trim() || '';
             const img = document.getElementById('modalProductImage')?.src || '';
             const qty = Number(document.getElementById('quantityInput')?.value) || 1;
-            const priceText = document.getElementById('modalProductPrice')?.textContent || '$0.00';
-            const unitSel = document.querySelector('#modalWeightOptions .bg-\\[\\#02B290\\]') || document.querySelector('#modalWeightOptions .text-white');
-            const weightText = unitSel ? unitSel.textContent.trim() : null;
-            const finalPrice = parsePrice(priceText);
-
-            const item = { name, img, quantity: qty, unitText: weightText, unitMeta: window.modalProductMeta, price: finalPrice };
-            if (typeof window.addToCart === 'function') {
-                try { window.addToCart(item); } catch (e) { /* fallback below */ }
-            }
-            try {
-                const cart = JSON.parse(localStorage.getItem('cartItems') || '[]'); cart.push(item); localStorage.setItem('cartItems', JSON.stringify(cart));
-            } catch (e) { }
-            alert('Added to cart');
+            const weightText = window.qvHomeState.weightLabel || '';
+            const unitPrice = Number(window.qvHomeState.unitPriceNum || parsePrice(window.modalBasePriceText || '$0.00'));
+            const product = { id: name, name, weight: weightText, price: `$${unitPrice.toFixed(2)}`, image: img, quantity: qty };
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
+            if (existing) { existing.quantity += product.quantity; } else { cart.push(product); }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            if (typeof updateCartCount === 'function') updateCartCount();
+            const btn = document.querySelector('.modal-add-to-cart'); if (btn) { const old = btn.innerHTML; btn.innerHTML = '<i class="fas fa-check"></i> Added!'; btn.style.background = '#02B290'; setTimeout(() => { btn.innerHTML = old; btn.style.background = ''; }, 1200); }
             window.closeQuickView();
         };
 
