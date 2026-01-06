@@ -643,7 +643,8 @@
 		};
 
 		window.addToCartFromShopModal = function () {
-			const productName = document.getElementById('modalProductName').textContent;
+			const nameRaw = document.getElementById('modalProductName').textContent;
+			const productName = (typeof cleanProductName === 'function') ? cleanProductName(nameRaw) : nameRaw;
 			const productImage = document.getElementById('modalProductImage').src;
 			const quantity = parseInt(document.getElementById('qty').value) || 1;
 			
@@ -662,22 +663,26 @@
 				weight: weight
 			};
 
-			// Add to cart logic
-			const cart = JSON.parse(localStorage.getItem('cart')) || [];
-			
-			// Check if exists (name AND weight)
-			const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
-
-			if (existing) {
-				existing.quantity += product.quantity;
+			if (typeof window.upsertCart === 'function') {
+				window.upsertCart(product);
 			} else {
-				cart.push(product);
-			}
+				const cart = JSON.parse(localStorage.getItem('cart')) || [];
+				
+				// Check if exists (name AND weight)
+				const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
 
-			localStorage.setItem('cart', JSON.stringify(cart));
+				if (existing) {
+					existing.quantity += product.quantity;
+				} else {
+					cart.push(product);
+				}
+
+				localStorage.setItem('cart', JSON.stringify(cart));
+			}
 			
 			// Update UI
 			if (typeof updateCartCount === 'function') updateCartCount();
+			if (typeof updateAddToCartButtons === 'function') updateAddToCartButtons();
 			
 			const btn = document.querySelector('.modal-add-to-cart');
 			const originalContent = btn.innerHTML;
@@ -1005,6 +1010,10 @@
 				// Hide skeleton, show products
 				hideSkeleton();
 				checkWishlistStatus();
+				// Sync add-to-cart button states with cart (prevents double-add of same weight)
+				if (typeof updateAddToCartButtons === 'function') {
+					setTimeout(updateAddToCartButtons, 50);
+				}
 
 			}, 100); // adjust loading delay
 		}
