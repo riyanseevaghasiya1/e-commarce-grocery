@@ -212,6 +212,24 @@ function renderCartItems() {
     // ✅ FIX: "$3.50" → 3.50
     const unitPrice = parseFloat(item.price.replace("$", ""));
     const totalPrice = (unitPrice * item.quantity).toFixed(2);
+    const displayName = typeof cleanProductName === 'function'
+      ? cleanProductName(item.name)
+      : String(item.name || '').replace(/\s*\(.*?\)\s*$/, '').trim();
+    const w = String(item.weight || '').trim();
+    const displayWeight = w.toLowerCase()
+      .replace(/\s+/g, '')
+      .replace(/kgs?$/, 'kg')
+      .replace(/grams?$/, 'g')
+      .replace(/liter?s?$/, 'l')
+      .replace(/litres?$/, 'l')
+      .replace(/millilit(er|re)s?$/, 'ml')
+      .replace(/pcs?$/, 'pcs');
+    const prettyWeight = displayWeight
+      .replace(/(\d+)(kg)/, '$1 Kg')
+      .replace(/(\d+)(g)/, '$1 g')
+      .replace(/(\d+)(l)/, '$1 L')
+      .replace(/(\d+)(ml)/, '$1 ml')
+      .replace(/(\d+)(pcs)/, '$1 pcs');
 
     itemDiv.innerHTML = `
       <div class="flex items-center space-x-4">
@@ -220,8 +238,8 @@ function renderCartItems() {
                     
                 
         <div>
-          <h3 class="font-semibold text-gray-800"> ${item.name}
-          <span class="text-xs text-gray-500">(${item.weight})</span></h3>
+          <h3 class="font-semibold text-gray-800"> ${displayName}
+          <span class="text-xs text-gray-500">(${prettyWeight})</span></h3>
           <p class="text-sm text-gray-600">$${totalPrice}</p>
         </div>
       </div>
@@ -735,7 +753,7 @@ function subscribeNow() {
     message.style.color = "red";
     return;
   }
-
+    
   // Success (you can send the email to backend here)
   message.textContent = "Subscribed successfully!";
   message.style.color = "#02B290";
