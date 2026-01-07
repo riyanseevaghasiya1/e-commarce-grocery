@@ -604,48 +604,37 @@
 		}
 
 		function addToCart1(button) {
-			console.log("btn",button);
-			
 			const container = button.closest('.flex.flex-col') || document.body;
 
 			const nameEl = container.querySelector('h1') || document.querySelector('h1');
 			const productName = nameEl ? cleanProductName(nameEl.textContent.trim()) : 'Unknown product';
 
+			// Current displayed price (this is TOTAL shown in UI)
 			const priceEl = container.querySelector('[class*="font-bold"][class*="text"]') ||
 				document.querySelector('[class*="font-bold"][class*="text"]');
-
-			let productPrice = 0;
-			if (priceEl) {
-				// remove everything except numbers and dot
-				productPrice = parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0;
-			}
-
-			// Image
-			const productImage = document.getElementById('mainImg')?.src || '';
+			const displayedTotal = priceEl ? parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0 : 0;
 
 			// Quantity
 			const qtyInput = document.getElementById('qty');
 			const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
+
+			// Derive unit price so cart math does not double-multiply
+			const unitPrice = quantity > 0 ? (displayedTotal / quantity) : displayedTotal;
+
+			// Image
+			const productImage = document.getElementById('mainImg')?.src || '';
 
 			// Selected Weight
 			const selectedWeightEl =
 				document.querySelector('[class*="weight-option"][class*="bg-[#02B290]"]') ||
 				document.querySelector('[class*="weight-option"].active') ||
 				document.querySelector('.weight-option');
-
 			const selectedWeight = selectedWeightEl ? selectedWeightEl.textContent.trim() : '1Kg';
 
-			// Weight/Volume multiplier for Kg/g/L/ml
-			const weightMultiplier = computeWeightMultiplier(selectedWeight);
-
-			// Price already reflects selected weight in UI; use it directly
-			const finalPrice = Number(productPrice).toFixed(2);
-
 			const product = {
-				id:productName,
+				id: productName,
 				name: productName,
-				price: finalPrice,      // FINAL PRICE
-				price: `$${finalPrice}`,      // FINAL PRICE
+				price: `$${unitPrice.toFixed(2)}`, // store per-unit price
 				image: productImage,
 				quantity: quantity,
 				weight: selectedWeight
@@ -654,8 +643,6 @@
 			let cart = [];
 			try {
 				cart = JSON.parse(localStorage.getItem('cart')) || [];
-				console.log("cart>>>",cart);
-				
 			} catch (e) {
 				cart = [];
 			}
