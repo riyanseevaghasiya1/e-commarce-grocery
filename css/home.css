@@ -464,6 +464,10 @@ body {
     margin-bottom: 50px;
 }
 
+.products-slider-container .owl-item {
+    max-width: 239px;
+}
+
 .product-card {
     background: white;
     border: 1px solid var(--border-color);
@@ -702,6 +706,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 }
 
 .h_slider-item {
