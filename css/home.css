@@ -757,6 +757,7 @@ body {
     max-width: 550px;
     transition: 0.4s ease;
     border: 1px solid #727272;
+    word-break: break-all;
 }
 
 /* Image Overlap Animation */
