@@ -955,7 +955,7 @@ const homeproduct1=[
     badge: "Cold",
     category: "Beverages",
     quantity: 1,
-    unit: "bottle",
+    unit: "L",
     sku: "BV-004",
     description: "Refreshing Coca Cola Soft Drink.",
     images: ["./images/cocacola.jpg", "./images/cocacola1.jpg", "./images/cocacola2.jpg"],

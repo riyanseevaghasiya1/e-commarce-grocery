@@ -952,6 +952,8 @@
             if (typeof updateCartCount === 'function') updateCartCount();
             const btn = document.querySelector('.modal-add-to-cart'); if (btn) { const old = btn.innerHTML; btn.innerHTML = '<i class="fas fa-check"></i> Added!'; btn.style.background = '#02B290'; setTimeout(() => { btn.innerHTML = old; btn.style.background = ''; }, 1200); }
             window.closeQuickView();
+            window.location.reload();
+
         };
 
         // Removed weight annotation on home product cards per request

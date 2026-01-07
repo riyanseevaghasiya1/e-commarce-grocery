@@ -86,51 +86,7 @@ function addToCart(button) {
     updateAddToCartButtons();
     showNotification(result.added ? 'Item added to cart' : 'Item already in cart');
 }
-
 // ========== Update Add to Cart Buttons ==========
-// function updateAddToCartButtons() {
-//     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-//    console.log("csygtbjhnjkn",cart);
-   
-
-//     document.querySelectorAll('.product-card').forEach(card => {
-//         console.log("card",card);
-        
-//         // Extract and clean the name the SAME way as in addToCart
-//         const productNameElement = card.querySelector('.product-name');
-//         console.log("pghbjhnjk",productNameElement);
-        
-//         const productName = productNameElement 
-//             ? productNameElement.childNodes[0]?.textContent.trim() || productNameElement.textContent.trim()
-//             : '';
-        
-//         const cleanName = productName.replace(/\s+/g, ' ').trim();
-        
-//         const weightText = card.querySelector('.weight')?.textContent.trim() || '';
-//         const weight = weightText.replace(/[()]/g, '').trim();
-        
-//         const btn = card.querySelector('.add-to-cart');
-//         console.log("BTN",btn);
-//         console.log("cleanname",cleanName);
-        
-        
-
-//         if (!btn || !cleanName) return;
-
-//         // Check if product exists in cart (match both name AND weight)
-//         const exists = cart.some(item => item.name === cleanName && item.weight === weight);
-//         console.log("exists>>>>>>>>>>",exists);
-        
-
-//         if (exists) {
-//             btn.classList.add('added');
-//             btn.disabled = true;
-//         } else {
-//             btn.classList.remove('added');
-//             btn.disabled = false;
-//         }
-//     });
-// }
 
 function updateAddToCartButtons() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -138,15 +94,15 @@ function updateAddToCartButtons() {
     document.querySelectorAll('.product-card').forEach(card => {
         // Extract and clean the name the SAME way as in addToCart
         const productNameElement = card.querySelector('.product-name');
-        const productName = productNameElement 
+        const productName = productNameElement
             ? productNameElement.childNodes[0]?.textContent.trim() || productNameElement.textContent.trim()
             : '';
-        
+
         const cleanName = cleanProductName(productName.replace(/\s+/g, ' ').trim());
-        
+
         const weightText = card.querySelector('.weight')?.textContent.trim() || '';
         const weight = canonicalWeight(weightText);
-        
+
         const btn = card.querySelector('.add-to-cart');
 
         if (!btn || !cleanName) return;
@@ -155,19 +111,7 @@ function updateAddToCartButtons() {
         const exists = cart.some(item => normalizeKey(item.name) === normalizeKey(cleanName));
         // const exists = cart.some(item => normalizeKey(item.name, item.weight) === normalizeKey(cleanName, weight));
 
-      const exists1 = cart.some(item => {
-            const nameMatch = item.name === cleanName || item.id === cleanName;
-            // const weightMatch = item.weight === weight;
-            
-            // console.log(`Checking: "${cleanName}" (${weight}) vs "${item.name}" (${item.weight})`, 
-            //            { nameMatch, weightMatch });
-            
-            return nameMatch ;
-        });
-
-        console.log(`Product: "${cleanName}" - Exists: ${exists}`);
-
-        if (exists1) {
+        if (exists) {
             btn.classList.add('added');
             btn.disabled = true;
         } else {
@@ -176,6 +120,8 @@ function updateAddToCartButtons() {
         }
     });
 }
+
+
 // ========== Show Cart Skeleton ==========
 function showCartSkeleton() {
     const container = document.getElementById('cartItemsContainer');
