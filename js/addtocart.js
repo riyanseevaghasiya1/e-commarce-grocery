@@ -154,7 +154,19 @@ function updateAddToCartButtons() {
         // Check if product exists in cart (match both name AND weight)
         const exists = cart.some(item => normalizeKey(item.name, item.weight) === normalizeKey(cleanName, weight));
 
-        if (exists) {
+      const exists1 = cart.some(item => {
+            const nameMatch = item.name === cleanName || item.id === cleanName;
+            // const weightMatch = item.weight === weight;
+            
+            // console.log(`Checking: "${cleanName}" (${weight}) vs "${item.name}" (${item.weight})`, 
+            //            { nameMatch, weightMatch });
+            
+            return nameMatch ;
+        });
+
+        console.log(`Product: "${cleanName}" - Exists: ${exists}`);
+
+        if (exists1) {
             btn.classList.add('added');
             btn.disabled = true;
         } else {
