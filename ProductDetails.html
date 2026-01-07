@@ -393,24 +393,9 @@
 		function setDisplayedPrice(amount) {
 			const priceContainer = document.getElementById('currentPrice');
 			if (!priceContainer) return;
-
 			const oldSpan = priceContainer.querySelector('#price');
-
-			// Read currently selected currency (fallback to USD)
-			let symbol = '$';
-			let rate = 1;
-			if (typeof window.getCurrentCurrency === 'function') {
-				const curr = window.getCurrentCurrency() || {};
-				symbol = curr.symbol || '$';
-				rate = typeof curr.rate === 'number' && curr.rate > 0 ? curr.rate : 1;
-			}
-
-			const converted = Number(amount) * rate;
-			const newMain = `${symbol}${converted.toFixed(2)}`;
-
-			priceContainer.innerHTML = oldSpan
-				? `${newMain} <span id="price" class="line-through text-gray-400 text-lg ml-2">${oldSpan.textContent}</span>`
-				: newMain;
+			const newMain = `$${Number(amount).toFixed(2)}`;
+			priceContainer.innerHTML = oldSpan ? `${newMain} <span id="price" class="line-through text-gray-400 text-lg ml-2">${oldSpan.textContent}</span>` : newMain;
 		}
 		function updateDetailPrice() {
 			const qtyEl = document.getElementById('qty');
