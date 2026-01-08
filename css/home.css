@@ -760,7 +760,7 @@ body {
     max-width: 550px;
     transition: 0.4s ease;
     border: 1px solid #727272;
-    min-height: 350px; /* Fixed minimum height for all cards */
+    min-height: 300px; /* Fixed minimum height for all cards */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Vertically center all content */
