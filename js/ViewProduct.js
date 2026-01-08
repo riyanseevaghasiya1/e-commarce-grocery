@@ -785,7 +785,7 @@ const allProducts = [
 const homeproduct=[
   {
       name: "Green Grapes",
-    basePrice: 8.0,
+    basePrice: 4.0,
     baseUnit: "kg",
     rating: "★★★★☆",
     img: "./images/green-grapes.jpg",
@@ -805,7 +805,7 @@ const homeproduct=[
   },
   {
     name: "Walnut Inshell",
-    basePrice: 48.0,
+    basePrice: 12.0,
     baseUnit: "kg",
     rating: "★★★★★",
     img: "./images/walnut-inshell.jpg",
@@ -845,7 +845,7 @@ const homeproduct=[
   },
   {
     name: "Baked croissants",
-    basePrice: 1.25,
+    basePrice: 5.00,
     baseUnit: "pcs",
     rating: "★★★★★",
     img: "./images/croissant.jpg",
@@ -865,7 +865,7 @@ const homeproduct=[
   },
   {
     name: "Fresh Organic Carrots",
-    basePrice: 3.0,
+    basePrice: 3.00,
     baseUnit: "kg",
     rating: "★★★★☆",
     img: "./images/carrots.jpg",
@@ -885,7 +885,7 @@ const homeproduct=[
   },
   {
     name: "Black Pepper Powder",
-    basePrice: 30.0,
+    basePrice: 6.00,
     baseUnit: "kg",
     rating: "★★★★★",
     img: "./images/black-pepper.jpg",
@@ -905,7 +905,7 @@ const homeproduct=[
   },
   {
     name: "Mix Dryfruits",
-    basePrice: 45.0,
+    basePrice: 11.25,
     baseUnit: "kg",
     rating: "★★★★★",
     img: "./images/dryfruits.jpg",
@@ -928,7 +928,7 @@ const homeproduct=[
 const homeproduct1=[
    {
     name: "Packed Green Beans",
-    basePrice: 12.0,
+    basePrice: 6.00,
     baseUnit: "kg",
     rating: "★★★★☆",
     img: "./images/green-beans.jpg",

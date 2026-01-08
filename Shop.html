@@ -90,7 +90,7 @@
 		padding: 40px;
 	}
 
-.modal-image-section {
+	.modal-image-section {
 		background: transparent;
 		border-radius: 12px;
 		padding: 0;
@@ -115,6 +115,7 @@
 		margin-top: 10px;
 		flex-wrap: wrap;
 	}
+
 	.modal-thumbs img {
 		width: 64px;
 		height: 64px;
@@ -124,9 +125,11 @@
 		cursor: pointer;
 		transition: transform 0.15s ease, border-color 0.15s ease;
 	}
+
 	.modal-thumbs img:hover {
 		transform: translateY(-2px);
 	}
+
 	.modal-thumbs img.active {
 		border-color: #02B290;
 	}
@@ -157,10 +160,12 @@
 		cursor: pointer;
 		transition: all 0.2s;
 	}
+
 	.weight-option-btn:hover {
 		border-color: var(--primary-color);
 		color: var(--primary-color);
 	}
+
 	.weight-option-btn.active {
 		background: var(--primary-color);
 		color: white;
@@ -473,7 +478,8 @@
 							<span style="font-weight: 600;">Quantity:</span>
 							<div class="quantity-controls">
 								<button class="quantity-btn" onclick="decreaseQty()">-</button>
-								<input type="number" class="quantity-input" id="qty" type="number" value="1" min="1" max="10">
+								<input type="number" class="quantity-input" id="qty" type="number" value="1" min="1"
+									max="10">
 								<button class="quantity-btn" onclick="increaseQty()">+</button>
 							</div>
 						</div>
@@ -487,13 +493,18 @@
 	</div>
 
 	<script>
-		window.qvState = { basePrice: 0, multiplier: 1, qty: 1, unitPrice: 0, weightLabel: '' };
-		function parsePriceLocal(p) { return Number(String(p || '').replace('$', '').trim()) || 0; }
+		window.qvState = { basePrice: 0, multiplier: 1, qty: 1, unitPrice: 0, weightLabel: '', currencySymbol: '$', currencyRate: 1 };
+		function parsePriceLocal(p) { return Number(String(p || '').replace(/[^0-9.]/g, '')) || 0; }
+
 		function updateModalPriceDisplay() {
-			const total = Number((window.qvState.unitPrice * window.qvState.qty).toFixed(2));
+			// Calculate total in BASE currency first
+			const totalBase = window.qvState.basePrice * window.qvState.multiplier * window.qvState.qty;
+			// Convert to SELECTED currency
+			const totalConverted = totalBase * window.qvState.currencyRate;
 			const el = document.getElementById("modalProductPrice");
-			if (el) el.textContent = `$${total.toFixed(2)}`;
+			if (el) el.textContent = `${window.qvState.currencySymbol}${totalConverted.toFixed(2)}`;
 		}
+
 		window.openQuickView = function (btn) {
 			const productCard = btn.closest(".product-card");
 			if (!productCard) return;
@@ -501,8 +512,30 @@
 			// Extract product info
 			const img = productCard.querySelector(".product-image")?.src || "";
 			const name = productCard.querySelector(".product-name")?.textContent.trim() || "Product";
-			const price = productCard.querySelector(".current-price")?.textContent.trim() || "$0.00";
+			// Note: We try to get base price if stored, otherwise fallback to parsing current price and reverse engineering (risky) or just assuming base is USD.
+			// Ideally product card should have data-base-price. Let's check `viewproduct.js` or `rushita.js` if they add it. 
+			// `rushita.js` adds `data-base-price` to `.current-price` elements!
+			const priceEl = productCard.querySelector(".current-price");
+			let basePriceVal = 0;
+
+			if (priceEl && priceEl.dataset.basePrice) {
+				basePriceVal = parseFloat(priceEl.dataset.basePrice);
+			} else {
+				// Fallback: This might be the converted price if the user already switched currency. 
+				// But if we don't have base price, we might double convert if we are not careful.
+				// However, if `rushita.js` runs, it adds data-base-price.
+				// If parsing raw text, we assume it's USD if no currency state, but it's tricky.
+				// Let's rely on data-base-price if present, else parse.
+				basePriceVal = parsePriceLocal(priceEl?.textContent || "0");
+			}
+
 			const desc = `${name} - Fresh and organic product delivered right to your doorstep.`;
+
+			// Get Global Currency
+			let curr = { symbol: '$', rate: 1 };
+			if (typeof window.getCurrentCurrency === 'function') {
+				curr = window.getCurrentCurrency();
+			}
 
 			// Insert into modal
 			const indexAttr = btn.getAttribute("data-index");
@@ -526,21 +559,27 @@
 			document.getElementById("modalProductDescription").textContent = desc;
 			document.getElementById("qty").value = 1;
 
-			const base = productData && typeof productData.basePrice === 'number' ? productData.basePrice : parsePriceLocal(price);
+			// Set State
+			const base = productData && typeof productData.basePrice === 'number' ? productData.basePrice : basePriceVal;
+
 			window.qvState.basePrice = base;
 			window.qvState.qty = 1;
 			window.qvState.multiplier = 1;
-			window.qvState.unitPrice = base;
 			window.qvState.weightLabel = '';
+			window.qvState.currencySymbol = curr.symbol;
+			window.qvState.currencyRate = curr.rate;
+
+			// Initial calculation set to base for now, updateModalPriceDisplay will handle conversion
+			window.qvState.unitPrice = base;
 
 			// Weight Options Logic
 			const weightContainer = document.getElementById('modalWeightContainer');
 			const weightOptionsDiv = document.getElementById('modalWeightOptions');
-			
+
 			if (productData && productData.options && productData.options.length > 0) {
 				weightContainer.style.display = 'block';
 				weightOptionsDiv.innerHTML = '';
-				
+
 				productData.options.forEach((opt, idx) => {
 					const btn = document.createElement('button');
 					btn.className = `weight-option-btn ${idx === 0 ? 'active' : ''}`;
@@ -549,29 +588,26 @@
 						// Update active state
 						weightOptionsDiv.querySelectorAll('.weight-option-btn').forEach(b => b.classList.remove('active'));
 						btn.classList.add('active');
-						
+
 						window.qvState.multiplier = Number(opt.multiplier) || 1;
 						window.qvState.weightLabel = opt.label || '';
-						window.qvState.unitPrice = Number((window.qvState.basePrice * window.qvState.multiplier).toFixed(2));
 						updateModalPriceDisplay();
 					};
 					weightOptionsDiv.appendChild(btn);
 				});
-				
-				// Set initial price based on first option
+
+				// Set initial state based on first option
 				const firstOpt = productData.options[0];
 				window.qvState.multiplier = Number(firstOpt.multiplier) || 1;
 				window.qvState.weightLabel = firstOpt.label || '';
-				window.qvState.unitPrice = Number((window.qvState.basePrice * window.qvState.multiplier).toFixed(2));
-				updateModalPriceDisplay();
-				
+
 			} else {
 				weightContainer.style.display = 'none';
 				window.qvState.multiplier = 1;
 				window.qvState.weightLabel = '';
-				window.qvState.unitPrice = Number((window.qvState.basePrice).toFixed(2));
-				updateModalPriceDisplay();
 			}
+
+			updateModalPriceDisplay();
 
 			// Populate up to 3 thumbnails
 			const thumbs = document.getElementById('modalThumbnails');
@@ -647,17 +683,24 @@
 			const productName = (typeof cleanProductName === 'function') ? cleanProductName(nameRaw) : nameRaw;
 			const productImage = document.getElementById('modalProductImage').src;
 			const quantity = parseInt(document.getElementById('qty').value) || 1;
-			
+
 			// Get selected weight
 			let weight = window.qvState.weightLabel || '';
 			if (!weight) {
 				const activeWeightBtn = document.querySelector('#modalWeightOptions .weight-option-btn.active');
 				if (activeWeightBtn) weight = activeWeightBtn.textContent;
 			}
-			
+
+			// Calculate final price in BASE currency (USD typically) to add to cart
+			// We do NOT use currencyRate here because the cart system might expect USD 
+			// (OR the cart system handles conversion on display). 
+			// Currently cart seems to store the string price.
+			// Ideally we store it as USD.
+			const finalBasePrice = window.qvState.basePrice * window.qvState.multiplier;
+
 			const product = {
 				name: productName,
-				price: `$${Number(window.qvState.unitPrice).toFixed(2)}`,
+				price: `$${finalBasePrice.toFixed(2)}`, // Store as USD string
 				image: productImage,
 				quantity: quantity,
 				weight: weight
@@ -667,7 +710,7 @@
 				window.upsertCart(product);
 			} else {
 				const cart = JSON.parse(localStorage.getItem('cart')) || [];
-				
+
 				// Check if exists (name AND weight)
 				const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
 
@@ -679,16 +722,16 @@
 
 				localStorage.setItem('cart', JSON.stringify(cart));
 			}
-			
+
 			// Update UI
 			if (typeof updateCartCount === 'function') updateCartCount();
 			if (typeof updateAddToCartButtons === 'function') updateAddToCartButtons();
-			
+
 			const btn = document.querySelector('.modal-add-to-cart');
 			const originalContent = btn.innerHTML;
 			btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-			btn.style.background = '#02B290'; 
-			
+			btn.style.background = '#02B290';
+
 			setTimeout(() => {
 				btn.innerHTML = originalContent;
 				btn.style.background = '';
@@ -759,8 +802,8 @@
 	<script src="./js/wishlist.js"></script>
 	<script src="./js/addtocart.js"></script>
 	<script src="./js/Search.js"></script>
-	
-	
+
+
 	<script>
 		// Offcanvas filter controls (keep behavior)
 		function openFilter() {
@@ -877,7 +920,7 @@
 			maxPrice: priceMax,
 			minRating: 0,
 			currentPage: 1,
-			perPage: 8,
+			perPage: 12,
 		};
 
 		// Sync helpers

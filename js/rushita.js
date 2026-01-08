@@ -202,6 +202,10 @@ function renderCartItems() {
   if (cart.length === 0) {
     cartItemsContainer.innerHTML =
       `<p class="text-gray-500 text-center py-4">Your cart is empty 🛒</p>`;
+    // Ensure subtotal (and any other summary UI) is reset when cart is empty
+    if (typeof updateCartSummary === 'function') {
+      updateCartSummary();
+    }
     return;
   }
 
