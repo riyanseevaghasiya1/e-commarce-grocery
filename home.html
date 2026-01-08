@@ -360,11 +360,14 @@
                                     <h3 class="h_slider-name text-xl font-semibold mt-8">Priya Shah</h3>
                                     <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: Organic Spinach</p>
                                     <div class="text-yellow-400 text-lg mb-3">★★★★★</div>
-                                    <p class="h_slider-text text-gray-700 italic">
-                                        Fresh vegetables and fruits always arrive on time. Quality is so good that now I
-                                        trust this
-                                        app for all my grocery needs.
-                                    </p>
+                                    <div class="review-text-wrapper">
+                                        <p class="h_slider-text text-gray-700 italic">
+                                            Fresh vegetables and fruits always arrive on time. Quality is so good that now I
+                                            trust this
+                                            app for all my grocery needs.
+                                        </p>
+                                        <span class="read-more-btn" onclick="toggleReadMore(this)" style="display: none;">Read more</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -379,11 +382,14 @@
                                     <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: Farm Fresh Tomatoes
                                     </p>
                                     <div class="text-yellow-400 text-lg mb-3">★★★★☆</div>
-                                    <p class="h_slider-text text-gray-700 italic">
-                                        Super fast delivery! Ordering daily essentials has become so easy. Prices are
-                                        affordable and
-                                        product quality is excellent.
-                                    </p>
+                                    <div class="review-text-wrapper">
+                                        <p class="h_slider-text text-gray-700 italic">
+                                            Super fast delivery! Ordering daily essentials has become so easy. Prices are
+                                            affordable and
+                                            product quality is excellent.
+                                        </p>
+                                        <span class="read-more-btn" onclick="toggleReadMore(this)" style="display: none;">Read more</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -397,12 +403,15 @@
                                     <h3 class="h_slider-name text-xl font-semibold mt-8">Nisha Patel</h3>
                                     <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: Farm Fresh Milk</p>
                                     <div class="text-yellow-400 text-lg mb-3">★★★★★</div>
-                                    <p class="h_slider-text text-gray-700 italic">
-                                        I love the hygiene and packaging. Even dairy & bakery items are always fresh.
-                                        This
-                                        grocery
-                                        store has made my daily shopping worry-free!
-                                    </p>
+                                    <div class="review-text-wrapper">
+                                        <p class="h_slider-text text-gray-700 italic">
+                                            I love the hygiene and packaging. Even dairy & bakery items are always fresh.
+                                            This
+                                            grocery
+                                            store has made my daily shopping worry-free!
+                                        </p>
+                                        <span class="read-more-btn" onclick="toggleReadMore(this)" style="display: none;">Read more</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -561,6 +570,52 @@
 
 
     <script>
+        // Function to toggle read more/read less
+        function toggleReadMore(btn) {
+            const wrapper = btn.closest('.review-text-wrapper');
+            const textEl = wrapper.querySelector('.h_slider-text');
+            
+            if (textEl.classList.contains('expanded')) {
+                textEl.classList.remove('expanded');
+                wrapper.classList.remove('has-expanded');
+                btn.textContent = 'Read more';
+            } else {
+                textEl.classList.add('expanded');
+                wrapper.classList.add('has-expanded');
+                btn.textContent = 'Read less';
+            }
+        }
+
+        // Function to check if text is truncated and show read more button
+        function checkAndShowReadMore() {
+            document.querySelectorAll('.review-text-wrapper').forEach(wrapper => {
+                const textEl = wrapper.querySelector('.h_slider-text');
+                const readMoreBtn = wrapper.querySelector('.read-more-btn');
+                
+                if (!textEl || !readMoreBtn) return;
+                
+                // Temporarily remove expanded class to check original height
+                const wasExpanded = textEl.classList.contains('expanded');
+                textEl.classList.remove('expanded');
+                
+                // Check if text is actually truncated
+                const lineHeight = parseFloat(window.getComputedStyle(textEl).lineHeight);
+                const maxHeight = lineHeight * 3; // 3 lines
+                const actualHeight = textEl.scrollHeight;
+                
+                if (actualHeight > maxHeight) {
+                    readMoreBtn.style.display = 'inline-block';
+                } else {
+                    readMoreBtn.style.display = 'none';
+                }
+                
+                // Restore expanded state if it was expanded
+                if (wasExpanded) {
+                    textEl.classList.add('expanded');
+                }
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
 
             const slider = document.getElementById("testimonialSlider");
@@ -590,9 +645,12 @@
                 <p class="h_slider-role text-gray-500 text-sm mb-1">Reviewed: ${r.product || "Product"}</p>
                 <div class="text-yellow-400 text-lg mb-3">${renderStars(r.rating)}</div>
 
-                <p class="h_slider-text text-gray-700 italic">
-                    ${r.review}
-                </p>
+                <div class="review-text-wrapper">
+                    <p class="h_slider-text text-gray-700 italic">
+                        ${r.review}
+                    </p>
+                    <span class="read-more-btn" onclick="toggleReadMore(this)" style="display: none;">Read more</span>
+                </div>
             </div>
         </div>
         `;
@@ -613,6 +671,27 @@
                 }
             });
 
+            // Check and show read more buttons for dynamic reviews
+            setTimeout(() => {
+                checkAndShowReadMore();
+            }, 100);
+
+        });
+
+        // Re-check when carousel changes
+        if (typeof $ !== 'undefined' && typeof $.fn?.owlCarousel !== 'undefined') {
+            $('#testimonialSlider').on('changed.owl.carousel', function() {
+                setTimeout(() => {
+                    checkAndShowReadMore();
+                }, 100);
+            });
+        }
+
+        // Check read more for static reviews on page load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                checkAndShowReadMore();
+            }, 500);
         });
     </script>
     <script>
