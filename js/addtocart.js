@@ -46,6 +46,12 @@ function upsertCart(product) {
     return { cart, added: true, merged: false };
 }
 
+// Make functions globally available for use in other scripts
+window.upsertCart = upsertCart;
+window.cleanProductName = cleanProductName;
+window.canonicalWeight = canonicalWeight;
+window.normalizeKey = normalizeKey;
+
 // ========== Update Cart Count ==========
 function updateCartCount() {
     const cartCount = document.getElementById('cart-count');
