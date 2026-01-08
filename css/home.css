@@ -578,6 +578,7 @@ body {
     color: var(--blacktext);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 42px;
@@ -702,6 +703,7 @@ body {
 /* Center Card Bigger */
 .owl-item {
     height: 400px;
+    min-height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -729,6 +731,7 @@ body {
     }  
     .owl-item {
         height: 450px;
+        min-height: 450px;
     }  
 }
 @media (max-width: 540px) {
@@ -757,6 +760,40 @@ body {
     max-width: 550px;
     transition: 0.4s ease;
     border: 1px solid #727272;
+    min-height: 350px; /* Fixed minimum height for all cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center all content */
+    align-items: center; /* Horizontally center all content */
+    position: relative;
+    padding-top: 50px; /* Space for absolute positioned image */
+    gap: 8px; /* Equal spacing between all content elements */
+}
+
+/* Content wrapper to group all elements for centering */
+.h_slider-card > *:not(.h_slider-img) {
+    flex-shrink: 0;
+}
+
+/* Testimonial card content elements - Override Tailwind margins */
+.h_slider-name {
+    text-align: center;
+    width: 100%;
+    margin: 0 !important; /* Remove all margins including Tailwind mt-8 */
+}
+
+.h_slider-role {
+    text-align: center;
+    width: 100%;
+    margin: 0 !important; /* Remove all margins including Tailwind mb-1 */
+}
+
+.h_slider-card > div.text-yellow-400 {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 !important; /* Remove all margins including Tailwind mb-3 */
     word-break: break-all;
 }
 
@@ -786,6 +823,95 @@ body {
 .owl-dots .owl-dot.active span {
     width: 14px !important;
     height: 14px !important;
+}
+
+/* Review Text Truncation */
+.review-text-wrapper {
+    position: relative;
+    min-height: 4.8em; /* Maintain minimum height for consistency */
+    flex: 0 1 auto; /* Don't grow, allow shrink, auto basis */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content when short */
+    align-items: center; /* Center align horizontally */
+    width: 100%;
+    max-width: 100%;
+    margin: 0 !important; /* Remove all margins */
+}
+
+.h_slider-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+    line-height: 1.6;
+    max-height: 4.8em; /* 3 lines * 1.6 line-height */
+    margin: 0;
+    text-align: center; /* Center align text */
+    width: 100%;
+}
+
+.h_slider-text.expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    max-height: 120px; /* Fixed max height for scrollable area */
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-overflow: unset;
+    text-align: center; /* Center align text when expanded */
+    align-self: stretch; /* Take full width */
+    width: 100%;
+    /* Custom scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) #f0f0f0;
+}
+
+/* When text is expanded, adjust wrapper to start from top */
+.review-text-wrapper.has-expanded {
+    justify-content: flex-start;
+    align-self: stretch; /* Take full width when expanded */
+}
+
+.h_slider-text.expanded::-webkit-scrollbar {
+    width: 6px;
+}
+
+.h_slider-text.expanded::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.h_slider-text.expanded::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.h_slider-text.expanded::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+.read-more-btn {
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 8px;
+    display: inline-block;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    align-self: center; /* Center align the button */
+    flex-shrink: 0;
+    text-align: center; /* Center align text */
+    width: 100%; /* Full width for center alignment */
+}
+
+.read-more-btn:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
 }
 
 /* ============================================
