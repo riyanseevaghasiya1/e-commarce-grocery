@@ -1018,20 +1018,62 @@
             const qty = Number(document.getElementById('quantityInput')?.value) || 1;
             const weightText = window.qvHomeState.weightLabel || '';
             const unitPrice = Number(window.qvHomeState.unitPriceNum || parsePrice(window.modalBasePriceText || '$0.00'));
+            
             // Store unit price (not total price) to avoid double multiplication in cart
-            const product = { id: name, name, weight: weightText, price: `$${unitPrice.toFixed(2)}`, image: img, quantity: qty };
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const existing = cart.find(item => item.name === product.name && item.weight === product.weight);
-            if (existing) { 
-                existing.quantity += product.quantity; 
-            } else { 
-                cart.push(product); 
+            // Note: name and weight will be normalized by upsertCart function
+            const product = { 
+                id: name, 
+                name: name, 
+                weight: weightText, 
+                price: `$${unitPrice.toFixed(2)}`, 
+                image: img, 
+                quantity: qty 
+            };
+            
+            // Use upsertCart from addtocart.js which handles normalization and prevents duplicates
+            if (typeof window.upsertCart === 'function') {
+                window.upsertCart(product);
+                if (typeof updateCartCount === 'function') updateCartCount();
+                if (typeof updateAddToCartButtons === 'function') updateAddToCartButtons();
+                if (typeof showNotification === 'function') {
+                    showNotification('Item added to cart');
+                }
+            } else {
+                // Fallback: manual logic with normalization
+                const normalizeKeyFallback = (n, w) => {
+                    const clean = (n || '').replace(/\s*\(.*?\)\s*$/, '').trim().toLowerCase();
+                    const weight = (w || '').toLowerCase().replace(/\s+/g, '').replace(/kgs?$/, 'kg').replace(/litres?$/i, 'l').replace(/grams?$/i, 'g').replace(/millilit(er|re)s?$/i, 'ml');
+                    return `${clean}__${weight}`;
+                };
+                
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                const targetKey = normalizeKeyFallback(product.name, product.weight);
+                const existing = cart.find(item => normalizeKeyFallback(item.name, item.weight) === targetKey);
+                
+                if (existing) {
+                    existing.quantity += product.quantity;
+                } else {
+                    cart.push({
+                        ...product,
+                        name: (product.name || '').replace(/\s*\(.*?\)\s*$/, '').trim(),
+                        weight: (product.weight || '').toLowerCase().replace(/\s+/g, '').replace(/kgs?$/, 'kg').replace(/litres?$/i, 'l').replace(/grams?$/i, 'g').replace(/millilit(er|re)s?$/i, 'ml')
+                    });
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                if (typeof updateCartCount === 'function') updateCartCount();
             }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            if (typeof updateCartCount === 'function') updateCartCount();
-            const btn = document.querySelector('.modal-add-to-cart'); if (btn) { const old = btn.innerHTML; btn.innerHTML = '<i class="fas fa-check"></i> Added!'; btn.style.background = '#02B290'; setTimeout(() => { btn.innerHTML = old; btn.style.background = ''; }, 1200); }
+            
+            const btn = document.querySelector('.modal-add-to-cart'); 
+            if (btn) { 
+                const old = btn.innerHTML; 
+                btn.innerHTML = '<i class="fas fa-check"></i> Added!'; 
+                btn.style.background = '#02B290'; 
+                setTimeout(() => { 
+                    btn.innerHTML = old; 
+                    btn.style.background = ''; 
+                }, 1200); 
+            }
             window.closeQuickView();
-            window.location.reload();
 
         };
 
